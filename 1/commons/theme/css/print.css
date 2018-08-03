@@ -1,0 +1,13 @@
+/*** PRINT START ***/
+
+@media print {
+
+	/** MAIN BACKGROUNDS TO WHITE. COLOR TO #000; **/
+
+	html, body { background-color: #fff; }
+
+	html, body { color: #000; }
+
+}
+
+/*** PRINT END ***/
