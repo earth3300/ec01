@@ -1,0 +1,4 @@
+CHANGELOG
+
+1. Changed utf8 to utf8mb4 for DB_CHARSET (2018-06-27).
+
