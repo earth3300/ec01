@@ -41,6 +41,7 @@ bin/
 core/
 
 ## LESSER EXCLUDE
+
 archive/
 backup/
 cache/
@@ -58,8 +59,10 @@ page/
 private/
 wp-content/
 
-### SPECIFIC FOLDERS
+### SPECIFIC FOLDERS (MAJOR)
 
+/0/
+/2/
 /3/
 
 ### SPECIFIC FILES
