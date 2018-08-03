@@ -45,7 +45,6 @@ core/
 archive/
 backup/
 cache/
-config/site.php
 db/
 docs/
 font/
