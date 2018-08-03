@@ -9,6 +9,7 @@
 ## DO NOT POST (DNP)
 
 *.dnp.*
+*.prv.*
 
 ## IMAGES
 
@@ -79,10 +80,15 @@ sitemap.xml.gz
 # SPECIFIC CONFIG FILES
 
 
-### DO NOT IGNORE
+### DO NOT IGNORE ("!" to UNignore)
+# No space after exclamation mark
 
 !.gitignore
 !.htaccess
-# !.localhost
+!article.pub.html
 
+### SPECIAL FILES
+
+#!.localhost
+# Used as a *hard* indicator that file is on local machine and not a public server.
 
