@@ -1,0 +1,86 @@
+
+
+### FILE TYPES
+
+## HIDDEN
+
+.*
+
+## DO NOT POST (DNP)
+
+*.dnp.php
+
+## IMAGES
+
+*.gif
+*.jpg
+*.jpeg
+*.png
+
+## AUDIO & VIDEO
+
+*.mp3
+*.mp4
+
+## DOCS
+
+*.pdf
+*.doc
+*.docx
+
+# PROJECT TYPES
+
+*.komodoproject
+*.sh3d
+
+### FOLDER TYPES
+
+## MAJOR EXCLUDE
+
+bin/
+core/
+
+## LESSER EXCLUDE
+archive/
+backup/
+cache/
+config/site.php
+db/
+docs/
+font/
+html/
+ico-pack/
+image/
+log/
+media/
+model/
+page/
+private/
+wp-content/
+
+### SPECIFIC FOLDERS
+
+/3/
+
+### SPECIFIC FILES
+
+article.html
+debug.log
+default.html
+draft.html
+favicon.ico
+license.txt
+local.html
+sitemap.xml
+sitemap.xml.gz
+
+# SPECIFIC CONFIG FILES
+
+
+### DO NOT IGNORE
+
+!.gitignore
+!.htaccess
+# !.localhost
+
+
