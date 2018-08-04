@@ -1,0 +1,8 @@
+
+file: wp-includes/update.php:228
+function: wp_update_plugins
+
+	// CORE_ADDED: we need a bail here as this is called from so many places...
+	if ( defined( 'AUTOMATIC_UPDATER_DISABLED' ) && AUTOMATIC_UPDATER_DISABLED ) {
+		return;
+	}

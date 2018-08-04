@@ -38,8 +38,8 @@
 
 ## MAJOR EXCLUDE
 
-bin/
-core/
+# bin/
+# core/
 
 cluster/
 # All cluster files (for now)
