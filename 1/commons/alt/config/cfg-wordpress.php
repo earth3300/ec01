@@ -9,13 +9,13 @@
 define( 'WP_HOME', SITE_ROOT_URL );
 
 /** Where the core WordPress files reside, relative to site root. */
-define( 'WP_SITEURL', SITE_ROOT_URL . SITE_CORE_DIR );
+define( 'WP_SITEURL', SITE_ROOT_URL . SITE_CORE_STUB );
 
 /** Default: post (Other examples: "books", "cars" or "spaceships") */
 define( 'WP_POST_TYPE', 'post' );
 
 /** A "Catch All" for everything "not core". A path, not a directory */
-define( 'WP_CONTENT_DIR', SITE_ROOT_PATH . SITE_BIN_DIR );
+define( 'WP_CONTENT_DIR', SITE_COMMONS_PATH . SITE_BIN_DIR );
 
 /** Absolute path based on location of this file. */
 define( 'WP_PLUGIN_DIR', WP_CONTENT_DIR . SITE_PLUGIN_DIR );
@@ -24,7 +24,7 @@ define( 'WP_PLUGIN_DIR', WP_CONTENT_DIR . SITE_PLUGIN_DIR );
 define( 'WP_LANG_DIR', WP_CONTENT_DIR . SITE_LANG_DIR );
 
 /** Important if different than default. */
-define( 'WP_CONTENT_URL', SITE_ROOT_URL . SITE_BIN_DIR );
+define( 'WP_CONTENT_URL', SITE_ROOT_URL . SITE_COMMONS_STUB . SITE_BIN_DIR );
 
 /** Important if different than default. */
 define( 'WP_PLUGIN_URL', WP_CONTENT_URL . SITE_PLUGIN_DIR );
@@ -118,7 +118,7 @@ define( 'WP_MAX_MEMORY_LIMIT', '256M' );
 define( 'MUPLUGINDIR', SITE_BIN_DIR . SITE_REQUIRED_DIR );
 
 /** Default: 'wp-content/mu-plugins' (Must Use Plugins *Path*) */
-define( 'WPMU_PLUGIN_DIR', SITE_BIN_PATH . SITE_REQUIRED_DIR ); 
+define( 'WPMU_PLUGIN_DIR', SITE_BIN_PATH . SITE_REQUIRED_DIR );
 
 /** Default: 'wp-content/mu-plugins' (Must Use Plugins URL) */
 define( 'WPMU_PLUGIN_URL', WP_CONTENT_URL . SITE_REQUIRED_DIR );

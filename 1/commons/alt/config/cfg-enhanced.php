@@ -1,39 +1,22 @@
 <?php
 
-( defined( 'SITE' ) || defined( 'WP_ADMIN' ) ) || exit;
+defined( 'SITE' ) || exit;
 
 /***** SELF AWARE *****/
 
 /** Who and Where (Important) */
 
-define( 'SITE_LEVEL_1_DIR', '/1' );
-
 define( 'SITE_CLUSTER_DIR', '/cluster' );
 
 define( 'SITE_CENTER_DIR', '/center' );
 
-if ( ! defined( 'SITE_COMMONS_DIR' ) ) {
-	/** Shared (Common) Directory (Important) */
-	define( SITE_COMMONS_DIR, '/commons' );
-}
-
-
 /***** ROOT DIRECTORY *****/
-
-/** Catch-all. Replaced with /etc */
-define( 'SITE_ALT_DIR', '/alt' );
 
 /** Replaces {wp-content} */
 define( 'SITE_BIN_DIR', '/bin' );
 
 /** Status code directory. */
 define( 'SITE_CODE_DIR', '/code' );
-
-/** All configuration files. Sets constants. */
-define( 'SITE_CONFIG_DIR', '/config' );
-
-/** The platform core files (WordPress) */
-define( 'SITE_CORE_DIR', '/core' );
 
 /** Cron directory */
 define( 'SITE_CRON_DIR', '/cron' );
@@ -200,10 +183,10 @@ define( 'SITE_CSS_DIR', '/css' );
 define( 'SITE_JS_DIR', '/js' );
 
 /** May be the same as WP_CONTENT_DIR. */
-define( 'SITE_BIN_PATH', SITE_PATH . SITE_BIN_DIR );
+define( 'SITE_BIN_PATH', SITE_COMMONS_PATH . SITE_BIN_DIR );
 
 /** In the "bin" directory. Some plugins assume it is here. */
-define( 'SITE_CACHE_PATH', SITE_PATH . SITE_CACHE_DIR );
+define( 'SITE_CACHE_PATH', SITE_COMMONS_PATH . SITE_CACHE_DIR );
 
 /** Folder name used by caching plugin */
 define( 'SITE_CACHE_PLUGIN', '/cache-enabler' );
@@ -219,13 +202,13 @@ define( 'SITE_FRAMEWORK_PATH', SITE_BIN_PATH . SITE_FRAMEWORK_DIR );
 define( 'SITE_THEMES_PATH', SITE_BIN_PATH . SITE_THEMES_DIR );
 
 /** Stores JavaScript and jQuery. */
-define( 'SITE_SCRIPT_PATH', SITE_PATH . SITE_SCRIPT_DIR );
+define( 'SITE_SCRIPT_PATH', SITE_COMMONS_PATH . SITE_SCRIPT_DIR );
 
 /**  JavaSript and jQuery files. */
 define( 'SITE_JS_PATH', SITE_SCRIPT_PATH . SITE_JS_DIR );
 
 /** Stores images, video, audio, pdfs, etc. */
-define( 'SITE_MEDIA_PATH', SITE_PATH . SITE_MEDIA_DIR );
+define( 'SITE_MEDIA_PATH', SITE_COMMONS_PATH . SITE_MEDIA_DIR );
 
 /*** PAGE PATH ***/
 
@@ -271,8 +254,9 @@ if ( ! defined( 'SITE_CONFIG_PATH' ) ) {
 
 if ( ! defined( 'SITE_ALT_PATH' ) ) {
 	/*** ALT PATH ***/
-	define( 'SITE_ALT_PATH', SITE_PATH . SITE_ALT_DIR );
+	define( 'SITE_ALT_PATH', SITE_COMMONS_PATH . SITE_ALT_DIR );
 }
+
 /** Backups are "point in time". May be deleted. */
 define( 'SITE_BACKUP_PATH' , SITE_BIN_PATH . SITE_BACKUP_DIR );
 
@@ -287,16 +271,16 @@ define( 'SITE_LOG_PATH', SITE_ALT_PATH . SITE_LOG_DIR );
 
 /***** URLS *****/
 
-define( 'SITE_CLUSTER_URL', SITE_ROOT_URL . SITE_LEVEL_1_DIR . SITE_CLUSTER_DIR );
+define( 'SITE_CLUSTER_URL', SITE_ROOT_URL . SITE_B_DIR . SITE_CLUSTER_DIR );
 
 /** Site Theme URL */
-define( 'SITE_THEME_URL', SITE_ROOT_URL . SITE_COMMONS_DIR . SITE_THEME_DIR );
+define( 'SITE_THEME_URL', SITE_ROOT_URL . SITE_COMMONS_STUB . SITE_THEME_DIR );
 
 /** Site Script URL (for JavaScript, etc.) */
-define( 'SITE_SCRIPT_URL', SITE_ROOT_URL . SITE_COMMONS_DIR . SITE_SCRIPT_DIR );
+define( 'SITE_SCRIPT_URL', SITE_ROOT_URL . SITE_COMMONS_STUB . SITE_SCRIPT_DIR );
 
 /** Site JS URL */
-define( 'SITE_JS_URL', SITE_ROOT_URL . SITE_COMMONS_DIR . SITE_SCRIPT_DIR . SITE_JS_DIR );
+define( 'SITE_JS_URL', SITE_ROOT_URL . SITE_COMMONS_STUB . SITE_SCRIPT_DIR . SITE_JS_DIR );
 
 /** Site CSS URL */
 if ( SITE_USE_CSS_MIN ) {
@@ -312,7 +296,7 @@ else {
 define( 'SITE_CDN_URL', '' );
 
 /** Relative to ABSPATH. No leading slash. */
-define( 'SITE_MEDIA_URL', SITE_ROOT_URL . SITE_COMMONS_DIR . SITE_MEDIA_DIR );
+define( 'SITE_MEDIA_URL', SITE_ROOT_URL . SITE_COMMONS_STUB . SITE_MEDIA_DIR );
 
 /* BUNDLE SPECIFIC CONSTANTS */
 

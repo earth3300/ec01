@@ -12,15 +12,9 @@ $site_elapsed['start'] = microtime( true );
 /** Record the path we are in, for later. */
 define( 'SITE_PATH', __DIR__ );
 
-define( 'SITE_CONFIG_PATH', SITE_PATH . '/1/commons/alt/config' );
-
-define( 'SITE_CORE_PATH', SITE_PATH . '/1/commons/core/' );
-
-define( 'SITE_ALT_PATH', SITE_PATH . '/1/commons/alt/framework' );
-
-define( 'SITE_COMMONS_DIR', '/1/commons' );
-
-define( 'SITE_COMMONS_PATH', SITE_PATH . SITE_COMMONS_DIR );
+/** We have to hard code the path to this file,
+* as we also need to access it from another location */
+require_once( __DIR__ . '/1/commons/alt/config/cfg-basic.php' );
 
 /** Record which directory we are in, for later. */
 define( 'SITE_DIR', '/' . basename(__DIR__) );
@@ -36,14 +30,14 @@ if ( $_SERVER['REQUEST_URI'] == '/' ) {
 /** Use this directory as the domain name. Comment out if not. Set in site.php otherwise. */
 //define( 'SITE_DOMAIN_NAME', basename(__DIR__) );
 
-/** Use the core, if available. Start by using only if needed. */
-define( 'SITE_USE_CORE', false );
+/** Default: false. Use the core, if available. If false, NEVER use it. */
+define( 'SITE_USE_CORE', 0 );
 
 /** Use the core to handle requests or not. Default is true. */
-define( 'SITE_USE_CORE_POST', true );
+define( 'SITE_USE_CORE_POST', 1 );
 
 /** Use the alternative framework, if available. */
-define( 'SITE_USE_ALT', true );
+define( 'SITE_USE_ALT', 1 );
 
 /** Use the core if we have decided to. If we have decided to for a request and if it is there. */
 
@@ -56,20 +50,23 @@ if 	( 	SITE_USE_CORE && ( SITE_USE_CORE_POST
 
 }
 /** If the core is not used, use an alternate framework, if it is available. */
-else if ( SITE_USE_ALT && file_exists( SITE_ALT_PATH . '/index.php' ) ) {
-	require_once( SITE_ALT_PATH . '/index.php' );
+else if ( SITE_USE_ALT && file_exists( SITE_FRAMEWORK_PATH . '/index.php' ) ) {
+	require_once( SITE_FRAMEWORK_PATH . '/index.php' );
 
 }
 /** Otherwise, look for a plain text index.html file and serve that. */
 else if ( file_exists( __DIR__ . "/index.html" ) ){
-
 	echo file_get_contents( __DIR__ . '/index.html' );
-
 }
 /** If not, bail and ask for help. */
 else {
-
-	echo "<div style='font:16px/1.6 sans-serif;text-align:center;'><br>'";
+	echo "<div style='font:16px/1.6 sans-serif;text-align:center;'><br>";
 	echo "Nothing here.</div>" . PHP_EOL;
-
 }
+
+/**
+ * To get to where we are going, we need to define where that is.
+ * If we get there via another path, we *also* need to define it from there.
+ * Therefore, we need to place the directions to where we are going in a generic location,
+ * and access it once.
+ * /

@@ -41,6 +41,12 @@
 bin/
 core/
 
+cluster/
+# All cluster files (for now)
+
+u/
+# User files!!!
+
 ## LESSER EXCLUDE
 
 archive/
@@ -91,4 +97,3 @@ sitemap.xml.gz
 
 #!.localhost
 # Used as a *hard* indicator that file is on local machine and not a public server.
-

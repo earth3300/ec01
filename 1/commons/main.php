@@ -19,7 +19,7 @@ define( 'SITE_DIR', '/' . basename(__DIR__) );
 define( 'SITE_CORE_DIR', '/core' );
 
 /** The "alt" directory is the alternate set of files to handle requests. */
-define( 'SITE_ALT_DIR', '/alt/framework' );
+define( 'SITE_FRAMEWORK_DIR', '/alt/framework' );
 
 /** Use this directory as the domain name. Comment out if not. */
 // define( 'SITE_DOMAIN_NAME', basename(__DIR__) );
@@ -52,8 +52,8 @@ if ( SITE_USE_CORE  &&
 }
 /** If the core is not used, use an alternate framework, if it is available. */
 else if ( SITE_USE_ALT &&
-		 file_exists( __DIR__ . SITE_ALT_DIR . '/index.php' ) ) {
-			require_once( __DIR__ . SITE_ALT_DIR . '/index.php' );
+		 file_exists( __DIR__ . SITE_FRAMEWORK_DIR . '/index.php' ) ) {
+			require_once( __DIR__ . SITE_FRAMEWORK_DIR . '/index.php' );
 }
 /** Otherwise, look for a plain text index.html file and serve that. */
 else if ( file_exists( __DIR__ . '/index.html' ) ){
