@@ -5,6 +5,7 @@
   RewriteRule ^index\.php$ - [L]
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
-  RewriteRule . /index.php [L]
+  RewriteCond /e/core/wp-admin/%{REQUEST_URI} !-f
+  RewriteRule . /wp-admin/index.php [L]
 </IfModule>
 # END WordPress

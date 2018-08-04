@@ -44,7 +44,7 @@ DirectoryIndex index.php default.html index.html
   RewriteCond %{REQUEST_FILENAME} !-f
   # RewriteCond %{REQUEST_FILENAME} !-d
   RewriteRule . /index.php [L]
-</IfModule>
+  </IfModule>
 # Copied/Pasted to wp-admin
 # and RewriteCond %{REQUEST_FILENAME} !-d uncommented
 
