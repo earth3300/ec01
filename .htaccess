@@ -6,7 +6,8 @@ Options -Indexes
 #<DirectoryMatch "/e/">
   # Require all denied
 #</DirectoryMatch>
-# Deny access to all server PHP based files. Causes error in wp-admin.
+# Deny access to all server PHP based files. Causes error when accessing file via browser.
+# Therefore, need to rewrite url to be outside of this directory.
 
 <FilesMatch ".htaccess|.wpcli|xmlrpc.php|config|error|debug|changelog|readme|license">
   Require all denied
