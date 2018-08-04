@@ -3,6 +3,11 @@
 Options -Indexes
 # Do not allow the listing of directories by default
 
+#<DirectoryMatch "/e/">
+  # Require all denied
+#</DirectoryMatch>
+# Deny access to all server PHP based files. Causes error in wp-admin.
+
 <FilesMatch ".htaccess|.wpcli|xmlrpc.php|config|error|debug|changelog|readme|license">
   Require all denied
 </FilesMatch>
