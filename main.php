@@ -14,7 +14,7 @@ define( 'SITE_PATH', __DIR__ );
 
 /** We have to hard code the path to this file,
 * as we also need to access it from another location */
-require_once( __DIR__ . '/1/commons/alt/config/cfg-basic.php' );
+require_once( __DIR__ . '/e/alt/config/cfg-basic.php' );
 
 /** Record which directory we are in, for later. */
 define( 'SITE_DIR', '/' . basename(__DIR__) );
@@ -30,11 +30,11 @@ if ( $_SERVER['REQUEST_URI'] == '/' ) {
 /** Use this directory as the domain name. Comment out if not. Set in site.php otherwise. */
 //define( 'SITE_DOMAIN_NAME', basename(__DIR__) );
 
-/** Default: false. Use the core, if available. If false, NEVER use it. */
-define( 'SITE_USE_CORE', 0 );
+/** NEVER||MAYBE. Default: false. If false, NEVER use it. If true, MAYBE, depending on next constant. */
+define( 'SITE_USE_CORE', 1 );
 
-/** Use the core to handle requests or not. Default is true. */
-define( 'SITE_USE_CORE_POST', 1 );
+/** ALWAYS||MAYBE. Default: true. If false, ONLY if POST or GET */
+define( 'SITE_USE_CORE_ALWAYS', 0 );
 
 /** Use the alternative framework, if available. */
 define( 'SITE_USE_ALT', 1 );
@@ -42,7 +42,7 @@ define( 'SITE_USE_ALT', 1 );
 /** Use the core if we have decided to. If we have decided to for a request and if it is there. */
 
 /** [ true && ( true: ALWAYS ) ][ ( true && ( false||* ): SOMETIMES ][ false && (*): NEVER ) ] */
-if 	( 	SITE_USE_CORE && ( SITE_USE_CORE_POST
+if 	( 	SITE_USE_CORE && ( SITE_USE_CORE_ALWAYS
 		|| ( ! empty( $_GET ) || $_SERVER['REQUEST_METHOD'] === 'POST' )
 		&& file_exists( SITE_CORE_PATH . '/index.php' ) ) )  {
 

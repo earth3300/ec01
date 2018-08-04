@@ -15,7 +15,7 @@ define( 'WP_SITEURL', SITE_ROOT_URL . SITE_CORE_STUB );
 define( 'WP_POST_TYPE', 'post' );
 
 /** A "Catch All" for everything "not core". A path, not a directory */
-define( 'WP_CONTENT_DIR', SITE_COMMONS_PATH . SITE_BIN_DIR );
+define( 'WP_CONTENT_DIR', SITE_E_PATH . SITE_BIN_DIR );
 
 /** Absolute path based on location of this file. */
 define( 'WP_PLUGIN_DIR', WP_CONTENT_DIR . SITE_PLUGIN_DIR );
@@ -24,7 +24,7 @@ define( 'WP_PLUGIN_DIR', WP_CONTENT_DIR . SITE_PLUGIN_DIR );
 define( 'WP_LANG_DIR', WP_CONTENT_DIR . SITE_LANG_DIR );
 
 /** Important if different than default. */
-define( 'WP_CONTENT_URL', SITE_ROOT_URL . SITE_COMMONS_STUB . SITE_BIN_DIR );
+define( 'WP_CONTENT_URL', SITE_ROOT_URL . SITE_E_DIR . SITE_BIN_DIR );
 
 /** Important if different than default. */
 define( 'WP_PLUGIN_URL', WP_CONTENT_URL . SITE_PLUGIN_DIR );
