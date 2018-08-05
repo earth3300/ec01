@@ -1,0 +1,4 @@
+AuthType Basic
+AuthName "Protected"
+AuthUserFile /var/www/.htpasswds/html/1/ec01/e/passwd
+Require valid-user

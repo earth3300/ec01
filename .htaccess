@@ -36,24 +36,31 @@ DirectoryIndex index.php default.html index.html
   AddCharset UTF-8 .html
 </IfModule>
 
+# Alias / /1
+
 # BEGIN WordPress
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /
   RewriteRule ^index\.php$ - [L]
+  RewriteRule ^/wp-admin/?(.*)$ /e/core/wp-admin/$1 [L,NC]
+
   RewriteCond %{REQUEST_FILENAME} !-f
-  # RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_FILENAME} !-d
+  # Need this for wp-admin. Not otherwise.
   RewriteRule . /index.php [L]
   </IfModule>
+
 # Copied/Pasted to wp-admin
 # and RewriteCond %{REQUEST_FILENAME} !-d uncommented
 
 # END WordPress
 
-# ErrorDocument 403 /1/commons/alt/code/403.html
-ErrorDocument 404 /1/commons/alt/code/404.html
-ErrorDocument 500 /1/commons/alt/code/500.html
-ErrorDocument 503 /1/commons/alt/code/503.html
+ErrorDocument 401 /e/alt/code/401.html
+ErrorDocument 403 /e/alt/code/403.html
+ErrorDocument 404 /e/alt/code/404.html
+ErrorDocument 500 /e/alt/code/500.html
+ErrorDocument 503 /e/alt/code/503.html
 
 # Use the Source, Luke!
 # https://httpd.apache.org/docs/2.4/

@@ -15,11 +15,11 @@ else {
 	echo '<meta name="robots" content="noindex,nofollow" />' . PHP_EOL;
 } ?>
 <title><?php if( ! is_front_page() ) { echo get_the_title(); } else { echo get_bloginfo( 'name' ) ; } ?></title>
-<link rel="stylesheet" href="/theme/css/style.css">
+<link rel="stylesheet" href="<?php echo SITE_CSS_URL . '/style.css'; ?>">
 <?php if ( defined( 'SITE_USE_WP_HEAD' && SITE_USE_WP_HEAD ) ) { wp_head(); } ?>
 </head>
 <body <?php body_class(); ?>>
-<?php if ( $switch && isset( $switch['wrap'] ) && $switch['wrap'] ) { echo '<div class="wrap">'; } ?> 
+<?php if ( $switch && isset( $switch['wrap'] ) && $switch['wrap'] ) { echo '<div class="wrap">'; } ?>
 <?php if ( function_exists( 'get_wp_bundle_header' ) ) {
 	echo get_wp_bundle_header();
 }

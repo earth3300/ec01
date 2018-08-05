@@ -48,11 +48,15 @@ function get_html5_head( $post = '' ){
 
 function get_html5_page_title( $post = '' ){
 	global $post;
-	if( $post -> post_name == 'front-page' ) {
-		$title = get_bloginfo( 'name' );
-	}
-	else {
-		$title = $post -> post_title;
+	if ( ! empty( $post ) ) {
+		if( ! empty( $post ) && $post -> post_name == 'front-page' ) {
+			$title = get_bloginfo( 'name' );
+		}
+		else {
+			$title = $post -> post_title;
+		}
+	} else {
+		$title = SITE_TITLE;
 	}
 	return $title;
 }
@@ -128,7 +132,7 @@ return $str;
 }
 
 function get_html5_footer_inner( $post = '' ){
-	
+
 	$str = get_html5_footer_copyright();
 	$str .= get_html5_footer_menu();
 	$str .= get_html5_footer_credits();
@@ -200,6 +204,7 @@ function get_html5_footer_social( $post = '' ){
 
 function get_html5_article( $post = '' ){
 	global $post;
+	if ( ! empty ( $post ) ) {
 	$str = '<article>' . PHP_EOL;
 	$str .= ! $post -> post_name == 'front-page' ? sprintf('<h1>%s</h1>', $post -> post_title ) : '';
 	$html = wpautop( $post -> post_content );
@@ -208,6 +213,9 @@ function get_html5_article( $post = '' ){
 	$str .= '</article>' . PHP_EOL;
 	$str = str_replace( "\r\n", '', $str );
 	return $str;
+	} else {
+		return false;
+	}
 }
 
 add_filter( 'body_class', 'aside' );

@@ -25,7 +25,7 @@ define( 'SITE_ALT_DIR', '/alt' );
 
 define( 'SITE_CORE_DIR', '/core' );
 
-define( 'SITE_FRAMEWORK_DIR', '/framework' );
+define( 'SITE_ALT_FRAMEWORK_DIR', '/framework' );
 
 /**** STUBS ****/
 
@@ -53,6 +53,6 @@ define( 'SITE_CORE_PATH', SITE_E_PATH . SITE_CORE_DIR );
 
 define( 'SITE_CONFIG_PATH', SITE_ALT_PATH . SITE_CONFIG_DIR );
 
-define( 'SITE_FRAMEWORK_PATH', SITE_ALT_PATH . SITE_FRAMEWORK_DIR );
+define( 'SITE_ALT_FRAMEWORK_PATH', SITE_ALT_PATH . SITE_ALT_FRAMEWORK_DIR );
 
 define( 'SITE_COMMONS_PATH', SITE_B_PATH . SITE_COMMONS_DIR );

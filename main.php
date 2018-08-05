@@ -34,7 +34,7 @@ if ( $_SERVER['REQUEST_URI'] == '/' ) {
 define( 'SITE_USE_CORE', 1 );
 
 /** ALWAYS||MAYBE. Default: true. If false, ONLY if POST or GET */
-define( 'SITE_USE_CORE_ALWAYS', 0 );
+define( 'SITE_USE_CORE_ALWAYS', 1 );
 
 /** Use the alternative framework, if available. */
 define( 'SITE_USE_ALT', 1 );
@@ -69,4 +69,4 @@ else {
  * If we get there via another path, we *also* need to define it from there.
  * Therefore, we need to place the directions to where we are going in a generic location,
  * and access it once.
- * /
+ **/

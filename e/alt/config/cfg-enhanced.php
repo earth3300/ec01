@@ -67,11 +67,11 @@ define( 'SITE_SIDEBAR_DIR', '/sidebar' );
 
 /***** BIN DIRECTORY (Generally) *****/
 
-/** Site Framework Directory */
-define( 'SITE_FRAMEWORK_DIR', '/frameworks' );
-
 /** Site Plugin Directory */
 define( 'SITE_PLUGIN_DIR', '/plugins' );
+
+/** Site Plugin Directory */
+define( 'SITE_FRAMEWORK_DIR', '/frameworks' );
 
 /** Site Required Plugins Directory (i.e. 'mu-plugins' directory) */
 define( 'SITE_REQUIRED_DIR', '/required' );
