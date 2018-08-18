@@ -1,7 +1,7 @@
 <?php
 /**
  * HTML5 Theme.
- 
+
  * @package WPBundles
  * @author  WPBundles
  * @license GPL-2.0+
@@ -9,4 +9,4 @@
  */
 
 html5_theme_init();
-// In /bin/themes/html5/functions.php
+// In /themes/html5/functions.php

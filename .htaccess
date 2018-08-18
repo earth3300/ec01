@@ -9,10 +9,14 @@ Options -Indexes
 # Deny access to all server PHP based files. Causes error when accessing file via browser.
 # Therefore, need to rewrite url to be outside of this directory.
 
-<FilesMatch ".htaccess|.wpcli|xmlrpc.php|config|error|debug|changelog|readme|license">
+<FilesMatch "xmlrpc.php|config|error|debug|changelog|readme|license">
   Require all denied
 </FilesMatch>
 # Do not allow access to files that may contain security vulnerabilities or sensitive information.
+
+<FilesMatch "\.(log|htaccess|wpcli)$">
+  # Require all denied
+</FilesMatch>
 
 <FilesMatch "\.(html|css|js|jpg|png|gif|pdf|ico|mp3|mp4|webm)$">
   Require all granted
@@ -43,18 +47,16 @@ DirectoryIndex index.php default.html index.html
   RewriteEngine On
   RewriteBase /
   RewriteRule ^index\.php$ - [L]
-  RewriteRule ^/wp-admin/?(.*)$ /e/core/wp-admin/$1 [L,NC]
-
+  # RewriteRule ^/admin/$ /e/core/wp-admin/ [L]
   RewriteCond %{REQUEST_FILENAME} !-f
-  RewriteCond %{REQUEST_FILENAME} !-d
-  # Need this for wp-admin. Not otherwise.
+  # RewriteCond %{REQUEST_FILENAME} !-d
   RewriteRule . /index.php [L]
-  </IfModule>
+</IfModule>
+
+# END WordPress
 
 # Copied/Pasted to wp-admin
 # and RewriteCond %{REQUEST_FILENAME} !-d uncommented
-
-# END WordPress
 
 ErrorDocument 401 /e/alt/code/401.html
 ErrorDocument 403 /e/alt/code/403.html

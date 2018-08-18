@@ -28,6 +28,7 @@ function get_firefly_html(){
 	// $css_url_path
 	$str .= '</head>' . PHP_EOL;
 	$str .= ! empty( $page['body-class'] ) ? sprintf('<body class="%s">%s',$page['body-class'], PHP_EOL) : '<body>' . PHP_EOL;
+	$str .= 0 ? '<div class="notice text-center">WordPress Active</div>' . PHP_EOL : '';
 	$str .= '<div class="wrap">' . PHP_EOL;
 	$str .= '<div class="inner">' . PHP_EOL;
 	$str .= $page['header'];

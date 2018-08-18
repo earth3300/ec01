@@ -10,4 +10,3 @@ function get_html5_theme_switch(){
 	);
 	return $items;
 }
-

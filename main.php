@@ -31,7 +31,7 @@ if ( $_SERVER['REQUEST_URI'] == '/' ) {
 //define( 'SITE_DOMAIN_NAME', basename(__DIR__) );
 
 /** NEVER||MAYBE. Default: false. If false, NEVER use it. If true, MAYBE, depending on next constant. */
-define( 'SITE_USE_CORE', 1 );
+define( 'SITE_USE_CORE', 0 );
 
 /** ALWAYS||MAYBE. Default: true. If false, ONLY if POST or GET */
 define( 'SITE_USE_CORE_ALWAYS', 1 );
@@ -50,8 +50,8 @@ if 	( 	SITE_USE_CORE && ( SITE_USE_CORE_ALWAYS
 
 }
 /** If the core is not used, use an alternate framework, if it is available. */
-else if ( SITE_USE_ALT && file_exists( SITE_FRAMEWORK_PATH . '/index.php' ) ) {
-	require_once( SITE_FRAMEWORK_PATH . '/index.php' );
+else if ( SITE_USE_ALT && file_exists( SITE_ALT_FRAMEWORK_PATH . '/index.php' ) ) {
+	require_once( SITE_ALT_FRAMEWORK_PATH . '/index.php' );
 
 }
 /** Otherwise, look for a plain text index.html file and serve that. */
@@ -69,4 +69,4 @@ else {
  * If we get there via another path, we *also* need to define it from there.
  * Therefore, we need to place the directions to where we are going in a generic location,
  * and access it once.
- **/
+ */

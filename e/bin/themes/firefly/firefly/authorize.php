@@ -91,7 +91,7 @@ function maybe_get_cluster_from_uri( $uri ){
 		$i = 1;
 		if ( $search == $ex[1] && isset( $ex[2] ) ) {
 			$cluster = $ex[2];
-		}	else if ( $search == $ex[0] && isset( $ex[1])  ) {
+		}	else if ( $search == $ex[0] && isset( $ex[1] )  ) {
 			$cluster = $ex[1];
 		}
 		return $cluster;

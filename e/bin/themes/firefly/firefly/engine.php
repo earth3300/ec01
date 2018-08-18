@@ -2,6 +2,9 @@
 
 defined( 'SITE' ) || exit;
 
+if ( file_exists( __DIR__ . '/log.php' ) ) {
+	require_once( __DIR__ . '/log.php' );
+}
 require_once( __DIR__ . '/authorize.php' );
 require_once( __DIR__ . '/template.php' );
 
