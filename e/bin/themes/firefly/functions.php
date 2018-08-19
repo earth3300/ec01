@@ -20,7 +20,7 @@ if ( 1 ) {
 		}
 		if ( 1 ) {
 			require_once( __DIR__ . '/firefly/engine.php' );
-			if (! is_admin() ) {
+			if ( ! is_admin() ) {
 				echo get_firefly_html();
 			}
 		}
