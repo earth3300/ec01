@@ -47,7 +47,7 @@ DirectoryIndex index.php default.html index.html
   RewriteEngine On
   RewriteBase /
   RewriteRule ^index\.php$ - [L]
-  # RewriteRule ^/admin/$ /e/core/wp-admin/ [L]
+  # RewriteRule ^admin\/(.*) e\/core\/wp-admin\/$1 [L]
   RewriteCond %{REQUEST_FILENAME} !-f
   # RewriteCond %{REQUEST_FILENAME} !-d
   RewriteRule . /index.php [L]
@@ -55,8 +55,8 @@ DirectoryIndex index.php default.html index.html
 
 # END WordPress
 
-# Copied/Pasted to wp-admin
-# and RewriteCond %{REQUEST_FILENAME} !-d uncommented
+# Copied/Pasted to /e/
+# and uncommented RewriteCond %{REQUEST_FILENAME} !-d
 
 ErrorDocument 401 /e/alt/code/401.html
 ErrorDocument 403 /e/alt/code/403.html
