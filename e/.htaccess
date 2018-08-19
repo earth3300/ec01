@@ -1,14 +1,15 @@
+# SECURITY BEGIN
 AuthType Basic
 AuthName "Protected"
 AuthUserFile /var/www/.htpasswds/html/1/ec01/e/passwd
 Require valid-user
+# SECURITY END
 
 # BEGIN WordPress
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /
   RewriteRule ^index\.php$ - [L]
-  # RewriteRule ^/admin/$ /e/core/wp-admin/ [L]
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
   RewriteRule . /index.php [L]
