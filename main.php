@@ -17,7 +17,7 @@ define( 'SITE_PATH', __DIR__ );
  * site and assigns it to constants so that it can these can be used site wide.
  * and by the different frameworks, that will then inherit these values.
  */
-require_once( __DIR__ . '/c/config/cfg-structure.php' );
+require_once( __DIR__ . '/c/config/cfg-load.php' );
 
 /** Record which directory we are in, for later. */
 define( 'SITE_DIR', '/' . basename(__DIR__) );
