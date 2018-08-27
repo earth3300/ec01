@@ -2,6 +2,15 @@
 
 ( defined( 'SITE' ) || defined( 'WP_ADMIN' ) ) || exit;
 
+/**
+ * Loads the directory structure.
+ *
+ * Starts with the directory names, then builds the path based on these names.
+ * Note that if the _structure_ of the path changes, the buildout of the path
+ * will have to change accordingly. If everything is set up correctly, this
+ * _should_ occur without anything breaking.
+ */
+
 /** CDN (Default: /0) */
 define( 'SITE_A_DIR', '/0' );
 

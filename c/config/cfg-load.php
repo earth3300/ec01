@@ -18,7 +18,7 @@ require_once( __DIR__ . 'cfg-site.dnp.php' );
 if ( file_exists( __DIR__ . '/cfg-enhanced.php' ) ) {
 	require_once( __DIR__ . '/cfg-enhanced.php' );
 
-	/** These files depend on the "enhanced configuration. */
+	/** These files depend on the "enhanced" configuration. */
 
 	if ( file_exists( __DIR__ . '/cfg-plugins.php' ) ) {
 		require_once( __DIR__ . '/cfg-plugins.php' );

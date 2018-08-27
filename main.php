@@ -12,9 +12,12 @@ $site_elapsed['start'] = microtime( true );
 /** Record the path we are in, for later. */
 define( 'SITE_PATH', __DIR__ );
 
-/** We have to hard code the path to this file,
-* as we also need to access it from another location */
-require_once( __DIR__ . '/e/alt/config/cfg-basic.php' );
+/**
+ * The first path is hard coded here. It sets up the directory structure of the
+ * site and assigns it to constants so that it can these can be used site wide.
+ * and by the different frameworks, that will then inherit these values.
+ */
+require_once( __DIR__ . '/c/config/cfg-structure.php' );
 
 /** Record which directory we are in, for later. */
 define( 'SITE_DIR', '/' . basename(__DIR__) );
@@ -29,15 +32,6 @@ if ( $_SERVER['REQUEST_URI'] == '/' ) {
 
 /** Use this directory as the domain name. Comment out if not. Set in site.php otherwise. */
 //define( 'SITE_DOMAIN_NAME', basename(__DIR__) );
-
-/** NEVER||MAYBE. Default: false. If false, NEVER use it. If true, MAYBE, depending on next constant. */
-define( 'SITE_USE_CORE', 1 );
-
-/** ALWAYS||MAYBE. Default: true. If false, ONLY if POST or GET */
-define( 'SITE_USE_CORE_ALWAYS', 0 );
-
-/** Use the alternative framework, if available. */
-define( 'SITE_USE_ALT', 1 );
 
 /** Use the core if we have decided to. If we have decided to for a request and if it is there. */
 
