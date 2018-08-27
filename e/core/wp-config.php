@@ -8,8 +8,8 @@ if ( ! defined( 'SITE' ) ){
 /** Default: false */
 define( 'WP_CACHE', false );
 
-if ( file_exists( __DIR__ . '/../alt/config/cfg-site.dnp.php' ) ) {
-	require_once( __DIR__ . '/../alt/config/cfg-site.dnp.php' );
+if ( file_exists( __DIR__ . '/../alt/config/cfg-load.php' ) ) {
+	require_once( __DIR__ . '/../alt/config/cfg-load.php' );
 }
 else {
 	exit( 'Please check the path to the config file (wp-config.php).' );

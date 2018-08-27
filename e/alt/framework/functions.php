@@ -15,8 +15,8 @@
 defined( 'SITE' ) || exit;
 
 if ( defined( 'SITE_PATH' ) ) {
-	if ( file_exists ( SITE_CONFIG_PATH . '/cfg-site.dnp.php' ) ){
-		require_once( SITE_CONFIG_PATH . '/cfg-site.dnp.php' );
+	if ( file_exists ( SITE_CONFIG_PATH . '/cfg-load.php' ) ){
+		require_once( SITE_CONFIG_PATH . '/cfg-load.php' );
 	} else {
 		exit( 'Please check the path to the config file (alt/framework/index.php).' );
 	}
