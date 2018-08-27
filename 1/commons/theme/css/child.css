@@ -1,6 +1,6 @@
 /***** CHILD.CSS START *****/
 
-.child-updated { background: #180728; }
+.child-updated { background: #180819; }
 
 /*** COLOR START ***/
 
@@ -120,6 +120,12 @@ p.date { font-size: 80%; }
 .what h3 { display: none; }
 
 .spacer { margin-bottom: 20px; }
+
+/* Survey Monkey Embedded Survey Form */
+.smcx-embed {
+	display: block !important;
+	margin: 0 auto !important;
+}
 
 /*** MISC END ***/
 

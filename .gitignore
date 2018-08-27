@@ -1,5 +1,4 @@
 
-
 ### FILE TYPES
 
 ## HIDDEN
@@ -40,6 +39,19 @@
 
 # bin/
 # core/
+# vendor/
+
+d/
+# dependency manager (for now)
+
+e/bin/plugins/
+# should (not?) include plugins unless required??
+
+e/bin/plugins/wp-base-boiler-plate/plugin.php
+# not ready yet
+
+e/bin/themes/twentytwelve/
+# too old!!! (but nice and clean)
 
 cluster/
 # All cluster files (for now)
