@@ -40,14 +40,20 @@ DirectoryIndex index.php default.html index.html
   AddCharset UTF-8 .html
 </IfModule>
 
-# Alias / /1
+# BEGIN Routing
+# Placement: MUST be before WordPress Directive.
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+  RewriteRule ^sandbox/(.*) s/sandbox/$1 [L]
+</IfModule>
+# END Routing
 
 # BEGIN WordPress
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /
   RewriteRule ^index\.php$ - [L]
-  # RewriteRule ^admin\/(.*) e\/core\/wp-admin\/$1 [L]
   RewriteCond %{REQUEST_FILENAME} !-f
   # RewriteCond %{REQUEST_FILENAME} !-d
   RewriteRule . /index.php [L]

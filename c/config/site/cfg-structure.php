@@ -75,11 +75,12 @@ define( 'SITE_SIMPLE_DIR', '/simple' );
  * from the root of the site
  */
 
-// define( 'SITE_COMMONS_STUB', SITE_B_DIR . SITE_COMMONS_DIR );
+ /** Path part from root to the commons dir */
+define( 'SITE_COMMONS_STUB', SITE_1_DIR . SITE_COMMONS_DIR );
 
 // define( 'SITE_CONFIG_STUB', SITE_ALT_STUB . SITE_CONFIG_DIR );
 
-// define( 'SITE_CORE_STUB', SITE_E_DIR . SITE_CORE_DIR );
+define( 'SITE_CORE_STUB', SITE_E_DIR . SITE_CORE_DIR );
 
 /**
  * PATHS

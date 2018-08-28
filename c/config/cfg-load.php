@@ -4,11 +4,13 @@ defined( 'SITE' ) || exit;
 
 /**
  * Loads the configuration files. May include some logic.
- * There are two types. The first is site specific, and the second is "model" 
- * related, that is, geared towards solving real world (i.e. physical 3D) 
+ * There are two types. The first is site specific, and the second is "model"
+ * related, that is, geared towards solving real world (i.e. physical 3D)
  * problems.
  */
 
+/** Site Main Breaker Switch. */
+require_once( __DIR__ . '/site' . '/cfg-switch.php' );
 
 /**
  * If called from an alternate location, we need to ensure we have this. Required.
@@ -17,7 +19,7 @@ defined( 'SITE' ) || exit;
 require_once( __DIR__ . '/site' . '/cfg-structure.php' );
 
 /** Site specific variables. Required. */
-require_once( __DIR__ . 'cfg-site.dnp.php' );
+require_once( __DIR__ . '/site/cfg-site.dnp.php' );
 
 if ( file_exists( __DIR__ . '/site/other' . '/cfg-enhanced.php' ) ) {
 	require_once( __DIR__ . '/site/other' . '/cfg-enhanced.php' );
@@ -29,7 +31,7 @@ if ( file_exists( __DIR__ . '/site/other' . '/cfg-enhanced.php' ) ) {
 	}
 
 	if ( file_exists( __DIR__ . '/site/other' . '/cfg-debug.php' ) ) {
-		require_once( __DIR__ . '/cfg-debug.php' );
+		require_once( __DIR__ . '/site/other' . '/cfg-debug.php' );
 	}
 
 	if ( file_exists( __DIR__ . '/site/other' . '/cfg-wordpress.php' ) ) {

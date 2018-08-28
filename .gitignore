@@ -53,11 +53,14 @@ e/bin/plugins/wp-base-boiler-plate/plugin.php
 e/bin/themes/twentytwelve/
 # too old!!! (but nice and clean)
 
-cluster/
-# All cluster files (for now)
+m/
+# modelling engine 
 
 u/
 # User files!!!
+
+cluster/
+# All cluster files (for now)
 
 ## LESSER EXCLUDE
 

@@ -58,10 +58,11 @@ function get_firefly_page_slug( $page ){
  * @return str
  */
 function get_firefly_header( $page ){
+
 	$str = 'Header N/A';
 	$file = SITE_HEADER_PATH . SITE_HEADER_DIR . SITE_HTML_EXT;
 	if ( file_exists( $file ) ){
-		$str = firefly_sanitize_html( file_get_contents( $file ) );
+		$str = file_get_contents( $file );
 		return $str;
 	} else {
 		return $str;
@@ -260,10 +261,11 @@ function get_firefly_footer(){
  * Firefly sanitize HTML
  *
  * Remove everything but valid HTML
+ * @todo Needs some work
  */
 function firefly_sanitize_html( $str = '' ){
 	if ( ! empty( $str ) ) {
-		$allowed = '<a><p><h1><h2><h3><h4><h5><h6><ol><li>';
+		$allowed = '<section><article><header><div><img><a><p><h1><h2><h3><h4><h5><h6><ol><li>';
 		$stripped = strip_tags( $str, $allowed );
 		return $stripped;
 	} else {

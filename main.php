@@ -43,9 +43,9 @@ if 	( 	SITE_USE_CORE && ( SITE_USE_CORE_ALWAYS
 	require_once( SITE_CORE_PATH . '/index.php' );
 
 }
-/** If the core is not used, use an alternate framework, if it is available. */
-else if ( SITE_USE_ALT && file_exists( SITE_ALT_FRAMEWORK_PATH . '/index.php' ) ) {
-	require_once( SITE_ALT_FRAMEWORK_PATH . '/index.php' );
+/** If the core is not used, use an alternative (simpler) framework, if it is available. */
+else if ( SITE_USE_SIMPLE && file_exists( SITE_ENGINE_SIMPLE_PATH . '/index.php' ) ) {
+	require_once( SITE_ENGINE_SIMPLE_PATH . '/index.php' );
 
 }
 /** Otherwise, look for a plain text index.html file and serve that. */
