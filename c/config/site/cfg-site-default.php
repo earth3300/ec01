@@ -40,6 +40,16 @@ if ( ! defined( 'SITE_SUB_DOMAIN_NAME' ) ){
 	define( 'SITE_SUB_DOMAIN_NAME', 'www' );
 }
 
+if ( ! defined( 'SITE_SUB_DOMAIN' ) ){
+	/** Default: false (Whether or not site is a subdomain. */
+	define( 'SITE_SUB_DOMAIN', false );
+}
+
+if ( ! defined( 'SITE_USE_WWW' ) ){
+	/** Default: true (Whether or not to use "www"). */
+	define( 'SITE_USE_WWW', true );
+}
+
 /** From right to left:  Top Level Domain. (Include leading dot). */
 if ( file_exists( SITE_PATH . '/.localhost' ) ){
 
@@ -54,11 +64,10 @@ if ( file_exists( SITE_PATH . '/.localhost' ) ){
 		/** The second level domain of the site. This needs to be unique. */
 		define( 'SITE_DOMAIN_NAME', 'domain_name' );
 	}
-		/** Default: false (Whether or not site is a subdomain. */
-		define( 'SITE_SUB_DOMAIN', true );
 
+	/** Note: NO "www" on the local machine. */
 	if ( SITE_SUB_DOMAIN ){
-		/** Domain of the site (top, second, sub). */
+		/** Domain of the site (top, second, sub domain). */
 		define( 'SITE_DOMAIN', SITE_SUB_DOMAIN_NAME . '.' . SITE_DOMAIN_NAME . SITE_DOMAIN_EXT_LOCAL );
 	} else {
 		/** Domain of the site (top, second, no sub domain). */
@@ -87,6 +96,9 @@ else {
 	if ( SITE_SUB_DOMAIN ){
 		/** Domain of the site (top, second, sub). */
 		define( 'SITE_DOMAIN', SITE_SUB_DOMAIN_NAME . '.' . SITE_DOMAIN_NAME . SITE_DOMAIN_EXT );
+	} else if ( SITE_USE_WWW ) {
+		/** Domain of the site (top, second, and www). */
+		define( 'SITE_DOMAIN', 'www.' . SITE_DOMAIN_NAME . SITE_DOMAIN_EXT_LOCAL );
 	} else {
 		/** Domain of the site (top, second, no sub domain). */
 		define( 'SITE_DOMAIN', SITE_DOMAIN_NAME . SITE_DOMAIN_EXT );
