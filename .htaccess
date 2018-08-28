@@ -64,11 +64,11 @@ DirectoryIndex index.php default.html index.html
 # Copied/Pasted to /e/
 # and uncommented RewriteCond %{REQUEST_FILENAME} !-d
 
-ErrorDocument 401 /e/alt/code/401.html
-ErrorDocument 403 /e/alt/code/403.html
-ErrorDocument 404 /e/alt/code/404.html
-ErrorDocument 500 /e/alt/code/500.html
-ErrorDocument 503 /e/alt/code/503.html
+ErrorDocument 401 /r/response-code/401.html
+ErrorDocument 403 /r/response-code/403.html
+ErrorDocument 404 /r/response-code/404.html
+ErrorDocument 500 /r/response-code/500.html
+ErrorDocument 503 /r/response-code/503.html
 
 # Use the Source, Luke!
 # https://httpd.apache.org/docs/2.4/
