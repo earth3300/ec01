@@ -36,8 +36,8 @@ if ( ! defined( 'SITE_PATH' ) ){
 }
 
 if ( ! defined( 'SITE_SUB_DOMAIN_NAME' ) ){
-	/** Empty, unless otherwise noted. This could be 'www'. */
-	define( 'SITE_SUB_DOMAIN_NAME', 'www' );
+	/** The subdomain. */
+	define( 'SITE_SUB_DOMAIN_NAME', 'sub' );
 }
 
 if ( ! defined( 'SITE_SUB_DOMAIN' ) ){
@@ -103,7 +103,6 @@ else {
 		/** Domain of the site (top, second, no sub domain). */
 		define( 'SITE_DOMAIN', SITE_DOMAIN_NAME . SITE_DOMAIN_EXT );
 	}
-
 }
 
 /** The URL to the base of the site. */
@@ -115,15 +114,14 @@ define( 'SITE_URL', SITE_PROTOCOL . SITE_DOMAIN );
 /** May be the same as the domain. With leading forward slash. */
 define( 'SITE_CACHE_SLUG', '/' . SITE_DOMAIN );
 
-	/** Default: InnoDB (Alt: MyISAM. InnoDB may be better) */
-	define( 'DB_ENGINE', 'InnoDB' );
+/** Default: InnoDB (Alt: MyISAM. InnoDB may be better) */
+define( 'DB_ENGINE', 'InnoDB' );
 
-	/** Default: utf8 (Used in the Database) */
-	define( 'DB_CHARSET', 'utf8mb4' );
+/** Default: utf8 (Used in the Database) */
+define( 'DB_CHARSET', 'utf8mb4' );
 
-	/** Change only if needed (Ambiguous) */
-	define( 'DB_COLLATE', '' );
-// ?? }
+/** Change only if needed (Ambiguous) */
+define( 'DB_COLLATE', '' );
 
 /** Default: html (Used in the HTML Page) */
 define( 'SITE_DOCTYPE', 'html' );
