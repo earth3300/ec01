@@ -18,8 +18,13 @@ require_once( __DIR__ . '/site' . '/cfg-switch.php' );
  */
 require_once( __DIR__ . '/site' . '/cfg-structure.php' );
 
-/** Site specific variables. Required. */
-require_once( __DIR__ . '/site/cfg-site.dnp.php' );
+if ( file_exists( __DIR__ . '/site/' . '/cfg-site-user.dnp.php' ) ) {
+	/** Site specific variables that can be edited. Required for a unique identity. */
+	require_once( __DIR__ . '/site/' . '/cfg-site-user.dnp.php' );
+}
+
+/** Site specific defaults. Required. */
+require_once( __DIR__ . '/site' . '/cfg-site-default.php' );
 
 if ( file_exists( __DIR__ . '/site/other' . '/cfg-enhanced.php' ) ) {
 	require_once( __DIR__ . '/site/other' . '/cfg-enhanced.php' );
