@@ -111,6 +111,9 @@ define( 'SITE_ROOT_URL', SITE_PROTOCOL . SITE_DOMAIN );
 /** The URL to the base of the site. */
 define( 'SITE_URL', SITE_PROTOCOL . SITE_DOMAIN );
 
+/** The URL to the core admin area. */
+define( 'SITE_ADMIN_URL', SITE_URL . SITE_ADMIN_DIR );
+
 /** May be the same as the domain. With leading forward slash. */
 define( 'SITE_CACHE_SLUG', '/' . SITE_DOMAIN );
 
@@ -152,4 +155,3 @@ define( 'SITE_USE_CHILD_THEME', false );
 if ( ! defined( 'SITE_USE_CORE' ) ){
 	define( 'SITE_USE_CORE', true );
 }
-

@@ -1,0 +1,4 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteRule ^page/(.*) commons/page/$1 [L]
+</IfModule>

@@ -123,4 +123,12 @@ define( 'WPMU_PLUGIN_DIR', SITE_BIN_PATH . SITE_REQUIRED_DIR );
 /** Default: 'wp-content/mu-plugins' (Must Use Plugins URL) */
 define( 'WPMU_PLUGIN_URL', WP_CONTENT_URL . SITE_REQUIRED_DIR );
 
+/** Cookie paths (There are a lot of others). */
+
+/** The path to where the wordpress core resides. (default-constants.php) */
+define('SITECOOKIEPATH', SITE_CORE_WP_STUB . '/' );
+
+/** Admin cookie path */
+define( 'ADMIN_COOKIE_PATH', SITE_CORE_WP_STUB . SITE_ADMIN_WP_DIR ); // No trailing slash???
+
 /***** WORDPRESS SPECIFIC CONSTANTS END *****/

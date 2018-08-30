@@ -1,0 +1,13 @@
+# Code to check server time
+RewriteEngine On
+RewriteBase /
+RewriteCond %{QUERY_STRING} !time [NC]
+#RewriteCond %{TIME} ^(.*)
+#RewriteCond %{TIME_YEAR} ^(.*)
+#RewriteCond %{TIME_MON} ^(.*)
+#RewriteCond %{TIME_WDAY} ^(.*)
+#RewriteCond %{TIME_DAY} ^(.*)
+RewriteCond %{TIME_HOUR} ^(.*)
+#RewriteCond %{TIME_MIN} ^(.*)
+#RewriteCond %{TIME_SEC} ^(.*)
+RewriteRule .* http://%{HTTP_HOST}%{REQUEST_URI}?time=%1 [R,L]

@@ -1,0 +1,13 @@
+# Time Based Page Display
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+  RewriteCond %{TIME_SEC} <30
+  RewriteRule ^index\.html$ page/one.html [L]
+  RewriteCond %{TIME_SEC} >29
+  RewriteRule ^index\.html$ page/two.html [L]
+</IfModule>
+
+# Shows file one.html the first half of the minute.
+# Shows file two.html the second half of the minute.

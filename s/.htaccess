@@ -1,0 +1,32 @@
+# Logic based routing.
+
+# STEP 1. BASED ON TIME.
+
+# A. If the time is between 9 AM and 5 PM (local), we are open.
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{TIME_HOUR} <18
+  RewriteCond %{TIME_HOUR} >08
+  RewriteRule ^s/(.*) /s/open/$1 [L]
+</IfModule>
+
+# B. If the time is between 5 PM and 9 AM (local), we are closed.
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{TIME_HOUR} >17
+  RewriteCond %{TIME_HOUR} <09
+  RewriteRule ^s/(.*) /s/closed/$1 [L]
+</IfModule>
+
+
+# STEP 2. BASED ON DEVICE.
+
+# A. If the device is a smartphone, deliver less content
+
+
+# B. If the device is a desktop, deliver more content
+
+
+# C. If the device is a tablet, deliver more or less content based on time.

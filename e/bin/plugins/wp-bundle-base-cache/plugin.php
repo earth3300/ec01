@@ -21,8 +21,8 @@ License: GPLv2+
 
 defined( 'ABSPATH' ) || exit;
 
-if ( ! defined ( 'SITE_ROOT_PATH' ) ) {
-	exit( 'SITE_ROOT_PATH not defined' );
+if ( ! defined ( 'SITE_PATH' ) ) {
+	exit( 'SITE_PATH not defined' );
 }
 if ( ! defined ( 'SITE_COMMONS_PATH' ) ) {
 	exit( 'SITE_COMMONS_PATH not defined' );
@@ -86,7 +86,7 @@ function wp_bundle_get_cache_path( $post_id, $slug ){
 		$post_type = get_post_field( 'post_type', $post_id );
 		$cache_path = '/' . $post_type;
 	}
-	$path = SITE_ROOT_PATH . $cache_path . '/' . $slug;
+	$path = SITE_PATH . $cache_path . '/' . $slug;
 	return $path;
 }
 
@@ -139,7 +139,7 @@ function wp_bundle_put_cache( $file, $str ){
 
 function wp_bundle_copy_front_page( $file, $slug ){
 	if ( $slug == 'front-page' || $slug == 'home' ) {
-		$dest = SITE_ROOT_PATH . '/' . SITE_ARTICLE_FILE;
+		$dest = SITE_PATH . '/' . SITE_ARTICLE_FILE;
 		if ( $result = copy( $file, $dest ) ) {
 			//do_action( 'wp_log_info', 'front-page:115', $file );
 			return true;

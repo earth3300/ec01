@@ -1,0 +1,29 @@
+# Time of day based page display.
+
+<IfModule mod_rewrite.c>
+  Options +FollowSymLinks
+  RewriteEngine On
+  RewriteBase /
+
+  # 5am > < 8am
+  RewriteCond %{TIME_HOUR} >02
+  RewriteCond %{TIME_HOUR} <05
+  RewriteRule ^index\.html$ /s/time-of-day/morning.html
+
+# 8am > < 4pm
+  RewriteCond %{TIME_HOUR} >05
+  RewriteCond %{TIME_HOUR} <13
+  RewriteRule ^index\.html$ /s/time-of-day/midday.html
+
+  # 4pm > < 10pm
+  RewriteCond %{TIME_HOUR} >13
+  RewriteCond %{TIME_HOUR} <19
+  RewriteRule ^index\.html$ /s/time-of-day/afternoon.html
+
+  # 10pm > < 5am
+  RewriteCond %{TIME_HOUR} >19
+  RewriteCond %{TIME_HOUR} <02
+  RewriteRule ^index\.html$ /s/time-of-day/night.html
+</IfModule>
+
+# Displays a different page, depending on the time of day.

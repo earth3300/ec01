@@ -1,0 +1,5 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+  RewriteRule ^admin/(.*) e/core/wp/wp-admin/$1 [QSA,L]
+</IfModule>

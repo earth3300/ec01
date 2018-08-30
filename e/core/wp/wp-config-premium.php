@@ -57,7 +57,7 @@ $table_prefix  = 'change_';
 define( 'SITE_ROOT_URL', '' );
 //
 
-define( 'SITE_ROOT_PATH', $_SERVER['DOCUMENT_ROOT'] );
+define( 'SITE_PATH', $_SERVER['DOCUMENT_ROOT'] );
 //
 
 define( 'SITE_BIN_DIR', '/wp-content' );
@@ -87,7 +87,7 @@ define( 'WP_POST_TYPE', 'post' );
 // Change the default internal "feel" to "books", "cars" or "spaceships".
 // Values: string (Default: post)
 
-define( 'WP_CONTENT_DIR', SITE_ROOT_PATH . SITE_BIN_DIR );
+define( 'WP_CONTENT_DIR', SITE_PATH . SITE_BIN_DIR );
 // Default: '/path/../wp-content' (A path, not a directory).
 
 define( 'WP_PLUGIN_DIR', WP_CONTENT_DIR . SITE_PLUGIN_DIR );

@@ -45,7 +45,8 @@ DirectoryIndex index.php default.html index.html
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /
-  RewriteRule ^sandbox/(.*) s/sandbox/$1 [L]
+  RewriteRule ^sandbox/(.*) s/sandbox/$1 [QSA,L]
+  RewriteRule ^admin/(.*) e/core/wp/wp-admin/$1 [QSA,L]
 </IfModule>
 # END Routing
 

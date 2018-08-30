@@ -29,7 +29,7 @@ function wp_bundle_cache_adjuster_file( $post ){
 	///var/www/html/1/bundle/b200-wp-4.9/bin/page/cache-enabler/bundles.local/page/background/index.html
 	///var/www/html/1/bundle/b200-wp-4.9/bin/page/cache-enabler/bundles.local/background/index.html
 	$source = SITE_CACHE_PATH_INDEX . '/' . $slug . '/' . SITE_INDEX_FILE;
-	$dest = SITE_ROOT_PATH . '/' . $post_type . '/' . $slug . '/' . SITE_INDEX_FILE;
+	$dest = SITE_PATH . '/' . $post_type . '/' . $slug . '/' . SITE_INDEX_FILE;
 	//do_action( 'wp_log_info', 'source:36', $source );
 	//do_action( 'wp_log_info', 'dest:37', $dest );
 	if ( file_exists( $source ) ){
@@ -59,7 +59,7 @@ function wp_bundle_cache_adjuster_refresh_cache_path( $path, $file ){
 
 function wp_bundle_cache_adjuster_copy_front_page( $file, $slug ){
 	if ( $slug == 'front-page' || $slug == 'home' ) {
-		$dest = SITE_ROOT_PATH . '/' . SITE_INDEX_FILE;
+		$dest = SITE_PATH . '/' . SITE_INDEX_FILE;
 		if ( $result = copy( $file, $dest ) ) {
 			//do_action( 'wp_log_info', 'front-page:115', $file );
 		}

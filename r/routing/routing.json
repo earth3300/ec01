@@ -1,4 +1,5 @@
 {
 	"sandbox":"s/sandbox",
+	"core-active":"e/core/wp",
 	"admin":"e/core/wp/wp-admin"
 }
