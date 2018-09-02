@@ -45,9 +45,6 @@ define( 'WP_CONTENT_DIR', SITE_E_PATH . SITE_BIN_DIR );
 /** Absolute path based on location of this file. */
 define( 'WP_PLUGIN_DIR', WP_CONTENT_DIR . SITE_PLUGIN_DIR );
 
-/** Path from root of site to the WordPress plugin directory. */
-define( 'SITE_PLUGIN_WP_STUB', SITE_E_DIR . SITE_BIN_DIR . SITE_PLUGIN_DIR );
-
 /** Absolute path based on location of this file. A path, not a directory */
 define( 'WP_LANG_DIR', WP_CONTENT_DIR . SITE_LANG_DIR );
 
@@ -151,22 +148,14 @@ define( 'WPMU_PLUGIN_DIR', SITE_BIN_PATH . SITE_REQUIRED_DIR );
 /** Default: 'wp-content/mu-plugins' (Must Use Plugins URL) */
 define( 'WPMU_PLUGIN_URL', WP_CONTENT_URL . SITE_REQUIRED_DIR );
 
-/**** COOKIE PATHS (Selected from default-constants.php) ****/
-
-/** Cookie path. */
-// define('COOKIEPATH', preg_replace('|https?://[^/]+|i', '', get_option('home') . '/' ) );
-define('COOKIEPATH', SITE_DOMAIN . '/' );
-
-/** The path to where the wordpress core resides. */
-define('SITECOOKIEPATH', SITE_CORE_WP_STUB . '/' );
-
-/** Admin cookie path (No trailing slash in default constants). */
-define( 'ADMIN_COOKIE_PATH', SITE_CORE_WP_STUB . SITE_ADMIN_WP_DIR ); // No trailing slash???
-
-/** Plugins cookie path = Plugin URL with no http. (No trailing slash in default constants). */
-define( 'PLUGINS_COOKIE_PATH', SITE_PLUGIN_WP_STUB  );
+/**** COOKIE PATHS (Copied from default-constants.php) ****/
 
 /*
+ * Since these are being defined first, there is no check to see if they
+ * have been already set.
+ *
+ */
+
 /**
  * Defines cookie related WordPress constants
  *
@@ -177,8 +166,8 @@ define( 'PLUGINS_COOKIE_PATH', SITE_PLUGIN_WP_STUB  );
 /** Default: wordpress. */
 define( 'SITE_COOKIE_PREFIX_WP' , 'wordpress' );
 
-/** Default: wordpress. */
-define( 'SITE_CORE_WP_URL' , 'wordpress' );
+/** Default: site url */
+define( 'SITE_CORE_WP_URL' , SITE_URL . SITE_CORE_WP_STUB );
 
 /**
  * Used to guarantee unique hash cookies
@@ -220,19 +209,25 @@ define('LOGGED_IN_COOKIE', SITE_COOKIE_PREFIX_WP . '_logged_in_' . COOKIEHASH);
 define('TEST_COOKIE', SITE_COOKIE_PREFIX_WP . '_test_cookie');
 
 /**
+ * The path to the site (may be root), with a trailing "/"
+ *
  * @since 1.2.0
  */
 define('COOKIEPATH', SITE_DOMAIN . '/' );
 
 /**
+ * The path to the WordPress core from the root of the site.
+ *
  * @since 1.5.0
  */
 define('SITECOOKIEPATH', SITE_CORE_WP_STUB . '/' );
 
 /**
  * @since 2.6.0
+ *
+ * No trailing slash (in default).
  */
-define( 'ADMIN_COOKIE_PATH', SITECOOKIEPATH . SITE_ADMIN_WP_DIR );
+define( 'ADMIN_COOKIE_PATH', SITE_CORE_WP_STUB . SITE_ADMIN_WP_DIR ); // No trailing slash???
 
 /**
  * @since 2.6.0
