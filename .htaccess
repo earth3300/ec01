@@ -40,13 +40,22 @@ DirectoryIndex index.php default.html index.html
   AddCharset UTF-8 .html
 </IfModule>
 
+# BEGIN Directory Protection
+# Placement: MUST be before WordPress Directive.
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+  # RewriteRule ^c/config/(.*) - [L]
+ </IfModule>
+# END Directory Protection
+
 # BEGIN Routing
 # Placement: MUST be before WordPress Directive.
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /
   RewriteRule ^sandbox/(.*) s/sandbox/$1 [QSA,L]
-  RewriteRule ^admin/(.*) e/core/wp/wp-admin/$1 [QSA,L]
+  RewriteRule ^admin/wp/(.*) e/core/wp/wp-admin/$1 [QSA,L]
 </IfModule>
 # END Routing
 

@@ -65,6 +65,12 @@ define( 'SITE_SIMPLE_DIR', '/simple' );
 /** Main (core) directory */
 define( 'SITE_CORE_DIR', '/core' );
 
+/** Replaces {wp-content} */
+define( 'SITE_BIN_DIR', '/bin' );
+
+/** Site plugins directory  */
+define( 'SITE_PLUGINS_DIR', '/plugins' );
+
 /*
  * Here we can begin to think about including other frameworks in the
  * (core) engine directory. That is, WordPress has a specific function and
@@ -92,38 +98,36 @@ define( 'SITE_CORE_DIR', '/core' );
  * perform much better already "out of the box". This is what we are after.
  */
 
-/** Active core selected */
-define( 'SITE_CORE_ACTIVE_DIR', '/wp' );
-
-/** WP directory. */
-define( 'SITE_CORE_WP_DIR', '/wp' );
-
-/** WP directory. */
-define( 'SITE_WP_DIR', '/wp' );
-
 /** Site admin directory. */
 define( 'SITE_ADMIN_DIR', '/admin' );
 
-/** WP Admin directory (actual, not virtual) */
-define( 'SITE_ADMIN_WP_DIR', '/wp-admin' );
+/** Active core selected */
+define( 'SITE_CORE_ACTIVE_DIR', '/wp' );
 
 /**
- * STUBS
+ * STUBS (Path from the root of the domain (not the server)
  *
- * These should be removed as we want to be able to rearrange the directory structure
- * from the root of the site
+ * Path parts are certain reusable parts of a path (usually from the root
+ * to the directory specified). In a sense they could be called "relative",
+ * that is _relative_ to the root of the site (but not extending back to the
+ * server root). The word "stub" conveys the essence of the meaning, i.e.
+ * something that is short and stubby. Alternatives are "REL" or "PART".
+ *
+ * Perhaps, for the sake of clarification, the "STUB" as defined here should
+ * refer ONLY to the path from the root of the site to the directory under
+ * question and "PART" as a subset of that (if needed). In this way, the directory
+ * at the end of the "stub" can be moved around by reconfiguring that stub
+ * with much greater confidence that it will still work, PROVIDED that there
+ * is only a single connection to the underlying directory FROM that stub.
+ * That is, no other routes to get there that are used. So, it has then to
+ * be used consistently.
  */
 
  /** Path part from root to the commons dir */
 define( 'SITE_COMMONS_STUB', SITE_1_DIR . SITE_COMMONS_DIR );
 
-// define( 'SITE_CONFIG_STUB', SITE_ALT_STUB . SITE_CONFIG_DIR );
-
-/** */
-define( 'SITE_CORE_STUB', SITE_E_DIR . SITE_CORE_DIR . SITE_CORE_ACTIVE_DIR );
-
-/** */
-define( 'SITE_CORE_WP_STUB', SITE_E_DIR . SITE_CORE_DIR . SITE_CORE_WP_DIR );
+/** Path part: root to core. */
+define( 'SITE_CORE_STUB', SITE_E_DIR . SITE_CORE_DIR );
 
 /**
  * PATHS

@@ -1,15 +1,40 @@
 <?php
 
-/***** WORDPRESS SPECIFIC CONSTANTS BEGIN *****/
+defined( 'SITE' ) || exit;
+
+/**
+ * WordPress Constants.
+ *
+ * Section I. Constants using a SITE_ prefix.
+ *
+ * Section II. All constants defined in this section should also be found
+ * in the WordPress core.
+ */
+
+/**** CONSTANTS USING A SITE_ PREFIX ****/
+
+/** WP directory. */
+define( 'SITE_CORE_WP_DIR', '/wp' );
+
+/** WP Admin directory (actual, not virtual) */
+define( 'SITE_ADMIN_WP_DIR', '/wp-admin' );
+
+/** Path part: root to wp core. */
+define( 'SITE_CORE_WP_STUB', SITE_CORE_STUB . SITE_CORE_WP_DIR );
+
+/** Path part: root to wp core. */
+define( 'SITE_PLUGIN_WP_STUB', SITE_E_DIR . SITE_BIN_DIR . SITE_PLUGINS_DIR );
+
+/**** WORDPRESS SPECIFIC CONSTANTS ****/
 
 /** Uncomment only if using https. Default: false  */
 // define( 'FORCE_SSL_ADMIN', true );
 
 /** Example: https://www.example.ca (The URL of your domain) */
-define( 'WP_HOME', SITE_ROOT_URL );
+define( 'WP_HOME', SITE_URL );
 
 /** Where the core WordPress files reside, relative to site root. */
-define( 'WP_SITEURL', SITE_ROOT_URL . SITE_CORE_STUB );
+define( 'WP_SITEURL', SITE_URL . SITE_CORE_WP_STUB );
 
 /** Default: post (Other examples: "books", "cars" or "spaceships") */
 define( 'WP_POST_TYPE', 'post' );
@@ -19,6 +44,9 @@ define( 'WP_CONTENT_DIR', SITE_E_PATH . SITE_BIN_DIR );
 
 /** Absolute path based on location of this file. */
 define( 'WP_PLUGIN_DIR', WP_CONTENT_DIR . SITE_PLUGIN_DIR );
+
+/** Path from root of site to the WordPress plugin directory. */
+define( 'SITE_PLUGIN_WP_STUB', SITE_E_DIR . SITE_BIN_DIR . SITE_PLUGIN_DIR );
 
 /** Absolute path based on location of this file. A path, not a directory */
 define( 'WP_LANG_DIR', WP_CONTENT_DIR . SITE_LANG_DIR );
@@ -123,12 +151,99 @@ define( 'WPMU_PLUGIN_DIR', SITE_BIN_PATH . SITE_REQUIRED_DIR );
 /** Default: 'wp-content/mu-plugins' (Must Use Plugins URL) */
 define( 'WPMU_PLUGIN_URL', WP_CONTENT_URL . SITE_REQUIRED_DIR );
 
-/** Cookie paths (There are a lot of others). */
+/**** COOKIE PATHS (Selected from default-constants.php) ****/
 
-/** The path to where the wordpress core resides. (default-constants.php) */
+/** Cookie path. */
+// define('COOKIEPATH', preg_replace('|https?://[^/]+|i', '', get_option('home') . '/' ) );
+define('COOKIEPATH', SITE_DOMAIN . '/' );
+
+/** The path to where the wordpress core resides. */
 define('SITECOOKIEPATH', SITE_CORE_WP_STUB . '/' );
 
-/** Admin cookie path */
+/** Admin cookie path (No trailing slash in default constants). */
 define( 'ADMIN_COOKIE_PATH', SITE_CORE_WP_STUB . SITE_ADMIN_WP_DIR ); // No trailing slash???
 
-/***** WORDPRESS SPECIFIC CONSTANTS END *****/
+/** Plugins cookie path = Plugin URL with no http. (No trailing slash in default constants). */
+define( 'PLUGINS_COOKIE_PATH', SITE_PLUGIN_WP_STUB  );
+
+/*
+/**
+ * Defines cookie related WordPress constants
+ *
+ * Defines constants after multisite is loaded.
+ * @since 3.0.0
+ */
+
+/** Default: wordpress. */
+define( 'SITE_COOKIE_PREFIX_WP' , 'wordpress' );
+
+/** Default: wordpress. */
+define( 'SITE_CORE_WP_URL' , 'wordpress' );
+
+/**
+ * Used to guarantee unique hash cookies
+ *
+ * Site url (of the wp core). Using generic here.
+ *
+ * @since 1.5.0
+ */
+define( 'COOKIEHASH', md5( SITE_CORE_WP_URL ) );
+
+/**
+ * @since 2.0.0
+ */
+define('USER_COOKIE', SITE_COOKIE_PREFIX_WP . 'user_' . COOKIEHASH);
+
+/**
+ * @since 2.0.0
+ */
+define('PASS_COOKIE', SITE_COOKIE_PREFIX_WP . 'pass_' . COOKIEHASH);
+
+/**
+ * @since 2.5.0
+ */
+define('AUTH_COOKIE', SITE_COOKIE_PREFIX_WP . '_' . COOKIEHASH);
+
+/**
+ * @since 2.6.0
+ */
+define('SECURE_AUTH_COOKIE', SITE_COOKIE_PREFIX_WP . '_sec_' . COOKIEHASH);
+
+/**
+ * @since 2.6.0
+ */
+define('LOGGED_IN_COOKIE', SITE_COOKIE_PREFIX_WP . '_logged_in_' . COOKIEHASH);
+
+/**
+ * @since 2.3.0
+ */
+define('TEST_COOKIE', SITE_COOKIE_PREFIX_WP . '_test_cookie');
+
+/**
+ * @since 1.2.0
+ */
+define('COOKIEPATH', SITE_DOMAIN . '/' );
+
+/**
+ * @since 1.5.0
+ */
+define('SITECOOKIEPATH', SITE_CORE_WP_STUB . '/' );
+
+/**
+ * @since 2.6.0
+ */
+define( 'ADMIN_COOKIE_PATH', SITECOOKIEPATH . SITE_ADMIN_WP_DIR );
+
+/**
+ * @since 2.6.0
+ *
+ * No trailing '/'
+ */
+define( 'PLUGINS_COOKIE_PATH', SITE_PLUGIN_WP_STUB );
+
+/**
+ * @since 2.0.0
+ */
+if ( 0 ) {
+	define('COOKIE_DOMAIN', false);
+}

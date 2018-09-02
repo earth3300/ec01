@@ -12,9 +12,6 @@ define( 'SITE_CENTER_DIR', '/center' );
 
 /***** ROOT DIRECTORY *****/
 
-/** Replaces {wp-content} */
-define( 'SITE_BIN_DIR', '/bin' );
-
 /** Status code directory. */
 define( 'SITE_CODE_DIR', '/code' );
 
