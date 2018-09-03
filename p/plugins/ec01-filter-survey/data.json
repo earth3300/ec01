@@ -1,0 +1,38 @@
+{
+  "schema": {
+    "properties": {
+      "menu": {
+        "type": "array",
+        "title": "Options",
+        "items": {
+          "type": "string",
+          "title": "Option",
+          "enum": [
+            "starter",
+            "maincourse",
+            "cheese",
+            "dessert",
+            "OTHER"
+          ]
+        },
+        "minItems": 1
+      },
+      "menuOther": {"type": "string"},
+  "nonDefaultFormItems": ["menuOther", "menu2Other"],
+  "customFormItems": {
+    "menu": {
+      "type": "radioboxes",
+      "titleMap": {
+        "starter": "Starter would be great",
+        "maincourse": "No way I'll skip the main course",
+        "cheese": "Cheddar rules!",
+        "dessert": "Thumbs up for a dessert"
+      },
+      "otherField": {"key": "menuOther", "inline": true}
+    },
+	}
+}
+}
+}
+
+// Source: http://ulion.github.io/jsonform/playground/bootstrap3/?example=fields-checkboxes (2018)

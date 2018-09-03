@@ -66,10 +66,13 @@ define( 'SITE_SIMPLE_DIR', '/simple' );
 define( 'SITE_CORE_DIR', '/core' );
 
 /** Replaces {wp-content} */
-define( 'SITE_BIN_DIR', '/bin' );
+define( 'SITE_BIN_DIR', '/p' );
 
-/** Site plugins directory  */
-define( 'SITE_PLUGINS_DIR', '/plugins' );
+/** Contains plugins (and themes), etc. */
+define( 'SITE_P_DIR', '/p' );
+
+/** Site plugins directory (Singular to follow format of other constants).  */
+define( 'SITE_PLUGIN_DIR', '/plugins' );
 
 /*
  * Here we can begin to think about including other frameworks in the
@@ -99,7 +102,7 @@ define( 'SITE_PLUGINS_DIR', '/plugins' );
  */
 
 /** Site admin directory. */
-define( 'SITE_ADMIN_DIR', '/admin' );
+define( 'SITE_ADMIN_DIR', '/wp-admin' );
 
 /** Active core selected */
 define( 'SITE_CORE_ACTIVE_DIR', '/wp' );
@@ -151,17 +154,17 @@ define( 'SITE_2_PATH', SITE_PATH . SITE_2_DIR );
 /** The path to the "engine" (PHP) directory. */
 define( 'SITE_E_PATH', SITE_PATH . SITE_E_DIR );
 
-/** Replace this with SITE_ENGINE_CORE_PATH */
-define( 'SITE_CORE_PATH', SITE_PATH . SITE_E_DIR . SITE_CORE_DIR . SITE_CORE_ACTIVE_DIR );
+/** The path to the "engine" (PHP) directory. */
+define( 'SITE_P_PATH', SITE_PATH . SITE_P_DIR );
 
-/** Same as SITE_CORE_PATH */
-define( 'SITE_ENGINE_CORE_PATH', SITE_PATH . SITE_E_DIR . SITE_CORE_DIR . SITE_CORE_ACTIVE_DIR );
+/** Replace this with SITE_ENGINE_CORE_PATH */
+define( 'SITE_CORE_PATH', SITE_PATH . SITE_E_DIR . SITE_CORE_DIR );
 
 /** The path to the "simple" engine. */
-define( 'SITE_ENGINE_SIMPLE_PATH', SITE_PATH . SITE_E_DIR . SITE_ALT_DIR . SITE_SIMPLE_DIR );
+define( 'SITE_SIMPLE_PATH', SITE_PATH . SITE_E_DIR . SITE_ALT_DIR . SITE_SIMPLE_DIR );
 
 /** The path to the config directory. */
 define( 'SITE_CONFIG_PATH', SITE_PATH . SITE_CONFIG_DIR );
 
 /** The path to the core admin area. */
-define( 'SITE_ADMIN_PATH', SITE_PATH . SITE_CORE_DIR . SITE_CORE_ACTIVE_DIR .SITE_ADMIN_DIR );
+define( 'SITE_ADMIN_PATH', SITE_PATH . SITE_E_DIR . SITE_CORE_DIR . SITE_ADMIN_DIR );
