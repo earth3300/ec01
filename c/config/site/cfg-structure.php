@@ -154,6 +154,9 @@ define( 'SITE_2_PATH', SITE_PATH . SITE_2_DIR );
 /** The path to the "engine" (PHP) directory. */
 define( 'SITE_E_PATH', SITE_PATH . SITE_E_DIR );
 
+/** May be the same as WP_CONTENT_DIR. Now same as SITE_P_PATH. */
+define( 'SITE_BIN_PATH', SITE_PATH . SITE_P_DIR );
+
 /** The path to the "engine" (PHP) directory. */
 define( 'SITE_P_PATH', SITE_PATH . SITE_P_DIR );
 

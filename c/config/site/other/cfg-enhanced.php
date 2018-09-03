@@ -176,9 +176,6 @@ define( 'SITE_CSS_DIR', '/css' );
 /** */
 define( 'SITE_JS_DIR', '/js' );
 
-/** May be the same as WP_CONTENT_DIR. */
-define( 'SITE_BIN_PATH', SITE_E_PATH . SITE_BIN_DIR );
-
 /** In the "bin" directory. Some plugins assume it is here. */
 define( 'SITE_CACHE_PATH', SITE_COMMONS_PATH . SITE_CACHE_DIR );
 
