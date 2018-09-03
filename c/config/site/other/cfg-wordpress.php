@@ -25,6 +25,9 @@ define( 'SITE_CORE_WP_STUB', SITE_CORE_STUB . SITE_CORE_WP_DIR );
 /** Path part: root to wp core. */
 define( 'SITE_PLUGIN_WP_STUB', SITE_E_DIR . SITE_BIN_DIR . SITE_PLUGINS_DIR );
 
+/** The URL to the admin area for WordPress. */
+define( 'SITE_ADMIN_WP_URL', SITE_ADMIN_URL . SITE_CORE_WP_DIR . SITE_ADMIN_WP_DIR );
+
 /**** WORDPRESS SPECIFIC CONSTANTS ****/
 
 /** Uncomment only if using https. Default: false  */
