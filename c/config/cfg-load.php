@@ -18,51 +18,51 @@ require_once( __DIR__ . '/site' . '/cfg-switch.php' );
  */
 require_once( __DIR__ . '/site' . '/cfg-structure.php' );
 
-if ( file_exists( __DIR__ . '/site/' . '/cfg-site-user.dnp.php' ) ) {
+if ( file_exists( __DIR__ . '/site' . '/cfg-site-user.dnp.php' ) ) {
 	/** Site specific variables that can be edited. Required for a unique identity. */
-	require_once( __DIR__ . '/site/' . '/cfg-site-user.dnp.php' );
+	require_once( __DIR__ . '/site' . '/cfg-site-user.dnp.php' );
 }
+
+/** Boolean values. Required */
+require_once( __DIR__ . '/site/other' . '/cfg-boolean.php' );
 
 /** Site specific defaults. Required. */
 require_once( __DIR__ . '/site' . '/cfg-site-default.php' );
 
-if ( file_exists( __DIR__ . '/site/other' . '/cfg-enhanced.php' ) ) {
-	require_once( __DIR__ . '/site/other' . '/cfg-enhanced.php' );
+/** These files depend on the "enhanced" configuration. */
 
-	/** These files depend on the "enhanced" configuration. */
+if ( file_exists( __DIR__ . '/site/other' . '/cfg-debug.php' ) ) {
+	/** Optional */
+	require_once( __DIR__ . '/site/other' . '/cfg-debug.php' );
+}
 
-	if ( file_exists( __DIR__ . '/site/other' . '/cfg-plugins.php' ) ) {
-		require_once( __DIR__ . '/site/other' . '/cfg-plugins.php' );
-	}
+if ( file_exists( __DIR__ . '/site/other' . '/cfg-wordpress.php' ) ) {
+	/** Required if WordPress used */
+	require_once( __DIR__ . '/site/other' . '/cfg-wordpress.php' );
+}
 
-	if ( file_exists( __DIR__ . '/site/other' . '/cfg-debug.php' ) ) {
-		require_once( __DIR__ . '/site/other' . '/cfg-debug.php' );
-	}
-
-	if ( file_exists( __DIR__ . '/site/other' . '/cfg-wordpress.php' ) ) {
-		require_once( __DIR__ . '/site/other' . '/cfg-wordpress.php' );
-	}
-} else {
-	exit( 'Cannot serve your files. The complete configuration is not available.' );
+if ( file_exists( __DIR__ . '/site/other' . '/cfg-plugins.php' ) ) {
+	/** Important if WordPress used */
+	require_once( __DIR__ . '/site/other' . '/cfg-plugins.php' );
 }
 
 if ( ( defined( 'SITE_USE_CORE' ) && SITE_USE_CORE ) || ( defined( 'WP_ADMIN' ) && WP_ADMIN ) ) {
 
 	if ( $_SERVER['SERVER_ADDR'] == '127.0.0.1'
-	&& file_exists( __DIR__ . '/site/' . '/db/db-local.dnp.php' ) ) {
+	&& file_exists( __DIR__ . '/site' . '/db/db-local.dnp.php' ) ) {
 
 		/** Eliminate or rename this file if on a production or staging site */
-		require_once( __DIR__ . '/site/' . '/db/db-local.dnp.php' );
+		require_once( __DIR__ . '/site' . '/db/db-local.dnp.php' );
 
 	/** Eliminate or rename this file if on a production site */
-	} else if ( file_exists( __DIR__ . '/site/' . '/db/db-staging.dnp.php' ) ) {
+	} else if ( file_exists( __DIR__ . '/site' . '/db/db-staging.dnp.php' ) ) {
 
-		require_once( __DIR__ . '/site/' . '/db/db-staging.dnp.php' );
+		require_once( __DIR__ . '/site' . '/db/db-staging.dnp.php' );
 
 	/** Ensure this file is available for use on a production site. */
-	} else if ( file_exists( __DIR__ . '/site/' . '/db/db-production.dnp.php' ) ) {
+	} else if ( file_exists( __DIR__ . '/site' . '/db/db-production.dnp.php' ) ) {
 
-		require_once( __DIR__ . '/site/' . '/db/db-production.dnp.php' );
+		require_once( __DIR__ . '/site' . '/db/db-production.dnp.php' );
 
 	}
 	else {

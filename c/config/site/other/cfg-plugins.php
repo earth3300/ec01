@@ -2,6 +2,15 @@
 
 ( defined( 'SITE' ) || defined( 'WP_ADMIN' ) ) || exit;
 
+/**
+ * 1. Site related constants.
+ *
+ * 2. Plugin related constants.
+ */
+
+/** Folder name used by caching plugin */
+define( 'SITE_CACHE_PLUGIN', '/cache-enabler' );
+
 /***** BACKUP WORDPRESS *****/
 
 /** Site backup path */

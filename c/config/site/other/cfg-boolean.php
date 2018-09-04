@@ -70,29 +70,10 @@ define( 'SITE_ELAPSED_TIME', true );
 /** Default: true (Displays code processing time in milliseconds) */
 define( 'SITE_USE_ELAPSED_TIME', true );
 
-/*** SERVER FINE TUNING BEGIN **/
-
-/* FILE UPLOAD SIZE */
-
-if ( false ) {
-	@ini_set( 'upload_max_size' , '64M' );
-	@ini_set( 'post_max_size', '64M');
-	@ini_set( 'max_execution_time', '300' );
-}
-/** Set to true to override default. Adjust as necessary. */
-
 /* BUNDLE SPECIFIC CONSTANTS */
 
 /**Values: true|false (Default: N/A) */
 define( 'SITE_INTEGRATED_BUNDLE', true );
-
-/* SELF_IDENTITY */
-
-/** Site Type (Default: wp). */
-define( 'SITE_TYPE', 'wp' );
-
-/** Unique ID for this installation. */
-define( 'SITE_UNIQUE_ID', md5( SITE_ROOT_URL ) );
 
 /** Default: false (Develop first, then turn on) */
 // define( 'SITE_CACHING', false );

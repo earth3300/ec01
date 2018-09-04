@@ -276,12 +276,6 @@ define( 'SITE_JS_DIR', '/js' );
 /** In the "bin" directory. Some plugins assume it is here. */
 define( 'SITE_CACHE_PATH', SITE_COMMONS_PATH . SITE_CACHE_DIR );
 
-/** Folder name used by caching plugin */
-define( 'SITE_CACHE_PLUGIN', '/cache-enabler' );
-
-/** Path to the cached root index file. */
-define( 'SITE_CACHE_PATH_INDEX', SITE_CACHE_PATH . SITE_CACHE_PLUGIN . SITE_CACHE_SLUG );
-
 /** Frameworks like Laravel, Symfony and Firefly, a lighweight alternative. */
 define( 'SITE_FRAMEWORK_PATH', SITE_BIN_PATH . SITE_FRAMEWORK_DIR );
 
@@ -356,33 +350,3 @@ define( 'SITE_CRON_PATH', SITE_ALT_PATH . SITE_CRON_DIR );
 
 /** Default: false. Shows errors if set to true. (See below for hiding these errors). */
 define( 'SITE_LOG_PATH', SITE_ALT_PATH . SITE_LOG_DIR );
-
-/***** URLS (May change if the site structure changes) *****/
-/* Please note that these can be changed by internal rewriting */
-
-define( 'SITE_CLUSTER_URL', SITE_ROOT_URL . SITE_1_DIR . SITE_CLUSTER_DIR );
-
-/** Site Theme URL */
-define( 'SITE_THEME_URL', SITE_ROOT_URL . SITE_COMMONS_STUB . SITE_THEME_DIR );
-
-/** Site Script URL (for JavaScript, etc.) */
-define( 'SITE_SCRIPT_URL', SITE_ROOT_URL . SITE_COMMONS_STUB . SITE_SCRIPT_DIR );
-
-/** Site JS URL */
-define( 'SITE_JS_URL', SITE_ROOT_URL . SITE_COMMONS_STUB . SITE_SCRIPT_DIR . SITE_JS_DIR );
-
-/** Site CSS URL */
-if ( SITE_USE_CSS_MIN ) {
-	/** Place the single minified css file in the root. */
-	define( 'SITE_CSS_URL', SITE_ROOT_URL );
-}
-else {
-	/** Place the working css file in the theme directory. */
-	define( 'SITE_CSS_URL', SITE_THEME_URL . SITE_CSS_DIR );
-}
-
-/** Site CDN URL */
-define( 'SITE_CDN_URL', '' );
-
-/** Relative to ABSPATH. No leading slash. */
-define( 'SITE_MEDIA_URL', SITE_ROOT_URL . SITE_COMMONS_STUB . SITE_MEDIA_DIR );

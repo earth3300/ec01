@@ -35,6 +35,8 @@ if ( ! defined( 'SITE_PATH' ) ){
 	define( 'SITE_PATH', $_SERVER['DOCUMENT_ROOT']  );
 }
 
+/**** CONSTRUCT SITE_URL BEGIN ****/
+
 if ( ! defined( 'SITE_SUB_DOMAIN_NAME' ) ){
 	/** The subdomain. */
 	define( 'SITE_SUB_DOMAIN_NAME', 'sub' );
@@ -111,8 +113,47 @@ define( 'SITE_ROOT_URL', SITE_PROTOCOL . SITE_DOMAIN );
 /** The URL to the base of the site. */
 define( 'SITE_URL', SITE_PROTOCOL . SITE_DOMAIN );
 
+/*** CONSTRUCT SITE_URL END ***/
+
+/** CONSTRUCT OTHER URLs BEGIN **/
+
+/*
+ * URLS (May change if the site structure changes)
+ * Please note that these can be changed by internal rewriting
+ *
+ */
+
+define( 'SITE_CLUSTER_URL', SITE_URL . SITE_1_DIR . SITE_CLUSTER_DIR );
+
+/** Site Theme URL */
+define( 'SITE_THEME_URL', SITE_URL . SITE_COMMONS_STUB . SITE_THEME_DIR );
+
+/** Site Script URL (for JavaScript, etc.) */
+define( 'SITE_SCRIPT_URL', SITE_URL . SITE_COMMONS_STUB . SITE_SCRIPT_DIR );
+
+/** Site JS URL */
+define( 'SITE_JS_URL', SITE_URL . SITE_COMMONS_STUB . SITE_SCRIPT_DIR . SITE_JS_DIR );
+
+/** Site CSS URL */
+if ( SITE_USE_CSS_MIN ) {
+	/** Place the single minified css file in the root. */
+	define( 'SITE_CSS_URL', SITE_URL );
+}
+else {
+	/** Place the working css file in the theme directory. */
+	define( 'SITE_CSS_URL', SITE_THEME_URL . SITE_CSS_DIR );
+}
+
+/** Site CDN URL */
+define( 'SITE_CDN_URL', '' );
+
+/** Relative to ABSPATH. No leading slash. */
+define( 'SITE_MEDIA_URL', SITE_URL . SITE_COMMONS_STUB . SITE_MEDIA_DIR );
+
 /** The URL to the core admin area. */
 define( 'SITE_ADMIN_URL', SITE_URL . SITE_CORE_DIR . SITE_ADMIN_DIR );
+
+/** Construct Other URLs END **/
 
 /** May be the same as the domain. With leading forward slash. */
 define( 'SITE_CACHE_SLUG', '/' . SITE_DOMAIN );
@@ -155,3 +196,23 @@ define( 'SITE_USE_CHILD_THEME', false );
 if ( ! defined( 'SITE_USE_CORE' ) ){
 	define( 'SITE_USE_CORE', true );
 }
+
+/* SELF_IDENTITY */
+
+/** Site Type (Default: wp). */
+define( 'SITE_TYPE', 'wp' );
+
+/** Unique ID for this installation. */
+define( 'SITE_UNIQUE_ID', md5( SITE_URL ) );
+
+/*** SERVER FINE TUNING ***/
+
+/* FILE UPLOAD SIZE */
+
+if ( false ) {
+	@ini_set( 'upload_max_size' , '64M' );
+	@ini_set( 'post_max_size', '64M');
+	@ini_set( 'max_execution_time', '300' );
+}
+/** Set to true to override default. Adjust as necessary. */
+
