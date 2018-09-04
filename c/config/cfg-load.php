@@ -6,7 +6,7 @@ defined( 'SITE' ) || exit;
  * Loads the configuration files. May include some logic.
  * There are two types. The first is site specific, and the second is "model"
  * related, that is, geared towards solving real world (i.e. physical 3D)
- * problems.
+ * problems. This may be moved to a json file.
  */
 
 /** Site Main Breaker Switch. */
