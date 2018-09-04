@@ -26,7 +26,7 @@ if ( ! defined( 'WP_DEBUG' ) ) {
 
 		if ( SITE_DEBUG_LOG ) {
 			ini_set( 'log_errors', 1 );
-			ini_set( 'error_log', SITE_LOG_PATH . '/debug.log' );
+			ini_set( 'error_log', SITE_LOG_PATH . SITE_LOG_FILE );
 		}
 		// Don't set both WP_DEBUG_LOG and SITE_DEBUG_LOG to the same value.
 

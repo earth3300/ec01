@@ -143,16 +143,16 @@ define( 'SITE_CENTER_DIR', '/center' );
 /***** ROOT DIRECTORY *****/
 
 /** Status code directory. */
-define( 'SITE_CODE_DIR', '/code' );
+define( 'SITE_RESPONSE_CODE_DIR', '/r/response-code' );
 
 /** Cron directory */
-define( 'SITE_CRON_DIR', '/cron' );
+define( 'SITE_CRON_DIR', '/n/cron' );
 
 /** For csv, xml and other open sourced data files. */
 define( 'SITE_DATA_DIR', '/data' );
 
 /** The directory where static HTML goes. Empty if for root. */
-define( 'SITE_HTML_DIR', '' );
+define( 'SITE_HTML_DIR', '/html' );
 
 /** The directory where static HTML goes. */
 define( 'SITE_THEME_HTML_DIR', '/html' );
@@ -306,6 +306,9 @@ define( 'SITE_ARTICLE_STUB', '/article' );
 /** HTML Extension */
 define( 'SITE_HTML_EXT', '.html' );
 
+/** Article file name (including .html extension and preceding forward slash). */
+define( 'SITE_ARTICLE_FILE', '/article.html' );
+
 /*** THEME PATH ***/
 
 /** Theme Path */
@@ -329,24 +332,22 @@ define( 'SITE_SIDEBAR_PATH', SITE_THEME_HTML_PATH . SITE_SIDEBAR_DIR );
 /** Menu Path */
 define( 'SITE_MENU_PATH', SITE_THEME_HTML_PATH . SITE_MENU_DIR );
 
-if ( ! defined( 'SITE_CONFIG_PATH' ) ) {
-	/** Where most of the site configurations are stored. */
-	define( 'SITE_CONFIG_PATH', SITE_ALT_PATH . SITE_CONFIG_DIR );
-}
-
 if ( ! defined( 'SITE_ALT_PATH' ) ) {
 	/*** ALT PATH ***/
 	define( 'SITE_ALT_PATH', SITE_COMMONS_PATH . SITE_ALT_DIR );
 }
 
 /** Backups are "point in time". May be deleted. */
-define( 'SITE_BACKUP_PATH' , SITE_BIN_PATH . SITE_BACKUP_DIR );
+define( 'SITE_BACKUP_PATH' , SITE_PATH . SITE_BACKUP_DIR );
 
-/** Status codes such as 403, 404, 500, etc. */
-define( 'SITE_CODE_PATH', SITE_ALT_PATH . SITE_CODE_DIR );
+/** Archives are intended to be retained into the indefinite future (should NOT be deleted). */
+define( 'SITE_ARCHIVE_PATH' , SITE_PATH . SITE_ARCHIVE_DIR );
+
+/** Status (response) codes such as 403, 404, 500, etc. */
+define( 'SITE_RESPONSE_CODE_PATH', SITE_PATH . SITE_RESPONSE_CODE_DIR );
 
 /** Handles server side crons. */
-define( 'SITE_CRON_PATH', SITE_ALT_PATH . SITE_CRON_DIR );
+define( 'SITE_CRON_PATH', SITE_PATH . SITE_CRON_DIR );
 
 /** Default: false. Shows errors if set to true. (See below for hiding these errors). */
-define( 'SITE_LOG_PATH', SITE_ALT_PATH . SITE_LOG_DIR );
+define( 'SITE_LOG_PATH',  SITE_PATH . SITE_LOG_DIR );
