@@ -1,6 +1,6 @@
 <?php
 /*
-Plugin Name: WP Bundle Required urn:uiuid as the guid
+Plugin Name: WP Bundle Required urn:uuid as the guid
 Plugin URI: http://wp.cbos.ca/plugins/wp-bundle-required-urn-uuid/
 Description: Use an urn:uuid(4) for the guid rather than using the permalink (Required).
 Version: 2018.06.01
@@ -56,7 +56,7 @@ function urn_uuid_replace($post_id = 0, $post = NULL, $update = false) {
 
 add_action('save_post_post', 'urn_uuid_replace', 10, 3);
 add_action('urn_uuid_firstrunner', 'urn_uuid_replace', 10, 3);
-  
+
 if (is_admin()) {
   if (get_option('urn_uuid_firstrun', '0') == '0') {
    update_option('urn_uuid_firstrun', '1');

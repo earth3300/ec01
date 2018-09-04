@@ -1,9 +1,9 @@
 <?php
 /*
-Plugin Name: WP Bundle Required Plugin Test
-Plugin URI: http://wp.cbos.ca/plugins/wp-bundle-required-plugin-test/
-Description: Required plugin test.
-Version: 2018.06.03
+Plugin Name: WP Bundle Required Plugin Boilerplate
+Plugin URI: http://wp.cbos.ca/plugins/wp-bundle-required-plugin-boilerplate/
+Description: Required plugin boilerplate.
+Version: 2018.09.04
 Author: wp.cbos.ca
 Author URI: http://wp.cbos.ca
 License: GPLv2+
@@ -52,5 +52,3 @@ function wp_bundle_get_template_data(){
 	);
 	return $items;
 }
-
-
