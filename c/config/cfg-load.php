@@ -49,20 +49,20 @@ if ( file_exists( __DIR__ . '/site/other' . '/cfg-plugins.php' ) ) {
 if ( ( defined( 'SITE_USE_CORE' ) && SITE_USE_CORE ) || ( defined( 'WP_ADMIN' ) && WP_ADMIN ) ) {
 
 	if ( $_SERVER['SERVER_ADDR'] == '127.0.0.1'
-	&& file_exists( __DIR__ . '/site' . '/db/db-local.dnp.php' ) ) {
+	&& file_exists( __DIR__ . '/db' . '/db-local.dnp.php' ) ) {
 
 		/** Eliminate or rename this file if on a production or staging site */
-		require_once( __DIR__ . '/site' . '/db/db-local.dnp.php' );
+		require_once( __DIR__ . '/db' . '/db-local.dnp.php' );
 
 	/** Eliminate or rename this file if on a production site */
-	} else if ( file_exists( __DIR__ . '/site' . '/db/db-staging.dnp.php' ) ) {
+	} else if ( file_exists( __DIR__ . '/db' . '/db-staging.dnp.php' ) ) {
 
-		require_once( __DIR__ . '/site' . '/db/db-staging.dnp.php' );
+		require_once( __DIR__ . '/db' . '/db-staging.dnp.php' );
 
 	/** Ensure this file is available for use on a production site. */
-	} else if ( file_exists( __DIR__ . '/site' . '/db/db-production.dnp.php' ) ) {
+	} else if ( file_exists( __DIR__ . '/db' . '/db-production.dnp.php' ) ) {
 
-		require_once( __DIR__ . '/site' . '/db/db-production.dnp.php' );
+		require_once( __DIR__ . '/db' . '/db-production.dnp.php' );
 
 	}
 	else {
