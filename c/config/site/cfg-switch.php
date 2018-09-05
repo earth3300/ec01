@@ -9,7 +9,7 @@ defined( 'SITE' ) || exit;
  */
 
 /** NEVER||MAYBE. Default: false. If false, NEVER use it. If true, MAYBE, depending on next constant. */
-define( 'SITE_USE_CORE', 0);
+define( 'SITE_USE_CORE', 1);
 
 /** ALWAYS||MAYBE. Default: true. If false, ONLY if POST or GET */
 define( 'SITE_USE_CORE_ALWAYS', 1 );

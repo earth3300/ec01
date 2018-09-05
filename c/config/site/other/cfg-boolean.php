@@ -3,27 +3,25 @@
 defined( 'SITE' ) || exit;
 
 /**
- * An enchanced configuration including booleans and values.
+ * SITE constants with boolean value.
+ *
+ * It is helpful to use normal english here to ensure the user understands
+ * the meaning. To provide this, three verbs are used: "USE", "IS" and "ALLOW".
+ * Depending on the contenxt one of these may be more relevant.
+ *
+ * @example SITE_IS_SUB_DOMAIN  The entire site as defined here is a sub domain.
+ * @example SITE_INDEX_ALLOW  Whether or not to _allow_ bots to index the site.
+ * @example SITE_USE_CSS_CHILD  Using a css child stylesheet may be helpful in some cases.
  */
 
-/***** FILE NAMES *****/
+/** Default: false (Whether or not site is a subdomain. */
+define( 'SITE_IS_SUB_DOMAIN', true );
 
-/** Debug Log File Name (Same as above). */
-define( 'SITE_DEBUG_FILE', '/debug.log' );
-
-/** Default: index.html (Used for caching purposes) */
-define( 'SITE_INDEX_FILE', 'index.html' );
-
-/***** BOOLEAN *****/
+/** Default: false */
+define( 'SITE_IS_FIXED_WIDTH', true );
 
 /** Default: false (Allows indexing by bots) */
 define( 'SITE_INDEX_ALLOW', false );
-
-/** Default: false */
-define( 'SITE_FIXED_WIDTH', true );
-
-/** Default: false */
-define( 'SITE_USE_FIXED_WIDTH', true );
 
 /** Default: true */
 define( 'SITE_USE_CSS_CHILD', true );

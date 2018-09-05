@@ -11,6 +11,16 @@ defined( 'SITE' ) || exit;
  * if needed.
  */
 
+/**** FILE NAMES START ****/
+
+/** Debug Log File Name (Same as above). */
+define( 'SITE_DEBUG_FILE', '/debug.log' );
+
+/** Default: index.html (Used for caching purposes) */
+define( 'SITE_INDEX_FILE', '/index.html' );
+
+/**** FILE NAMES END ****/
+
 if ( ! defined( 'SITE_LANG' ) ){
 	/** Default: en-CA (Used in the HTML Page) */
 	define( 'SITE_LANG', 'en' );
@@ -42,9 +52,9 @@ if ( ! defined( 'SITE_SUB_DOMAIN_NAME' ) ){
 	define( 'SITE_SUB_DOMAIN_NAME', 'sub' );
 }
 
-if ( ! defined( 'SITE_SUB_DOMAIN' ) ){
+if ( ! defined( 'SITE_IS_SUB_DOMAIN' ) ){
 	/** Default: false (Whether or not site is a subdomain. */
-	define( 'SITE_SUB_DOMAIN', false );
+	define( 'SITE_IS_SUB_DOMAIN', false );
 }
 
 if ( ! defined( 'SITE_USE_WWW' ) ){
@@ -215,4 +225,3 @@ if ( false ) {
 	@ini_set( 'max_execution_time', '300' );
 }
 /** Set to true to override default. Adjust as necessary. */
-
