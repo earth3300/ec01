@@ -9,6 +9,29 @@
  * Note that if the _structure_ of the path changes, the buildout of the path
  * will have to change accordingly. If everything is set up correctly, this
  * _should_ occur without anything breaking.
+ *
+ * After development, a relatively _flat_ alphabetical type directory structure appears
+ * to be working quite well. That is, the individual directories _underneath_ the
+ * single letter top level directories are easy to find and don't appear to get
+ * lost in the shuffle, primarily _because_ the first letter (or another clearly
+ * identifying letter) is used as the top level directory, and when clicking on
+ * that letter, it reveals the full name directly underneath it. To handle a path
+ * part that contains two, three or four or more directories in it, this was handled
+ * at first by using the word `STUB` and then building that stub. However, this
+ * resulted in too many variations, with more constants than seemed necessary.
+ *
+ * In its place, allowing the directory name to refer to the letter of the top
+ * level directory _plus_ the directory underneath it, kept everything nice and
+ * brief, with fewer constants in total.  Even though this approach does not keep
+ * the technical definition of the word "directory" intact, it still allows for
+ * adjustment in the case that the directory being named needs to be moved. This can
+ * happen in the definition, rather than elsewhere.
+ *
+ * @example define( 'SITE_CORE_DIR_STUB', SITE_E_DIR . SITE_CORE_DIR ); vs.
+ * @example define( 'SITE_CORE_DIR', '/e/core' );
+ *
+ * Clearly, the second example easier to work with as the main function of the
+ * "/e" directory is the "engine" or the core. Simpler is better.
  */
 
 /**** NUMBERED DIRECTORIES (content) ****/
