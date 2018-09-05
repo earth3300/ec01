@@ -115,10 +115,10 @@ function get_firefly_article( $page ){
  */
 function get_firefly_article_directory( $page ){
 	if ( $page['front-page'] ) {
-		$file = SITE_HTML_PATH  . SITE_ARTICLE_STUB. SITE_HTML_EXT;
+		$file = SITE_PATH . SITE_ARTICLE_FILE;
 	}
 	else {
-		$file = SITE_HTML_PATH . rtrim( $page['slug'], '/' ) . SITE_ARTICLE_STUB. SITE_HTML_EXT;
+		$file = SITE_HTML_PATH . rtrim( $page['slug'], '/' ) . SITE_ARTICLE_FILE;
 	}
 	return $file;
 }
@@ -146,7 +146,7 @@ function get_firefly_article_title( $article ){
  * @return str
  */
 function get_firefly_html_class( $page ){
-	if ( SITE_FIXED_WIDTH && $page['front-page'] ) {
+	if ( SITE_IS_FIXED_WIDTH && $page['front-page'] ) {
 		$arr[] = 'fixed-width';
 	} else {
 		$arr[] = 'dynamic';
