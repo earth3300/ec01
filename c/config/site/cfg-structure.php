@@ -51,7 +51,7 @@ define( 'SITE_R_DIR', '/r' );
 define( 'SITE_U_DIR', '/u' );
 
 /** Commons directory. */
-define( 'SITE_COMMONS_DIR', '/commons' );
+define( 'SITE_COMMONS_DIR', '/1/commons' );
 
 /** Configuration directory. !Important */
 define( 'SITE_CONFIG_DIR', '/c/config' );
@@ -63,7 +63,7 @@ define( 'SITE_ALT_DIR', '/alt' );
 define( 'SITE_SIMPLE_DIR', '/simple' );
 
 /** Main (core) directory */
-define( 'SITE_CORE_DIR', '/core' );
+define( 'SITE_CORE_DIR', '/e/core' );
 
 /** Replaces {wp-content} */
 define( 'SITE_BIN_DIR', '/p' );
@@ -125,12 +125,6 @@ define( 'SITE_CORE_ACTIVE_DIR', '/wp' );
  * That is, no other routes to get there that are used. So, it has then to
  * be used consistently.
  */
-
- /** Path part from root to the commons dir */
-define( 'SITE_COMMONS_STUB', SITE_1_DIR . SITE_COMMONS_DIR );
-
-/** Path part: root to core. */
-define( 'SITE_CORE_STUB', SITE_E_DIR . SITE_CORE_DIR );
 
 /***** SELF AWARE *****/
 /** copied from cfg-enhanced **/
@@ -237,7 +231,7 @@ if ( ! defined( 'SITE_PATH' ) ) {
 }
 
 /** Path to the "Commons" directory. */
-define( 'SITE_COMMONS_PATH', SITE_PATH . SITE_1_DIR . SITE_COMMONS_DIR );
+define( 'SITE_COMMONS_PATH', SITE_PATH . SITE_COMMONS_DIR );
 
 /** Initially, the same as the "B" directory. */
 define( 'SITE_2_PATH', SITE_PATH . SITE_2_DIR );
@@ -252,7 +246,7 @@ define( 'SITE_BIN_PATH', SITE_PATH . SITE_P_DIR );
 define( 'SITE_P_PATH', SITE_PATH . SITE_P_DIR );
 
 /** Replace this with SITE_ENGINE_CORE_PATH */
-define( 'SITE_CORE_PATH', SITE_PATH . SITE_E_DIR . SITE_CORE_DIR );
+define( 'SITE_CORE_PATH', SITE_PATH . SITE_CORE_DIR );
 
 /** The path to the "simple" engine. */
 define( 'SITE_SIMPLE_PATH', SITE_PATH . SITE_E_DIR . SITE_ALT_DIR . SITE_SIMPLE_DIR );
@@ -261,7 +255,7 @@ define( 'SITE_SIMPLE_PATH', SITE_PATH . SITE_E_DIR . SITE_ALT_DIR . SITE_SIMPLE_
 define( 'SITE_CONFIG_PATH', SITE_PATH . SITE_CONFIG_DIR );
 
 /** The path to the core admin area. */
-define( 'SITE_ADMIN_PATH', SITE_PATH . SITE_E_DIR . SITE_CORE_DIR . SITE_ADMIN_DIR );
+define( 'SITE_ADMIN_PATH', SITE_PATH . SITE_CORE_DIR . SITE_ADMIN_DIR );
 
 /**** PATHS ****/
 

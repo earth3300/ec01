@@ -52,7 +52,7 @@ define( 'SITE_PLUGIN_STUB', SITE_P_DIR . SITE_PLUGIN_DIR );
 define( 'WP_HOME', SITE_URL );
 
 /** Where the core WordPress files reside, relative to site root. */
-define( 'WP_SITEURL', SITE_URL . SITE_CORE_STUB );
+define( 'WP_SITEURL', SITE_URL . SITE_CORE_DIR );
 
 /** Default: post (Other examples: "books", "cars" or "spaceships") */
 define( 'WP_POST_TYPE', 'post' );
@@ -185,7 +185,7 @@ define( 'WPMU_PLUGIN_URL', WP_CONTENT_URL . SITE_REQUIRED_DIR );
 define( 'SITE_COOKIE_PREFIX_WP' , 'wordpress' );
 
 /** Default: site url */
-define( 'SITE_CORE_WP_URL' , SITE_URL . SITE_CORE_STUB );
+define( 'SITE_CORE_WP_URL' , SITE_URL . SITE_CORE_DIR );
 
 /**
  * Used to guarantee unique hash cookies
@@ -238,14 +238,14 @@ define('COOKIEPATH', SITE_DOMAIN . '/' );
  *
  * @since 1.5.0
  */
-define('SITECOOKIEPATH', SITE_CORE_STUB . '/' );
+define('SITECOOKIEPATH', SITE_CORE_DIR . '/' );
 
 /**
  * @since 2.6.0
  *
  * No trailing slash (in default).
  */
-define( 'ADMIN_COOKIE_PATH', SITE_CORE_STUB . SITE_ADMIN_DIR ); // No trailing slash???
+define( 'ADMIN_COOKIE_PATH', SITE_CORE_DIR . SITE_ADMIN_DIR ); // No trailing slash???
 
 /**
  * @since 2.6.0
