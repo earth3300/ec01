@@ -21,7 +21,7 @@
  * resulted in too many variations, with more constants than seemed necessary.
  *
  * In its place, allowing the directory name to refer to the letter of the top
- * level directory _plus_ the directory underneath it, kept everything nice and
+ * level directory _plus_ the directory underneath it, keeps everything nice and
  * brief, with fewer constants in total.  Even though this approach does not keep
  * the technical definition of the word "directory" intact, it still allows for
  * adjustment in the case that the directory being named needs to be moved. This can
