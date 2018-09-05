@@ -48,9 +48,13 @@ else if ( SITE_USE_SIMPLE && file_exists( SITE_ENGINE_SIMPLE_PATH . '/index.php'
 	require_once( SITE_ENGINE_SIMPLE_PATH . '/index.php' );
 
 }
-/** Otherwise, look for a plain text index.html file and serve that. */
+/** Otherwise, look for index.html file and serve that. */
 else if ( file_exists( __DIR__ . "/index.html" ) ){
 	echo file_get_contents( __DIR__ . '/index.html' );
+}
+/** Otherwise, look default.html file and serve that. */
+else if ( file_exists( __DIR__ . "/default.html" ) ){
+	echo file_get_contents( __DIR__ . '/default.html' );
 }
 /** If not, bail and ask for help. */
 else {
