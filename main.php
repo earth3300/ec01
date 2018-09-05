@@ -44,9 +44,8 @@ if 	( 	SITE_USE_CORE && ( SITE_USE_CORE_ALWAYS
 
 }
 /** If the core is not used, use an alternative (simpler) framework, if it is available. */
-else if ( SITE_USE_SIMPLE && file_exists( SITE_ENGINE_SIMPLE_PATH . '/index.php' ) ) {
-	require_once( SITE_ENGINE_SIMPLE_PATH . '/index.php' );
-
+else if ( SITE_USE_SIMPLE && file_exists( SITE_SIMPLE_PATH . '/index.php' ) ) {
+	require_once( SITE_SIMPLE_PATH . '/index.php' );
 }
 /** Otherwise, look for index.html file and serve that. */
 else if ( file_exists( __DIR__ . "/index.html" ) ){
