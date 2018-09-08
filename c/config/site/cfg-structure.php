@@ -187,10 +187,13 @@ define( 'SITE_POST_DIR', '/post' );
 define( 'SITE_CACHE_DIR', '/html' );
 
 /** For media: image/, pdf/, video/, audio/, etc.  */
-define( 'SITE_MEDIA_DIR', '/media' );
+define( 'SITE_MEDIA_DIR', '/0/commons/media' );
 
 /** For javascript. From root. */
-define( 'SITE_SCRIPT_DIR', '/script' );
+define( 'SITE_SCRIPT_DIR', '/0/commons/script' );
+
+/** For CSS, SCSS, etc. From root. */
+define( 'SITE_STYLE_DIR', '/0/commons/style' );
 
 /***** THEME DIRECTORY *****/
 
@@ -301,7 +304,7 @@ define( 'SITE_FRAMEWORK_PATH', SITE_BIN_PATH . SITE_FRAMEWORK_DIR );
 define( 'SITE_THEMES_PATH', SITE_BIN_PATH . SITE_THEMES_DIR );
 
 /** Stores JavaScript and jQuery. */
-define( 'SITE_SCRIPT_PATH', SITE_COMMONS_PATH . SITE_SCRIPT_DIR );
+define( 'SITE_SCRIPT_PATH', SITE_PATH . SITE_SCRIPT_DIR );
 
 /**  JavaSript and jQuery files. */
 define( 'SITE_JS_PATH', SITE_SCRIPT_PATH . SITE_JS_DIR );
@@ -332,7 +335,7 @@ define( 'SITE_ARTICLE_FILE', '/article.html' );
 define( 'SITE_THEME_PATH', SITE_COMMONS_PATH . SITE_THEME_DIR );
 
 /** The CSS files that style the site. */
-define( 'SITE_CSS_PATH', SITE_THEME_PATH . SITE_CSS_DIR );
+define( 'SITE_CSS_PATH', SITE_STYLE_PATH . SITE_CSS_DIR );
 
 /** Site HTML Path */
 define( 'SITE_THEME_HTML_PATH', SITE_THEME_PATH . SITE_THEME_HTML_DIR );

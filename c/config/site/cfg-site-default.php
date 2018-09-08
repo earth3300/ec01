@@ -139,10 +139,10 @@ define( 'SITE_CLUSTER_URL', SITE_URL . SITE_1_DIR . SITE_CLUSTER_DIR );
 define( 'SITE_THEME_URL', SITE_URL . SITE_COMMONS_DIR . SITE_THEME_DIR );
 
 /** Site Script URL (for JavaScript, etc.) */
-define( 'SITE_SCRIPT_URL', SITE_URL . SITE_COMMONS_DIR . SITE_SCRIPT_DIR );
+define( 'SITE_SCRIPT_URL', SITE_URL . SITE_SCRIPT_DIR );
 
 /** Site JS URL */
-define( 'SITE_JS_URL', SITE_URL . SITE_COMMONS_DIR . SITE_SCRIPT_DIR . SITE_JS_DIR );
+define( 'SITE_JS_URL', SITE_URL . SITE_SCRIPT_DIR . SITE_JS_DIR );
 
 /** Site CSS URL */
 if ( SITE_USE_CSS_MIN ) {
@@ -151,14 +151,14 @@ if ( SITE_USE_CSS_MIN ) {
 }
 else {
 	/** Place the working css file in the theme directory. */
-	define( 'SITE_CSS_URL', SITE_THEME_URL . SITE_CSS_DIR );
+	define( 'SITE_CSS_URL', SITE_URL . SITE_STYLE_DIR . SITE_CSS_DIR );
 }
 
 /** Site CDN URL */
 define( 'SITE_CDN_URL', '' );
 
 /** Relative to ABSPATH. No leading slash. */
-define( 'SITE_MEDIA_URL', SITE_URL . SITE_COMMONS_DIR . SITE_MEDIA_DIR );
+define( 'SITE_MEDIA_URL', SITE_URL . SITE_MEDIA_DIR );
 
 /** The URL to the core admin area. */
 define( 'SITE_ADMIN_URL', SITE_URL . SITE_CORE_DIR . SITE_ADMIN_DIR );
