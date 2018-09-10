@@ -12,15 +12,15 @@ $site_elapsed['start'] = microtime( true );
 /** Record the path we are in, for later. */
 define( 'SITE_PATH', __DIR__ );
 
+/** Record which directory we are in, for later. */
+define( 'SITE_DIR', '/' . basename(__DIR__) );
+
 /**
  * The first path is hard coded here. It sets up the directory structure of the
  * site and assigns it to constants so that it can these can be used site wide.
  * and by the different frameworks, that will then inherit these values.
  */
 require_once( __DIR__ . '/c/config/cfg-load.php' );
-
-/** Record which directory we are in, for later. */
-define( 'SITE_DIR', '/' . basename(__DIR__) );
 
 if ( $_SERVER['REQUEST_URI'] == '/' ) {
 	/* If we are in the root directory (of the sub domain), use the "center" directory. */

@@ -118,9 +118,6 @@ else {
 }
 
 /** The URL to the base of the site. */
-define( 'SITE_ROOT_URL', SITE_PROTOCOL . SITE_DOMAIN );
-
-/** The URL to the base of the site. */
 define( 'SITE_URL', SITE_PROTOCOL . SITE_DOMAIN );
 
 /*** CONSTRUCT SITE_URL END ***/
@@ -151,7 +148,7 @@ if ( SITE_USE_CSS_MIN ) {
 }
 else {
 	/** Place the working css file in the theme directory. */
-	define( 'SITE_CSS_URL', SITE_URL . SITE_STYLE_DIR . SITE_CSS_DIR );
+	define( 'SITE_CSS_URL', SITE_URL . SITE_THEME_CDN_DIR . SITE_CSS_DIR );
 }
 
 /** Site CDN URL */

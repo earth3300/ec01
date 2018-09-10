@@ -187,13 +187,13 @@ define( 'SITE_POST_DIR', '/post' );
 define( 'SITE_CACHE_DIR', '/html' );
 
 /** For media: image/, pdf/, video/, audio/, etc.  */
-define( 'SITE_MEDIA_DIR', '/0/commons/media' );
+define( 'SITE_MEDIA_DIR', '/0/media' );
 
 /** For javascript. From root. */
-define( 'SITE_SCRIPT_DIR', '/0/commons/script' );
+define( 'SITE_SCRIPT_DIR', '/0/script' );
 
 /** For CSS, SCSS, etc. From root. */
-define( 'SITE_STYLE_DIR', '/0/commons/style' );
+define( 'SITE_THEME_CDN_DIR', '/0/theme' );
 
 /***** THEME DIRECTORY *****/
 
@@ -315,7 +315,7 @@ define( 'SITE_MEDIA_PATH', SITE_COMMONS_PATH . SITE_MEDIA_DIR );
 /*** PAGE PATH ***/
 
 /** HTML Path */
-define( 'SITE_HTML_PATH', SITE_PATH . SITE_HTML_DIR );
+define( 'SITE_HTML_PATH', SITE_PATH . SITE_1_DIR );
 
 /** Page Path */
 define( 'SITE_PAGE_PATH', SITE_HTML_PATH . SITE_PAGE_DIR );
@@ -335,7 +335,7 @@ define( 'SITE_ARTICLE_FILE', '/article.html' );
 define( 'SITE_THEME_PATH', SITE_COMMONS_PATH . SITE_THEME_DIR );
 
 /** The CSS files that style the site. */
-define( 'SITE_CSS_PATH', SITE_STYLE_PATH . SITE_CSS_DIR );
+define( 'SITE_CSS_PATH', SITE_PATH . SITE_THEME_CDN_DIR . SITE_CSS_DIR );
 
 /** Site HTML Path */
 define( 'SITE_THEME_HTML_PATH', SITE_THEME_PATH . SITE_THEME_HTML_DIR );

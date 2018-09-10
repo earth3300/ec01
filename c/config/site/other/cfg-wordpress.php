@@ -67,7 +67,7 @@ define( 'WP_PLUGIN_DIR', WP_CONTENT_DIR . SITE_PLUGIN_DIR );
 define( 'WP_LANG_DIR', WP_CONTENT_DIR . SITE_LANG_DIR );
 
 /** Important if different than default. */
-define( 'WP_CONTENT_URL', SITE_ROOT_URL . SITE_P_DIR );
+define( 'WP_CONTENT_URL', SITE_URL . SITE_P_DIR );
 
 /** Important if different than default. */
 define( 'WP_PLUGIN_URL', WP_CONTENT_URL . SITE_PLUGIN_DIR );
