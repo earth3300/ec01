@@ -27,6 +27,7 @@ function get_clusters(){
 		'cafe',
 		'monitoring',
 		'analysis',
+		'nature',
 	];
 	return $arr;
 }
@@ -81,7 +82,8 @@ function analyze_uri_for_sub_cluster( $uri ){
  * the word directly after it, whatever it is (if present).
  */
 function maybe_get_cluster_from_uri( $uri ){
-	//pattern: /1/cluster/academic
+	//pattern: /cluster/academic
+	//pattern: /2/nature/center
 	$search = 'cluster'; // SITE_CLUSTER_DIR;
 	if ( strpos( $uri, $search ) !== FALSE ) {
 		//if 'cluster' is present, get word directly after
