@@ -1,0 +1,13 @@
+/** Child Theme */
+
+header.site {
+	line-height: 3em;
+}
+
+article {
+	overflow: hidden;
+}
+
+a {
+	text-decoration: none;
+}

@@ -75,6 +75,7 @@ function get_firefly_header( $page ){
  * @return array
  */
 function get_firefly_header_sub( $page ){
+	
 	if ( strpos( $page['html-class'], 'cluster' ) !== FALSE ) {
 		$str = '<header class="site-header-sub">' . PHP_EOL;
 		$str .= sprintf( '<div class="%s">%s', $page['cluster-sub'], PHP_EOL );
