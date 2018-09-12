@@ -3,28 +3,29 @@
 defined('NDA') || exit('No direct access.');
 
 /**
- * Various functions, filters, and actions used by the plugin.
+ * WP Bundle Media List.
  *
- * @package    WP Bundle Media List
- * @since      2018.9.0
- * @author     Clarence Bos <cbos@tnoep.ca>
- * @copyright  Copyright (c) 2018, Clarence Bos
- * @link       http://wp.cbos.ca/plugins/wb-media-list
- * @license    https://www.gnu.org/licenses/gpl-3.0.en.html
- */
-
-/*
-Plugin Name: WP Bundle Media List
-Plugin URI: http://wp.cbos.ca/plugins/wb-media-list/
-Description: Lists all media of a given type in a given directory. Shortcode [media-list].
-Version: 2018.09.11
-Author: wp.cbos.ca
-Author URI: http://wp.cbos.ca/
-License: GPLv2+
-*/
-
-/**
+ * Lists images of a specific type in the given directory and outputs valid HTML.
+ * Requires the configuration available at: {@link https://github.com/earth3300/ec01/}.
+ *
+ * @package WP Bundle Media List
+ * @since 2018.9.0
+ * @author Clarence Bos <cbos@tnoep.ca>
+ * @copyright Copyright (c) 2018, Clarence Bos
+ * @license GPL-3.0+
+ * @link http://wp.cbos.ca/plugins/wb-media-list
  * @see https://carlalexander.ca/designing-class-generate-wordpress-html-content/
+ *
+ * @wordpress-plugin
+ * Plugin Name: WP Bundle Media List
+ * Plugin URI:  http://wp.cbos.ca/plugins/wb-media-list/
+ * Description: Lists all media of a given type in a given directory. Shortcode [media-list].
+ * Version:     2018.9.0
+ * Author:      Clarence Bos
+ * Author URI:  http://wp.cbos.ca/
+ * Text Domain: wb-media-list
+ * License:     GPL-3.0+
+ * License URI: https://www.gnu.org/licenses/gpl-3.0.en.html
  */
 
 /**
