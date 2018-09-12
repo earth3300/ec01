@@ -1,8 +1,8 @@
 # SECURITY BEGIN
-AuthType Basic
-AuthName "Protected"
-AuthUserFile /var/www/.htpasswds/html/1/ec01/e/passwd
-Require valid-user
+# AuthType Basic
+# AuthName "Protected"
+# AuthUserFile /var/www/.htpasswds/html/1/ec01/e/passwd
+# Require valid-user
 # SECURITY END
 
 # BEGIN WordPress

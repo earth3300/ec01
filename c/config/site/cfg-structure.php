@@ -3,6 +3,11 @@
 ( defined( 'SITE' ) || defined( 'WP_ADMIN' ) ) || exit;
 
 /**
+ * A generic No Direct Access (NDA) check constant.
+ * If this is not present, do not load the file.
+ */
+define( 'NDA', true );
+/**
  * Loads the directory structure.
  *
  * Starts with the directory names, then builds the path based on these names.
@@ -38,6 +43,9 @@
 
 /** CDN (Default: /0) */
 define( 'SITE_0_DIR', '/0' );
+
+/** CDN (Default: /0) */
+define( 'SITE_CDN_DIR', '/0' );
 
 /** Who and Where (Default: /1) */
 define( 'SITE_1_DIR', '/1' );
@@ -256,6 +264,9 @@ if ( ! defined( 'SITE_PATH' ) ) {
 	define( 'SITE_PATH', str_replace( SITE_CONFIG_STUB , '', __DIR__ ) );
 }
 
+/** Path to the (Internal) CDN directory. */
+define( 'SITE_CDN_PATH', SITE_PATH . SITE_CDN_DIR );
+
 /** Path to the "Commons" directory. */
 define( 'SITE_COMMONS_PATH', SITE_PATH . SITE_COMMONS_DIR );
 
@@ -310,7 +321,7 @@ define( 'SITE_SCRIPT_PATH', SITE_PATH . SITE_SCRIPT_DIR );
 define( 'SITE_JS_PATH', SITE_SCRIPT_PATH . SITE_JS_DIR );
 
 /** Stores images, video, audio, pdfs, etc. */
-define( 'SITE_MEDIA_PATH', SITE_COMMONS_PATH . SITE_MEDIA_DIR );
+define( 'SITE_MEDIA_PATH', SITE_PATH . SITE_MEDIA_DIR );
 
 /*** PAGE PATH ***/
 
