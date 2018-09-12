@@ -12,7 +12,7 @@ defined('NDA') || exit('No direct access.');
  * @since 2018.9.0
  * @author Clarence Bos <cbos@tnoep.ca>
  * @copyright Copyright (c) 2018, Clarence Bos
- * @license GPL-3.0+
+ * @license https://www.gnu.org/licenses/gpl-3.0.en.html GPL-3.0+
  * @link http://wp.cbos.ca/plugins/wb-media-list
  * @see https://carlalexander.ca/designing-class-generate-wordpress-html-content/
  *
@@ -22,7 +22,7 @@ defined('NDA') || exit('No direct access.');
  * Description: Lists all media of a given type in a given directory. Shortcode [media-list].
  * Version:     2018.9.0
  * Author:      Clarence Bos
- * Author URI:  http://wp.cbos.ca/
+ * Author URI:  https://www.tnoep.ca/
  * Text Domain: wb-media-list
  * License:     GPL-3.0+
  * License URI: https://www.gnu.org/licenses/gpl-3.0.en.html
