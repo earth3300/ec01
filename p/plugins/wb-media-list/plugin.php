@@ -31,16 +31,14 @@ defined('NDA') || exit('No direct access.');
 /**
  * List the media of a certain type in a given directory.
  *
- * No WordPress hooks inside the class for portability purposes.
+ * No WordPress hooks inside the class for better portability.
  */
 class MediaList
 {
 	/**
 	 * Use the PHP glob function to list files (of a certain type).
-	 *
-	 * @example glob( SITE_MEDIA_PATH . "/*.jpg")
 	 */
-	public function generate( $args )
+	public function get( $args )
 	{
 		$max = isset( $args['max'] ) ? $args['max'] : 5;
 		$root = SITE_CDN_PATH;
@@ -57,7 +55,7 @@ class MediaList
 			{
 				break;
 			}
-			/** search, replace, subject */
+			/** Remove the root of the file path to use it an image source. */
 			$src = str_replace( SITE_PATH, '', $file );
 			$str .= sprintf('<a href="%s"><img src="%s" width="500" height="auto" alt="Image" class="generic" /></a>%s', SITE_URL . $src, $src, PHP_EOL );
 		}
@@ -67,11 +65,13 @@ class MediaList
 }
 
 /**
- * The shortcode calls a function, which then has attributes passed to it.
- * That function then instantiates a class, which processes the data and
- * then returns it.
+ * Callback from the media-list shortcode.
  *
- * @see https://carlalexander.ca/designing-class-generate-wordpress-html-content/
+ * Performs a check, then instantiates the MediaList class
+ * and returns the media list as HTML.
+ *
+ * @param array  $args['dir']
+ * @return string  HTML as a list of images, wrapped in the article element.
  */
 function media_list( $args )
 {
@@ -81,16 +81,15 @@ function media_list( $args )
 
 	$media_list = new MediaList();
 
-    return $media_list -> generate( $args );
+    return $media_list -> get( $args );
 }
 
 /**
- * If the SITE constant is defined, we assume all other related constants are defined.
- *
- * @see `/c/config/site/cfg-structure.php` for a list of these contants and their values.
+ * SITE_ parameters required.  { @see `/c/config/site/cfg-structure.php` }
  */
 if( defined('SITE') )
 {
+	/** shortcode [media-list dir=""] */
 	add_shortcode( 'media-list', 'media_list' );
 }
 else
