@@ -54,8 +54,11 @@ class MediaList
 				{
 					break;
 				}
+
+				$args['file'] = $file;
 				/** Remove the root of the file path to use it an image source. */
 				$args['src'] = str_replace( SITE_PATH, '', $file );
+				$args['dim'] = $this->get_image_dimensions( $args );
 				$str .= $this->get_image_html( $args );
 			}
 			$str .= '</article>' . PHP_EOL;
@@ -150,16 +153,52 @@ class MediaList
 	 */
 	private function get_image_html( $args )
 	{
-		$str = sprintf( '<a href="%s">', SITE_URL . $args['src'] );
+		$str = '<div class="media">' . PHP_EOL;
+		$str .= sprintf( '<a href="%s">', SITE_URL . $args['src'] );
 		$str .= '<img ';
 		$str .= sprintf( ' class="%s"', $this->get_image_class( $args ) );
 		$str .= sprintf( ' src="%s"', $args['src'] );
 		$str .= sprintf( ' alt="%s"', $this->get_image_alt( $args ) );
-		$str .= sprintf( ' width="600"', $this->get_image_width( $args ) );
+		$str .= sprintf( ' width="%s"', $this->get_image_width( $args ) );
 		$str .= sprintf( ' height="%s"', $this->get_image_height( $args ) );
 		$str .= ' />';
 		$str .= '</a>' . PHP_EOL;
+		$str .= '<div>';
+		$str .= sprintf( '<span class="name">%s</span>', $this->get_image_name( $args ) );
+		$str .= sprintf( ' <span class="size">%s</span>', $this->get_image_size( $args ) );
+		$str .= '</div>';
+		$str .= '</div>' . PHP_EOL;
+
 		return $str;
+	}
+
+	/**
+	 * Get the image dimensions.
+	 *
+	 * Gets the image dimensions as the last part of the file name and only if
+	 * it follows the format: ###x###, where # is an integer.
+	 *
+	 * @param array $args
+	 * @return string
+	 */
+	private function get_image_dimensions( $args )
+	{
+		if ( "" !== $args['file'] )
+		{
+			$ex = explode( '-', $args['file'] );
+			$part = $ex[ count( $ex ) - 1 ];
+			$ex2 = explode( '.', $part );
+			$dim1 = $ex2[ 0 ];
+			$arr = explode( 'x', $dim1 );
+			$dim['width'] = $arr[0];
+			$dim['height'] = $arr[1];
+		}
+		else
+		{
+			$dim['width'] = 600;
+			$dim['height'] = 400;
+		}
+		return $dim;
 	}
 
 	/**
@@ -176,8 +215,9 @@ class MediaList
 		}
 		else
 		{
-			$width = '600';
+			$width = $args['dim']['width'];
 		}
+		return $width;
 	}
 
 	/**
@@ -194,12 +234,33 @@ class MediaList
 		}
 		else
 		{
-			$height = '400';
+			$height = $args['dim']['height'];;
 		}
 		return $height;
 	}
 
-/**
+	/**
+	 * Get the image size
+	 *
+	 * @param array $args
+	 * @return int
+	 */
+	private function get_image_size( $args ){
+
+		if ( class_exists('Imagick') )
+		{
+			$image = new Imagick( $args['file'] );
+			$size = $image->getImageLength();
+		}
+		else
+		{
+			$size = filesize( $args['file'] );
+		}
+		$size = number_format( $size / 1000, 1, ".", "," );
+		return $size . ' kB';
+	}
+
+	/**
 	 * Get the image alt tag.
 	 *
 	 * @param array $args
@@ -216,6 +277,40 @@ class MediaList
 			$alt = "Not available";
 		}
 		return $alt;
+	}
+
+	/**
+	 * Get the image name.
+	 *
+	 * Gets the image name as the first part of the file name, before the
+	 * double dashes. Converts hyphens into spaces and puts all characters
+	 * into uppercase, for simplicity.
+	 *
+	 * May be the same as the alt tag.
+	 *
+	 * @param array $args
+	 * @return string
+	 */
+	private function get_image_name( $args )
+	{
+		if ( "" !== $args['file'] )
+		{
+			$ex = explode( '/', $args['file'] );
+			$file = $ex[ count( $ex ) - 1 ];
+			$ex2 = explode( '--', $file );
+			$name = $ex2[ 0 ];
+			$arr = explode( '-', $name );
+			$str = '';
+			foreach ( $arr as $part )
+			{
+				$str .= strtoupper( $part ) . ' ';
+			}
+		}
+		else
+		{
+			$str = "Not available";
+		}
+		return $str;
 	}
 
 	/**
@@ -289,4 +384,14 @@ if( defined('SITE') )
 else
 {
 	exit('SITE_ configuration paramaters are required for this class to work.');
+}
+
+if ( ! function_exists( 'pre_dump' ) )
+{
+	function pre_dump( $arr )
+	{
+			echo "<pre>";
+			var_dump( $arr );
+			echo "</pre>";
+	}
 }
