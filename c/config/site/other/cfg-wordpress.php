@@ -145,6 +145,9 @@ define( 'DISABLE_WP_CRON', true );
 /** Default: 60 (seconds). */
 define( 'WP_CRON_LOCK_TIMEOUT', 60 );
 
+/** Default: . Concatenate Scripts. */
+//define('CONCATENATE_SCRIPTS', false );
+
 /* MEMORY */
 
 /** Default: 40M */

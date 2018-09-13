@@ -263,6 +263,8 @@ class MediaList
 	/**
 	 * Get the image alt tag.
 	 *
+	 * May be the same as the name (or not).
+	 *
 	 * @param array $args
 	 * @return string
 	 */
@@ -270,7 +272,8 @@ class MediaList
 	{
 		if ( "" !== $args['src'] )
 		{
-			$alt = $args['src'];
+			$ex = explode( '/', $args['src'] );
+			$alt = $ex[ count( $ex ) - 1 ];
 		}
 		else
 		{
