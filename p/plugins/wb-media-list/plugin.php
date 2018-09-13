@@ -1,14 +1,21 @@
 <?php
 
-// 0 if running as index.php directly in media directory. 1 if otherwise.
-if ( 1 ) {
-	if ( defined('SITE') ) {
-		defined('NDA') || exit('No direct access.');
-	}
-	else
-	{
-		exit('SITE_ configuration paramaters are required for this class to work.');
-	}
+// if `add_shortcode` exists, we are in WordPress, otherwise not.
+if( function_exists( 'add_shortcode' ) )
+{
+	// No direct access.
+	defined('NDA') || exit('No direct access.');
+
+	//shortcode [media-list dir=""]
+	add_shortcode( 'media-list', 'media_list' );
+}
+else
+{
+	// Outside of WordPress. Instantiate directly, assuming current directory.
+	$args['self'] = true;
+	$media_list = new MediaList();
+	$list = $media_list -> get( $args );
+	echo $media_list->getPageHtml( $list );
 }
 
 /**
@@ -494,17 +501,4 @@ function media_list( $args )
 	{
 		return '<!-- Missing the image directory to process. [media-list dir=""]-->';
 	}
-}
-
-if( function_exists( 'add_shortcode' ) ) {
-	/** shortcode [media-list dir=""] */
-	add_shortcode( 'media-list', 'media_list' );
-}
-else
-{
-	/** Outside of WordPress. Instantiate directly, assuming current directory. */
-	$args['self'] = true;
-	$media_list = new MediaList();
-	$list = $media_list -> get( $args );
-	echo $media_list->getPageHtml( $list );
 }
