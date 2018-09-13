@@ -1,7 +1,7 @@
 <?php
 
 // 0 if running as index.php directly in media directory. 1 if otherwise.
-if ( 0 ) {
+if ( 1 ) {
 	if ( defined('SITE') ) {
 		defined('NDA') || exit('No direct access.');
 	}
@@ -496,12 +496,8 @@ function media_list( $args )
 	}
 }
 
-/**
- * SITE_ parameters required.  { @see `/c/config/site/cfg-structure.php` }
- */
-
 if( function_exists( 'add_shortcode' ) ) {
-/** shortcode [media-list dir=""] */
+	/** shortcode [media-list dir=""] */
 	add_shortcode( 'media-list', 'media_list' );
 }
 else
