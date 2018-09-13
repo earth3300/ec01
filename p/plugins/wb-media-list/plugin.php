@@ -41,10 +41,10 @@ class MediaList
 	public function get( $args )
 	{
 		$max = $this->getMaxImages( $args );
-
+		$args['self'] = $this->isDirSelf( $args );
 		if ( $this->checkArgs( $args ) )
 		{
-			$match = $this->match( $args );
+			$match = $this->getMatchPattern( $args );
 			$str = '<article>' . PHP_EOL;
 			$cnt = 0;
 			foreach ( glob( $match ) as $file )
@@ -71,7 +71,26 @@ class MediaList
 	}
 
 	/**
-	 * Get the maximum number of images to process..
+	 * Get the "Self" directory, if set.
+	 *
+	 * @param array $args
+	 * @return bool
+	 */
+	private function isDirSelf( $args )
+	{
+		if ( isset( $args['self'] ) && true == $args['self'] )
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+
+	/**
+	 * Get the maximum number of images to process.
 	 *
 	 * @param array $args
 	 * @return int
@@ -95,19 +114,64 @@ class MediaList
 	 * @param array $args
 	 * @return string|false
 	 */
-	private function match( $args )
+	private function getMatchPattern( $args )
 	{
-		if (  defined( 'SITE_CDN_PATH' ) ) {
-			$root = SITE_CDN_PATH;
-			$prefix = "/*";
-			$type = $this -> getImageType( $args );
-			$pattern =  $prefix . $type;
-			$match =  $root . $args['dir'] . $pattern;
-			return $match;
+		$path = $this->getBasePath( $args );
+		$media = $this->getMediaDir( $args );
+		$prefix = "/*";
+		$type = $this -> getImageType( $args );
+		$pattern =  $prefix . $type;
+		$match =  $path . $media . $prefix . $type;
+		if ( ! empty ( $match ) )
+		{
+
 		}
 		else {
-			return "Error.";
+			$match = "Error.";
 		}
+		return $match;
+	}
+
+	/**
+	 * Get the Base Path to the Media Directory.
+	 *
+	 * This does not need to include the `/media` directory.
+	 *
+	 * @param array $args
+	 * @return string
+	 */
+	private function getBasePath( $args )
+	{
+		if ( isset( $args['self'] ) )
+		{
+			$path = __DIR__;
+		}
+		elseif ( defined( 'SITE_CDN_PATH' ) )
+		{
+			$path = SITE_CDN_PATH;
+		}
+		return $path;
+	}
+
+	/**
+	 * Get the Media Directory
+	 *
+	 * @param array $args
+	 * @return string
+	 *
+	 * @example $args['dir'] = '/architecture/shelter/micro-cabin/'
+	 */
+	private function getMediaDir( $args )
+	{
+		if ( isset( $args['dir'] ) )
+		{
+			$media = $args['dir'];
+		}
+		else
+		{
+			$media = '/media';
+		}
+		return $media;
 	}
 
 	/**
@@ -343,7 +407,7 @@ class MediaList
 	 */
 	private function checkArgs( $args )
 	{
-		if ( isset( $args['dir'] ) )
+		if ( isset( $args['dir'] ) || isset( $args['self'] ) )
 		{
 			return true;
 		}
