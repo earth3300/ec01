@@ -40,9 +40,9 @@ class MediaList
 	 */
 	public function get( $args )
 	{
-		$max = $this->get_max_images( $args );
+		$max = $this->getMaxImages( $args );
 
-		if ( $this->check_args( $args ) )
+		if ( $this->checkArgs( $args ) )
 		{
 			$match = $this->match( $args );
 			$str = '<article>' . PHP_EOL;
@@ -58,8 +58,8 @@ class MediaList
 				$args['file'] = $file;
 				/** Remove the root of the file path to use it an image source. */
 				$args['src'] = str_replace( SITE_PATH, '', $file );
-				$args['dim'] = $this->get_image_dimensions( $args );
-				$str .= $this->get_image_html( $args );
+				$args['dim'] = $this->getImageDimensions( $args );
+				$str .= $this->getImageHtml( $args );
 			}
 			$str .= '</article>' . PHP_EOL;
 			return $str;
@@ -76,7 +76,7 @@ class MediaList
 	 * @param array $args
 	 * @return int
 	 */
-	private function get_max_images( $args )
+	private function getMaxImages( $args )
 	{
 		if ( isset( $args['max'] ) )
 		{
@@ -100,7 +100,7 @@ class MediaList
 		if (  defined( 'SITE_CDN_PATH' ) ) {
 			$root = SITE_CDN_PATH;
 			$prefix = "/*";
-			$type = $this -> get_image_type( $args );
+			$type = $this -> getImageType( $args );
 			$pattern =  $prefix . $type;
 			$match =  $root . $args['dir'] . $pattern;
 			return $match;
@@ -121,7 +121,7 @@ class MediaList
 	 * @param array $args
 	 * @return string
 	 */
-	private function get_image_type( $args )
+	private function getImageType( $args )
 	{
 		if ( isset( $args['type'] ) )
 		{
@@ -151,21 +151,21 @@ class MediaList
 	 * @param array $args
 	 * @return string
 	 */
-	private function get_image_html( $args )
+	private function getImageHtml( $args )
 	{
 		$str = '<div class="media">' . PHP_EOL;
 		$str .= sprintf( '<a href="%s">', SITE_URL . $args['src'] );
 		$str .= '<img ';
-		$str .= sprintf( ' class="%s"', $this->get_image_class( $args ) );
+		$str .= sprintf( ' class="%s"', $this->getImageClass( $args ) );
 		$str .= sprintf( ' src="%s"', $args['src'] );
-		$str .= sprintf( ' alt="%s"', $this->get_image_alt( $args ) );
-		$str .= sprintf( ' width="%s"', $this->get_image_width( $args ) );
-		$str .= sprintf( ' height="%s"', $this->get_image_height( $args ) );
+		$str .= sprintf( ' alt="%s"', $this->getImageAlt( $args ) );
+		$str .= sprintf( ' width="%s"', $this->getImageWidth( $args ) );
+		$str .= sprintf( ' height="%s"', $this->getImageHeight( $args ) );
 		$str .= ' />';
 		$str .= '</a>' . PHP_EOL;
 		$str .= '<div>';
-		$str .= sprintf( '<span class="name">%s</span>', $this->get_image_name( $args ) );
-		$str .= sprintf( ' <span class="size">%s</span>', $this->get_image_size( $args ) );
+		$str .= sprintf( '<span class="name">%s</span>', $this->getImageName( $args ) );
+		$str .= sprintf( ' <span class="size">%s</span>', $this->getImageSize( $args ) );
 		$str .= '</div>';
 		$str .= '</div>' . PHP_EOL;
 
@@ -181,7 +181,7 @@ class MediaList
 	 * @param array $args
 	 * @return string
 	 */
-	private function get_image_dimensions( $args )
+	private function getImageDimensions( $args )
 	{
 		if ( "" !== $args['file'] )
 		{
@@ -207,7 +207,7 @@ class MediaList
 	 * @param array $args
 	 * @return string
 	 */
-	private function get_image_width( $args )
+	private function getImageWidth( $args )
 	{
 		if ( defined( 'SITE_IMAGE_WIDTH' ) )
 		{
@@ -226,7 +226,7 @@ class MediaList
 	 * @param array $args
 	 * @return string
 	 */
-	private function get_image_height( $args )
+	private function getImageHeight( $args )
 	{
 		if ( defined( 'SITE_IMAGE_HEIGHT' ) )
 		{
@@ -245,7 +245,7 @@ class MediaList
 	 * @param array $args
 	 * @return int
 	 */
-	private function get_image_size( $args ){
+	private function getImageSize( $args ){
 
 		if ( class_exists('Imagick') )
 		{
@@ -266,7 +266,7 @@ class MediaList
 	 * @param array $args
 	 * @return string
 	 */
-	private function get_image_alt( $args )
+	private function getImageAlt( $args )
 	{
 		if ( "" !== $args['src'] )
 		{
@@ -291,7 +291,7 @@ class MediaList
 	 * @param array $args
 	 * @return string
 	 */
-	private function get_image_name( $args )
+	private function getImageName( $args )
 	{
 		if ( "" !== $args['file'] )
 		{
@@ -319,7 +319,7 @@ class MediaList
 	 * @param array $args
 	 * @return string
 	 */
-	private function get_image_class( $args )
+	private function getImageClass( $args )
 	{
 		if ( defined( 'SITE_IMAGE_CLASS' ) )
 		{
@@ -338,7 +338,7 @@ class MediaList
 	 * @param array $args
 	 * @return bool
 	 */
-	private function check_args( $args )
+	private function checkArgs( $args )
 	{
 		if ( isset( $args['dir'] ) )
 		{
