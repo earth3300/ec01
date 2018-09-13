@@ -1,6 +1,15 @@
 <?php
 
-defined('NDA') || exit('No direct access.');
+// 0 if running as index.php directly in media directory. 1 if otherwise.
+if ( 0 ) {
+	if ( defined('SITE') ) {
+		defined('NDA') || exit('No direct access.');
+	}
+	else
+	{
+		exit('SITE_ configuration paramaters are required for this class to work.');
+	}
+}
 
 /**
  * WP Bundle Media List.
@@ -35,6 +44,7 @@ defined('NDA') || exit('No direct access.');
  */
 class MediaList
 {
+
 	/**
 	 * Use the PHP glob function to list files (of a certain type).
 	 */
@@ -42,6 +52,7 @@ class MediaList
 	{
 		$max = $this->getMaxImages( $args );
 		$args['self'] = $this->isDirSelf( $args );
+
 		if ( $this->checkArgs( $args ) )
 		{
 			$match = $this->getMatchPattern( $args );
@@ -57,7 +68,7 @@ class MediaList
 
 				$args['file'] = $file;
 				/** Remove the root of the file path to use it an image source. */
-				$args['src'] = str_replace( SITE_PATH, '', $file );
+				$args['src'] = '/' . str_replace( $this->getSitePath(), '', $file );
 				$args['dim'] = $this->getImageDimensions( $args );
 				$str .= $this->getImageHtml( $args );
 			}
@@ -67,6 +78,23 @@ class MediaList
 		else
 		{
 			return "Error.";
+		}
+	}
+
+	/**
+	 * Get the SITE_PATH from the constant, else from the $_SERVER['DOCUMENT_ROOT']
+	 *
+	 * @return bool
+	 */
+	private function getSitePath()
+	{
+		if ( defined( 'SITE_PATH' ) )
+		{
+			return SITE_PATH;
+		}
+		else
+		{
+			return $_SERVER['DOCUMENT_ROOT'];
 		}
 	}
 
@@ -121,7 +149,9 @@ class MediaList
 		$prefix = "/*";
 		$type = $this -> getImageType( $args );
 		$pattern =  $prefix . $type;
-		$match =  $path . $media . $prefix . $type;
+		//$match =  $path . $media . $prefix . $type;
+		$match =  $path . $prefix . $type;
+
 		if ( ! empty ( $match ) )
 		{
 
@@ -218,20 +248,46 @@ class MediaList
 	private function getImageHtml( $args )
 	{
 		$str = '<div class="media">' . PHP_EOL;
-		$str .= sprintf( '<a href="%s">', SITE_URL . $args['src'] );
-		$str .= '<img ';
+		$str .= sprintf( '<a href="%s">%s', $args['src'], PHP_EOL );
+		$str .= '<img';
 		$str .= sprintf( ' class="%s"', $this->getImageClass( $args ) );
 		$str .= sprintf( ' src="%s"', $args['src'] );
 		$str .= sprintf( ' alt="%s"', $this->getImageAlt( $args ) );
 		$str .= sprintf( ' width="%s"', $this->getImageWidth( $args ) );
 		$str .= sprintf( ' height="%s"', $this->getImageHeight( $args ) );
-		$str .= ' />';
+		$str .= ' />' . PHP_EOL;
 		$str .= '</a>' . PHP_EOL;
-		$str .= '<div>';
+		$str .= '<div class="text-center">';
 		$str .= sprintf( '<span class="name">%s</span>', $this->getImageName( $args ) );
 		$str .= sprintf( ' <span class="size">%s</span>', $this->getImageSize( $args ) );
-		$str .= '</div>';
 		$str .= '</div>' . PHP_EOL;
+		$str .= '</div>' . PHP_EOL;
+
+		return $str;
+	}
+
+	/**
+	 * Wrap the string in page HTML `<!DOCTYPE html>`, etc.
+	 *
+	 * @param string $str
+	 * @return string
+	 */
+	public function getPageHtml( $html )
+	{
+		$str = '<!DOCTYPE html>' . PHP_EOL;
+		$str .= '<html class="fixed-width" lang="en-CA">' . PHP_EOL;
+		$str .= '<head>' . PHP_EOL;
+		$str .= '<meta charset="UTF-8">' . PHP_EOL;
+		$str .= '<meta name="viewport" content="width=device-width, initial-scale=1"/>' . PHP_EOL;
+		$str .= '<title>Media List</title>' . PHP_EOL;
+		$str .= '<meta name="robots" content="noindex,nofollow" />' . PHP_EOL;
+		$str .= '<link rel=stylesheet href="/0/theme/css/style.css">' . PHP_EOL;
+		$str .= '</head>' . PHP_EOL;
+		$str .= '<body>' . PHP_EOL;
+		$str .= '<main>' . PHP_EOL;
+		$str .= $html;
+		$str .= '</main>' . PHP_EOL;
+		$str .= '</html>' . PHP_EOL;
 
 		return $str;
 	}
@@ -443,22 +499,16 @@ function media_list( $args )
 /**
  * SITE_ parameters required.  { @see `/c/config/site/cfg-structure.php` }
  */
-if( defined('SITE') )
-{
-	/** shortcode [media-list dir=""] */
+
+if( function_exists( 'add_shortcode' ) ) {
+/** shortcode [media-list dir=""] */
 	add_shortcode( 'media-list', 'media_list' );
 }
 else
 {
-	exit('SITE_ configuration paramaters are required for this class to work.');
-}
-
-if ( ! function_exists( 'pre_dump' ) )
-{
-	function pre_dump( $arr )
-	{
-			echo "<pre>";
-			var_dump( $arr );
-			echo "</pre>";
-	}
+	/** Outside of WordPress. Instantiate directly, assuming current directory. */
+	$args['self'] = true;
+	$media_list = new MediaList();
+	$list = $media_list -> get( $args );
+	echo $media_list->getPageHtml( $list );
 }
