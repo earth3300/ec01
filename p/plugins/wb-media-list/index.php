@@ -1,23 +1,5 @@
 <?php
 
-// if `add_shortcode` exists, we are in WordPress, otherwise not.
-if( function_exists( 'add_shortcode' ) )
-{
-	// No direct access.
-	defined('NDA') || exit('No direct access.');
-
-	//shortcode [media-list dir=""]
-	add_shortcode( 'media-list', 'media_list' );
-}
-else
-{
-	// Outside of WordPress. Instantiate directly, assuming current directory.
-	$args['self'] = true;
-	$media_list = new MediaList();
-	$list = $media_list -> get( $args );
-	echo $media_list->getPageHtml( $list );
-}
-
 /**
  * WP Bundle Media List.
  *
@@ -44,6 +26,24 @@ else
  * License URI: https://www.gnu.org/licenses/gpl-3.0.en.html
  */
 
+// if `add_shortcode` exists, we are in WordPress, otherwise not.
+if( function_exists( 'add_shortcode' ) )
+{
+	// No direct access.
+	defined('NDA') || exit('No direct access.');
+
+	//shortcode [media-list dir=""]
+	add_shortcode( 'media-list', 'media_list' );
+}
+else
+{
+	// Outside of WordPress. Instantiate directly, assuming current directory.
+	$args['self'] = true;
+	$media_list = new MediaList();
+	$list = $media_list -> get( $args );
+	echo $media_list->getPageHtml( $list );
+}
+
 /**
  * List the media of a certain type in a given directory.
  *
@@ -53,33 +53,23 @@ class MediaList
 {
 
 	/**
-	 * Use the PHP glob function to list files (of a certain type).
+	 * Get the list of images as HTML.
+	 *
+	 * @param array $args
+	 * @return string
 	 */
 	public function get( $args )
 	{
-		$max = $this->getMaxImages( $args );
-		$args['self'] = $this->isDirSelf( $args );
-
 		if ( $this->checkArgs( $args ) )
 		{
+			$max = $this->getMaxImages( $args );
+			$args['self'] = $this->isDirSelf( $args );
 			$match = $this->getMatchPattern( $args );
-			$str = '<article>' . PHP_EOL;
-			$cnt = 0;
-			foreach ( glob( $match ) as $file )
-			{
-				$cnt++;
-				if ( $cnt > $max )
-				{
-					break;
-				}
 
-				$args['file'] = $file;
-				/** Remove the root of the file path to use it an image source. */
-				$args['src'] = '/' . str_replace( $this->getSitePath(), '', $file );
-				$args['dim'] = $this->getImageDimArr( $args );
-				$str .= $this->getImageHtml( $args );
-			}
+			$str = '<article>' . PHP_EOL;
+			$str .= $this->iterateFiles( $match, $max, $args );
 			$str .= '</article>' . PHP_EOL;
+
 			return $str;
 		}
 		else
@@ -89,7 +79,55 @@ class MediaList
 	}
 
 	/**
+	 * Iterate over files
+	 *
+	 * @param string $match
+	 * @param array $args
+	 *
+	 * @return string
+	 */
+	private function iterateFiles( $match, $max, $args )
+	{
+		$str = '';
+		$cnt = 0;
+		foreach ( glob( $match ) as $file )
+		{
+			$cnt++;
+			if ( $cnt > $max )
+			{
+				break;
+			}
+
+			$args['file'] = $file;
+			/** Remove the root of the file path to use it an image source. */
+			$args['src'] = $this->getSrcFromFile( $args['file'] );
+			$args['name-dim'] = $this->getImageNameDimArr( $args['src'] );
+			$args['name'] = $args['name-dim']['name'];
+			$args['dim'] = $this->getImageDimArr( $args['name-dim']['strDim'] );
+			$str .= $this->getImageHtml( $args );
+		}
+		return $str;
+	}
+
+	/**
+	 * Get the source from the file, checking for a preceding slash.
+	 *
+	 * @param string $str
+	 * @return string
+	 */
+	private function getSrcFromFile( $str )
+	{
+		$src = str_replace( $this->getSitePath(), '', $str );
+		/** May be server inconsistency, therefore remove and add again. */
+		$src = ltrim( $src, '/' );
+		return '/' . $src;
+	}
+
+	/**
 	 * Get the SITE_PATH from the constant, else from the $_SERVER['DOCUMENT_ROOT']
+	 *
+	 * Both of these have been tested online to have a preceding forward slash.
+	 * Therefore do not add one later.
 	 *
 	 * @return bool
 	 */
@@ -265,7 +303,7 @@ class MediaList
 		$str .= ' />' . PHP_EOL;
 		$str .= '</a>' . PHP_EOL;
 		$str .= '<div class="text-center">';
-		$str .= sprintf( '<span class="name">%s</span>', $this->getImageName( $args['src'] ) );
+		$str .= sprintf( '<span class="name">%s</span>', $this->getImageName( $args['name'] ) );
 		$str .= sprintf( ' <span class="size">%s</span>', $this->getImageSize( $args ) );
 		$str .= '</div>' . PHP_EOL;
 		$str .= '</div>' . PHP_EOL;
@@ -300,6 +338,96 @@ class MediaList
 	}
 
 	/**
+	 * Get the Image Name and Dimensions from the String.
+	 *
+	 * Return the direct string values of each. Do no extra processing here.
+	 *
+	 * $regex = '\/([a-z\-]{3,60})-([0-9]{2,4}x[0-9]{2,4})'
+	 *
+	 * Although this looks complicated, it has potential to be helpful.
+	 * Not only does it divide the string given it into two parts, but it
+	 * also does a basic quality check on the image name structure. If the image
+	 * name does not meet the criteria given, it won't be captured.
+	 *
+	 * @param string $str
+	 *
+	 * @return array  $arr['name'] $arr['dim']
+	 *
+	 * @example $arr['name'] = 'image-name'
+	 * @example $arr['dim'] = '800x600'
+	 */
+	private function getImageNameDimArr( $str )
+	{
+		/**
+		 * Since we won't have a valid image name with fewer than 13 characaters
+		 * we won't bother processing anything with less than that length.
+		 */
+		if ( strlen( $str ) > 12 )
+		{
+			$regex = '/\/([a-z\-]{3,150})-([0-9]{2,4}x[0-9]{2,4})/';
+			preg_match( $regex, $str, $match );
+
+			if ( ! empty( $match[1] ) )
+			{
+				$arr['name'] = $match[1];
+			}
+			else
+			{
+				$arr['name'] = null;
+
+			}
+
+			if ( ! empty( $match[2] ) )
+			{
+				$arr['strDim'] = $match[2];
+			}
+			else
+			{
+				$arr['strDim'] = null;
+
+			}
+			return $arr;
+		}
+		else {
+			return false;
+		}
+	}
+
+		/**
+	 * Get the image name.
+	 *
+	 * Gets the image name as the first part of the file name, before the
+	 * image size, if present. Converts hyphens into spaces and puts all
+	 * characters into uppercase, for simplicity. May be the same as the alt tag.
+	 *
+	 * The name:
+	 *
+	 * Starts with `/`
+	 * Ends with `-`
+	 *
+	 * $regex = '/\/([a-z\-]{3,36})-/';
+	 *
+	 * @param array $args
+	 * @return string
+	 */
+	private function getImageNameStr( $str )
+	{
+		if ( strlen( $str ) > 3 )
+		{
+			$regex = '/\/([a-z\-]{3,36})--/';
+			preg_match( $regex, $str, $match );
+			if ( ! empty( $match[1] ) )
+			{
+				return $match[1];
+			}
+			else
+			{
+				return "Not available";
+			}
+		}
+	}
+
+	/**
 	 * Get the image dimensions.
 	 *
 	 * Gets the image dimensions as the last part of the file name and only if
@@ -308,24 +436,18 @@ class MediaList
 	 * @param string $str
 	 * @return string
 	 */
-	private function getImageDimArr( $args )
+	private function getImageDimArr( $str )
 	{
-		if ( ! empty( $args['src'] ) )
+
+		if ( strlen( $str ) > 4 )
 		{
-			if ( $str = $this->extractImageDimStr( $args['src'] ) )
-			{
-				$arr = explode( 'x', $str );
-				$dim['width'] = $arr[0];
-				$dim['height'] = $arr[1];
-			}
-			else
-			{
-				$dim['width'] = 600;
-				$dim['height'] = 450;
-			}
+			$arr = explode( 'x', $str );
+			$dim['width'] = $arr[0];
+			$dim['height'] = $arr[1];
 			return $dim;
 		}
-		else {
+		else
+		{
 			return false;
 		}
 	}
@@ -478,40 +600,6 @@ class MediaList
 	}
 
 	/**
-	 * Get the image name.
-	 *
-	 * Gets the image name as the first part of the file name, before the
-	 * image size, if present. Converts hyphens into spaces and puts all
-	 * characters into uppercase, for simplicity. May be the same as the alt tag.
-	 *
-	 * The name:
-	 *
-	 * Starts with `/`
-	 * Ends with `-`
-	 *
-	 * $regex = '/\/([a-z\-]{3,36})-/';
-	 *
-	 * @param array $args
-	 * @return string
-	 */
-	private function getImageNameStr( $str )
-	{
-		if ( strlen( $str ) > 3 )
-		{
-			$regex = '/\/([a-z\-]{3,36})--/';
-			preg_match( $regex, $str, $match );
-			if ( ! empty( $match[1] ) )
-			{
-				return $match[1];
-			}
-			else
-			{
-				return "Not available";
-			}
-		}
-	}
-
-	/**
 	 * Get the Image Name
 	 *
 	 * @param array $args
@@ -519,7 +607,7 @@ class MediaList
 	 */
 	private function getImageName( $str )
 	{
-		if ( $str = $this->getImageNameStr( $str ) )
+		if ( strlen( $str ) > 2 )
 		{
 			$name = str_replace( '-', ' ', $str );
 			$name = strtoupper( $name );
