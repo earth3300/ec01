@@ -380,7 +380,7 @@ class MediaList
 		 */
 		if ( strlen( $str ) > 12 )
 		{
-			$regex = '/([0-9]{2,4})x([0-9]{2,4})\.(jpg|png)/';
+			$regex = '/([0-9]{2,4})x([0-9]{2,4})/';
 			preg_match( $regex, $str, $match );
 			if ( ! empty( $match[0] ) )
 			{
