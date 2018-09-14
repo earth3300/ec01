@@ -312,7 +312,7 @@ class MediaList
 	{
 		if ( ! empty( $args['src'] ) )
 		{
-			if ( $str = extractImageDimStr( $args['src'] ) )
+			if ( $str = $this->extractImageDimStr( $args['src'] ) )
 			{
 				$arr = explode( 'x', $str );
 				$dim['width'] = $arr[0];
@@ -356,10 +356,9 @@ class MediaList
 	 * 4 x 2 + 1 or nine characters for our match. Using preg_match that will contain a
 	 * regex, we will then have something like:
 	 *
-	 * $regex = '/\-([0-9]{2,4})x([0-9]{2,4})\.(jpg|png)/'
+	 * $regex = '/([0-9]{2,4})x([0-9]{2,4})\.(jpg|png)/'
 	 *
-	 * Brief summary: Match the '-' character, literally. Then match the pattern 000x000,
-	 * then match the '.' character, literally. Then match either 'jpg' OR 'png'. Then stop.
+	 * Brief summary: Match the pattern 00x00 to 0000x0000 with a .jpg or .png extension.
 	 *
 	 * Note that our previous efforts to pare down the number of variations by disallowing
 	 * `jpeg` as a valid extension, means that our selection process here is simplified
@@ -381,7 +380,7 @@ class MediaList
 		 */
 		if ( strlen( $str ) > 12 )
 		{
-			$regex = '/\-([0-9]{2,4})x([0-9]{2,4})\.(jpg|png)/';
+			$regex = '/([0-9]{2,4})x([0-9]{2,4})\.(jpg|png)/';
 			preg_match( $regex, $str, $match );
 			if ( ! empty( $match[0] ) )
 			{
