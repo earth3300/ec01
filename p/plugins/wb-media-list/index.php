@@ -265,7 +265,7 @@ class MediaList
 		$str .= ' />' . PHP_EOL;
 		$str .= '</a>' . PHP_EOL;
 		$str .= '<div class="text-center">';
-		$str .= sprintf( '<span class="name">%s</span>', $this->getImageName( $args ) );
+		$str .= sprintf( '<span class="name">%s</span>', $this->getImageName( $args['src'] ) );
 		$str .= sprintf( ' <span class="size">%s</span>', $this->getImageSize( $args ) );
 		$str .= '</div>' . PHP_EOL;
 		$str .= '</div>' . PHP_EOL;
@@ -380,7 +380,7 @@ class MediaList
 		 */
 		if ( strlen( $str ) > 12 )
 		{
-			$regex = '/([0-9]{2,4})x([0-9]{2,4})/';
+			$regex = '/([0-9]{2,4}x[0-9]{2,4})/';
 			preg_match( $regex, $str, $match );
 			if ( ! empty( $match[0] ) )
 			{
@@ -481,35 +481,56 @@ class MediaList
 	 * Get the image name.
 	 *
 	 * Gets the image name as the first part of the file name, before the
-	 * double dashes. Converts hyphens into spaces and puts all characters
-	 * into uppercase, for simplicity.
+	 * image size, if present. Converts hyphens into spaces and puts all
+	 * characters into uppercase, for simplicity. May be the same as the alt tag.
 	 *
-	 * May be the same as the alt tag.
+	 * The name:
+	 *
+	 * Starts with `/`
+	 * Ends with `-`
+	 *
+	 * $regex = '/\/([a-z\-]{3,36})-/';
 	 *
 	 * @param array $args
 	 * @return string
 	 */
-	private function getImageName( $args )
+	private function getImageNameStr( $str )
 	{
-		if ( "" !== $args['file'] )
+		if ( strlen( $str ) > 3 )
 		{
-			$ex = explode( '/', $args['file'] );
-			$file = $ex[ count( $ex ) - 1 ];
-			$ex2 = explode( '--', $file );
-			$name = $ex2[ 0 ];
-			$arr = explode( '-', $name );
-			$str = '';
-			foreach ( $arr as $part )
+			$regex = '/\/([a-z\-]{3,36})--/';
+			preg_match( $regex, $str, $match );
+			if ( ! empty( $match[1] ) )
 			{
-				$str .= strtoupper( $part ) . ' ';
+				return $match[1];
 			}
+			else
+			{
+				return "Not available";
+			}
+		}
+	}
+
+	/**
+	 * Get the Image Name
+	 *
+	 * @param array $args
+	 * @return string
+	 */
+	private function getImageName( $str )
+	{
+		if ( $str = $this->getImageNameStr( $str ) )
+		{
+			$name = str_replace( '-', ' ', $str );
+			$name = strtoupper( $name );
 		}
 		else
 		{
-			$str = "Not available";
+			$name = "Not available";
 		}
-		return $str;
+		return $name;
 	}
+
 
 	/**
 	 * Get the image class.
