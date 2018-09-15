@@ -37,11 +37,15 @@ if( function_exists( 'add_shortcode' ) )
 }
 else
 {
-	// Outside of WordPress. Instantiate directly, assuming current directory.
-	$args['self'] = true;
+	/**
+	 * Outside of WordPress. Instantiate directly, assuming current directory.
+	 *
+	 * @param $args['self'] = true  List the files in the current directory.
+	 *
+	 * @param array $args['doctype'] = true  Set the doctype to html.
+	 */
 	$media_list = new MediaList();
-	$list = $media_list -> get( $args );
-	echo $media_list->getPageHtml( $list );
+	echo $media_list -> get( array( 'self' => true, 'doctype' => true ) );
 }
 
 /**
@@ -70,6 +74,10 @@ class MediaList
 			$str .= $this->iterateFiles( $match, $max, $args );
 			$str .= '</article>' . PHP_EOL;
 
+			if ( isset( $args['doctype'] ) && $args['doctype'] )
+			{
+				$str = $this->getPageHtml( $str );
+			}
 			return $str;
 		}
 		else
