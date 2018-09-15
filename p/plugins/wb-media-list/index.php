@@ -68,10 +68,15 @@ class MediaList
 		{
 			$max = $this->getMaxImages( $args );
 			$args['self'] = $this->isDirSelf( $args );
-			$match = $this->getMatchPattern( $args );
+			$types = ['.jpg','.png'];
 
 			$str = '<article>' . PHP_EOL;
-			$str .= $this->iterateFiles( $match, $max, $args );
+			foreach ( $types as $type ) {
+				if ( $match = $this->getMatchPattern( $type, $args ) )
+				{
+					$str .= $this->iterateFiles( $match, $max, $args );
+				}
+			}
 			$str .= '</article>' . PHP_EOL;
 
 			if ( isset( $args['doctype'] ) && $args['doctype'] )
@@ -98,6 +103,7 @@ class MediaList
 	{
 		$str = '';
 		$cnt = 0;
+
 		foreach ( glob( $match ) as $file )
 		{
 			$cnt++;
@@ -192,27 +198,29 @@ class MediaList
 	/**
 	 * Build the match string.
 	 *
+	 * This is iterated through for each type added to $types, above. A basic
+	 * check for a reasonable string length (currently 10) is in place. Can
+	 * develop this further, if needed.
+	 *
+	 * @param string $type  'jpg', 'png'
 	 * @param array $args
+	 *
 	 * @return string|false
 	 */
-	private function getMatchPattern( $args )
+	private function getMatchPattern( $type, $args )
 	{
 		$path = $this->getBasePath( $args );
-		$media = $this->getMediaDir( $args );
 		$prefix = "/*";
-		$type = $this -> getImageType( $args );
-		$pattern =  $prefix . $type;
-		//$match =  $path . $media . $prefix . $type;
 		$match =  $path . $prefix . $type;
 
-		if ( ! empty ( $match ) )
+		/** Very basic check. Can improve, if needed. */
+		if ( strlen( $match ) > 10 )
 		{
-
+			return $match;
 		}
 		else {
-			$match = "Error.";
+			return false;
 		}
-		return $match;
 	}
 
 	/**
@@ -255,36 +263,6 @@ class MediaList
 			$media = '/media';
 		}
 		return $media;
-	}
-
-	/**
-	 * Get the type of image to process.
-	 *
-	 * If no type is specified, return the default (.jpg). Include the dot (.)
-	 * for simplicity.
-	 *
-	 * jpg or png. Default: jpg
-	 *
-	 * @param array $args
-	 * @return string
-	 */
-	private function getImageType( $args )
-	{
-		if ( isset( $args['type'] ) )
-		{
-			if ( 'png' == $args['type'] )
-			{
-				return '.png';
-			}
-			else if ( 'jpg' == $args['type'] )
-			{
-				return '.jpg';
-			}
-		}
-		else
-		{
-			return '.png';
-		}
 	}
 
 	/**
@@ -372,8 +350,15 @@ class MediaList
 		 */
 		if ( strlen( $str ) > 12 )
 		{
+			/** If this isn't matched, check for a name only */
 			$regex = '/\/([a-z\-]{3,150})-([0-9]{2,4}x[0-9]{2,4})/';
 			preg_match( $regex, $str, $match );
+
+			if ( empty( $match ) )
+			{
+				$regex = '/\/([a-z\-]{5,150})\./';
+				preg_match( $regex, $str, $match );
+			}
 
 			if ( ! empty( $match[1] ) )
 			{
@@ -394,6 +379,8 @@ class MediaList
 				$arr['strDim'] = null;
 
 			}
+
+
 			return $arr;
 		}
 		else {
@@ -456,7 +443,9 @@ class MediaList
 		}
 		else
 		{
-			return false;
+			$dim['width'] = 600;
+			$dim['height'] = 450;
+			return $dim;
 		}
 	}
 
