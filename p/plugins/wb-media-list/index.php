@@ -356,7 +356,7 @@ class MediaList
 
 			if ( empty( $match ) )
 			{
-				$regex = '/\/([a-z\-]{5,150})\./';
+				$regex = '/\/([a-z,0-9\-]{5,150})\./';
 				preg_match( $regex, $str, $match );
 			}
 
