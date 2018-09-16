@@ -18,16 +18,16 @@ defined( 'SITE' ) || exit;
   */
 function get_clusters(){
 	$arr = [
-		'academic',
-		'art',
-		'trade',
-		'applied',
-		'gardening',
+		'acad',
+		'arts',
+		'trad',
+		'appl',
+		'gard',
 		'care',
 		'cafe',
-		'monitoring',
-		'analysis',
-		'nature',
+		'moni',
+		'anal',
+		'natu',
 	];
 	return $arr;
 }
