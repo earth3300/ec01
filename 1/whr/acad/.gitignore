@@ -1,0 +1,10 @@
+.*
+!/.gitignore
+!/.htaccess
+article.html
+alt/config/db/
+!alt/config/db/sample.php
+model/docs/
+!model/docs/index.html
+/center/theme/icon/
+!/center/theme/icon/index.html

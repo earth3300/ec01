@@ -653,7 +653,7 @@ class MediaList
 			return false;
 		}
 	}
-}
+} //end class
 
 /**
  * Callback from the media-list shortcode.

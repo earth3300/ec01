@@ -1,0 +1,203 @@
+/** Child Theme Created: 2018-04-10 Last Updated: 2018-07-20 18:00 AM EST*/
+
+.created .inner { background: #180410; }
+.updated .inner { background: #180522; }
+
+.title-wrap {
+	background-image: url('/commons/theme/image/uni-village-logo-95x95.png');
+	background-repeat: no-repeat;
+	background-size: 95px;
+	background-position: 18px center;
+}
+
+.title-wrap .inner {
+	padding: 2em 1em 2em 115px;
+}
+
+.spacer-header {
+	border-bottom: #777 solid 4px;
+}
+
+.spacer-header-bottom {
+	box-shadow: 0 1px 2px rgba(50, 50, 50, 1.0);
+}
+
+.spacer-footer-top {
+	border-top: #777 solid 4px;
+	box-shadow: 1px 1px 2px rgba(50, 50, 50, 1.0);
+}
+
+.active {
+	background: #e0e0e0;
+}
+
+.inactive {
+	background: #eee;
+}
+
+.community .unit a {
+	font-weight: bold;
+}
+
+.nature .inner { background: #b6d7a8; }
+.art .inner { background: #d9d2e9; }
+.academic .inner { background: #fff2cc; }
+.building .inner { background: #d9d9d9; }
+.information,
+.interface .inner { background: #ffe599; }
+.project .inner { background: #ffd966; }
+.recovery .inner { background: #93c47d; }
+.profession,
+.applied .inner { background: #d0e0e3; }
+.trade .inner { background: #f6b26b; }
+.news .inner { background: #f1c232; }
+.process .inner { background: #e6b8af; }
+.standard .inner { background: #f4cccc; }
+.design .inner { background: #ea9999; }
+.equipment .inner { background: #fce5cd; }
+.resource .inner { background: #d9ead3; }
+.service,
+.gardening .inner { background: #a2c4c9; }
+.supply .inner { background: #f9cb9c; }
+.storefront .inner { background: #76a5af; }
+.commons .inner { background: #b6d7a8; }
+.download .inner { background: #279f43; }
+
+.core .border {
+	background: #a2c4c9;
+}
+
+.alt .border {
+	background: #ffd966;
+}
+
+.order-01 { }
+
+.boxes .unit .border {
+	border: #777 solid 4px;
+	border-radius: 7px;
+	box-shadow: 1px 1px 3px rgba(50, 50, 50, 1.0);
+}
+
+.boxes .unit .inner {
+	border-radius: 3px;
+	box-shadow: inset 1px 1px 3px rgba(50, 50, 50, 1.0);
+}
+
+.listing {
+	overflow: hidden;
+	margin-bottom: 20px;
+}
+
+.listing a {
+	border-bottom: none;
+}
+
+h1,
+.listing h2 {
+	text-align: center;
+}
+
+.listing h2 {
+	font-size: 100%;
+	margin: 5px 0 0;
+}
+
+.listing h3 {
+	text-align: center;
+	font-size: 80%;
+	margin: 15px 0;
+}
+
+.listing > .line > .unit:last-child {
+	margin-bottom: 0;
+}
+
+.listing > .line > .unit > .inner {
+	border: 1px solid #c8c8c8;
+	border-radius: 4px;
+	margin: 5px;
+	overflow: hidden;
+}
+
+.listing .unit .inner {
+	padding: 0 5px;
+}
+
+.listing h2,
+.community h2 {
+	clear: both;
+	text-align: center;
+	font-family: sans-serif;
+	margin: 10px 0;
+	opacity: .8;
+}
+/*
+body > .wrap > .inner {
+	padding: 0 20px;
+}
+
+body.video > .wrap > .inner {
+	padding: 20px;
+}
+*/
+.what h3 {
+	display: none;
+}
+
+.listing .unit h2 {
+	margin-bottom: 0;
+}
+
+.spacer {
+	margin-bottom: 20px;
+}
+
+.line {
+	overflow: hidden;
+}
+
+iframe {
+	display: block;
+	margin: 0 auto;
+}
+
+body {
+	border: 1px solid #444;
+}
+
+body.video {
+	background: #222;
+	box-shadow: none;
+}
+
+body.video > .wrap > .inner {
+	background-color: #121212;
+    opacity: 1;
+	border-radius: 6px;
+	padding: 24px;
+}
+
+body.video h1 {
+	display: none;
+}
+
+body.video p {
+	font-size: small;
+	max-width: 850px;
+	color: #777;
+}
+
+body.video nav.prev a,
+body.video nav.next a{
+	background: #313131;
+	border: 1px solid #424242;
+}
+
+.video p:last-child {
+	margin-bottom: 0;
+}
+
+.title-wrap {
+	background-color: #73aa5b;
+}
