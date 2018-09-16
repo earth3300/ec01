@@ -89,6 +89,7 @@ function get_tier_four_data(){
 		'mason' => [ 'name' => 'mason' ],
 		'mecha' => [ 'name' => 'mechanical' ],
 		'plumb' => [ 'name' => 'plumb' ],
+		'weldg' => [ 'name' => 'welding' ],
 		'roofg' => [ 'name' => 'roofing' ],
 	];
 	return $arr;
