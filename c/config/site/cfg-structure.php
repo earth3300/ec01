@@ -163,7 +163,7 @@ define( 'SITE_CORE_ACTIVE_DIR', '/wp' );
 
 define( 'SITE_CLUSTER_DIR', '/cluster' );
 
-define( 'SITE_CENTER_DIR', '/center' );
+define( 'SITE_CENTER_DIR', '/centr' );
 
 /***** ROOT DIRECTORY *****/
 

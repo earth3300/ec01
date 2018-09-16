@@ -2,6 +2,7 @@
 
 defined( 'SITE' ) || exit;
 
+require_once( __DIR__ . '/data.php' );
 require_once( __DIR__ . '/authorize.php' );
 require_once( __DIR__ . '/template.php' );
 
@@ -75,13 +76,12 @@ function get_firefly_header( $page ){
  * @return array
  */
 function get_firefly_header_sub( $page ){
-	
-	if ( strpos( $page['html-class'], 'cluster' ) !== FALSE ) {
+	if ( isset( $page['html-class'] ) && strpos( $page['html-class'], 'cluster' ) !== FALSE ) {
 		$str = '<header class="site-header-sub">' . PHP_EOL;
 		$str .= sprintf( '<div class="%s">%s', $page['cluster-sub'], PHP_EOL );
 		$str .= sprintf( '<div class="color lighter">%s', PHP_EOL );
 		$str .= sprintf( '<div class="%s">%s', $page['cluster'], PHP_EOL );
-		$str .= sprintf( '<a class="level-01 %s color darker" href="%s/%s%s/"><span class="icon"></span>%s</a>', $page['cluster'], SITE_CLUSTER_URL, $page['cluster'], SITE_CENTER_DIR, ucfirst( $page['cluster'] ) );
+		$str .= sprintf( '<a class="level-01 %s color darker" href="%s/%s%s/"><span class="icon"></span>%s</a>', $page['cluster'], '/whr', $page['clust']['four'], SITE_CENTER_DIR, ucfirst( $page['cluster'] ) );
 		$str .= sprintf( '<span class="level-02 %s"><span class="color lighter"><span class="icon"></span>%s</span></span>%s', $page['cluster-sub'], ucfirst( $page['cluster-sub'] ), PHP_EOL );
 		$str .= '</div><!-- .cluster -->' . PHP_EOL;
 		$str .= '</div><!-- .inner -->' . PHP_EOL;
@@ -152,12 +152,15 @@ function get_firefly_html_class( $page ){
 	} else {
 		$arr[] = 'dynamic';
 	}
-	if ( $class = analyze_uri_for_cluster( $page['uri'] ) ) {
+	$arr = get_uri_parts( $page['uri'] );
+	$page['clust'] = $arr;
+
+	if ( $class = analyze_uri_for_cluster( $arr ) ) {
 		$arr[] = 'cluster';
 		$page['cluster'] = $class;
 		$arr[] = $class;
 	}
-	if ( $class = analyze_uri_for_sub_cluster( $page['uri'] ) ) {
+	if ( $class = analyze_uri_for_sub_cluster( $arr ) ) {
 		$page['cluster-sub'] = $class;
 	}
 	if ( $class = get_firefly_article_class( $page['article'] ) ) {

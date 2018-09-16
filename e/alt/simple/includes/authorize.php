@@ -11,26 +11,6 @@ defined( 'SITE' ) || exit;
  *
  */
 
- /**
-  * A flat array of cluster names that we can use for a simple
-  * search using in_array(). Including the name here authorizes it.
-  * If it is not included, it won't be authorized.
-  */
-function get_clusters(){
-	$arr = [
-		'acad',
-		'arts',
-		'trad',
-		'appl',
-		'gard',
-		'care',
-		'cafe',
-		'moni',
-		'anal',
-		'natu',
-	];
-	return $arr;
-}
 
 /**
  * 1. Get the clusters.
@@ -43,32 +23,21 @@ function get_clusters(){
  * can be used to quickly identify the section one is in. These are largely chosen already.
  */
 
-function analyze_uri_for_cluster( $uri ){
-	$clusters = get_clusters();
-	$cluster = maybe_get_cluster_from_uri( $uri );
-	if ( in_array( $cluster, $clusters ) ){
-		return $cluster;
+function analyze_uri_for_cluster( $arr ){
+	$items = get_tier_three_data();
+	if ( ! empty( $arr['four'] ) ) {
+		return $items[ $arr['four'] ]['name'];
 	} else {
 		return false;
 	}
 }
 
-function analyze_uri_for_sub_cluster( $uri ){
-	$search = 'cluster'; // SITE_CLUSTER_DIR;
-	if ( strpos( $uri, $search ) !== FALSE ) {
-		//if 'cluster' is present, get word directly after
-		$sub_cluster = '';
-		$uri = trim( $uri, '/' );
-		$ex = explode( '/', $uri );
-		$i = 1;
-		if ( $search == $ex[1] && isset( $ex[3] ) ) {
-			$sub_cluster = $ex[3];
-		}	else if ( $search == $ex[0] && isset( $ex[2])  ) {
-			$sub_cluster = $ex[2];
-		}
-		return $sub_cluster;
-		} else {
-			return false;
+function analyze_uri_for_sub_cluster( $arr ){
+	$items = get_tier_four_data();
+	if ( ! empty( $arr['five'] ) ) {
+		return $items[ $arr['five'] ]['name'];
+	} else {
+		return false;
 	}
 }
 
@@ -80,24 +49,23 @@ function analyze_uri_for_sub_cluster( $uri ){
  * simple and compact.
  * This finds the position of the word 'cluster' and then returns
  * the word directly after it, whatever it is (if present).
+ *
+ * @example /whr/acad/
+ * @example /wha/bldg/
  */
-function maybe_get_cluster_from_uri( $uri ){
-	//pattern: /cluster/academic
-	//pattern: /2/nature/center
-	$search = 'cluster'; // SITE_CLUSTER_DIR;
-	if ( strpos( $uri, $search ) !== FALSE ) {
-		//if 'cluster' is present, get word directly after
-		$cluster = '';
-		$uri = trim( $uri, '/' );
-		$ex = explode( '/', $uri );
-		$i = 1;
-		if ( $search == $ex[1] && isset( $ex[2] ) ) {
-			$cluster = $ex[2];
-		}	else if ( $search == $ex[0] && isset( $ex[1])  ) {
-			$cluster = $ex[1];
-		}
-		return $cluster;
-	} else {
+function get_uri_parts( $uri ){
+
+	/** Look for a grouping of three letters, followed by four. */
+	$regex = '/\/([a-z]{3})\/([a-z]{4})\/([a-z]{5})\//';
+	preg_match( $regex, $uri, $match );
+
+	if ( ! empty( $match ) ){
+		$arr['three'] = ! empty( $match[1] ) ? $match[1] : null;
+		$arr['four'] = ! empty( $match[2] ) ? $match[2] : null;
+		$arr['five'] = ! empty( $match[3] ) ? $match[3] : null;
+		return $arr;
+	}
+	else {
 		return false;
 	}
 }
