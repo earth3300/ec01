@@ -1,6 +1,19 @@
+/*
+Theme Name: Firefly HTML
+Theme URI: http://wp.cbos.ca/themes/firefly-html/
+Author: Clarence Bos
+Author URI: http://www.tnoep.ca/
+Description: A lightweight alternative to displaying HTML. Can be used on its own or as a WordPress theme.
+Version: 2018.9.0
+License: GPL-3.0+
+License URI: https://www.gnu.org/licenses/gpl-3.0.en.html
+Text Domain: firefly-html
+Tags: lightweight, simple
+*/
+
 /***** COMMONS START *****/
 
-.commons-updated { background: #180818; }
+.commons-updated { background: #180916; }
 
 /* Adapted from HTML5 / Created: 2017-12-15. */
 
@@ -1105,4 +1118,3 @@ footer .address { text-align: center; }
 /********** CUSTOM STYLING END **********/
 
 /*** COMMONS END ***/
-
