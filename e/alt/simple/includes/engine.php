@@ -34,17 +34,23 @@ class FireFlyHTML {
 
 	/**
 	 * Get the filtered URI, ensuring it is safe, without the query string.
+	 *
 	 * Available: REQUEST_URI, QUERY_STRING and parse_url();
+	 *
 	 * @return boolean|string
 	 */
-	private function getPageUri(){
+	private function getPageUri()
+	{
 		$uri = parse_url( $_SERVER['REQUEST_URI'], PHP_URL_PATH );
 		$uri = substr( $uri, 0, 65 );
-		if ( empty ( $uri ) || $uri == '/' ){
+
+		if ( empty ( $uri ) || $uri == '/' )
+		{
 			$page['front-page'] = true;
 			$page['uri'] = '';
 		}
-		else {
+		else
+		{
 			$page['front-page'] = false;
 			$page['uri'] = $uri;
 		}
@@ -52,39 +58,53 @@ class FireFlyHTML {
 	}
 
 	/**
-	 * Get the page slug
+	 * Get the page slug.
+	 *
 	 * @param array $page
+	 *
 	 * @return string
 	 */
-	private function getPageSlug( $page ){
+	private function getPageSlug( $page )
+	{
 		$slug = rtrim( $page['uri'], '/' );
 		return $slug;
 	}
 
 	/**
-	 * Get the header
+	 * Get the header.
+	 *
 	 * @param array $page
+	 *
 	 * @return str
 	 */
-	private function getHeader( $page ){
-
+	private function getHeader( $page )
+	{
 		$str = 'Header N/A';
+
 		$file = SITE_HEADER_PATH . SITE_HEADER_DIR . SITE_HTML_EXT;
-		if ( file_exists( $file ) ){
+
+		if ( file_exists( $file ) )
+		{
 			$str = file_get_contents( $file );
 			return $str;
-		} else {
+		}
+		else
+		{
 			return $str;
 		}
 	}
 
 	/**
-	 * Builds the sub header
+	 * Builds the sub header.
+	 *
 	 * @param array $page
+	 *
 	 * @return array
 	 */
-	private function getHeaderSub( $page ){
-		if ( isset( $page['html-class'] ) && strpos( $page['html-class'], 'cluster' ) !== FALSE ) {
+	private function getHeaderSub( $page )
+	{
+		if ( isset( $page['html-class'] ) && strpos( $page['html-class'], 'cluster' ) !== FALSE )
+		{
 			$str = '<header class="site-header-sub">' . PHP_EOL;
 			$str .= sprintf( '<div class="%s">%s', $page['cluster-sub'], PHP_EOL );
 			$str .= sprintf( '<div class="color lighter">%s', PHP_EOL );
@@ -96,23 +116,32 @@ class FireFlyHTML {
 			$str .= '</div><!-- .cluster-sub-name -->' . PHP_EOL;
 			$str .= '</header>' . PHP_EOL;
 			return $str;
-		} else {
+		} else
+		{
 			return false;
 		}
 	}
 
 	/**
-	 * Get the article
+	 * Get the article.
+	 *
 	 * @param array $page
+	 *
 	 * @return string
 	 */
-	private function getArticle( $page ){
+	private function getArticle( $page )
+	{
 		$str = '<article>Article N/A.</article>';
-		$file = get_firefly_article_directory( $page );
-		if ( file_exists( $file ) ){
+
+		$file = $this->getArticleDirectory( $page );
+
+		if ( file_exists( $file ) )
+		{
 			$str = file_get_contents( $file );
 			return $str;
-		} else {
+		}
+		else
+		{
 			return $str;
 		}
 	}
@@ -122,26 +151,33 @@ class FireFlyHTML {
 	 * @param array $page
 	 * @return string
 	 */
-	private function getArticleDirectory( $page ){
-		if ( $page['front-page'] ) {
+	private function getArticleDirectory( $page )
+	{
+		if ( $page['front-page'] )
+		{
 			$file = SITE_PATH . SITE_ARTICLE_FILE;
 		}
-		else {
+		else
+		{
 			$file = SITE_HTML_PATH . rtrim( $page['slug'], '/' ) . SITE_ARTICLE_FILE;
 		}
 		return $file;
 	}
 
 	/**
-	 * Get the article title
+	 * Get the article title.
+	 *
 	 * @param array $page
+	 *
 	 * @return string
 	 */
-	private function getArticleTitle( $article ){
+	private function getArticleTitle( $article )
+	{
 		$check = substr( $article, 0, 150 );
 		$pattern = "/>(.*?)<\/h1>/";
 		preg_match( $pattern, $check, $matches );
-		if ( ! empty ( $matches[1] ) ){
+		if ( ! empty ( $matches[1] ) )
+		{
 			return ( $matches[1] );
 		}
 		else {
@@ -150,31 +186,41 @@ class FireFlyHTML {
 	}
 
 	/**
-	 * Get the class to use in the html element
+	 * Get the class(es) to use in the HTML element.
+	 *
 	 * @param array
+	 *
 	 * @return str
 	 */
-	private function getHtmlClass( $page ){
-		if ( SITE_IS_FIXED_WIDTH && $page['front-page'] ) {
+	private function getHtmlClass( $page )
+	{
+		if ( SITE_IS_FIXED_WIDTH && $page['front-page'] )
+		{
 			$arr[] = 'fixed-width';
-		} else {
+		} else
+		{
 			$arr[] = 'dynamic';
 		}
-		$arr = get_uri_parts( $page['uri'] );
+
+		$arr = getUriParts( $page['uri'] );
 		$page['clust'] = $arr;
 
-		if ( $class = analyze_uri_for_cluster( $arr ) ) {
+		if ( $class = $this->analyzeUriTierThree( $arr ) )
+		{
 			$arr[] = 'cluster';
 			$page['cluster'] = $class;
 			$arr[] = $class;
 		}
-		if ( $class = analyze_uri_for_sub_cluster( $arr ) ) {
+		if ( $class = $this->analyzeUriTierFour( $arr ) )
+		{
 			$page['cluster-sub'] = $class;
 		}
-		if ( $class = get_firefly_article_class( $page['article'] ) ) {
+		if ( $class = $this->getArticleClass( $page['article'] ) )
+		{
 			$arr[] = $class;
 		}
-		if ( ! empty( $arr ) ){
+		if ( ! empty( $arr ) )
+		{
 			$page['html-class'] = implode( ' ', $arr );
 		}
 		return $page;
@@ -182,17 +228,23 @@ class FireFlyHTML {
 
 	/**
 	 * Get the class from the article element
+	 *
 	 * @param array
+	 *
 	 * @return str
 	 */
-	private function getArticleClass( $article ){
+	private function getArticleClass( $article )
+	{
 		$check = substr( $article, 0, 150 );
 		$pattern = "/<article class=\"(.*?)\"/";
 		preg_match( $pattern, $check, $matches );
-		if ( ! empty ( $matches[1] ) ){
+
+		if ( ! empty ( $matches[1] ) )
+		{
 			return ( $matches[1] );
 		}
-		else {
+		else
+		{
 			return false;
 		}
 	}
@@ -204,22 +256,29 @@ class FireFlyHTML {
 	 *
 	 * @return string
 	 */
-	private function getPageTitle( $page ){
+	private function getPageTitle( $page )
+	{
 		$str = "Site Title N/A";
-		if ( defined( 'SITE_TITLE' ) ) {
-			if( $page['front-page'] ) {
+
+		if ( defined( 'SITE_TITLE' ) )
+		{
+			if( $page['front-page'] )
+			{
 				$str = sprintf( '%s%s%s', SITE_TITLE, ' | ', SITE_DESCRIPTION );
 				return $str;
 			}
-			else if ( ! empty ( $page['article-title'] ) ){
+			else if ( ! empty ( $page['article-title'] ) )
+			{
 				$str = sprintf( '%s%s%s', $page['article-title'], ' | ', SITE_TITLE );
 				return $str;
 			}
-			else {
+			else
+			{
 				return SITE_TITLE;
 			}
 		}
-		else {
+		else
+		{
 			return $str;
 		}
 	}
@@ -231,13 +290,16 @@ class FireFlyHTML {
 	 *
 	 * @return string
 	 */
-	private function getMenu() {
+	private function getMenu()
+	{
 		$str = 'Menu N/A';
 		$file = SITE_MENU_PATH . SITE_MENU_DIR . SITE_HTML_EXT;
-		if ( file_exists( $file ) ){
+		if ( file_exists( $file ) )
+		{
 			$str = file_get_contents( $file );
 			return $str;
-		} else {
+		} else
+		{
 			return $str;
 		}
 	}
@@ -249,13 +311,17 @@ class FireFlyHTML {
 	 *
 	 * @return string
 	 */
-	private function getSidebar( $page ){
+	private function getSidebar( $page )
+	{
 		$str = 'Sidebar N/A';
 		$file = SITE_SIDEBAR_PATH . SITE_SIDEBAR_DIR . SITE_HTML_EXT;
-		if ( file_exists( $file ) ){
+		if ( file_exists( $file ) )
+		{
 			$str = file_get_contents( $file );
 			return $str;
-		} else {
+		}
+		else
+		{
 			return $str;
 		}
 	}
@@ -265,13 +331,17 @@ class FireFlyHTML {
 	 *
 	 * @return string
 	 */
-	private function getFooter(){
+	private function getFooter()
+	{
 		$str = 'Footer N/A';
 		$file = SITE_FOOTER_PATH . SITE_FOOTER_DIR . SITE_HTML_EXT;
-		if ( file_exists( $file ) ){
+
+		if ( file_exists( $file ) )
+		{
 			$str = file_get_contents( $file );
 			return $str;
-		} else {
+		} else
+		{
 			return $str;
 		}
 	}
@@ -284,12 +354,15 @@ class FireFlyHTML {
 	 *
 	 * @todo Needs some work
 	 */
-	private function sanitizeHtml( $str = '' ){
-		if ( ! empty( $str ) ) {
+	private function sanitizeHtml( $str = '' )
+	{
+		if ( ! empty( $str ) )
+		{
 			$allowed = '<section><article><header><div><img><a><p><h1><h2><h3><h4><h5><h6><ol><li>';
 			$stripped = strip_tags( $str, $allowed );
 			return $stripped;
-		} else {
+		} else
+		{
 			return false;
 		}
 	}
@@ -317,11 +390,15 @@ class FireFlyHTML {
 	 * @return array|bool
 	 */
 
-	private function analyzeUriTierThree( $arr ){
+	private function analyzeUriTierThree( $arr )
+	{
 		$items = get_tier_three_data();
-		if ( ! empty( $arr['four'] ) ) {
+		if ( ! empty( $arr['four'] ) )
+		{
 			return $items[ $arr['four'] ]['name'];
-		} else {
+		}
+		else
+		{
 			return false;
 		}
 	}
@@ -332,11 +409,14 @@ class FireFlyHTML {
 	 *
 	 * @return array|bool
 	 */
-	private function analyzeUriTierFour( $arr ){
+	private function analyzeUriTierFour( $arr )
+	{
 		$items = get_tier_four_data();
-		if ( ! empty( $arr['five'] ) ) {
+		if ( ! empty( $arr['five'] ) )
+		{
 			return $items[ $arr['five'] ]['name'];
-		} else {
+		} else
+		{
 			return false;
 		}
 	}
@@ -359,20 +439,22 @@ class FireFlyHTML {
 	 * @example /whr/acad/
 	 * @example /wha/bldg/
 	 */
-	private function getUriParts( $uri ){
-
+	private function getUriParts( $uri )
+	{
 		/** Look for a grouping of three letters, followed by four. */
 		$regex = '/\/([a-z]{3})\/([a-z]{4})\/([a-z]{5})\//';
 		preg_match( $regex, $uri, $match );
 
-		if ( ! empty( $match ) ){
+		if ( ! empty( $match ) )
+		{
 			$arr['three'] = ! empty( $match[1] ) ? $match[1] : null;
 			$arr['four'] = ! empty( $match[2] ) ? $match[2] : null;
 			$arr['five'] = ! empty( $match[3] ) ? $match[3] : null;
 			return $arr;
 		}
-		else {
+		else
+		{
 			return false;
 		}
-}
+	}
 } //end class

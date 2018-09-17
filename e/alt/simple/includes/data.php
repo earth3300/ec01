@@ -2,19 +2,12 @@
 
 defined( 'SITE' ) || exit;
 
-/**
- * Data.
- */
 
 /**
- * Data.
+ * Get Tier Three Data
+ *
+ * @return array
  */
-
- /**
-  * A flat array of cluster names that we can use for a simple
-  * search using in_array(). Including the name here authorizes it.
-  * If it is not included, it won't be authorized.
-  */
 function get_tier_three_data(){
 	$arr = [
 		'acad' => [ 'name' => 'academic' ],
@@ -31,6 +24,11 @@ function get_tier_three_data(){
 	return $arr;
 }
 
+/**
+ * Get Tier Four Data
+ *
+ * @return array
+ */
 function get_tier_four_data(){
 	$arr = [
 		'centr' => [ 'name' => 'center' ],
