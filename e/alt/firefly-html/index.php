@@ -3,8 +3,8 @@
 /**
  * FireFly HTML.
  *
- * A simple and lightweight alternative to displaying HTML. Can be used on its own,
- * or as a WordPress theme. Requires SITE_ constants, defined in: `/c/cfg-structure.php`.
+ * A lighweight alternative to displaying HTML. Can be used on its own, or as a WordPress theme.
+ * Requires SITE_ constants, defined in: `/c/cfg-structure.php`.
  *
  * @package FireFlyHTML
  * @since 2018.9.0
@@ -15,13 +15,13 @@
  *
  * @wordpress-theme
  * Plugin Name: FireFly HTML
- * Plugin URI:  http://wp.cbos.ca/themes/firefly-html/
+ * Plugin URI: http://wp.cbos.ca/themes/firefly-html/
  * Description: A lightweight alternative to displaying HTML. Can be used on its own or as a WordPress theme.
- * Version:     2018.9.0
- * Author:      Clarence Bos
- * Author URI:  https://www.tnoep.ca/
+ * Version: 2018.9.0
+ * Author: Clarence Bos
+ * Author URI: https://www.tnoep.ca/
  * Text Domain: firefly-html
- * License:     GPL-3.0+
+ * License: GPL-3.0+
  * License URI: https://www.gnu.org/licenses/gpl-3.0.en.html
  */
 
