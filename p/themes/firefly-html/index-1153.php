@@ -44,35 +44,33 @@ if ( ! defined( 'SITE_PATH' ) && defined('ABSPATH') )
 	/** Set SITE_PATH to ABSPATH, if in WordPress. */
 	define( 'SITE_PATH', ABSPATH );
 }
-elseif( defined( 'SITE_PATH' ) )
-{
-	/** The following is conditional. If these conditions are not met, it won't work. */
-	if ( file_exists( SITE_PATH . '/c/config/cfg-load.php' ) )
-	{
-		/** Require the configuration files. */
-		require_once( SITE_PATH . '/c/config/cfg-load.php' );
-
-		/** Require the "engine" file. This is expected to be there. */
-		require_once( __DIR__ . '/includes/engine.php' );
-
-		/**
-		 * Instantiate the FireFlyHTML class and echo it.
-		 *
-		 * The class does all the rest of the work.
-		 * It does not use a database. If we got this far, the class exists
-		 * in the engine directory, otherwise it is *really* broken.
-		 */
-		$html = new FireFlyHTML();
-		echo $html->get();
-	}
-	else
-	{
-		/** Bail, and ask for help. */
-		exit( 'Please check the path to the configuration files.' );
-	}
-}
 else
 {
 	/** Bail, and ask for help. */
 	exit( 'The SITE_PATH needs to be set to the root directory of this site.' );
 }
+
+if ( file_exists( SITE_PATH . '/c/config/cfg-load.php' ) )
+{
+	/** Require the configuration files. */
+	require_once( SITE_PATH . '/c/config/cfg-load.php' );
+}
+else
+{
+	/** Bail, and ask for help. */
+	exit( 'Please check the path to the configuration files.' );
+}
+
+/** Require the "engine" file. This is expected to be there. */
+require_once( __DIR__ . '/includes/engine.php' );
+
+
+/**
+ * Instantiate the FireFlyHTML class and echo it.
+ *
+ * The class does all the rest of the work.
+ * It does not use a database.
+ */
+
+$html = new FireFlyHTML();
+echo $html->get();
