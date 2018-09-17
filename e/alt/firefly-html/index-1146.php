@@ -25,54 +25,37 @@
  * License URI: https://www.gnu.org/licenses/gpl-3.0.en.html
  */
 
-/**
- * If `wp_get_server_protocol` exists, we are in WordPress, otherwise not.
- */
+// if `wp_get_server_protocol` exists, we are in WordPress, otherwise not.
 if( function_exists( 'wp_get_server_protocol' ) )
 {
-	/** We are in WordPress, and check for direct access. */
+	// No direct access.
 	defined('ABSPATH') || exit('No direct access.');
 }
 else
 {
-	/** We are not in WordPress, and check for direct access. */
-	defined('SITE') || exit('No direct access.');
-}
-
-if ( ! defined( 'SITE_PATH' ) && defined('ABSPATH') )
-{
-	/** Set SITE_PATH to ABSPATH, if in WordPress. */
-	define( 'SITE_PATH', ABSPATH );
-}
-elseif( defined( 'SITE_PATH' ) )
-{
-	/** The following is conditional. If these conditions are not met, it won't work. */
-	if ( file_exists( SITE_PATH . '/c/config/cfg-load.php' ) )
+	if ( defined( 'SITE_PATH' ) )
 	{
-		/** Require the configuration files. */
-		require_once( SITE_PATH . '/c/config/cfg-load.php' );
-
-		/** Require the "engine" file. This is expected to be there. */
+		if ( file_exists( SITE_CONFIG_PATH . '/cfg-load.php' ) )
+		{
+			require_once( SITE_CONFIG_PATH . '/cfg-load.php' );
+		}
+		else
+		{
+			exit( 'Please check the path to the config file (alt/firefly-html/index.php).' );
+		}
 		require_once( __DIR__ . '/includes/engine.php' );
 
 		/**
 		 * Instantiate the FireFlyHTML class and echo it.
 		 *
 		 * The class does all the rest of the work.
-		 * It does not use a database. If we got this far, the class exists
-		 * in the engine directory, otherwise it is *really* broken.
+		 * It does not use a database.
 		 */
 		$html = new FireFlyHTML();
 		echo $html->get();
 	}
 	else
 	{
-		/** Bail, and ask for help. */
-		exit( 'Please check the path to the configuration files.' );
+		exit( 'The SITE_PATH needs to be set in the index.php file in the root directory of this site.' );
 	}
-}
-else
-{
-	/** Bail, and ask for help. */
-	exit( 'The SITE_PATH needs to be set to the root directory of this site.' );
 }
