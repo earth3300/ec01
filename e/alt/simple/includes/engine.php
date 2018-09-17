@@ -16,8 +16,8 @@ class FireFlyHTML
 	public function get()
 	{
 		$this->load();
-		$template = new FireFlyTemplate();
 		$page = $this->getPage();
+		$template = new FireFlyTemplate();
 		$html = $template->getHtml( $page );
 		return $html;
 	}
