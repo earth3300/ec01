@@ -14,8 +14,8 @@
  * @link http://wp.cbos.ca/themes/firefly-html/
  *
  * @wordpress-theme
- * Plugin Name: FireFly HTML
- * Plugin URI: http://wp.cbos.ca/themes/firefly-html/
+ * Theme Name: FireFly HTML
+ * Theme URI: http://wp.cbos.ca/themes/firefly-html/
  * Description: A lightweight alternative to displaying HTML. Can be used on its own or as a WordPress theme.
  * Version: 2018.9.0
  * Author: Clarence Bos

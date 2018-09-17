@@ -1,5 +1,4 @@
-# FireFly HTML
-
+=== FireFly HTML ===
 Contributors: cbos
 Tags: lightweight
 Requires at least: 4.9
@@ -18,23 +17,23 @@ Text Domain: firefly-html
 A lightweight alternative to displaying HTML. Can be used as a WordPress theme
 or on its own.
 
-## Description
+== Description ==
 
 1. Upload the theme files to the `/{wp-content}/themes/firefly-html` directory.
 2. Activate the theme through the 'Themes' screen in WordPress.
 
-## Frequently Asked Questions
+== Frequently Asked Questions ==
 
-1. How does it work?
+= How does it work? =
 
 This theme uses a class that generates the HTML. It uses as set of generic
 configuration files constants, that all begin with the prefix SITE_.
 This provides the context for these files to work.
 
-## Screenshots
+== Screenshots ==
 
 1. None.
 
-## Changelog
+== Changelog ==
 
 None.
