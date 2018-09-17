@@ -37,9 +37,13 @@ else
 	defined('SITE') || exit('No direct access.');
 }
 
-if ( ! defined( 'SITE_PATH' ) )
+if ( ! defined( 'SITE_PATH' ) && defined('ABSPATH') )
 {
-	define( 'SITE_PATH', $_SERVER['DOCUMENT_ROOT'] );
+	define( 'SITE_PATH', ABSPATH );
+}
+else {
+	exit( 'The SITE_PATH needs to be set to the root directory of this site.' );
+	}
 }
 
 if ( file_exists( SITE_PATH . '/c/config/cfg-load.php' ) )
