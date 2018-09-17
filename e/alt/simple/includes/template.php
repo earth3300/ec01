@@ -14,7 +14,7 @@ class FireFlyHTML extends FireFlyEngine{
 	 *
 	 * @return string
 	 */
-	function get( $page )
+	function getHtml( $page )
 	{
 		if ( is_array( $page ) )
 		{
@@ -68,7 +68,7 @@ class FireFlyHTML extends FireFlyEngine{
 /**
 * Get the elapsed time from when the request first reached the server, to just before the end.
 */
-public function get_firefly_elapsed(){
+function get_firefly_elapsed(){
 
    global $site_elapsed;
 

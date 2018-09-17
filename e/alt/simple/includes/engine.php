@@ -461,5 +461,7 @@ class FireFlyEngine {
 	}
 } //end class
 
-$arr = new FireFlyHTML();
-echo $page = $arr -> get();
+$arr = new FireFlyEngine();
+$page = $arr -> get();
+$html = new FireFlyHTML( );
+echo $html->getHtml( $page );
