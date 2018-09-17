@@ -14,14 +14,19 @@
 
 defined( 'SITE' ) || exit;
 
-if ( defined( 'SITE_PATH' ) ) {
-	if ( file_exists ( SITE_CONFIG_PATH . '/cfg-load.php' ) ){
+if ( defined( 'SITE_PATH' ) )
+{
+	if ( file_exists ( SITE_CONFIG_PATH . '/cfg-load.php' ) )
+	{
 		require_once( SITE_CONFIG_PATH . '/cfg-load.php' );
-	} else {
+	}
+	else
+	{
 		exit( 'Please check the path to the config file (alt/simple/index.php).' );
 	}
 	require_once( __DIR__ . '/includes/engine.php' );
-	echo get_firefly_html();
-} else {
+}
+else
+{
 	exit( 'The SITE_PATH needs to be set in the index.php file in the root directory of this site.' );
 }

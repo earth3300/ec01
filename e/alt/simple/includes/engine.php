@@ -2,14 +2,16 @@
 
 defined( 'SITE' ) || exit;
 
-class FireFlyHTML {
+/**
+ * The FireFly Engine
+ */
+class FireFlyEngine {
 
 	/**
 	 * Load the required files.
 	 */
 	private function load(){
 		require_once( __DIR__ . '/data.php' );
-		require_once( __DIR__ . '/authorize.php' );
 		require_once( __DIR__ . '/template.php' );
 	}
 
@@ -27,7 +29,7 @@ class FireFlyHTML {
 		$page = $this-> getHtmlClass( $page );
 		$page['header-sub'] = $this-> getHeaderSub( $page );
 		$page['page-title'] = $this-> getPageTitle( $page );
-		$page['sidebar']= $this-> SITE_USE_SIDEBAR ? getSidebar() : '';
+		$page['sidebar']= defined( 'SITE_USE_SIDEBAR' ) && SITE_USE_SIDEBAR ? $this->getSidebar() : '';
 		$page['footer']= $this-> getFooter();
 		return $page;
 	}
@@ -39,7 +41,7 @@ class FireFlyHTML {
 	 *
 	 * @return boolean|string
 	 */
-	private function getPageUri()
+	private function getUri()
 	{
 		$uri = parse_url( $_SERVER['REQUEST_URI'], PHP_URL_PATH );
 		$uri = substr( $uri, 0, 65 );
@@ -202,7 +204,7 @@ class FireFlyHTML {
 			$arr[] = 'dynamic';
 		}
 
-		$arr = getUriParts( $page['uri'] );
+		$arr = $this->getUriParts( $page['uri'] );
 		$page['clust'] = $arr;
 
 		if ( $class = $this->analyzeUriTierThree( $arr ) )
@@ -458,3 +460,6 @@ class FireFlyHTML {
 		}
 	}
 } //end class
+
+$arr = new FireFlyHTML();
+echo $page = $arr -> get();
