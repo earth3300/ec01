@@ -25,37 +25,40 @@
  * License URI: https://www.gnu.org/licenses/gpl-3.0.en.html
  */
 
-// if `wp_get_server_protocol` exists, we are in WordPress, otherwise not.
+/**
+ * if `wp_get_server_protocol` exists, we are in WordPress, otherwise not.
+ */
 if( function_exists( 'wp_get_server_protocol' ) )
 {
-	// No direct access.
 	defined('ABSPATH') || exit('No direct access.');
 }
 else
 {
-	if ( defined( 'SITE_PATH' ) )
-	{
-		if ( file_exists( SITE_CONFIG_PATH . '/cfg-load.php' ) )
-		{
-			require_once( SITE_CONFIG_PATH . '/cfg-load.php' );
-		}
-		else
-		{
-			exit( 'Please check the path to the config file (alt/firefly-html/index.php).' );
-		}
-		require_once( __DIR__ . '/includes/engine.php' );
+	defined('SITE') || exit('No direct access.');
+}
 
-		/**
-		 * Instantiate the FireFlyHTML class and echo it.
-		 *
-		 * The class does all the rest of the work.
-		 * It does not use a database.
-		 */
-		$html = new FireFlyHTML();
-		echo $html->get();
-	}
-	else
-	{
-		exit( 'The SITE_PATH needs to be set in the index.php file in the root directory of this site.' );
+if ( ! defined( 'SITE_PATH' ) )
+{
+	define( 'SITE_PATH', $_SERVER['DOCUMENT_ROOT'] );
 }
+
+if ( file_exists( SITE_PATH . '/c/config/cfg-load.php' ) )
+{
+	require_once( SITE_PATH . '/c/config/cfg-load.php' );
 }
+else
+{
+	exit( 'Please check the path to the config file (alt/firefly-html/index.php).' );
+}
+require_once( __DIR__ . '/includes/engine.php' );
+
+
+/**
+ * Instantiate the FireFlyHTML class and echo it.
+ *
+ * The class does all the rest of the work.
+ * It does not use a database.
+ */
+
+$html = new FireFlyHTML();
+echo $html->get();
