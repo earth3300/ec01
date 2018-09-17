@@ -27,7 +27,7 @@ or on its own.
 = How does it work? =
 
 This theme uses a class that generates the HTML. It uses as set of generic
-configuration files constants, that all begin with the prefix SITE_.
+configuration files constants, that begin with the prefix SITE_.
 This provides the context for these files to work.
 
 == Screenshots ==

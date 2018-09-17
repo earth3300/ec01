@@ -91,7 +91,7 @@ define( 'SITE_CONFIG_DIR', '/c/config' );
 define( 'SITE_ALT_DIR', '/alt' );
 
 /** "Simple" framework directory. */
-define( 'SITE_SIMPLE_DIR', '/firefly-html' );
+define( 'SITE_MINIMAL_DIR', '/firefly-html' );
 
 /** Main (core) directory */
 define( 'SITE_CORE_DIR', '/e/core' );
@@ -286,7 +286,7 @@ define( 'SITE_P_PATH', SITE_PATH . SITE_P_DIR );
 define( 'SITE_CORE_PATH', SITE_PATH . SITE_CORE_DIR );
 
 /** The path to the "simple" engine. */
-define( 'SITE_SIMPLE_PATH', SITE_PATH . SITE_E_DIR . SITE_ALT_DIR . SITE_SIMPLE_DIR );
+define( 'SITE_MINIMAL_PATH', SITE_PATH . SITE_E_DIR . SITE_ALT_DIR . SITE_MINIMAL_DIR );
 
 /** The path to the config directory. */
 define( 'SITE_CONFIG_PATH', SITE_PATH . SITE_CONFIG_DIR );

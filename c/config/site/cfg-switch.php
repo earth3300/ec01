@@ -15,7 +15,7 @@ define( 'SITE_USE_CORE', 0 );
 define( 'SITE_USE_CORE_ALWAYS', 1 );
 
 /** Use the alternative framework, if available. */
-define( 'SITE_USE_SIMPLE', 1 );
+define( 'SITE_USE_MINIMAL', 1 );
 
 /** Use the alternative framework, if available. (This could be "complex" in the future)*/
 define( 'SITE_USE_ALT', 1 );
