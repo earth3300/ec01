@@ -5,7 +5,22 @@ defined( 'SITE' ) || exit;
 /**
  * The FireFly Engine
  */
-class FireFlyEngine {
+class FireFlyHTML
+{
+
+	/**
+	 * Get.
+	 *
+	 * @return string
+	 */
+	public function get()
+	{
+		$this->load();
+		$template = new FireFlyTemplate();
+		$page = $this->getPage();
+		$html = $template->getHtml( $page );
+		return $html;
+	}
 
 	/**
 	 * Load the required files.
@@ -19,8 +34,8 @@ class FireFlyEngine {
 	 * Get the page
 	 * @return array
 	 */
-	public function get () {
-		$this->load();
+	private function getPage()
+	{
 		$page = $this->getUri();
 		$page['slug'] = $this-> getPageSlug( $page );
 		$page['header'] = $this-> getHeader( $page );
@@ -461,7 +476,6 @@ class FireFlyEngine {
 	}
 } //end class
 
-$arr = new FireFlyEngine();
-$page = $arr -> get();
-$html = new FireFlyHTML( );
-echo $html->getHtml( $page );
+$html = new FireFlyHTML();
+echo $html->get();
+
