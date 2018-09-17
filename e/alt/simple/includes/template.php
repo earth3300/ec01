@@ -3,7 +3,9 @@
 defined( 'SITE' ) || exit;
 
 /**
- * The FireFly HTML
+ * The FireFly HTML Template.
+ *
+ * @return string
  */
 class FireFlyTemplate extends FireFlyHTML{
 
@@ -86,4 +88,3 @@ function get_firefly_elapsed(){
 
    return $str;
 }
-

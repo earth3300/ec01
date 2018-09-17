@@ -3,7 +3,7 @@
 defined( 'SITE' ) || exit;
 
 /**
- * The FireFly Engine
+ * The FireFly HTML Engine.
  */
 class FireFlyHTML
 {
