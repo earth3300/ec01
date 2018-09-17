@@ -26,34 +26,42 @@
  */
 
 /**
- * if `wp_get_server_protocol` exists, we are in WordPress, otherwise not.
+ * If `wp_get_server_protocol` exists, we are in WordPress, otherwise not.
  */
 if( function_exists( 'wp_get_server_protocol' ) )
 {
+	/** We are in WordPress, and check for direct access. */
 	defined('ABSPATH') || exit('No direct access.');
 }
 else
 {
+	/** We are not in WordPress, and check for direct access. */
 	defined('SITE') || exit('No direct access.');
 }
 
 if ( ! defined( 'SITE_PATH' ) && defined('ABSPATH') )
 {
+	/** Set SITE_PATH to ABSPATH, if in WordPress. */
 	define( 'SITE_PATH', ABSPATH );
 }
-else {
+else
+{
+	/** Bail, and ask for help. */
 	exit( 'The SITE_PATH needs to be set to the root directory of this site.' );
-	}
 }
 
 if ( file_exists( SITE_PATH . '/c/config/cfg-load.php' ) )
 {
+	/** Require the configuration files. */
 	require_once( SITE_PATH . '/c/config/cfg-load.php' );
 }
 else
 {
-	exit( 'Please check the path to the config file (alt/firefly-html/index.php).' );
+	/** Bail, and ask for help. */
+	exit( 'Please check the path to the configuration files.' );
 }
+
+/** Require the "engine" file. This is expected to be there. */
 require_once( __DIR__ . '/includes/engine.php' );
 
 
