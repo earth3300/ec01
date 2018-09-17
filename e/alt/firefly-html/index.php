@@ -1,32 +1,61 @@
 <?php
 
 /**
- * We want to be able to use these files, as is, in a theme folder that WordPress
- * is used to. In addition, we will assume that this is happening within this
- * bundle package. Therefore the constant 'SITE' is defined, so we can use that
- * to ensure these files are not called directly.  Finally, we will need a file
- * called "functions.php", as this is what WordPress looks for. Thus we will
- * use that. Finally, we want to be able to use this file so that it can be used as
- * is, very simply, in a directory to deliver HTML. Thus, we need to have the initial
- * file being called named "index.php", as that is the file (after index.html) that
- * is being looked for by the server, by default.
+ * FireFly HTML.
+ *
+ * A simple and lightweight alternative to displaying HTML. Can be used on its own,
+ * or as a WordPress theme. Requires SITE_ constants, defined in: `/c/cfg-structure.php`.
+ *
+ * @package FireFlyHTML
+ * @since 2018.9.0
+ * @author Clarence Bos <cbos@tnoep.ca>
+ * @copyright Copyright (c) 2018, Clarence Bos
+ * @license https://www.gnu.org/licenses/gpl-3.0.en.html GPL-3.0+
+ * @link http://wp.cbos.ca/themes/firefly-html/
+ *
+ * @wordpress-theme
+ * Plugin Name: FireFly HTML
+ * Plugin URI:  http://wp.cbos.ca/themes/firefly-html/
+ * Description: A lightweight alternative to displaying HTML. Can be used on its own or as a WordPress theme.
+ * Version:     2018.9.0
+ * Author:      Clarence Bos
+ * Author URI:  https://www.tnoep.ca/
+ * Text Domain: firefly-html
+ * License:     GPL-3.0+
+ * License URI: https://www.gnu.org/licenses/gpl-3.0.en.html
  */
 
-defined( 'SITE' ) || exit;
-
-if ( defined( 'SITE_PATH' ) )
+// if `wp_get_server_protocol` exists, we are in WordPress, otherwise not.
+if( function_exists( 'wp_get_server_protocol' ) )
 {
-	if ( file_exists ( SITE_CONFIG_PATH . '/cfg-load.php' ) )
-	{
-		require_once( SITE_CONFIG_PATH . '/cfg-load.php' );
-	}
-	else
-	{
-		exit( 'Please check the path to the config file (alt/firefly-html/index.php).' );
-	}
-	require_once( __DIR__ . '/includes/engine.php' );
+	// No direct access.
+	defined('ABSPATH') || exit('No direct access.');
 }
 else
 {
-	exit( 'The SITE_PATH needs to be set in the index.php file in the root directory of this site.' );
+	if ( defined( 'SITE_PATH' ) )
+	{
+		if ( file_exists( SITE_CONFIG_PATH . '/cfg-load.php' ) )
+		{
+			require_once( SITE_CONFIG_PATH . '/cfg-load.php' );
+		}
+		else
+		{
+			exit( 'Please check the path to the config file (alt/firefly-html/index.php).' );
+		}
+		require_once( __DIR__ . '/includes/engine.php' );
+
+		/**
+		 * Instantiate the FireFlyHTML class and echo it.
+		 *
+		 * The class does all the rest of the work.
+		 * It does not use a database.
+		 */
+		$html = new FireFlyHTML();
+		echo $html->get();
+	}
+	else
+	{
+		exit( 'The SITE_PATH needs to be set in the index.php file in the root directory of this site.' );
+}
 }

@@ -476,6 +476,3 @@ class FireFlyHTML
 	}
 } //end class
 
-$html = new FireFlyHTML();
-echo $html->get();
-
