@@ -91,7 +91,7 @@ define( 'SITE_CONFIG_DIR', '/c/config' );
 define( 'SITE_ALT_DIR', '/alt' );
 
 /** "Simple" framework directory. */
-define( 'SITE_SIMPLE_DIR', '/simple' );
+define( 'SITE_SIMPLE_DIR', '/firefly-html' );
 
 /** Main (core) directory */
 define( 'SITE_CORE_DIR', '/e/core' );

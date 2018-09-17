@@ -22,7 +22,7 @@ if ( defined( 'SITE_PATH' ) )
 	}
 	else
 	{
-		exit( 'Please check the path to the config file (alt/simple/index.php).' );
+		exit( 'Please check the path to the config file (alt/firefly-html/index.php).' );
 	}
 	require_once( __DIR__ . '/includes/engine.php' );
 }
