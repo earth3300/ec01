@@ -61,9 +61,9 @@ class MediaList
 	 *
 	 * array
 	 */
-	protected $dim = [
-		'width' => 800,
-		'height' => 600,
+	protected $opts = [
+		'dim' => [ 'width' => 800, 'height' => 600 ],
+		'max' => 12,
 	];
 
 	/**
@@ -208,7 +208,7 @@ class MediaList
 		}
 		else
 		{
-			$max = 5;
+			$max = $this->opts['max'];
 		}
 		return $max;
 	}
@@ -466,8 +466,8 @@ class MediaList
 		}
 		else
 		{
-			$dim['width'] = $this->dim['width'];
-			$dim['height'] = $this->dim['height'];
+			$dim['width'] = $this->opts['dim']['width'];
+			$dim['height'] = $this->opts['dim']['height'];
 			return $dim;
 		}
 	}
