@@ -45,8 +45,8 @@ class FireFlyTemplate extends FireFlyHTML{
 			$str .= ! empty( $page['class']['body'] ) ? sprintf('<body class="%s">%s',$page['class']['body'], PHP_EOL) : '<body>' . PHP_EOL;
 			$str .= '<div class="wrap">' . PHP_EOL;
 			$str .= '<div class="inner">' . PHP_EOL;
-			$str .= $page['header'];
-			$str .= $page['header-sub'];
+			$str .= $page['header']['main'];
+			$str .= $page['header']['sub'];
 			$str .= '<main>' . PHP_EOL;
 			$str .= $page['article'];
 			$str .= '</main>' . PHP_EOL;

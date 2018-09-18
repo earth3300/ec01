@@ -38,11 +38,11 @@ class FireFlyHTML
 	{
 		$page = $this->getUri();
 		$page['slug'] = $this-> getPageSlug( $page );
-		$page['header'] = $this-> getHeader( $page );
+		$page['header']['main'] = $this-> getHeader( $page );
 		$page['article']= $this-> getArticle( $page );
 		$page['article-title'] = $this-> getArticleTitle( $page['article'] );
 		$page = $this-> getHtmlClass( $page );
-		$page['header-sub'] = $this-> getHeaderSub( $page );
+		$page['header']['sub'] = $this-> getHeaderSub( $page );
 		$page['page-title'] = $this-> getPageTitle( $page );
 		$page['sidebar']= defined( 'SITE_USE_SIDEBAR' ) && SITE_USE_SIDEBAR ? $this->getSidebar() : '';
 		$page['footer']= $this-> getFooter();
@@ -120,13 +120,13 @@ class FireFlyHTML
 	 */
 	private function getHeaderSub( $page )
 	{
-		if ( isset( $page['class']['html'] ) && strpos( $page['class']['html'], 'cluster' ) !== FALSE )
+		if ( isset( $page['tiers']['tier-4'] ) &&  $page['tiers']['tier-4'] )
 		{
 			$str = '<header class="site-header-sub">' . PHP_EOL;
 			$str .= sprintf( '<div class="%s">%s', $page['class']['tier-4'], PHP_EOL );
 			$str .= sprintf( '<div class="color lighter">%s', PHP_EOL );
-			$str .= sprintf( '<div class="%s">%s', $page['cluster'], PHP_EOL );
-			$str .= sprintf( '<a class="level-01 %s color darker" href="%s/%s%s/"><span class="icon"></span>%s</a>', $page['cluster'], '/whr', $page['clust']['four'], SITE_CENTER_DIR, ucfirst( $page['cluster'] ) );
+			$str .= sprintf( '<div class="%s">%s', $page['class']['tier-3'], PHP_EOL );
+			$str .= sprintf( '<a class="level-01 %s color darker" href="%s/%s%s/"><span class="icon"></span>%s</a>', $page['cluster'], '/whr', $page['tiers']['tier-3'], SITE_CENTER_DIR, ucfirst( $page['class']['tier-3'] ) );
 			$str .= sprintf( '<span class="level-02 %s"><span class="color lighter"><span class="icon"></span>%s</span></span>%s', $page['class']['tier-4'], ucfirst( $page['class']['tier-4'] ), PHP_EOL );
 			$str .= '</div><!-- .tier-3 -->' . PHP_EOL;
 			$str .= '</div><!-- .inner -->' . PHP_EOL;
@@ -224,7 +224,7 @@ class FireFlyHTML
 		$page['class']['article'] = $this->getArticleClass( $page['article'] );
 
 		$page['class']['html'] = $this->getHtmlClassStr( $page['class'] );
-		var_dump( $page['class'] );
+
 		return $page;
 	}
 
@@ -427,7 +427,7 @@ class FireFlyHTML
 		$items = get_tier_two_data();
 		if ( ! empty( $arr['tier-2'] ) )
 		{
-			return $items[ $arr['tier-2'] ]['name'];
+			return 'tier-2 ' . $items[ $arr['tier-2'] ]['name'];
 		}
 		else
 		{
