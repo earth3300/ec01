@@ -57,6 +57,16 @@ class MediaList
 {
 
 	/**
+	 * Default image dimensions
+	 *
+	 * array
+	 */
+	protected $dim = [
+		'width' => 800,
+		'height' => 600,
+	];
+
+	/**
 	 * Get the list of images as HTML.
 	 *
 	 * @param array $args
@@ -138,7 +148,10 @@ class MediaList
 	}
 
 	/**
-	 * Get the SITE_PATH from the constant, else from the $_SERVER['DOCUMENT_ROOT']
+	 * Get the SITE_PATH
+	 *
+	 * Get the SITE_PATH from the constant, from ABSPATH (if loading within WordPress
+	 * as a plugin), else from the $_SERVER['DOCUMENT_ROOT']
 	 *
 	 * Both of these have been tested online to have a preceding forward slash.
 	 * Therefore do not add one later.
@@ -150,6 +163,11 @@ class MediaList
 		if ( defined( 'SITE_PATH' ) )
 		{
 			return SITE_PATH;
+		}
+		/** Available if loading within WordPress as a plugin. */
+		elseif( defined( 'ABSPATH' ) )
+		{
+			return ABSPATH;
 		}
 		else
 		{
@@ -318,6 +336,11 @@ class MediaList
 		$str .= '<main>' . PHP_EOL;
 		$str .= $html;
 		$str .= '</main>' . PHP_EOL;
+		$str .= '<footer>' . PHP_EOL;
+		$str .= '<div class="text-center"><small>';
+		$str .= 'Note: This page has been automatically generated. No header, footer, menus or sidebars are available.';
+		$str .= '</small></div>' . PHP_EOL;
+		$str .= '</footer>' . PHP_EOL;
 		$str .= '</html>' . PHP_EOL;
 
 		return $str;
@@ -388,7 +411,7 @@ class MediaList
 		}
 	}
 
-		/**
+	/**
 	 * Get the image name.
 	 *
 	 * Gets the image name as the first part of the file name, before the
@@ -443,75 +466,9 @@ class MediaList
 		}
 		else
 		{
-			$dim['width'] = 600;
-			$dim['height'] = 450;
+			$dim['width'] = $this->dim['width'];
+			$dim['height'] = $this->dim['height'];
 			return $dim;
-		}
-	}
-
-	/**
-	 * Extract Image Dimensions from String
-	 *
-	 * In order to be valid or useful, image dimensions should be two digits or
-	 * greater and have two dimensions (the width and the height). These are to
-	 * be separated by the 'x' character (always), which is to be in lower case
-	 * (always). Thus, we will have a minimum of 5 characters. In some cases, we
-	 * may want to refer to a structural element as a '2x4', for example. This
-	 * would refer to the common stud as used in house contruction, not an image
-	 * size. Further, the image size should be last in the string (preceding the
-	 * dot and then the extension). Thus, if we either trim off the extension
-	 * (with the dot), or create a match pattern that includes the dot as the right
-	 * most character, then we can use that as a right most starting point. Furhter,
-	 * we can also use the hyphen just to the left as the left most bounding character.
-	 * Thus, our rule would be: Look for a set of five or more characters (but not
-	 * exceeding ...) that is bounded on the right by a dot and on the left by a hyphen.
-	 * Further, ensure the characters to the right match those of a valide image extension.
-	 * Here we allow jpg, png (only). Although a gif is a valid image extension, there
-	 * is no real need to use it in most cases, as it allows for animation, which may
-	 * be better served by a video (mp4, ogg or webm) format, rather than a gif.
-	 *
-	 * Since an image to be displayed on a web page would not be expected to exceed
-	 * 9,999px, but may reach 1024 px or 2048 px, easily, we should allow up to
-	 * 4 x 2 + 1 or nine characters for our match. Using preg_match that will contain a
-	 * regex, we will then have something like:
-	 *
-	 * $regex = '/([0-9]{2,4})x([0-9]{2,4})\.(jpg|png)/'
-	 *
-	 * Brief summary: Match the pattern 00x00 to 0000x0000 with a .jpg or .png extension.
-	 *
-	 * Note that our previous efforts to pare down the number of variations by disallowing
-	 * `jpeg` as a valid extension, means that our selection process here is simplified
-	 * by that degree. There is no objective reason a JPEG file needs to be expressed in
-	 * two ways (other than the fact that it is allowed), thus enforcing the use of `jpg`
-	 * only here, makes life a lot simpler, when it comes to determining valid image files.
-	 *
-	 * @param string $str
-	 * @return bool|string
-	 *
-	 * @example image-name-800x600.jpg
-	 *
-	 */
-	private function extractImageDimStr( $str )
-	{
-		/**
-		 * Since we won't have a valid image name with fewer than 13 characaters
-		 * we won't bother processing anything with less than that length.
-		 */
-		if ( strlen( $str ) > 12 )
-		{
-			$regex = '/([0-9]{2,4}x[0-9]{2,4})/';
-			preg_match( $regex, $str, $match );
-			if ( ! empty( $match[0] ) )
-			{
-				return $match[0];
-			}
-			else
-			{
-				return false;
-			}
-		}
-		else {
-			return false;
 		}
 	}
 
@@ -653,7 +610,7 @@ class MediaList
 			return false;
 		}
 	}
-} //end class
+}
 
 /**
  * Callback from the media-list shortcode.
