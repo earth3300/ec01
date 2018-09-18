@@ -123,14 +123,14 @@ class FireFlyHTML
 		if ( isset( $page['class']['html'] ) && strpos( $page['class']['html'], 'cluster' ) !== FALSE )
 		{
 			$str = '<header class="site-header-sub">' . PHP_EOL;
-			$str .= sprintf( '<div class="%s">%s', $page['cluster-sub'], PHP_EOL );
+			$str .= sprintf( '<div class="%s">%s', $page['class']['tier-4'], PHP_EOL );
 			$str .= sprintf( '<div class="color lighter">%s', PHP_EOL );
 			$str .= sprintf( '<div class="%s">%s', $page['cluster'], PHP_EOL );
 			$str .= sprintf( '<a class="level-01 %s color darker" href="%s/%s%s/"><span class="icon"></span>%s</a>', $page['cluster'], '/whr', $page['clust']['four'], SITE_CENTER_DIR, ucfirst( $page['cluster'] ) );
-			$str .= sprintf( '<span class="level-02 %s"><span class="color lighter"><span class="icon"></span>%s</span></span>%s', $page['cluster-sub'], ucfirst( $page['cluster-sub'] ), PHP_EOL );
-			$str .= '</div><!-- .cluster -->' . PHP_EOL;
+			$str .= sprintf( '<span class="level-02 %s"><span class="color lighter"><span class="icon"></span>%s</span></span>%s', $page['class']['tier-4'], ucfirst( $page['class']['tier-4'] ), PHP_EOL );
+			$str .= '</div><!-- .tier-3 -->' . PHP_EOL;
 			$str .= '</div><!-- .inner -->' . PHP_EOL;
-			$str .= '</div><!-- .cluster-sub-name -->' . PHP_EOL;
+			$str .= '</div><!-- .tier-4-name -->' . PHP_EOL;
 			$str .= '</header>' . PHP_EOL;
 			return $str;
 		} else
@@ -211,26 +211,20 @@ class FireFlyHTML
 	 */
 	private function getHtmlClass( $page )
 	{
-		$arr[] = $this->isPageDynamic();
+		$page['class']['dynamic'] = $this->isPageDynamic( $page );
 
-		$uriParts[] = $this->getUriTiers( $page['uri'] );
-		$page['clust'] = $this->getUriTeirs( $page['uri'] );
-		$page['tiers'] = $this->getUriTeirs( $page['uri'] );
+		$page['tiers'] = $this->getUriTiers( $page['uri'] );
 
-		// cluster = tier 3
-		$arr[] = 'cluster';
-		$page['cluster'] = $this->getUriTierThree( $arr );
-		$page['class']['tier-3'] = $this->getUriTierThree( $arr );
-		$arr[] = $class;
+		$page['class']['tier-2'] = $this->getUriTierTwo( $page['tiers'] );
 
-		// cluster-sub = Tier 4
-		$page['class']['cluster-sub'] = $this->getUriTierFour( $arr );
-		$page['class']['tier-4'] = $this->getUriTierFour( $arr );
+		$page['class']['tier-3'] = $this->getUriTierThree( $page['tiers'] );
+
+		$page['class']['tier-4'] = $this->getUriTierFour( $page['tiers'] );
 
 		$page['class']['article'] = $this->getArticleClass( $page['article'] );
 
 		$page['class']['html'] = $this->getHtmlClassStr( $page['class'] );
-		var_dumpm( $page['class'] );
+		var_dump( $page['class'] );
 		return $page;
 	}
 
@@ -421,6 +415,27 @@ class FireFlyHTML
 	}
 
 	/**
+	 * Get Tier Two.
+	 *	 *
+	 * @param array $arr
+	 *
+	 * @return array|bool
+	 */
+
+	private function getUriTierTwo( $arr )
+	{
+		$items = get_tier_two_data();
+		if ( ! empty( $arr['tier-2'] ) )
+		{
+			return $items[ $arr['tier-2'] ]['name'];
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	/**
 	 * Analyze the URI for Tier Three.
 	 *
 	 * Use this to add an html class based on an authorized cluster name.
@@ -446,9 +461,9 @@ class FireFlyHTML
 	private function getUriTierThree( $arr )
 	{
 		$items = get_tier_three_data();
-		if ( ! empty( $arr['four'] ) )
+		if ( ! empty( $arr['tier-3'] ) )
 		{
-			return $items[ $arr['four'] ]['name'];
+			return $items[ $arr['tier-3'] ]['name'];
 		}
 		else
 		{
@@ -465,9 +480,9 @@ class FireFlyHTML
 	private function getUriTierFour( $arr )
 	{
 		$items = get_tier_four_data();
-		if ( ! empty( $arr['five'] ) )
+		if ( ! empty( $arr['tier-4'] ) )
 		{
-			return $items[ $arr['five'] ]['name'];
+			return $items[ $arr['tier-4'] ]['name'];
 		} else
 		{
 			return false;
@@ -485,6 +500,9 @@ class FireFlyHTML
 	 * This finds the position of the word 'cluster' and then returns
 	 * the word directly after it, whatever it is (if present).
 	 *
+	 * *** The number of characters in the tier is one greater than the
+	 * *** position of the tier in the URL structure.
+	 *
 	 * @param array $uri
 	 *
 	 * @return array|bool
@@ -500,9 +518,9 @@ class FireFlyHTML
 
 		if ( ! empty( $match ) )
 		{
-			$arr['three'] = ! empty( $match[1] ) ? $match[1] : null;
-			$arr['four'] = ! empty( $match[2] ) ? $match[2] : null;
-			$arr['five'] = ! empty( $match[3] ) ? $match[3] : null;
+			$arr['tier-2'] = ! empty( $match[1] ) ? $match[1] : null;
+			$arr['tier-3'] = ! empty( $match[2] ) ? $match[2] : null;
+			$arr['tier-4'] = ! empty( $match[3] ) ? $match[3] : null;
 			return $arr;
 		}
 		else
