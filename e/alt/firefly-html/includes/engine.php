@@ -120,7 +120,7 @@ class FireFlyHTML
 	 */
 	private function getHeaderSub( $page )
 	{
-		if ( isset( $page['html-class'] ) && strpos( $page['html-class'], 'cluster' ) !== FALSE )
+		if ( isset( $page['class']['html'] ) && strpos( $page['class']['html'], 'cluster' ) !== FALSE )
 		{
 			$str = '<header class="site-header-sub">' . PHP_EOL;
 			$str .= sprintf( '<div class="%s">%s', $page['cluster-sub'], PHP_EOL );
@@ -207,7 +207,7 @@ class FireFlyHTML
 	 *
 	 * @param array
 	 *
-	 * @return str
+	 * @return string
 	 */
 	private function getHtmlClass( $page )
 	{
@@ -219,7 +219,7 @@ class FireFlyHTML
 			$arr[] = 'dynamic';
 		}
 
-		$arr = $this->getUriParts( $page['uri'] );
+		$arr[] = $this->getUriParts( $page['uri'] );
 		$page['clust'] = $arr;
 
 		if ( $class = $this->analyzeUriTierThree( $arr ) )
@@ -236,9 +236,11 @@ class FireFlyHTML
 		{
 			$arr[] = $class;
 		}
+
 		if ( ! empty( $arr ) )
 		{
-			$page['html-class'] = implode( ' ', $arr );
+
+			$page['class']['html'] = trim( implode( ' ', $arr ) );
 		}
 		return $page;
 	}

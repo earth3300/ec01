@@ -23,7 +23,7 @@ class FireFlyTemplate extends FireFlyHTML{
 			/** Construct the page on the "engine" page */
 			header('Content-type: text/html; charset=utf-8;');
 			$str = '<!DOCTYPE html>' . PHP_EOL;
-			$str .= ! empty( $page['html-class'] ) ? sprintf('<html class="%s" lang="%s">%s', $page['html-class'], SITE_LANG, PHP_EOL) : sprintf( '<html lang="%s">%s', SITE_LANG, PHP_EOL );
+			$str .= ! empty( $page['class']['html'] ) ? sprintf('<html class="%s" lang="%s">%s', $page['class']['html'], SITE_LANG, PHP_EOL) : sprintf( '<html lang="%s">%s', SITE_LANG, PHP_EOL );
 			$str .= '<head>' . PHP_EOL;
 			$str .= sprintf( '<meta charset="%s">%s', SITE_CHARSET, PHP_EOL );
 			$str .= '<meta name="viewport" content="width=device-width, initial-scale=1"/>' . PHP_EOL;
@@ -42,7 +42,7 @@ class FireFlyTemplate extends FireFlyHTML{
 			// make path to style dependent on whether site is is subdomain or subfolder
 			// $css_url_path
 			$str .= '</head>' . PHP_EOL;
-			$str .= ! empty( $page['body-class'] ) ? sprintf('<body class="%s">%s',$page['body-class'], PHP_EOL) : '<body>' . PHP_EOL;
+			$str .= ! empty( $page['class']['body'] ) ? sprintf('<body class="%s">%s',$page['class']['body'], PHP_EOL) : '<body>' . PHP_EOL;
 			$str .= '<div class="wrap">' . PHP_EOL;
 			$str .= '<div class="inner">' . PHP_EOL;
 			$str .= $page['header'];
