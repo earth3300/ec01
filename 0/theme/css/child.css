@@ -183,7 +183,7 @@ p.date { font-size: 80%; }
 .sprite .icon4x5, .sculpture .icon { background-position: -140px -105px; }
 .sprite .icon4x6, .pottery .icon { background-position: -175px -105px; }
 .sprite .icon4x7, .saxophone .icon { background-position: -210px -105px; }
-.sprite .icon4x1, .art > .icon { background-position:  0 -105px; }
+.sprite .icon4x1, .arts > .icon { background-position:  0 -105px; }
 
 .sprite .icon5x2, .mathematics .icon { background-position: -35px -140px; }
 .sprite .icon5x3, .physics .icon { background-position: -70px -140px; }
