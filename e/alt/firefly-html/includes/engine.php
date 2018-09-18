@@ -126,7 +126,7 @@ class FireFlyHTML
 			$str .= sprintf( '<div class="%s">%s', $page['class']['tier-4'], PHP_EOL );
 			$str .= sprintf( '<div class="color lighter">%s', PHP_EOL );
 			$str .= sprintf( '<div class="%s">%s', $page['class']['tier-3'], PHP_EOL );
-			$str .= sprintf( '<a class="level-01 %s color darker" href="%s/%s%s/"><span class="icon"></span>%s</a>', $page['cluster'], '/whr', $page['tiers']['tier-3'], SITE_CENTER_DIR, ucfirst( $page['class']['tier-3'] ) );
+			$str .= sprintf( '<a class="level-01 %s color darker" href="%s/%s%s/"><span class="icon"></span>%s</a>', $page['tiers']['tier-3'], '/whr', $page['tiers']['tier-3'], SITE_CENTER_DIR, ucfirst( $page['class']['tier-3'] ) );
 			$str .= sprintf( '<span class="level-02 %s"><span class="color lighter"><span class="icon"></span>%s</span></span>%s', $page['class']['tier-4'], ucfirst( $page['class']['tier-4'] ), PHP_EOL );
 			$str .= '</div><!-- .tier-3 -->' . PHP_EOL;
 			$str .= '</div><!-- .inner -->' . PHP_EOL;
