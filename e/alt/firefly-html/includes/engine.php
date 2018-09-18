@@ -211,38 +211,72 @@ class FireFlyHTML
 	 */
 	private function getHtmlClass( $page )
 	{
+		$arr[] = $this->isPageDynamic();
+
+		$uriParts[] = $this->getUriTiers( $page['uri'] );
+		$page['clust'] = $this->getUriTeirs( $page['uri'] );
+		$page['tiers'] = $this->getUriTeirs( $page['uri'] );
+
+		// cluster = tier 3
+		$arr[] = 'cluster';
+		$page['cluster'] = $this->getUriTierThree( $arr );
+		$page['class']['tier-3'] = $this->getUriTierThree( $arr );
+		$arr[] = $class;
+
+		// cluster-sub = Tier 4
+		$page['class']['cluster-sub'] = $this->getUriTierFour( $arr );
+		$page['class']['tier-4'] = $this->getUriTierFour( $arr );
+
+		$page['class']['article'] = $this->getArticleClass( $page['article'] );
+
+		$page['class']['html'] = $this->getHtmlClassStr( $page['class'] );
+		var_dumpm( $page['class'] );
+		return $page;
+	}
+
+	/**
+	 * Build the HTML Class String From the Array.
+	 *
+	 * Do any other necessary processing.
+	 *
+	 * @param array $arr
+	 *
+	 * @return string
+	 */
+	private function getHtmlClassStr( $items )
+	{
+		if ( ! empty( $items ) )
+		{
+			$str = '';
+			foreach ( $items as $item )
+			{
+				$str .= $item . ' ';
+			}
+			return trim( $str );
+		}
+		else
+		{
+			return null;
+		}
+	}
+
+	/**
+	 * Whether or not the Page is Dynamic or Fixed Width.
+	 *
+	 * @param array
+	 *
+	 * @return string
+	 */
+	private function isPageDynamic( $page )
+	{
 		if ( SITE_IS_FIXED_WIDTH && $page['front-page'] )
 		{
-			$arr[] = 'fixed-width';
-		} else
-		{
-			$arr[] = 'dynamic';
+			return 'fixed-width';
 		}
-
-		$arr[] = $this->getUriParts( $page['uri'] );
-		$page['clust'] = $arr;
-
-		if ( $class = $this->analyzeUriTierThree( $arr ) )
+		else
 		{
-			$arr[] = 'cluster';
-			$page['cluster'] = $class;
-			$arr[] = $class;
+			return 'dynamic';
 		}
-		if ( $class = $this->analyzeUriTierFour( $arr ) )
-		{
-			$page['cluster-sub'] = $class;
-		}
-		if ( $class = $this->getArticleClass( $page['article'] ) )
-		{
-			$arr[] = $class;
-		}
-
-		if ( ! empty( $arr ) )
-		{
-
-			$page['class']['html'] = trim( implode( ' ', $arr ) );
-		}
-		return $page;
 	}
 
 	/**
@@ -409,7 +443,7 @@ class FireFlyHTML
 	 * @return array|bool
 	 */
 
-	private function analyzeUriTierThree( $arr )
+	private function getUriTierThree( $arr )
 	{
 		$items = get_tier_three_data();
 		if ( ! empty( $arr['four'] ) )
@@ -428,7 +462,7 @@ class FireFlyHTML
 	 *
 	 * @return array|bool
 	 */
-	private function analyzeUriTierFour( $arr )
+	private function getUriTierFour( $arr )
 	{
 		$items = get_tier_four_data();
 		if ( ! empty( $arr['five'] ) )
@@ -458,7 +492,7 @@ class FireFlyHTML
 	 * @example /whr/acad/
 	 * @example /wha/bldg/
 	 */
-	private function getUriParts( $uri )
+	private function getUriTiers( $uri )
 	{
 		/** Look for a grouping of three letters, followed by four. */
 		$regex = '/\/([a-z]{3})\/([a-z]{4})\/([a-z]{5})\//';
