@@ -64,6 +64,7 @@ class MediaList
 	protected $opts = [
 		'dim' => [ 'width' => 800, 'height' => 600 ],
 		'max' => 12,
+		'msg' => [ 'na' => '', ],
 	];
 
 	/**
@@ -366,7 +367,7 @@ class MediaList
 	 * @example $arr['dim'] = '800x600'
 	 */
 	private function getImageNameDimArr( $str )
-	{
+		{
 		/**
 		 * Since we won't have a valid image name with fewer than 13 characaters
 		 * we won't bother processing anything with less than that length.
@@ -440,7 +441,8 @@ class MediaList
 			}
 			else
 			{
-				return "Not available";
+				// Not available.
+				return $this->opts['msg']['na'];
 			}
 		}
 	}
@@ -456,7 +458,7 @@ class MediaList
 	 */
 	private function getImageDimArr( $str )
 	{
-
+		echo $str . "<br>";
 		if ( strlen( $str ) > 4 )
 		{
 			$arr = explode( 'x', $str );
@@ -548,7 +550,7 @@ class MediaList
 		}
 		else
 		{
-			$alt = "Not available";
+			$alt = $this->opts['msg']['na'];
 		}
 		return $alt;
 	}
@@ -568,7 +570,7 @@ class MediaList
 		}
 		else
 		{
-			$name = "Not available";
+			$name = $this->opts['msg']['na'];
 		}
 		return $name;
 	}
