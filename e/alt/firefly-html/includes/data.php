@@ -40,6 +40,8 @@ function get_tier_two_data(){
  */
 function get_tier_three_data(){
 	$arr = [
+
+		// whe (where)
 		'acad' => [ 'name' => 'academic' ],
 		'arts' => [ 'name' => 'arts' ],
 		'trad' => [ 'name' => 'trade' ],
@@ -50,6 +52,40 @@ function get_tier_three_data(){
 		'moni' => [ 'name' => 'monitoring' ],
 		'anal' => [ 'name' => 'analysis' ],
 		'natu' => [ 'name' => 'nature' ],
+
+		// nature
+		'natu' => [ 'name' => 'nature' ],
+
+		// wha
+		'agri' => [ 'name' => 'agriculture' ],
+		'bldg' => [ 'name' => 'building' ],
+		'equi' => [ 'name' => 'equipment' ],
+		'supp' => [ 'name' => 'supply' ],
+		'prpty' => [ 'name' => 'property' ],
+		'reso' => [ 'name' => 'resource' ],
+		'stru' => [ 'name' => 'structure' ],
+		'info' => [ 'name' => 'information' ],
+		'prod' => [ 'name' => 'product' ],
+		'desn' => [ 'name' => 'design' ],
+
+		// how
+		'stnd' => [ 'name' => 'standard' ],
+		'proc' => [ 'name' => 'process' ],
+		'proj' => [ 'name' => 'project' ],
+		'comm' => [ 'name' => 'communication' ],
+		'news' => [ 'name' => 'news' ],
+		'serv' => [ 'name' => 'service' ],
+		'whsl' => [ 'name' => 'wholesale' ],
+		'stor' => [ 'name' => 'storefront' ],
+
+		// recycling
+		'reco' => [ 'name' => 'recovery' ],
+
+		// why
+		'ethc' => [ 'name' => 'ethics' ],
+		'sust' => [ 'name' => 'sustainability' ],
+		'reln' => [ 'name' => 'religion' ],
+		'othr' => [ 'name' => 'other' ],
 	];
 	return $arr;
 }
@@ -67,69 +103,72 @@ function get_tier_four_data(){
 	$arr = [
 		'centr' => [ 'name' => 'center' ],
 
-		'chemi' => [ 'name' => 'chemistry' ],
-		'cogni' => [ 'name' => 'cognition' ],
-		'cymat' => [ 'name' => 'cymatics' ],
-		'genet' => [ 'name' => 'genetics' ],
-		'geolo' => [ 'name' => 'geolo' ],
-		'logic' => [ 'name' => 'logic' ],
-		'mathe' => [ 'name' => 'mathematics' ],
-		'physc' => [ 'name' => 'physics' ],
+		'chemi' => [ 'name' => 'chemistry', 'who' => 'chemist', ],
+		'cogni' => [ 'name' => 'cognition', 'who' => 'cognicist', ],
+		'cymat' => [ 'name' => 'cymatics', 'who' => 'cymatician', ],
+		'genet' => [ 'name' => 'genetics', 'who' => 'geneticist', ],
+		'geolo' => [ 'name' => 'geology', 'who' => 'geologist', ],
+		'logic' => [ 'name' => 'logic', 'who' => 'logician', ],
+		'mathe' => [ 'name' => 'mathematics', 'who' => 'mathematician', ],
+		'physc' => [ 'name' => 'physics', 'who' => 'physicist', ],
 
-		'archi' => [ 'name' => 'architecture' ],
-		'engin' => [ 'name' => 'engineering' ],
-		'lands' => [ 'name' => 'landscaping' ],
-		'perma' => [ 'name' => 'permaculture' ],
-		'progr' => [ 'name' => 'programming' ],
-		'robot' => [ 'name' => 'robotics' ],
+		'archi' => [ 'name' => 'architecture', 'who' => 'architect', ],
+		'engin' => [ 'name' => 'engineering', 'who' => 'engineering', ],
+		'lands' => [ 'name' => 'landscaping', 'who' => 'landscaper', ],
+		'perma' => [ 'name' => 'permaculture', 'who' => 'permaculturist', ],
+		'progr' => [ 'name' => 'programming', 'who' => 'programmer', ],
+		'robot' => [ 'name' => 'robotics', 'who' => 'robotician', ],
 
-		'music' => [ 'name' => 'music' ],
-		'paint' => [ 'name' => 'painting' ],
-		'percn' => [ 'name' => 'percussions' ],
-		'piano' => [ 'name' => 'piano' ],
-		'pttry' => [ 'name' => 'pottery' ],
-		'saxop' => [ 'name' => 'saxophone' ],
-		'sclpt' => [ 'name' => 'sculpture' ],
-		'violn' => [ 'name' => 'violin' ],
+		'music' => [ 'name' => 'music', 'who' => 'musician', ],
+		'paint' => [ 'name' => 'painting', 'who' => 'painter', ],
+		'percn' => [ 'name' => 'percussions', 'who' => 'percussionist', ],
+		'piano' => [ 'name' => 'piano', 'who' => 'pianist', ],
+		'pttry' => [ 'name' => 'pottery', 'who' => 'potter', ],
+		'saxop' => [ 'name' => 'saxophone', 'who' => 'saxophonist', ],
+		'sclpt' => [ 'name' => 'sculpture', 'who' => 'sculpture', ],
+		'violn' => [ 'name' => 'violin', 'who' => 'violinist', ],
 
-		'bakng' => [ 'name' => 'baking' ],
-		'brsta' => [ 'name' => 'barista' ],
-		'clnup' => [ 'name' => 'cleanup' ],
-		'cookg' => [ 'name' => 'cooking' ],
-		'recyl' => [ 'name' => 'recycling' ],
-		'servg' => [ 'name' => 'serving' ],
-		'storg' => [ 'name' => 'storage' ],
+		'bakng' => [ 'name' => 'baking', 'who' => '', ],
+		'brsta' => [ 'name' => 'barista', 'who' => 'barista', ],
+		'clnup' => [ 'name' => 'cleanup', 'who' => 'cleaner', ],
+		'cookg' => [ 'name' => 'cooking', 'who' => 'cook', ],
+		'recyl' => [ 'name' => 'recycling', 'who' => 'recycler', ],
+		'servg' => [ 'name' => 'serving', 'who' => 'server', ],
+		'storg' => [ 'name' => 'storage', 'who' => 'storagist', ],
 
-		'bodie' => [ 'name' => 'baking' ],
-		'cloth' => [ 'name' => 'barista' ],
-		'hairc' => [ 'name' => 'haircare' ],
-		'ntrtn' => [ 'name' => 'nutrition' ],
-		'physo' => [ 'name' => 'physio' ],
-		'psych' => [ 'name' => 'psyche' ],
-		'skinc' => [ 'name' => 'skincare' ],
+		'bodie' => [ 'name' => 'baking', 'who' => '', ],
+		'cloth' => [ 'name' => 'clothing', 'who' => 'tailor', ],
+		'hairc' => [ 'name' => 'haircare', 'who' => 'hairdresser', ],
+		'ntrtn' => [ 'name' => 'nutrition', 'who' => 'nutritionist', ],
+		'physo' => [ 'name' => 'physio', 'who' => 'physiotherapist', ],
+		'psych' => [ 'name' => 'psyche', 'who' => 'pscyhologist', ],
+		'skinc' => [ 'name' => 'skincare', 'who' => 'skincare', ],
 
-		'culti' => [ 'name' => 'cultivating' ],
-		'hrvtg' => [ 'name' => 'harvesting' ],
-		'plntg' => [ 'name' => 'planting' ],
-		'prepg' => [ 'name' => 'preparing' ],
-		'procg' => [ 'name' => 'processing' ],
-		'weedg' => [ 'name' => 'weeding' ],
+		'culti' => [ 'name' => 'cultivating', 'who' => 'cultivater', ],
+		'hrvtg' => [ 'name' => 'harvesting', 'who' => 'harvester', ],
+		'plntg' => [ 'name' => 'planting', 'who' => 'planter', ],
+		'prepg' => [ 'name' => 'preparing', 'who' => 'preparer', ],
+		'procg' => [ 'name' => 'processing', 'who' => 'processer', ],
+		'weedg' => [ 'name' => 'weeding', 'who' => 'weeder', ],
 
-		'anlys' => [ 'name' => 'analysis' ],
-		'audio' => [ 'name' => 'audio' ],
-		'photo' => [ 'name' => 'photography' ],
-		'presg' => [ 'name' => 'presenting' ],
-		'video' => [ 'name' => 'video' ],
-		'writg' => [ 'name' => 'writing' ],
+		'anlys' => [ 'name' => 'analysis', 'who' => 'analyst', ],
+		'audio' => [ 'name' => 'audio', 'who' => 'audio', ],
+		'photo' => [ 'name' => 'photography', 'who' => 'photographer', ],
+		'presg' => [ 'name' => 'presenting', 'who' => 'presenter', ],
+		'video' => [ 'name' => 'video', 'who' => 'videographer', ],
+		'writg' => [ 'name' => 'writing', 'who' => 'writer', ],
 
-		'carpt' => [ 'name' => 'carpentry' ],
-		'drywl' => [ 'name' => 'drywall' ],
-		'elect' => [ 'name' => 'electrical' ],
-		'mason' => [ 'name' => 'mason' ],
-		'mecha' => [ 'name' => 'mechanical' ],
-		'plumb' => [ 'name' => 'plumb' ],
-		'weldg' => [ 'name' => 'welding' ],
-		'roofg' => [ 'name' => 'roofing' ],
+		'carpt' => [ 'name' => 'carpentry', 'who' => 'carpentry', ],
+		'drywl' => [ 'name' => 'drywall', 'who' => 'drywaller', ],
+		'elect' => [ 'name' => 'electrical', 'who' => 'electrician', ],
+		'mason' => [ 'name' => 'masonry', 'who' => 'mason', ],
+		'mecha' => [ 'name' => 'mechanical', 'who' => 'mechanic', ],
+		'plumb' => [ 'name' => 'plumbing', 'who' => 'plumber', ],
+		'weldg' => [ 'name' => 'welding', 'who' => 'welder', ],
+		'roofg' => [ 'name' => 'roofing', 'who' => 'roofer', ],
+
+		// Wha (What)
+		'shltr' => [ 'name' => 'shelter', 'who' => 'roofer', ],
 	];
 	return $arr;
 }
