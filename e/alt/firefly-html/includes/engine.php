@@ -112,7 +112,7 @@ class FireFlyHTML
 	}
 
 	/**
-	 * Builds the sub header.
+	 * Builds the Tier 3 Header.
 	 *
 	 * @param array $page
 	 *
@@ -121,7 +121,7 @@ class FireFlyHTML
 	private function getHeaderTierThree( $page )
 	{
 		if ( isset( $page['tiers']['tier-4'] ) &&  $page['tiers']['tier-4'] )
-		{	
+		{
 			$str = '<header class="site-header-sub">' . PHP_EOL;
 			$str .= sprintf( '<div class="%s">%s', $page['class']['tier-4'], PHP_EOL );
 			$str .= sprintf( '<div class="color lighter">%s', PHP_EOL );
@@ -467,7 +467,8 @@ class FireFlyHTML
 		$items = get_tier_three_data();
 		if ( ! empty( $arr['tier-3'] ) )
 		{
-			return $items[ $arr['tier-3'] ]['name'];
+			$name = isset( $items[ $arr['tier-3'] ]['name'] ) ? $items[ $arr['tier-3'] ]['name'] : '';
+			return $name;
 		}
 		else
 		{
@@ -486,8 +487,10 @@ class FireFlyHTML
 		$items = get_tier_four_data();
 		if ( ! empty( $arr['tier-4'] ) )
 		{
-			return $items[ $arr['tier-4'] ]['name'];
-		} else
+			$name = isset( $items[ $arr['tier-4'] ]['name'] ) ? $items[ $arr['tier-4'] ]['name'] : '';
+			return $name;
+		}
+		else
 		{
 			return false;
 		}
