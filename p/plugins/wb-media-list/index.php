@@ -180,6 +180,7 @@ class MediaList
 	 * Get the "Self" directory, if set.
 	 *
 	 * @param array $args
+	 *
 	 * @return bool
 	 */
 	private function isDirSelf( $args )
@@ -267,6 +268,7 @@ class MediaList
 	 * Get the Media Directory
 	 *
 	 * @param array $args
+	 *
 	 * @return string
 	 *
 	 * @example $args['dir'] = '/architecture/shelter/micro-cabin/'
@@ -367,7 +369,7 @@ class MediaList
 	 * @example $arr['dim'] = '800x600'
 	 */
 	private function getImageNameDimArr( $str )
-		{
+	{
 		/**
 		 * Since we won't have a valid image name with fewer than 13 characaters
 		 * we won't bother processing anything with less than that length.
@@ -451,14 +453,16 @@ class MediaList
 	 * Get the image dimensions.
 	 *
 	 * Gets the image dimensions as the last part of the file name and only if
-	 * it follows the format: ###x###, where # is an integer.
+	 * it follows the format: ##x##, where # is an integer.
 	 *
 	 * @param string $str
+	 *
 	 * @return string
+	 *
+	 * @example '1280x720'  $dim['width'] = 1280, $dim['height'] = 720
 	 */
 	private function getImageDimArr( $str )
 	{
-		echo $str . "<br>";
 		if ( strlen( $str ) > 4 )
 		{
 			$arr = explode( 'x', $str );
@@ -621,6 +625,7 @@ class MediaList
  * and returns the media list as HTML.
  *
  * @param array  $args['dir']
+ * 
  * @return string  HTML as a list of images, wrapped in the article element.
  */
 function media_list( $args )

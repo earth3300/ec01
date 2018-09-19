@@ -38,11 +38,11 @@ class FireFlyHTML
 	{
 		$page = $this->getUri();
 		$page['slug'] = $this-> getPageSlug( $page );
-		$page['header'] = $this-> getHeader( $page );
+		$page['header']['main'] = $this-> getHeader( $page );
 		$page['article']= $this-> getArticle( $page );
 		$page['article-title'] = $this-> getArticleTitle( $page['article'] );
 		$page = $this-> getHtmlClass( $page );
-		$page['header-sub'] = $this-> getHeaderSub( $page );
+		$page['header']['sub'] = $this-> getHeaderSub( $page );
 		$page['page-title'] = $this-> getPageTitle( $page );
 		$page['sidebar']= defined( 'SITE_USE_SIDEBAR' ) && SITE_USE_SIDEBAR ? $this->getSidebar() : '';
 		$page['footer']= $this-> getFooter();
@@ -120,17 +120,17 @@ class FireFlyHTML
 	 */
 	private function getHeaderSub( $page )
 	{
-		if ( isset( $page['html-class'] ) && strpos( $page['html-class'], 'cluster' ) !== FALSE )
+		if ( isset( $page['tiers']['tier-4'] ) &&  $page['tiers']['tier-4'] )
 		{
 			$str = '<header class="site-header-sub">' . PHP_EOL;
-			$str .= sprintf( '<div class="%s">%s', $page['cluster-sub'], PHP_EOL );
+			$str .= sprintf( '<div class="%s">%s', $page['class']['tier-4'], PHP_EOL );
 			$str .= sprintf( '<div class="color lighter">%s', PHP_EOL );
-			$str .= sprintf( '<div class="%s">%s', $page['cluster'], PHP_EOL );
-			$str .= sprintf( '<a class="level-01 %s color darker" href="%s/%s%s/"><span class="icon"></span>%s</a>', $page['cluster'], '/whr', $page['clust']['four'], SITE_CENTER_DIR, ucfirst( $page['cluster'] ) );
-			$str .= sprintf( '<span class="level-02 %s"><span class="color lighter"><span class="icon"></span>%s</span></span>%s', $page['cluster-sub'], ucfirst( $page['cluster-sub'] ), PHP_EOL );
-			$str .= '</div><!-- .cluster -->' . PHP_EOL;
+			$str .= sprintf( '<div class="%s">%s', $page['class']['tier-3'], PHP_EOL );
+			$str .= sprintf( '<a class="level-01 %s color darker" href="%s/%s%s/"><span class="icon"></span>%s</a>', $page['tiers']['tier-3'], '/whr', $page['tiers']['tier-3'], SITE_CENTER_DIR, ucfirst( $page['class']['tier-3'] ) );
+			$str .= sprintf( '<span class="level-02 %s"><span class="color lighter"><span class="icon"></span>%s</span></span>%s', $page['class']['tier-4'], ucfirst( $page['class']['tier-4'] ), PHP_EOL );
+			$str .= '</div><!-- .tier-3 -->' . PHP_EOL;
 			$str .= '</div><!-- .inner -->' . PHP_EOL;
-			$str .= '</div><!-- .cluster-sub-name -->' . PHP_EOL;
+			$str .= '</div><!-- .tier-4-name -->' . PHP_EOL;
 			$str .= '</header>' . PHP_EOL;
 			return $str;
 		} else
@@ -207,40 +207,70 @@ class FireFlyHTML
 	 *
 	 * @param array
 	 *
-	 * @return str
+	 * @return string
 	 */
 	private function getHtmlClass( $page )
 	{
+		$page['class']['dynamic'] = $this->isPageDynamic( $page );
+
+		$page['tiers'] = $this->getUriTiers( $page['uri'] );
+
+		$page['class']['tier-2'] = $this->getUriTierTwo( $page['tiers'] );
+
+		$page['class']['tier-3'] = $this->getUriTierThree( $page['tiers'] );
+
+		$page['class']['tier-4'] = $this->getUriTierFour( $page['tiers'] );
+
+		$page['class']['article'] = $this->getArticleClass( $page['article'] );
+
+		$page['class']['html'] = $this->getHtmlClassStr( $page['class'] );
+
+		return $page;
+	}
+
+	/**
+	 * Build the HTML Class String From the Array.
+	 *
+	 * Do any other necessary processing.
+	 *
+	 * @param array $arr
+	 *
+	 * @return string
+	 */
+	private function getHtmlClassStr( $items )
+	{
+		if ( ! empty( $items ) )
+		{
+			$str = '';
+			foreach ( $items as $item )
+			{
+				$str .= $item . ' ';
+			}
+			return trim( $str );
+		}
+		else
+		{
+			return null;
+		}
+	}
+
+	/**
+	 * Whether or not the Page is Dynamic or Fixed Width.
+	 *
+	 * @param array
+	 *
+	 * @return string
+	 */
+	private function isPageDynamic( $page )
+	{
 		if ( SITE_IS_FIXED_WIDTH && $page['front-page'] )
 		{
-			$arr[] = 'fixed-width';
-		} else
-		{
-			$arr[] = 'dynamic';
+			return 'fixed-width';
 		}
-
-		$arr = $this->getUriParts( $page['uri'] );
-		$page['clust'] = $arr;
-
-		if ( $class = $this->analyzeUriTierThree( $arr ) )
+		else
 		{
-			$arr[] = 'cluster';
-			$page['cluster'] = $class;
-			$arr[] = $class;
+			return 'dynamic';
 		}
-		if ( $class = $this->analyzeUriTierFour( $arr ) )
-		{
-			$page['cluster-sub'] = $class;
-		}
-		if ( $class = $this->getArticleClass( $page['article'] ) )
-		{
-			$arr[] = $class;
-		}
-		if ( ! empty( $arr ) )
-		{
-			$page['html-class'] = implode( ' ', $arr );
-		}
-		return $page;
 	}
 
 	/**
@@ -385,6 +415,27 @@ class FireFlyHTML
 	}
 
 	/**
+	 * Get Tier Two.
+	 *	 *
+	 * @param array $arr
+	 *
+	 * @return array|bool
+	 */
+
+	private function getUriTierTwo( $arr )
+	{
+		$items = get_tier_two_data();
+		if ( ! empty( $arr['tier-2'] ) )
+		{
+			return 'tier-2 ' . $items[ $arr['tier-2'] ]['name'];
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	/**
 	 * Analyze the URI for Tier Three.
 	 *
 	 * Use this to add an html class based on an authorized cluster name.
@@ -407,12 +458,13 @@ class FireFlyHTML
 	 * @return array|bool
 	 */
 
-	private function analyzeUriTierThree( $arr )
+	private function getUriTierThree( $arr )
 	{
 		$items = get_tier_three_data();
-		if ( ! empty( $arr['four'] ) )
+		if ( ! empty( $arr['tier-3'] ) )
 		{
-			return $items[ $arr['four'] ]['name'];
+			$name = isset( $items[ $arr['tier-3'] ]['name'] ) ? $items[ $arr['tier-3'] ]['name'] : '';
+			return $name;
 		}
 		else
 		{
@@ -426,12 +478,13 @@ class FireFlyHTML
 	 *
 	 * @return array|bool
 	 */
-	private function analyzeUriTierFour( $arr )
+	private function getUriTierFour( $arr )
 	{
 		$items = get_tier_four_data();
-		if ( ! empty( $arr['five'] ) )
+		if ( ! empty( $arr['tier-4'] ) )
 		{
-			return $items[ $arr['five'] ]['name'];
+			$name = isset( $items[ $arr['tier-4'] ]['name'] ) ? $items[ $arr['tier-4'] ]['name'] : '';
+			return $name;
 		} else
 		{
 			return false;
@@ -449,6 +502,9 @@ class FireFlyHTML
 	 * This finds the position of the word 'cluster' and then returns
 	 * the word directly after it, whatever it is (if present).
 	 *
+	 * *** The number of characters in the tier is one greater than the
+	 * *** position of the tier in the URL structure.
+	 *
 	 * @param array $uri
 	 *
 	 * @return array|bool
@@ -456,7 +512,7 @@ class FireFlyHTML
 	 * @example /whr/acad/
 	 * @example /wha/bldg/
 	 */
-	private function getUriParts( $uri )
+	private function getUriTiers( $uri )
 	{
 		/** Look for a grouping of three letters, followed by four. */
 		$regex = '/\/([a-z]{3})\/([a-z]{4})\/([a-z]{5})\//';
@@ -464,9 +520,9 @@ class FireFlyHTML
 
 		if ( ! empty( $match ) )
 		{
-			$arr['three'] = ! empty( $match[1] ) ? $match[1] : null;
-			$arr['four'] = ! empty( $match[2] ) ? $match[2] : null;
-			$arr['five'] = ! empty( $match[3] ) ? $match[3] : null;
+			$arr['tier-2'] = ! empty( $match[1] ) ? $match[1] : null;
+			$arr['tier-3'] = ! empty( $match[2] ) ? $match[2] : null;
+			$arr['tier-4'] = ! empty( $match[3] ) ? $match[3] : null;
 			return $arr;
 		}
 		else
@@ -475,4 +531,3 @@ class FireFlyHTML
 		}
 	}
 } //end class
-

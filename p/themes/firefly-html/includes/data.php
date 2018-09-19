@@ -2,9 +2,35 @@
 
 defined( 'SITE' ) || exit;
 
+/**
+ * Get Tier Two Data.
+ *
+ * Who, What, When, Where, How and Why, shortened to:
+ *
+ * who, wha, whn, whe, how and why.
+ *
+ * @return array
+ */
+function get_tier_two_data(){
+	$arr = [
+		'who' => [ 'name' => 'who' ],
+		'wha' => [ 'name' => 'what' ],
+		'whn' => [ 'name' => 'when' ],
+		'whe' => [ 'name' => 'where' ],
+		'how' => [ 'name' => 'how' ],
+		'why' => [ 'name' => 'why' ],
+		];
+	return $arr;
+}
 
 /**
- * Get Tier Three Data
+ * Get Tier Three Data.
+ *
+ * These all are currently placed under the "Where" (whr) directory.
+ * Formerly, this was called the "cluster" directory, as that had best
+ * defined what that was at that time. However, with the addition of
+ * other higher level categories which include: who, what, when, how and
+ * why, it seemed best to change this to "where" (or "whr") for consistency.
  *
  * @return array
  */
@@ -41,6 +67,13 @@ function get_tier_four_data(){
 		'logic' => [ 'name' => 'logic' ],
 		'mathe' => [ 'name' => 'mathematics' ],
 		'physc' => [ 'name' => 'physics' ],
+
+		'archi' => [ 'name' => 'architecture' ],
+		'engin' => [ 'name' => 'engineering' ],
+		'lands' => [ 'name' => 'landscaping' ],
+		'perma' => [ 'name' => 'permaculture' ],
+		'progr' => [ 'name' => 'programming' ],
+		'robot' => [ 'name' => 'robotics' ],
 
 		'music' => [ 'name' => 'music' ],
 		'paint' => [ 'name' => 'painting' ],
