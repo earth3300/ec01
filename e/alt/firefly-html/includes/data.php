@@ -167,7 +167,7 @@ function get_tier_four_data(){
 		'roofg' => [ 'name' => 'roofing', 'who' => 'roofer', ],
 
 		// Wha (What)
-		'shltr' => [ 'name' => 'shelter', 'who' => 'builder', ],
+		'shelt' => [ 'name' => 'shelter', 'who' => 'builder', ],
 	];
 	return $arr;
 }
