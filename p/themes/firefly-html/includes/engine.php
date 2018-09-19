@@ -521,7 +521,7 @@ class FireFlyHTML
 		/** Look for a grouping of three letters, followed by four. */
 		$regex = '/\/([a-z]{3})\/([a-z]{4})\/([a-z]{5})\//';
 		preg_match( $regex, $uri, $match );
-
+		var_dump( $match );
 		if ( ! empty( $match ) )
 		{
 			$arr['tier-2'] = ! empty( $match[1] ) ? $match[1] : null;

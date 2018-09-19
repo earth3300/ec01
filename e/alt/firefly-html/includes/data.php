@@ -3,11 +3,15 @@
 defined( 'SITE' ) || exit;
 
 /**
- * Get Tier Two Data.
+ * Get Tier Two Data (Three Characters).
  *
  * Who, What, When, Where, How and Why, shortened to:
- *
  * who, wha, whn, whe, how and why.
+ *
+ * Although each tier two grouping can have about ten tier
+ * three groupings, some (many?) may be duplicated at the tier three
+ * and tier four levels, with minor variations in wording to reflect
+ * the difference between the tier two groupings.
  *
  * @return array
  */
@@ -24,7 +28,7 @@ function get_tier_two_data(){
 }
 
 /**
- * Get Tier Three Data.
+ * Get Tier Three Data (Four Characters).
  *
  * These all are currently placed under the "Where" (whr) directory.
  * Formerly, this was called the "cluster" directory, as that had best
@@ -51,7 +55,11 @@ function get_tier_three_data(){
 }
 
 /**
- * Get Tier Four Data
+ * Get Tier Four Data (Five Characters).
+ *
+ * There are eight to ten tier three groupings. With about eight
+ * tier four groupings per tier three grouping, we have:
+ * 10 x 8 = 80. About sixty to eighty tier four groupings.
  *
  * @return array
  */
