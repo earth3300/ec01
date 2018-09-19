@@ -61,7 +61,7 @@ function get_tier_three_data(){
 		'bldg' => [ 'name' => 'building' ],
 		'equi' => [ 'name' => 'equipment' ],
 		'supp' => [ 'name' => 'supply' ],
-		'prpty' => [ 'name' => 'property' ],
+		'prop' => [ 'name' => 'property' ],
 		'reso' => [ 'name' => 'resource' ],
 		'stru' => [ 'name' => 'structure' ],
 		'info' => [ 'name' => 'information' ],
@@ -104,8 +104,8 @@ function get_tier_four_data(){
 		'centr' => [ 'name' => 'center' ],
 
 		'chemi' => [ 'name' => 'chemistry', 'who' => 'chemist', ],
-		'cogni' => [ 'name' => 'cognition', 'who' => 'cognicist', ],
-		'cymat' => [ 'name' => 'cymatics', 'who' => 'cymatician', ],
+		'cogni' => [ 'name' => 'cognition', 'who' => 'psychologist', ],
+		'cymat' => [ 'name' => 'cymatics', 'who' => 'cymaticist', ],
 		'genet' => [ 'name' => 'genetics', 'who' => 'geneticist', ],
 		'geolo' => [ 'name' => 'geology', 'who' => 'geologist', ],
 		'logic' => [ 'name' => 'logic', 'who' => 'logician', ],
@@ -117,7 +117,7 @@ function get_tier_four_data(){
 		'lands' => [ 'name' => 'landscaping', 'who' => 'landscaper', ],
 		'perma' => [ 'name' => 'permaculture', 'who' => 'permaculturist', ],
 		'progr' => [ 'name' => 'programming', 'who' => 'programmer', ],
-		'robot' => [ 'name' => 'robotics', 'who' => 'robotician', ],
+		'robot' => [ 'name' => 'robotics', 'who' => 'roboticist', ],
 
 		'music' => [ 'name' => 'music', 'who' => 'musician', ],
 		'paint' => [ 'name' => 'painting', 'who' => 'painter', ],
@@ -125,7 +125,7 @@ function get_tier_four_data(){
 		'piano' => [ 'name' => 'piano', 'who' => 'pianist', ],
 		'pttry' => [ 'name' => 'pottery', 'who' => 'potter', ],
 		'saxop' => [ 'name' => 'saxophone', 'who' => 'saxophonist', ],
-		'sclpt' => [ 'name' => 'sculpture', 'who' => 'sculpture', ],
+		'sclpt' => [ 'name' => 'sculpture', 'who' => 'sculptor', ],
 		'violn' => [ 'name' => 'violin', 'who' => 'violinist', ],
 
 		'bakng' => [ 'name' => 'baking', 'who' => '', ],
@@ -136,15 +136,14 @@ function get_tier_four_data(){
 		'servg' => [ 'name' => 'serving', 'who' => 'server', ],
 		'storg' => [ 'name' => 'storage', 'who' => 'storagist', ],
 
-		'bodie' => [ 'name' => 'baking', 'who' => '', ],
+		'bodie' => [ 'name' => 'baking', 'who' => 'baker', ],
 		'cloth' => [ 'name' => 'clothing', 'who' => 'tailor', ],
 		'hairc' => [ 'name' => 'haircare', 'who' => 'hairdresser', ],
 		'ntrtn' => [ 'name' => 'nutrition', 'who' => 'nutritionist', ],
 		'physo' => [ 'name' => 'physio', 'who' => 'physiotherapist', ],
 		'psych' => [ 'name' => 'psyche', 'who' => 'pscyhologist', ],
-		'skinc' => [ 'name' => 'skincare', 'who' => 'skincare', ],
 
-		'culti' => [ 'name' => 'cultivating', 'who' => 'cultivater', ],
+		'culti' => [ 'name' => 'cultivating', 'who' => 'cultivator', ],
 		'hrvtg' => [ 'name' => 'harvesting', 'who' => 'harvester', ],
 		'plntg' => [ 'name' => 'planting', 'who' => 'planter', ],
 		'prepg' => [ 'name' => 'preparing', 'who' => 'preparer', ],
@@ -152,7 +151,7 @@ function get_tier_four_data(){
 		'weedg' => [ 'name' => 'weeding', 'who' => 'weeder', ],
 
 		'anlys' => [ 'name' => 'analysis', 'who' => 'analyst', ],
-		'audio' => [ 'name' => 'audio', 'who' => 'audio', ],
+		'audio' => [ 'name' => 'audio', 'who' => 'audio-engineer', ],
 		'photo' => [ 'name' => 'photography', 'who' => 'photographer', ],
 		'presg' => [ 'name' => 'presenting', 'who' => 'presenter', ],
 		'video' => [ 'name' => 'video', 'who' => 'videographer', ],
@@ -168,7 +167,7 @@ function get_tier_four_data(){
 		'roofg' => [ 'name' => 'roofing', 'who' => 'roofer', ],
 
 		// Wha (What)
-		'shltr' => [ 'name' => 'shelter', 'who' => 'roofer', ],
+		'shltr' => [ 'name' => 'shelter', 'who' => 'builder', ],
 	];
 	return $arr;
 }
