@@ -209,12 +209,12 @@ p.date { font-size: 80%; }
 .sprite .icon7x7, .presenting .icon { background-position: -210px -210px; }
 .sprite .icon7x1, .monitoring > .icon { background-position:  0 -210px; }
 
-.sprite .icon8x2, .tailor .icon { background-position: -35px -245px; }
-.sprite .icon8x3, .hairdresser .icon { background-position: -70px -245px; }
-.sprite .icon8x4, .shoemaker .icon { background-position: -105px -245px; }
+.sprite .icon8x2, .clothing .icon { background-position: -35px -245px; }
+.sprite .icon8x3, .haircare .icon { background-position: -70px -245px; }
+.sprite .icon8x4, .shoes .icon { background-position: -105px -245px; }
 .sprite .icon8x5, .physio .icon { background-position: -140px -245px; }
 .sprite .icon8x6, .nutrition .icon { background-position: -175px -245px; }
-.sprite .icon8x7, .other .icon { background-position: -210px -245px; }
+.sprite .icon8x7, .health .icon { background-position: -210px -245px; }
 .sprite .icon8x1, .care > .icon { background-position:  0 -245px; }
 
 .sprite .icon8x8, .commons .icon { background-position: -245px -245px; }
@@ -279,56 +279,5 @@ p.date { font-size: 80%; }
 .tier-2 h1 { display: none; }
 
 /*** CLUSTER END ***/
-
-/*** VIDEO START ***/
-
-html.video {
-	background-color: #222;
-}
-
-html.video {
-	background: #222;
-	box-shadow: none;
-}
-
-html.video body {
-	background: #222;
-	color: #999;
-	box-shadow: none;
-}
-
-html.video > .wrap > .inner {
-	background-color: #121212;
-    opacity: 1;
-	border-radius: 6px;
-	padding: 24px;
-}
-
-html.video .title-wrap {
-	background-color: transparent;
-}
-
-html.video .site-title a,
-html.video .site-description {
-	color: inherit;
-}
-
-html.video h1 { display: none; }
-
-html.video p {
-	font-size: small;
-	max-width: 850px;
-	color: #777;
-}
-
-html.video nav.prev a,
-html.video nav.next a{
-	background: #313131;
-	border: 1px solid #424242;
-}
-
-.video p:last-child { margin-bottom: 0; }
-
-/*** VIDEO END ***/
 
 /***** CHILD.CSS END *****/

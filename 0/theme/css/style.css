@@ -13,7 +13,7 @@ Tags: lightweight, simple
 
 /***** COMMONS START *****/
 
-.commons-updated { background: #180916; }
+.commons-updated { background: #180920; }
 
 /* Adapted from HTML5 / Created: 2017-12-15. */
 
@@ -607,6 +607,91 @@ ul.horizontal-menu {
 }
 
 /***** RESPONSIVE DIVS END *****/
+
+/*** AUDIO START ***/
+
+audio {
+	display: block;
+	margin: 0 auto;
+	width: 100%;
+	margin-top: 1em;
+}
+
+html.audio audio {
+	height: 400px;
+	background: #444;
+}
+/*** AUDIO END ***/
+
+/*** MEDIA START ***/
+
+html.video,
+html.audio
+{
+	background-color: #222;
+}
+
+html.video,
+html.audio {
+	background: #222;
+	box-shadow: none;
+}
+
+html.video body,
+html.audio body {
+	border: 1px solid #444;
+	background: #222;
+	color: #999;
+	box-shadow: none;
+}
+
+html.video > .wrap > .inner,
+html.audio > .wrap > .inner {
+	background-color: #121212;
+    opacity: 1;
+	border-radius: 6px;
+	padding: 24px;
+}
+
+html.video .title-wrap,
+html.audio .title-wrap {
+	background-color: transparent;
+}
+
+html.video .site-title a,
+html.audio .site-title a,
+html.video .site-description,
+html.audio .site-description {
+	color: inherit;
+}
+
+html.video article,
+html.audio article {
+	padding: 1em;
+}
+
+html.video h1 { display: none; }
+html.audio h1 { display: none; }
+
+html.video p,
+html.audio p {
+	font-size: small;
+	max-width: 850px;
+	color: #777;
+}
+
+html.video nav.prev a,
+html.audio nav.prev a,
+html.video nav.next a,
+html.audio nav.next a {
+	background: #313131;
+	border: 1px solid #424242;
+}
+
+.video p:last-child { margin-bottom: 0; }
+.audio p:last-child { margin-bottom: 0; }
+
+/*** MEDIA END ***/
 
 /***** OTHER GENERIC START *****/
 

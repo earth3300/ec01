@@ -136,12 +136,14 @@ function get_tier_four_data(){
 		'servg' => [ 'name' => 'serving', 'who' => 'server', ],
 		'storg' => [ 'name' => 'storage', 'who' => 'storagist', ],
 
-		'bodie' => [ 'name' => 'baking', 'who' => 'baker', ],
+		'bodyc' => [ 'name' => 'baking', 'who' => 'bodyc', ],
 		'cloth' => [ 'name' => 'clothing', 'who' => 'tailor', ],
 		'hairc' => [ 'name' => 'haircare', 'who' => 'hairdresser', ],
-		'ntrtn' => [ 'name' => 'nutrition', 'who' => 'nutritionist', ],
-		'physo' => [ 'name' => 'physio', 'who' => 'physiotherapist', ],
+		'nutri' => [ 'name' => 'nutrition', 'who' => 'nutritionist', ],
+		'physi' => [ 'name' => 'physio', 'who' => 'physiotherapist', ],
 		'psych' => [ 'name' => 'psyche', 'who' => 'pscyhologist', ],
+		'helth' => [ 'name' => 'health', 'who' => 'health-care', ],
+		'shoes' => [ 'name' => 'shoes', 'who' => 'shoemaker', ],
 
 		'culti' => [ 'name' => 'cultivating', 'who' => 'cultivator', ],
 		'hrvtg' => [ 'name' => 'harvesting', 'who' => 'harvester', ],

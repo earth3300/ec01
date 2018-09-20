@@ -65,6 +65,12 @@ class MediaList
 		'dim' => [ 'width' => 800, 'height' => 600 ],
 		'max' => 12,
 		'msg' => [ 'na' => '', ],
+		'types' => [
+			'jpg' => [ 'name' => 'image' ],
+			'png'=> [ 'name' => 'image' ],
+			'mp4' => [ 'name' => 'video' ],
+			'mp3' => [ 'name' => 'audio' ],
+			],
 	];
 
 	/**
@@ -79,11 +85,13 @@ class MediaList
 		{
 			$max = $this->getMaxImages( $args );
 			$args['self'] = $this->isDirSelf( $args );
-			$types = ['.jpg','.png'];
+			$types = $this->opts['types'];
 
 			$str = '<article>' . PHP_EOL;
-			foreach ( $types as $type ) {
-				if ( $match = $this->getMatchPattern( $type, $args ) )
+			foreach ( $types as $key => $type ) {
+				$args['type'] = $key;
+				$args['name'] = 'video';
+				if ( $match = $this->getMatchPattern( $key, $args ) )
 				{
 					$str .= $this->iterateFiles( $match, $max, $args );
 				}
@@ -92,7 +100,7 @@ class MediaList
 
 			if ( isset( $args['doctype'] ) && $args['doctype'] )
 			{
-				$str = $this->getPageHtml( $str );
+				$str = $this->getPageHtml( $str, $args );
 			}
 			return $str;
 		}
@@ -103,7 +111,9 @@ class MediaList
 	}
 
 	/**
-	 * Iterate over files
+	 * Iterate over files.
+	 *
+	 * Capability for jpg, png, mp3 and mp4
 	 *
 	 * @param string $match
 	 * @param array $args
@@ -128,8 +138,8 @@ class MediaList
 			$args['src'] = $this->getSrcFromFile( $args['file'] );
 			$args['name-dim'] = $this->getImageNameDimArr( $args['src'] );
 			$args['name'] = $args['name-dim']['name'];
-			$args['dim'] = $this->getImageDimArr( $args['name-dim']['strDim'] );
-			$str .= $this->getImageHtml( $args );
+			$args['dim'] = $this->getMediaDimArr( $args['name-dim']['strDim'] );
+			$str .= $this->getMediaItemHtml( $args );
 		}
 		return $str;
 	}
@@ -287,19 +297,59 @@ class MediaList
 	}
 
 	/**
-	 * Get the image HTML
+	 * Get the Media Item HTML.
 	 *
 	 * If no type is specified, return the default (.jpg). Include the dot (.)
 	 * for simplicity.
 	 *
-	 * jpg or png. Default: jpg
+	 * jpg, png, mp3, mp4 (Default: jpg)
 	 *
 	 * @param array $args
+	 *
+	 * @return string
+	 */
+	private function getMediaItemHtml( $args )
+	{
+		$str = '';
+		switch( $args['type'] )
+		{
+			case 'jpg':
+				$str = $this-> getImageHtml( $args);
+				break;
+
+			case 'png':
+				$str = $this-> getImageHtml( $args);
+				break;
+
+			case 'mp3':
+				$str = $this-> getAudioHtml( $args);
+				break;
+
+			case 'mp4':
+				$str = $this-> getVideoHtml( $args);
+				break;
+
+			default:
+				$str = $this-> getImageHtml( $args);
+				break;
+
+		}
+
+		return $str;
+	}
+
+	/**
+	 * Get the Image HTML.
+	 *
+	 * Types: jpg, png
+	 *
+	 * @param array $args
+	 *
 	 * @return string
 	 */
 	private function getImageHtml( $args )
 	{
-		$str = '<div class="media">' . PHP_EOL;
+		$str = '<div class="media image">' . PHP_EOL;
 		$str .= sprintf( '<a href="%s">%s', $args['src'], PHP_EOL );
 		$str .= '<img';
 		$str .= sprintf( ' class="%s"', $this->getImageClass( $args ) );
@@ -309,10 +359,63 @@ class MediaList
 		$str .= sprintf( ' height="%s"', $this->getImageHeight( $args ) );
 		$str .= ' />' . PHP_EOL;
 		$str .= '</a>' . PHP_EOL;
-		$str .= '<div class="text-center">';
-		$str .= sprintf( '<span class="name">%s</span>', $this->getImageName( $args['name'] ) );
-		$str .= sprintf( ' <span class="size">%s</span>', $this->getImageSize( $args ) );
+		$str .= '<p class="text-center">';
+		$str .= sprintf( '<span class="name">%s</span>', $this->getMediaName( $args['name'] ) );
+		$str .= sprintf( ' <span class="size">%s</span>', $this->getMediaSize( $args ) );
+		$str .= '</p>' . PHP_EOL;
 		$str .= '</div>' . PHP_EOL;
+
+		return $str;
+	}
+
+	/**
+	 * Get the Video HTML.
+	 *
+	 * Types: jpg, png
+	 *
+	 * @param array $args
+	 *
+	 * @return string
+	 * @example <audio controls>
+	 * <source src="myAudio.mp3" type="audio/mp3">
+	 * </audio>
+	 */
+	private function getAudioHtml( $args )
+	{
+		$str = '<div class="media audio">' . PHP_EOL;
+		$str .= '<audio controls' . PHP_EOL;
+		$str .= sprintf( '<source src="%s" type="audio/mp3">%s', $args['src'], PHP_EOL );
+		$str .= '</audio>' . PHP_EOL;
+		$str .= '<p class="text-center">';
+		$str .= sprintf( '<span class="name">%s</span>', $this->getMediaName( $args['name'] ) );
+		$str .= sprintf( ' <span class="size">%s</span>', $this->getMediaSize( $args ) );
+		$str .= '</p>' . PHP_EOL;
+		$str .= '</div>' . PHP_EOL;
+
+		return $str;
+	}
+
+	/**
+	 * Get the Video HTML.
+	 *
+	 * Types: mp4.
+	 *
+	 * @param array $args
+	 *
+	 * @return string
+	 */
+	private function getVideoHtml( $args )
+	{
+		$str = '<div class="media video">' . PHP_EOL;
+		$str .= '<video controls ' . PHP_EOL;
+		$str .= sprintf( 'width="%s" ', $args['dim']['width'] );
+		$str .= sprintf( 'height="%s">%s', $args['dim']['height'], PHP_EOL );
+		$str .= sprintf( '<source src="%s" type="video/mp4">%s', $args['src'], PHP_EOL );
+		$str .= '</video>' . PHP_EOL;
+		$str .= '<p class="text-center">';
+		$str .= sprintf( '<span class="name">%s</span>', $this->getMediaName( $args['name'] ) );
+		$str .= sprintf( ' <span class="size">%s</span>', $this->getMediaSize( $args ) );
+		$str .= '</p>' . PHP_EOL;
 		$str .= '</div>' . PHP_EOL;
 
 		return $str;
@@ -324,10 +427,10 @@ class MediaList
 	 * @param string $str
 	 * @return string
 	 */
-	public function getPageHtml( $html )
+	public function getPageHtml( $html, $args )
 	{
 		$str = '<!DOCTYPE html>' . PHP_EOL;
-		$str .= '<html class="fixed-width" lang="en-CA">' . PHP_EOL;
+		$str .= sprintf( '<html class="dynamic %s" lang="en-CA">', $args['name'], PHP_EOL );
 		$str .= '<head>' . PHP_EOL;
 		$str .= '<meta charset="UTF-8">' . PHP_EOL;
 		$str .= '<meta name="viewport" content="width=device-width, initial-scale=1"/>' . PHP_EOL;
@@ -461,7 +564,7 @@ class MediaList
 	 *
 	 * @example '1280x720'  $dim['width'] = 1280, $dim['height'] = 720
 	 */
-	private function getImageDimArr( $str )
+	private function getMediaDimArr( $str )
 	{
 		if ( strlen( $str ) > 4 )
 		{
@@ -486,13 +589,13 @@ class MediaList
 	 */
 	private function getImageWidth( $args )
 	{
-		if ( defined( 'SITE_IMAGE_WIDTH' ) )
-		{
-			$width = SITE_IMAGE_WIDTH;
-		}
-		else
+		if ( ! empty( $args['dim']['width'] ) )
 		{
 			$width = $args['dim']['width'];
+		}
+		else if ( defined( 'SITE_IMAGE_WIDTH' ) )
+		{
+			$width = SITE_IMAGE_WIDTH;
 		}
 		return $width;
 	}
@@ -522,7 +625,7 @@ class MediaList
 	 * @param array $args
 	 * @return int
 	 */
-	private function getImageSize( $args ){
+	private function getMediaSize( $args ){
 
 		if ( class_exists('Imagick') )
 		{
@@ -560,12 +663,12 @@ class MediaList
 	}
 
 	/**
-	 * Get the Image Name
+	 * Get the Media Name
 	 *
 	 * @param array $args
 	 * @return string
 	 */
-	private function getImageName( $str )
+	private function getMediaName( $str )
 	{
 		if ( strlen( $str ) > 2 )
 		{
@@ -625,7 +728,6 @@ class MediaList
  * and returns the media list as HTML.
  *
  * @param array  $args['dir']
- * 
  * @return string  HTML as a list of images, wrapped in the article element.
  */
 function media_list( $args )
