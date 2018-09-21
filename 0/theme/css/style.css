@@ -617,10 +617,6 @@ audio {
 	margin-top: 1em;
 }
 
-html.audio audio {
-	height: 400px;
-	background: #444;
-}
 /*** AUDIO END ***/
 
 /*** MEDIA START ***/

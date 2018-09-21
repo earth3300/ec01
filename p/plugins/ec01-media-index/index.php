@@ -46,18 +46,31 @@ class MediaList
 		'dim' => [ 'width' => 800, 'height' => 600 ],
 		'max' => 12,
 		'msg' => [ 'na' => '', ],
-		'types' => [
-			'jpg' => [ 'name' => 'image' ],
-			'png'=> [ 'name' => 'image' ],
-			'mp4' => [ 'name' => 'video' ],
-			'mp3' => [ 'name' => 'audio' ],
+		'subtypes' => [
+			'jpg' => [ 'type' => 'image' ],
+			'png'=> [ 'type' => 'image' ],
+			'mp4' => [ 'type' => 'video' ],
+			'mp3' => [ 'type' => 'audio' ],
 			],
 	];
 
 	/**
 	 * Get the list of images as HTML.
 	 *
+	 * In order to process the media file correctly, the browser has to know what
+	 * MIME (Multipurpose Internet Mail Extension) it is. The MIME type has the
+	 * format: `type/subtype`, thus `image/png`, `image/jpeg`, `video/mp4` or
+	 * `audio/mpeg` {@link https://tools.ietf.org/html/rfc3003}. We are simply
+	 * using the extensions (mp3, mp4, jpg and png) here and requiring the person
+	 * responsible for the content to ensure consistency and that the extension
+	 * correlates with the MIME type for that file (i.e mp3 _is_ an audio file
+	 * in the mpeg format). The `jpeg` MIME type is expected to be found as `jpg`
+	 * NOT `jpeg`, again for programmatic and visual consistency.
+	 *
+	 * @link https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types
+	 *
 	 * @param array $args
+	 *
 	 * @return string
 	 */
 	public function get( $args )
@@ -66,13 +79,14 @@ class MediaList
 		{
 			$max = $this->getMaxImages( $args );
 			$args['self'] = $this->isDirSelf( $args );
-			$types = $this->opts['types'];
+			$subtypes = $this->opts['subtypes'];
 
 			$str = '<article>' . PHP_EOL;
-			foreach ( $types as $key => $type ) {
-				$args['type'] = $key;
-				$args['name'] = 'video';
-				if ( $match = $this->getMatchPattern( $key, $args ) )
+			foreach ( $subtypes as $subtype => $type ) {
+				$args['type'] = $type['type'];
+				$args['subtype'] = $subtype;
+
+				if ( $match = $this->getMatchPattern( $subtype, $args ) )
 				{
 					$str .= $this->iterateFiles( $match, $max, $args );
 				}
@@ -294,19 +308,15 @@ class MediaList
 		$str = '';
 		switch( $args['type'] )
 		{
-			case 'jpg':
+			case 'image':
 				$str = $this-> getImageHtml( $args);
 				break;
 
-			case 'png':
-				$str = $this-> getImageHtml( $args);
-				break;
-
-			case 'mp3':
+			case 'audio':
 				$str = $this-> getAudioHtml( $args);
 				break;
 
-			case 'mp4':
+			case 'video':
 				$str = $this-> getVideoHtml( $args);
 				break;
 
@@ -411,7 +421,7 @@ class MediaList
 	public function getPageHtml( $html, $args )
 	{
 		$str = '<!DOCTYPE html>' . PHP_EOL;
-		$str .= sprintf( '<html class="dynamic %s" lang="en-CA">', $args['name'], PHP_EOL );
+		$str .= sprintf( '<html class="dynamic %s" lang="en-CA">', $args['type'], PHP_EOL );
 		$str .= '<head>' . PHP_EOL;
 		$str .= '<meta charset="UTF-8">' . PHP_EOL;
 		$str .= '<meta name="viewport" content="width=device-width, initial-scale=1"/>' . PHP_EOL;
@@ -735,11 +745,10 @@ function media_list( $args )
  * of the allowed media types (currently jpg, png, mp3 and mp4) and making them
  * viewable to the end user by wrapping them in HTML and making use of a css
  * file that is expected to be found at `/0/media/theme/css/style.css`. This
- * file and idea was developed out of work to find a more stable and robust
- * method to develop out a site, including that for a community. Therefore it
- * makes use of the package which can be better understood by reading the
- * documenation found at: {@link https://github.com/earth3300/ec01/wiki/},
- * with the entire codeset available through that same link.
+ * idea was developed out of work to find a more robust method to develop out a
+ * site, including that for a community. It makes use of the package found at:
+ * {@link https://github.com/earth3300/ec01/wiki/}, with the entire codeset
+ * available there through the same link.
  */
 if( function_exists( 'add_shortcode' ) )
 {
