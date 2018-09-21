@@ -696,10 +696,6 @@ video {
 	margin: 0 auto;
 }
 
-article p:last-child {
-	margin-bottom: 0;
-}
-
 article .border {
 	border: 1px solid #c8c8c8;
 	border-radius: 7px;
