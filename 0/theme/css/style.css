@@ -684,9 +684,6 @@ html.audio nav.next a {
 	border: 1px solid #424242;
 }
 
-.video p:last-child { margin-bottom: 0; }
-.audio p:last-child { margin-bottom: 0; }
-
 /*** MEDIA END ***/
 
 /***** OTHER GENERIC START *****/
@@ -697,6 +694,10 @@ video {
 	height: auto;
 	display: block;
 	margin: 0 auto;
+}
+
+article p:last-child {
+	margin-bottom: 0;
 }
 
 article .border {
