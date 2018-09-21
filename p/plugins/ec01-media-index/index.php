@@ -1,23 +1,24 @@
 <?php
 
 /**
- * WP Bundle Media List.
+ * EC01 Media Index.
  *
- * Lists images of a specific type in the given directory and outputs valid HTML.
- * Requires the configuration available at: {@link https://github.com/earth3300/ec01/}.
+ * Allows media (image, video, audio) to be viewed in a directory through the
+ * `index.php` file. If available, make use of the configuration available at:
+ * {@link https://github.com/earth3300/ec01/}.
  *
- * @package WP Bundle Media List
+ * @package EC01 Media Index
  * @since 2018.9.0
  * @author Clarence Bos <cbos@tnoep.ca>
  * @copyright Copyright (c) 2018, Clarence Bos
  * @license https://www.gnu.org/licenses/gpl-3.0.en.html GPL-3.0+
- * @link http://wp.cbos.ca/plugins/wb-media-list
+ * @link http://wp.cbos.ca/plugins/ec01-media-index
  * @see https://carlalexander.ca/designing-class-generate-wordpress-html-content/
  *
  * @wordpress-plugin
- * Plugin Name: WP Bundle Media List
- * Plugin URI:  http://wp.cbos.ca/plugins/wb-media-list/
- * Description: Lists all media of a given type in a given directory. Shortcode [media-list].
+ * Plugin Name: EC01 Media Index
+ * Plugin URI:  http://wp.cbos.ca/plugins/ec01-media-index/
+ * Description: Allows media (image, video, audio) to be viewed in a directory through a single file. Shortcode [media-list].
  * Version:     2018.9.0
  * Author:      Clarence Bos
  * Author URI:  https://www.tnoep.ca/
@@ -26,32 +27,12 @@
  * License URI: https://www.gnu.org/licenses/gpl-3.0.en.html
  */
 
-// if `add_shortcode` exists, we are in WordPress, otherwise not.
-if( function_exists( 'add_shortcode' ) )
-{
-	// No direct access.
-	defined('NDA') || exit('No direct access.');
-
-	//shortcode [media-list dir=""]
-	add_shortcode( 'media-list', 'media_list' );
-}
-else
-{
-	/**
-	 * Outside of WordPress. Instantiate directly, assuming current directory.
-	 *
-	 * @param $args['self'] = true  List the files in the current directory.
-	 *
-	 * @param array $args['doctype'] = true  Set the doctype to html.
-	 */
-	$media_list = new MediaList();
-	echo $media_list -> get( array( 'self' => true, 'doctype' => true ) );
-}
-
 /**
- * List the media of a certain type in a given directory.
+ * Allows media (jpg, png, mp3, mp4) to be viewed in the given directory.
  *
- * No WordPress hooks inside the class for better portability.
+ * See the bottom of this file for a more complete description
+ * and the switch for determining the context in which this file
+ * is found.
  */
 class MediaList
 {
@@ -741,4 +722,42 @@ function media_list( $args )
 	{
 		return '<!-- Missing the image directory to process. [media-list dir=""]-->';
 	}
+}
+
+/**
+ * Check context (WordPress Plugin File or Directory Index File).
+ *
+ * The following checks to see whether or not this file (index.php) is being loaded
+ * as part of the WordPress package, or not. If it is, we expect a WordPress
+ * function to be available (in this case, `add_shortcode`). We then ensure there
+ * is no direct access and add the shortcode hook, `media-list`. If we are not in
+ * WordPress, then this file acts as an "indexing" type of file by listing all
+ * of the allowed media types (currently jpg, png, mp3 and mp4) and making them
+ * viewable to the end user by wrapping them in HTML and making use of a css
+ * file that is expected to be found at `/0/media/theme/css/style.css`. This
+ * file and idea was developed out of work to find a more stable and robust
+ * method to develop out a site, including that for a community. Therefore it
+ * makes use of the package which can be better understood by reading the
+ * documenation found at: {@link https://github.com/earth3300/ec01/wiki/},
+ * with the entire codeset available through that same link.
+ */
+if( function_exists( 'add_shortcode' ) )
+{
+	// No direct access.
+	defined('ABSPATH') || exit('No direct access.');
+
+	//shortcode [media-list dir=""]
+	add_shortcode( 'media-list', 'media_list' );
+}
+else
+{
+	/**
+	 * Outside of WordPress. Instantiate directly, assuming current directory.
+	 *
+	 * @param $args['self'] = true  List the files in the current directory.
+	 *
+	 * @param array $args['doctype'] = true  Set the doctype to html.
+	 */
+	$media_list = new MediaList();
+	echo $media_list -> get( array( 'self' => true, 'doctype' => true ) );
 }
