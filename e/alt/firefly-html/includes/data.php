@@ -71,6 +71,7 @@ function get_tier_three_data(){
 		// how
 		'stnd' => [ 'name' => 'standard' ],
 		'proc' => [ 'name' => 'process' ],
+		'mthd' => [ 'name' => 'method' ],
 		'proj' => [ 'name' => 'project' ],
 		'comm' => [ 'name' => 'communication' ],
 		'news' => [ 'name' => 'news' ],
@@ -173,6 +174,7 @@ function get_tier_four_data(){
 
 		// How (How)
 		'softw' => [ 'name' => 'software', 'who' => 'programmer', ],
+		'grwth' => [ 'name' => 'growth', 'who' => 'planner', ],
 
 	];
 	return $arr;

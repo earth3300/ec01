@@ -12,6 +12,7 @@
 .profession { background: #d0e0e3; }
 .news .color.lighter { background: #f1c232; }
 .process .color.lighter { background: #e6b8af; }
+.method .color.lighter { background: #e6b8af; }
 .standard .color.lighter { background: #f4cccc; }
 .design .color.lighter { background: #ea9999; }
 .equipment .color.lighter { background: #fce5cd; }
@@ -44,6 +45,7 @@
 .storefront .color.darker { background-color: #76a5af; }
 .news .color.darker { background-color: #f1c232; }
 .process .color.darker { background-color: #e6b8af; }
+.method .color.darker { background-color: #cccccc; }
 .standard .color.darker { background-color: #f4cccc; }
 .design .color.darker { background-color: #ea9999; }
 .equipment .color.darker { background-color: #fce5cd; }
