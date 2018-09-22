@@ -47,6 +47,7 @@ class MediaList
 			'mp4' => [ 'type' => 'video' ],
 			'mp3' => [ 'type' => 'audio' ],
 			],
+		'supertype' => 'media',
 	];
 
 	/**
@@ -68,19 +69,27 @@ class MediaList
 	 *
 	 * @return string
 	 */
-	public function get( $args )
+	public function get( $args = null )
 	{
-		if ( $this->checkArgs( $args ) )
+		/** If no arguments are set, assume current directory */
+		if ( $args = $this->setDirectorySwitch( $args ) )
 		{
 			$max = $this->getMaxImages( $args );
-			$args['self'] = $this->isDirSelf( $args );
 			$subtypes = $this->opts['subtypes'];
+
+			/** Add the "supertype" to the class string (i.e. media). */
+			$args['class'] = $this->opts['supertype'];
 
 			$str = '<article>' . PHP_EOL;
 			foreach ( $subtypes as $subtype => $type ) {
 				$args['type'] = $type['type'];
 				$args['subtype'] = $subtype;
 
+				/** If the class is not already present, add it. */
+				if( strpos( $args['class'], $args['type'] ) === FALSE )
+				   {
+					$args['class'] .= ' ' . $args['type'];
+				   }
 				if ( $match = $this->getMatchPattern( $subtype, $args ) )
 				{
 					$str .= $this->iterateFiles( $match, $max, $args );
@@ -175,26 +184,6 @@ class MediaList
 			return $_SERVER['DOCUMENT_ROOT'];
 		}
 	}
-
-	/**
-	 * Get the "Self" directory, if set.
-	 *
-	 * @param array $args
-	 *
-	 * @return bool
-	 */
-	private function isDirSelf( $args )
-	{
-		if ( isset( $args['self'] ) && true == $args['self'] )
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-	}
-
 
 	/**
 	 * Get the maximum number of images to process.
@@ -689,20 +678,33 @@ class MediaList
 	}
 
 	/**
-	 * Check the arguments from the shortcode
+	 * Set the Directory Switch (Process Containing or Given Directory).
+	 *
+	 * If $args['self'] or $args['dir'] are not set, it assumes we are in the
+	 * directory for which images are to be processed. Therefore $args['self']
+	 * is set to true and $args['dir'] is set to null. We also have to set the
+	 * $args['doctype'] to true to know whether or not to wrap the output in
+	 * the correct doctype and the containing html and body elements.
 	 *
 	 * @param array $args
-	 * @return bool
+	 *
+	 * @return array
 	 */
-	private function checkArgs( $args )
+	private function setDirectorySwitch( $args )
 	{
-		if ( isset( $args['dir'] ) || isset( $args['self'] ) )
+		/** If $args['dir'] is not set, set it to false. */
+		$args['dir'] = isset( $args['dir'] ) ? $args['dir'] : false;
+
+		/** if $args['dir'] == false, set $args['self'] to true. */
+		if ( ! $args['dir'] )
 		{
-			return true;
+			$args['self'] = true;
+			$args['doctype'] = true;
+			return $args;
 		}
 		else
 		{
-			return false;
+			return $args;
 		}
 	}
 }
@@ -758,10 +760,8 @@ else
 	/**
 	 * Outside of WordPress. Instantiate directly, assuming current directory.
 	 *
-	 * @param $args['self'] = true  List the files in the current directory.
-	 *
-	 * @param array $args['doctype'] = true  Set the doctype to html.
+	 * @return string
 	 */
 	$media_list = new MediaList();
-	echo $media_list -> get( array( 'self' => true, 'doctype' => true ) );
+	echo $media_list -> get();
 }
