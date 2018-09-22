@@ -1,19 +1,19 @@
 /*
-Theme Name: Firefly HTML
-Theme URI: http://wp.cbos.ca/themes/firefly-html/
+Theme Name: EC01 Commons Style
+Theme URI: http://ec01.earth3300.info/
 Author: Clarence Bos
-Author URI: http://www.tnoep.ca/
-Description: A lightweight alternative to displaying HTML. Can be used on its own or as a WordPress theme.
-Version: 2018.9.0
+Author URI: http://ec01.earth3300.info/
+Description: Part of a sustainable community design.
+Version: 1.0.0
 License: GPL-3.0+
 License URI: https://www.gnu.org/licenses/gpl-3.0.en.html
-Text Domain: firefly-html
+Text Domain: ec01-commons
 Tags: lightweight, simple
 */
 
 /***** COMMONS START *****/
 
-.commons-updated { background: #180921; }
+.commons-updated { background: #180922; }
 
 /* Adapted from HTML5 / Created: 2017-12-15. */
 
@@ -35,11 +35,14 @@ html, body { background-color: #e6e6e6; }
 
 html, body { color: #222; }
 
-a { color: #073763; } /* Blue Dark 3 */
+a { color: #073763; }
+/* Blue Dark 3 */
 
-a:link { color: #073763; /* Blue Dark 3 */ }
+a:link { color: #073763;
+/* Blue Dark 3 */ }
 
-a:hover { color: #3d85c6; /* Blue Dark 1 */ }
+a:hover { color: #3d85c6;
+/* Blue Dark 1 */ }
 
 /* a:visited { color: #073763; } */
 /* Blue Dark 3 */
@@ -48,7 +51,8 @@ nav li:hover { background-color: #f5f5f5; }
 
 nav .has-parent li:hover { background-color: #f5f5f5; }
 
-.title-wrap { background-color: #5a92b5; } /* main visible color */
+.title-wrap { background-color: #5a92b5; }
+/* main visible color */
 
 .site-title a { color: #515151; }
 
@@ -74,6 +78,11 @@ nav .next-title {
 	float: right;
 	text-align: right;
 	font-size: 100%;
+}
+
+nav.prev-next a {
+	background-color: #c8c8c8;
+	border: 1px solid #e0e0e0;
 }
 
 nav.prev a {
@@ -621,18 +630,14 @@ audio {
 
 /*** MEDIA START ***/
 
-html.video,
-html.audio
-{
-	background-color: #222;
-}
-
+html.media,
 html.video,
 html.audio {
 	background: #222;
 	box-shadow: none;
 }
 
+html.media body,
 html.video body,
 html.audio body {
 	border: 1px solid #444;
@@ -641,6 +646,7 @@ html.audio body {
 	box-shadow: none;
 }
 
+html.media > .wrap > .inner,
 html.video > .wrap > .inner,
 html.audio > .wrap > .inner {
 	background-color: #121212;
@@ -649,26 +655,34 @@ html.audio > .wrap > .inner {
 	padding: 24px;
 }
 
+html.media .title-wrap,
 html.video .title-wrap,
 html.audio .title-wrap {
 	background-color: transparent;
 }
 
+html.media .site-title a,
 html.video .site-title a,
 html.audio .site-title a,
+html.media .site-description,
 html.video .site-description,
 html.audio .site-description {
 	color: inherit;
 }
 
+html.media article,
 html.video article,
 html.audio article {
 	padding: 1em;
 }
 
-html.video h1 { display: none; }
-html.audio h1 { display: none; }
+html.media h1,
+html.video h1,
+html.audio h1 {
+	display: none;
+}
 
+html.media p,
 html.video p,
 html.audio p {
 	font-size: small;
@@ -676,8 +690,42 @@ html.audio p {
 	color: #777;
 }
 
+html.media a,
+html.video a,
+html.audio a {
+	color: #666;
+	/* 1 points darker than text */
+}
+
+html.media a:link,
+html.video a:link,
+html.audio a:link {
+	color: #666;
+}
+
+html.media a:hover,
+html.video a:hover,
+html.audio a:hover {
+	color: #999;
+}
+
+html.media a:visited,
+html.video a:visited,
+html.audio a:visited {
+
+}
+
+html.media a:active,
+html.video a:active,
+html.audio a:active {
+
+}
+
+html.media nav.prev-next a,
+html.media nav.prev a,
 html.video nav.prev a,
 html.audio nav.prev a,
+html.video nav.prev-next a,
 html.video nav.next a,
 html.audio nav.next a {
 	background: #313131;

@@ -3,12 +3,11 @@
 /**
  * EC01 Media Index.
  *
- * Allows media (image, video, audio) to be viewed in a directory through the
- * `index.php` file. If available, make use of the configuration available at:
- * {@link https://github.com/earth3300/ec01/}.
+ * Allows media (images, video and audio) to be viewed in a directory through a
+ * single index file.
  *
  * @package EC01 Media Index
- * @since 2018.9.0
+ * @since 1.0.0
  * @author Clarence Bos <cbos@tnoep.ca>
  * @copyright Copyright (c) 2018, Clarence Bos
  * @license https://www.gnu.org/licenses/gpl-3.0.en.html GPL-3.0+
@@ -19,11 +18,11 @@
  * Plugin Name: EC01 Media Index
  * Plugin URI:  http://wp.cbos.ca/plugins/ec01-media-index/
  * Description: Allows media (image, video, audio) to be viewed in a directory through a single file. Shortcode [media-list].
- * Version:     2018.9.0
- * Author:      Clarence Bos
- * Author URI:  https://www.tnoep.ca/
- * Text Domain: wb-media-list
- * License:     GPL-3.0+
+ * Version: 1.0.0
+ * Author: Clarence Bos
+ * Author URI: http://ec01.earth3300.info/
+ * Text Domain: ec01-media-list
+ * License:  GPL-3.0+
  * License URI: https://www.gnu.org/licenses/gpl-3.0.en.html
  */
 
@@ -37,11 +36,7 @@
 class MediaList
 {
 
-	/**
-	 * Default image dimensions
-	 *
-	 * array
-	 */
+	/** @var array Default options. */
 	protected $opts = [
 		'dim' => [ 'width' => 800, 'height' => 600 ],
 		'max' => 12,
@@ -435,7 +430,7 @@ class MediaList
 		$str .= '</main>' . PHP_EOL;
 		$str .= '<footer>' . PHP_EOL;
 		$str .= '<div class="text-center"><small>';
-		$str .= 'Note: This page has been automatically generated. No header, footer, menus or sidebars are available.';
+		$str .= 'Note: This page has been <a href="https://github.com/earth3300/ec01-media-index.git">automatically generated</a>. No header, footer, menus or sidebars are available.';
 		$str .= '</small></div>' . PHP_EOL;
 		$str .= '</footer>' . PHP_EOL;
 		$str .= '</html>' . PHP_EOL;

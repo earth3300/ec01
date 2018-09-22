@@ -170,6 +170,10 @@ function get_tier_four_data(){
 
 		// Wha (What)
 		'shelt' => [ 'name' => 'shelter', 'who' => 'builder', ],
+
+		// How (How)
+		'softw' => [ 'name' => 'software', 'who' => 'programmer', ],
+
 	];
 	return $arr;
 }
