@@ -217,7 +217,8 @@ p.date { font-size: 80%; }
 .sprite .icon8x7, .health .icon { background-position: -210px -245px; }
 .sprite .icon8x1, .care > .icon { background-position:  0 -245px; }
 
-.sprite .icon8x8, .commons .icon { background-position: -245px -245px; }
+.sprite .icon8x7, .store > .icon { background-position: -245px -210px; }
+.sprite .icon8x8, .commons > .icon { background-position: -245px -245px; }
 
 /*** SPRITE END ***/
 

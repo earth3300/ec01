@@ -76,7 +76,7 @@ function get_tier_three_data(){
 		'news' => [ 'name' => 'news' ],
 		'serv' => [ 'name' => 'service' ],
 		'whsl' => [ 'name' => 'wholesale' ],
-		'stor' => [ 'name' => 'storefront' ],
+		'stor' => [ 'name' => 'store' ],
 
 		// recycling
 		'reco' => [ 'name' => 'recovery' ],
