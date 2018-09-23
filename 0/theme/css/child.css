@@ -202,7 +202,6 @@ p.date { font-size: 80%; }
 .sprite .icon5x5, .genetics .icon { background-position: -140px -140px; }
 .sprite .icon6x5, .cognition .icon { background-position: -175px -140px; }
 .sprite .icon7x5, .logic .icon { background-position: -210px -140px; }
-.sprite .icon8x5, .method > .icon { background-position: -245px -140px; }
 .sprite .icon1x5, .academic > .icon { background-position:  0 -140px; }
 
 /* Sixth row */
@@ -235,6 +234,7 @@ p.date { font-size: 80%; }
 
 .sprite .icon1x8, .care > .icon { background-position:  0 -245px; }
 
+.sprite .icon8x5, .method > .icon { background-position: -245px -140px; }
 .sprite .icon8x7, .store > .icon { background-position: -245px -210px; }
 .sprite .icon8x8, .commons > .icon { background-position: -245px -245px; }
 
