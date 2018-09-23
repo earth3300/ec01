@@ -151,73 +151,91 @@ p.date { font-size: 80%; }
 	line-height: 35px;
 }
 
-.sprite .icon1x8, .center .icon { background-position: -245px 0; }
+/* down, then across */
+/* should be, across (width), then down */
+.sprite .icon8x1, .center .icon { background-position: -245px 0; }
 
-.sprite .icon1x2, .carpentry .icon { background-position: -35px 0; }
-.sprite .icon1x3, .electrical .icon { background-position: -70px 0; }
-.sprite .icon1x4, .plumbing .icon { background-position: -105px 0; }
-.sprite .icon1x5, .mechanical .icon { background-position: -140px 0; }
-.sprite .icon1x6, .welding .icon { background-position: -175px 0; }
-.sprite .icon1x7, .masonry .icon { background-position: -210px 0; }
+/* First row */
+.sprite .icon2x1, .carpentry .icon { background-position: -35px 0; }
+.sprite .icon3x1, .electrical .icon { background-position: -70px 0; }
+.sprite .icon4x1, .plumbing .icon { background-position: -105px 0; }
+.sprite .icon5x1, .mechanical .icon { background-position: -140px 0; }
+.sprite .icon6x1, .welding .icon { background-position: -175px 0; }
+.sprite .icon7x1, .masonry .icon { background-position: -210px 0; }
+
 .sprite .icon1x1, .trade > .icon { background-position:  0 0; }
 
+/* Second row */
 .sprite .icon2x2, .storage .icon { background-position: -35px -35px; }
-.sprite .icon2x3, .baking .icon { background-position: -70px -35px; }
-.sprite .icon2x4, .cooking .icon { background-position: -105px -35px; }
-.sprite .icon2x5, .serving .icon { background-position: -140px -35px; }
-.sprite .icon2x6, .cleaning .icon { background-position: -175px -35px; }
-.sprite .icon2x7, .recycling .icon { background-position: -210px -35px; }
-.sprite .icon2x1, .cafe > .icon { background-position:  0 -35px; }
+.sprite .icon3x2, .baking .icon { background-position: -70px -35px; }
+.sprite .icon4x2, .cooking .icon { background-position: -105px -35px; }
+.sprite .icon5x2, .serving .icon { background-position: -140px -35px; }
+.sprite .icon6x2, .cleaning .icon { background-position: -175px -35px; }
+.sprite .icon7x2, .recycling .icon { background-position: -210px -35px; }
 
-.sprite .icon3x2, .engineering .icon { background-position: -35px -70px; }
+.sprite .icon1x2, .cafe > .icon { background-position:  0 -35px; }
+
+/* Third row */
+.sprite .icon2x3, .engineering .icon { background-position: -35px -70px; }
 .sprite .icon3x3, .architecture .icon { background-position: -70px -70px; }
-.sprite .icon3x4, .landscaping .icon { background-position: -105px -70px; }
-.sprite .icon3x5, .permaculture .icon { background-position: -140px -70px; }
-.sprite .icon3x6, .programming .icon { background-position: -175px -70px; }
-.sprite .icon3x7, .robotics .icon { background-position: -210px -70px; }
-.sprite .icon3x1, .applied > .icon { background-position:  0 -70px; }
+.sprite .icon4x3, .landscaping .icon { background-position: -105px -70px; }
+.sprite .icon5x3, .permaculture .icon { background-position: -140px -70px; }
+.sprite .icon6x3, .programming .icon { background-position: -175px -70px; }
+.sprite .icon7x3, .robotics .icon { background-position: -210px -70px; }
 
-.sprite .icon4x2, .piano .icon { background-position: -35px -105px; }
-.sprite .icon4x3, .violin .icon { background-position: -70px -105px; }
+.sprite .icon1x3, .applied > .icon { background-position:  0 -70px; }
+
+/* Fourth row */
+.sprite .icon2x4, .piano .icon { background-position: -35px -105px; }
+.sprite .icon3x4, .violin .icon { background-position: -70px -105px; }
 .sprite .icon4x4, .painting .icon { background-position: -105px -105px; }
-.sprite .icon4x5, .sculpture .icon { background-position: -140px -105px; }
-.sprite .icon4x6, .pottery .icon { background-position: -175px -105px; }
-.sprite .icon4x7, .saxophone .icon { background-position: -210px -105px; }
-.sprite .icon4x1, .arts > .icon { background-position:  0 -105px; }
+.sprite .icon5x4, .sculpture .icon { background-position: -140px -105px; }
+.sprite .icon6x4, .pottery .icon { background-position: -175px -105px; }
+.sprite .icon7x4, .saxophone .icon { background-position: -210px -105px; }
 
-.sprite .icon5x2, .mathematics .icon { background-position: -35px -140px; }
-.sprite .icon5x3, .physics .icon { background-position: -70px -140px; }
-.sprite .icon5x4, .chemistry .icon { background-position: -105px -140px; }
+.sprite .icon1x4, .arts > .icon { background-position:  0 -105px; }
+
+/* Fifth row */
+.sprite .icon2x5, .mathematics .icon { background-position: -35px -140px; }
+.sprite .icon3x5, .physics .icon { background-position: -70px -140px; }
+.sprite .icon4x5, .chemistry .icon { background-position: -105px -140px; }
 .sprite .icon5x5, .genetics .icon { background-position: -140px -140px; }
-.sprite .icon5x6, .cognition .icon { background-position: -175px -140px; }
-.sprite .icon5x7, .logic .icon { background-position: -210px -140px; }
-.sprite .icon5x1, .academic > .icon { background-position:  0 -140px; }
+.sprite .icon6x5, .cognition .icon { background-position: -175px -140px; }
+.sprite .icon7x5, .logic .icon { background-position: -210px -140px; }
 
-.sprite .icon6x2, .cultivating .icon { background-position: -35px -175px; }
-.sprite .icon6x3, .planting .icon { background-position: -70px -175px; }
-.sprite .icon6x4, .watering .icon { background-position: -105px -175px; }
-.sprite .icon6x5, .weeding .icon { background-position: -140px -175px; }
+.sprite .icon1x5, .academic > .icon { background-position:  0 -140px; }
+
+/* Sixth row */
+.sprite .icon2x6, .cultivating .icon { background-position: -35px -175px; }
+.sprite .icon3x6, .planting .icon { background-position: -70px -175px; }
+.sprite .icon4x6, .watering .icon { background-position: -105px -175px; }
+.sprite .icon5x6, .weeding .icon { background-position: -140px -175px; }
 .sprite .icon6x6, .harvesting .icon { background-position: -175px -175px; }
-.sprite .icon6x7, .processing .icon { background-position: -210px -175px; }
-.sprite .icon6x1, .gardening > .icon { background-position:  0 -175px; }
+.sprite .icon7x6, .processing .icon { background-position: -210px -175px; }
+.sprite .icon8x6, .growth .icon { background-position: -210px -210px; }
+.sprite .icon1x6, .gardening > .icon { background-position:  0 -175px; }
 
-.sprite .icon7x2, .analysis .icon { background-position: -35px -210px; }
-.sprite .icon7x3, .writing .icon { background-position: -70px -210px; }
-.sprite .icon7x4, .photography .icon { background-position: -105px -210px; }
-.sprite .icon7x5, .audio .icon { background-position: -140px -210px; }
-.sprite .icon7x6, .video .icon { background-position: -175px -210px; }
-.sprite .icon7x7, .presenting .icon { background-position: -210px -210px; }
-.sprite .icon7x1, .monitoring > .icon { background-position:  0 -210px; }
+/* Seventh row */
+.sprite .icon2x7, .analysis .icon { background-position: -35px -210px; }
+.sprite .icon3x7, .writing .icon { background-position: -70px -210px; }
+.sprite .icon4x7, .photography .icon { background-position: -105px -210px; }
+.sprite .icon5x7, .audio .icon { background-position: -140px -210px; }
+.sprite .icon6x7, .video .icon { background-position: -175px -210px; }
+.sprite .icon7x7, .presenting .icon { background-position: -210px -245px; }
 
-.sprite .icon8x2, .clothing .icon { background-position: -35px -245px; }
-.sprite .icon8x3, .haircare .icon { background-position: -70px -245px; }
-.sprite .icon8x4, .shoes .icon { background-position: -105px -245px; }
-.sprite .icon8x5, .physio .icon { background-position: -140px -245px; }
-.sprite .icon8x6, .nutrition .icon { background-position: -175px -245px; }
-.sprite .icon8x7, .health .icon { background-position: -210px -245px; }
-.sprite .icon8x1, .care > .icon { background-position:  0 -245px; }
+.sprite .icon1x7, .monitoring > .icon { background-position:  0 -210px; }
 
-.sprite .icon7x8, .store > .icon { background-position: -245px -210px; }
+/* Eighth row */
+.sprite .icon2x8, .clothing .icon { background-position: -35px -245px; }
+.sprite .icon3x8, .haircare .icon { background-position: -70px -245px; }
+.sprite .icon4x8, .shoes .icon { background-position: -105px -245px; }
+.sprite .icon5x8, .physio .icon { background-position: -140px -245px; }
+.sprite .icon6x8, .nutrition .icon { background-position: -175px -245px; }
+.sprite .icon7x8, .health .icon { background-position: -210px -245px; }
+
+.sprite .icon1x8, .care > .icon { background-position:  0 -245px; }
+
+.sprite .icon8x7, .store > .icon { background-position: -245px -210px; }
 .sprite .icon8x8, .commons > .icon { background-position: -245px -245px; }
 
 /*** SPRITE END ***/
