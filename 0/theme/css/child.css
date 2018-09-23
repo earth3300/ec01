@@ -202,7 +202,7 @@ p.date { font-size: 80%; }
 .sprite .icon5x5, .genetics .icon { background-position: -140px -140px; }
 .sprite .icon6x5, .cognition .icon { background-position: -175px -140px; }
 .sprite .icon7x5, .logic .icon { background-position: -210px -140px; }
-
+.sprite .icon8x5, .method > .icon { background-position: -245px -140px; }
 .sprite .icon1x5, .academic > .icon { background-position:  0 -140px; }
 
 /* Sixth row */
@@ -212,7 +212,7 @@ p.date { font-size: 80%; }
 .sprite .icon5x6, .weeding .icon { background-position: -140px -175px; }
 .sprite .icon6x6, .harvesting .icon { background-position: -175px -175px; }
 .sprite .icon7x6, .processing .icon { background-position: -210px -175px; }
-.sprite .icon8x6, .growth .icon { background-position: -210px -210px; }
+.sprite .icon8x6, .growth .icon { background-position: -245px -175px; }
 .sprite .icon1x6, .gardening > .icon { background-position:  0 -175px; }
 
 /* Seventh row */
@@ -237,6 +237,8 @@ p.date { font-size: 80%; }
 
 .sprite .icon8x7, .store > .icon { background-position: -245px -210px; }
 .sprite .icon8x8, .commons > .icon { background-position: -245px -245px; }
+
+.icon-height { height: 35px; }
 
 /*** SPRITE END ***/
 
@@ -284,18 +286,24 @@ p.date { font-size: 80%; }
 }
 
 .tier-2 .site-header-sub .level-02 {
-	display: inline-block;
 	font-weight: bold;
 	font-size: 110%;
 }
 
 .tier-2 .site-header-sub .level-02 span {
-	height: 35px;
-	margin-left: 15px;
 	display: inline-block;
 }
 
 .tier-2 h1 { display: none; }
+
+.header-height {
+	height: 75px;
+	padding-left: 15px;
+}
+
+.left {
+	float: left;
+}
 
 /*** CLUSTER END ***/
 

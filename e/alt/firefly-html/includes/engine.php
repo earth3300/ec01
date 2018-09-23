@@ -9,7 +9,7 @@ class FireFlyHTML
 {
 
 	/**
-	 * Get.
+	 * Get the HTML Page.
 	 *
 	 * @return string
 	 */
@@ -122,20 +122,30 @@ class FireFlyHTML
 	{
 		if ( isset( $page['tiers']['tier-4'] ) &&  $page['tiers']['tier-4'] )
 		{
+			$url = '/' . $page['tiers']['tier-2'] . '/' . $page['tiers']['tier-3'] . SITE_CENTER_DIR . '/';
+
 			$str = '<header class="site-header-sub">' . PHP_EOL;
+
+			/** The less specific overlays the more specific to get the effect we want. */
 			$str .= sprintf( '<div class="%s">%s', $page['class']['tier-4'], PHP_EOL );
 			$str .= sprintf( '<div class="color lighter">%s', PHP_EOL );
-			$str .= sprintf( '<div class="%s">%s', $page['class']['tier-3'], PHP_EOL );
+
+			/** Left div. */
+			$str .= sprintf( '<div class="%s left">%s', $page['class']['tier-3'], PHP_EOL );
 			$str .= sprintf( '<a class="level-01 %s color darker" ', $page['class']['tier-3'], PHP_EOL );
-			$str .= sprintf( 'href="/%s/%s%s/">', $page['tiers']['tier-2'], $page['tiers']['tier-3'], SITE_CENTER_DIR );
+			$str .= sprintf( 'href="%s">', $url );
 			$str .= sprintf( '<span class="icon"></span>%s</a>', ucfirst( $page['class']['tier-3'] ) );
-			$str .= sprintf( '<span class="level-02 %s">', $page['class']['tier-4'] );
-			$str .= '<span class="color lighter"><span class="icon"></span>';
-			$str .= sprintf( '%s</span></span>%s', ucfirst( $page['class']['tier-4'] ), PHP_EOL );
 			$str .= '</div><!-- .tier-3 -->' . PHP_EOL;
-			$str .= '</div><!-- .inner -->' . PHP_EOL;
-			$str .= '</div><!-- .tier-4-name -->' . PHP_EOL;
+
+			/** Right div. */
+			$str .= sprintf( '<div class="level-02 right %s">', $page['class']['tier-4'] );
+			$str .= '<span class="header-height"><span class="icon icon-height"></span>';
+			$str .= sprintf( '%s</span></div>%s', ucfirst( $page['class']['tier-4'] ), PHP_EOL );
+			$str .= '</div><!-- .color .lighter -->' . PHP_EOL;
+			$str .= '</div><!-- .tier-4 -->' . PHP_EOL;
 			$str .= '</header>' . PHP_EOL;
+
+
 			return $str;
 		} else
 		{
@@ -246,8 +256,15 @@ class FireFlyHTML
 		if ( ! empty( $items ) )
 		{
 			$str = '';
+			$cnt = 0;
 			foreach ( $items as $item )
 			{
+				/** Only need the first two items. */
+				$cnt++;
+				if ( $cnt > 2 )
+				{
+					break;
+				}
 				$str .= $item . ' ';
 			}
 			return trim( $str );
