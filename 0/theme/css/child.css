@@ -144,6 +144,14 @@ p.date { font-size: 80%; }
 	background-position: 25px 25px;
 }
 
+.sprite .unit h2 {
+	margin: 0;
+	padding: 0;
+	display: inline-block;
+	vertical-align: middle;
+	line-height: 35px;
+}
+
 .sprite .unit h3 {
 	margin: 0;
 	display: inline-block;
@@ -151,8 +159,17 @@ p.date { font-size: 80%; }
 	line-height: 35px;
 }
 
-/* down, then across */
-/* should be, across (width), then down */
+.sprite .unit a {
+	height: 35px;
+	line-height: 35px;
+	display: inline-block;
+	vertical-align: middle;
+}
+
+/* across (width), then down (height) */
+
+/* I. Who and Where */
+
 .sprite .icon8x1, .center .icon { background-position: -245px 0; }
 
 /* First row */
@@ -172,7 +189,7 @@ p.date { font-size: 80%; }
 .sprite .icon5x2, .serving .icon { background-position: -140px -35px; }
 .sprite .icon6x2, .cleaning .icon { background-position: -175px -35px; }
 .sprite .icon7x2, .recycling .icon { background-position: -210px -35px; }
-
+.sprite .icon8x2, .nature .icon { background-position: -245px -35px; }
 .sprite .icon1x2, .cafe > .icon { background-position:  0 -35px; }
 
 /* Third row */
@@ -237,6 +254,42 @@ p.date { font-size: 80%; }
 .sprite .icon8x5, .method > .icon { background-position: -245px -140px; }
 .sprite .icon8x7, .store > .icon { background-position: -245px -210px; }
 .sprite .icon8x8, .commons > .icon { background-position: -245px -245px; }
+
+/* II. What */
+
+/* Row 9 (Set 2-1) */
+
+
+/* Row 10 (Set 2-2) */
+.sprite .icon1x10, .building .icon { background-position: 0 -315px; }
+
+/* Row 11 (Set 2-3) */
+.sprite .icon1x11, .equipment .icon { background-position: 0 -350px; }
+
+/* Row 12 (Set 2-4) */
+.sprite .icon1x12, .supply .icon { background-position: 0 -385px; }
+
+/* Row 13 (Set 2-5) */
+.sprite .icon1x13, .information .icon { background-position: 0 -420px; }
+
+/* Row 14 (Set 2-6) */
+.sprite .icon1x14, .unknown .icon { background-position: 0 -455px; }
+
+/* Row 15 (Set 2-7) */
+.sprite .icon1x15, .unknown .icon { background-position: 0 -490px; }
+
+/* Row 16 (Set 2-8) */
+.sprite .icon1x16, .unknown .icon { background-position: 0 -525px; }
+
+/* Generic Icon */
+.sprite .icon16x16, .generic .icon { background-position: -525px -525px; }
+
+
+/* III. How */
+
+
+/* III. Why */
+
 
 .icon-height { height: 35px; }
 
