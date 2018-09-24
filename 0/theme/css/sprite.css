@@ -16,7 +16,7 @@
  *
  * Lines 18 ~ 100
  */
-.sprite .icon8x1, .center .icon { background-position: -245px 0; }
+.sprite .icon8x1, .center .icon { background-position: -525px -280px; }
 
 /* First row */
 .sprite .icon2x1, .carpenter .icon { background-position: -35px 0; }
@@ -98,8 +98,6 @@
 
 .sprite .icon1x8, .care > .icon { background-position:  0 -245px; }
 
-.sprite .icon8x8, .commons > .icon { background-position: -245px -245px; }
-
 /**
  * II. What (Across, then Down).
  *
@@ -107,28 +105,28 @@
  */
 
 /* Row 1 (Set 2-1) */
-.sprite .icon9x1, .nature .icon { background-position: -280px -280px; }
+.sprite .icon9x1, .nature .icon { background-position: -280px 0; }
 
 /* Row 2 (Set 2-2) */
-.sprite .icon9x2, .building .icon { background-position: -315px -280px; }
+.sprite .icon9x2, .building .icon { background-position: -280px -35px; }
 
 /* Row 3 (Set 2-3) */
-.sprite .icon9x3, .equipment .icon { background-position: -350px -280px; }
+.sprite .icon9x3, .equipment .icon { background-position: -280px -70px; }
 
 /* Row 4 (Set 2-4) */
-.sprite .icon9x4, .supply .icon { background-position: -385px -280px; }
+.sprite .icon9x4, .supply .icon { background-position: -280px -105px; }
 
 /* Row 5 (Set 2-5) */
-.sprite .icon9x5, .information .icon { background-position: -420px -280px; }
+.sprite .icon9x5, .resource .icon { background-position: -280px -140px; }
 
 /* Row 6 (Set 2-6) */
-.sprite .icon9x6, .unknown .icon { background-position: -455px -280px; }
+.sprite .icon9x6, .structure .icon { background-position: -280px -175px; }
 
 /* Row 7 (Set 2-7) */
-.sprite .icon9x7, .unknown .icon { background-position: -490px -280px; }
+.sprite .icon9x7, .product .icon { background-position: -280px -210px; }
 
 /* Row 8 (Set 2-8) */
-.sprite .icon9x8, .unknown .icon { background-position: -525px -280px; }
+.sprite .icon9x8, .unknown .icon { background-position: -280px -245px; }
 
 
 /* Generic Icon */
@@ -185,7 +183,7 @@
 .sprite .icon14x10, .cleanup .icon { background-position: -455px -315px; }
 .sprite .icon15x10, .recycling .icon { background-position: -490px -315px; }
 
-.sprite .icon9x2, .cafe > .icon { background-position: -280px -315px; }
+.sprite .icon9x10, .cafe > .icon { background-position: -280px -315px; }
 
 /* Third row */
 .sprite .icon10x11, .engineering .icon { background-position: -315px -350px; }
@@ -248,7 +246,7 @@
 .sprite .icon9x16, .care > .icon { background-position: -280px -525px; }
 
 /* Commons */
-.sprite .icon8x8, .commons > .icon { background-position: -245px -245px; }
+.sprite .icon16x16, .commons .icon { background-position: -525px -525px; }
 
 /* V. WHEN */
 
