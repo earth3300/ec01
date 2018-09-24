@@ -139,7 +139,7 @@ body {
 }
 
 html.fixed-width body {
-	min-width: 740px;
+	width: 850px;
 }
 
 /**** HEADER START *****/
