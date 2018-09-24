@@ -9,7 +9,7 @@
 .information .color.lighter { background: #ffe599; }
 .project .color.lighter { background: #ffd966; }
 .recovery .color.lighter { background: #93c47d; }
-.profession { background: #d0e0e3; }
+.profession .color.lighter { background: #d0e0e3; }
 .news .color.lighter { background: #f1c232; }
 .process .color.lighter { background: #e6b8af; }
 .method .color.lighter { background: #e6b8af; }
@@ -31,7 +31,7 @@
 .care .color.darker { background-color: #3d8f5f; } /* hospital green */
 .monitoring .color.darker { background-color: #f1c232; } /* yellow */
 .academic .color.darker { background-color: #8e7cc3; } /* purple */
-.art .color.darker { background-color: #a64d79; } /* magenta */
+.arts .color.darker { background-color: #a64d79; } /* magenta */
 .commons .color.darker { background-color: #b6d7a8; } /* green */
 
 .nature .color.darker { background-color: #b6d7a8; }
@@ -127,5 +127,18 @@
 .physio .color.lighter { background-color: #b6d7a8; }
 .nutrition .color.lighter { background-color: #9fc5e8; }
 .other .color.lighter { background-color: #b4a7d6; }
+
+/* WHEN */
+.day .color.lighter { background: #b6d7a8; }
+.week .color.lighter { background: #d9d9d9; }
+.month .color.lighter { background: #ffe599; }
+.year .color.lighter { background: #e6b8af; }
+
+/* WHY */
+.ethics .color.lighter { background: #b6d7a8; }
+.sustainability .color.lighter { background: #d9d9d9; }
+.religion .color.lighter { background: #ffe599; }
+.other .color.lighter { background: #e6b8af; }
+
 
 /***** COLOR.CSS END *****/
