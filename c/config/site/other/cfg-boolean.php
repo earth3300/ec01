@@ -27,6 +27,9 @@ define( 'SITE_INDEX_ALLOW', false );
 define( 'SITE_USE_CSS_CHILD', true );
 
 /** Default: false */
+define( 'SITE_USE_CSS_SPRITE', true );
+
+/** Default: false */
 define( 'SITE_USE_CSS_MIN', false );
 
 /** Default: false */

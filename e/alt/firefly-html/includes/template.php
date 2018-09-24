@@ -35,6 +35,7 @@ class FireFlyTemplate extends FireFlyHTML{
 			} else {
 				$str .= SITE_USE_CSS_FONT ? sprintf( '<link rel=stylesheet href="%s/font.css">%s', SITE_CSS_URL, PHP_EOL ) : '';
 				$str .= SITE_USE_CSS_CHILD ? sprintf( '<link rel=stylesheet href="%s/child.css">%s', SITE_CSS_URL, PHP_EOL ) : '';
+				$str .= SITE_USE_CSS_SPRITE ? sprintf( '<link rel=stylesheet href="%s/sprite.css">%s', SITE_CSS_URL, PHP_EOL ) : '';
 				$str .= SITE_USE_CSS_COLOR ? sprintf( '<link rel=stylesheet href="%s/color.css">%s', SITE_CSS_URL, PHP_EOL ) : '';
 				$str .= SITE_USE_CSS_MONITORS ? sprintf( '<link rel=stylesheet href="%s/monitors.css">%s', SITE_CSS_URL, PHP_EOL ) : '';
 				$str .= SITE_USE_CSS_PRINT ? sprintf( '<link rel=stylesheet href="%s/print.css">%s', SITE_CSS_URL, PHP_EOL ) : '';
