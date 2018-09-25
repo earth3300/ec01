@@ -160,7 +160,7 @@ function get_tier_four_data(){
 		'video' => [ 'name' => 'video', 'who' => 'videographer', ],
 		'writg' => [ 'name' => 'writing', 'who' => 'writer', ],
 
-		'carpt' => [ 'name' => 'carpentry', 'who' => 'carpentry', ],
+		'carpt' => [ 'name' => 'carpentry', 'who' => 'carpenter', ],
 		'drywl' => [ 'name' => 'drywall', 'who' => 'drywaller', ],
 		'elect' => [ 'name' => 'electrical', 'who' => 'electrician', ],
 		'mason' => [ 'name' => 'masonry', 'who' => 'mason', ],

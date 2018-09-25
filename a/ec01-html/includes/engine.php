@@ -115,6 +115,8 @@ class FireFlyHTML
 	 * Builds the Tier 3 Header.
 	 *
 	 * Needs to differentiate between the "Where" (name) and the "Who".
+	 * We have $page['tiers'], which contains the Tier-2 short form (i.e.
+	 * who, wha, how, whe, whn, and why.
 	 *
 	 * @param array $page
 	 *
@@ -122,6 +124,7 @@ class FireFlyHTML
 	 */
 	private function getHeaderTierThree( $page )
 	{
+		/** We need Tier 4 Information to construct a unique Tier-3/Tier-4 header. */
 		if ( isset( $page['tiers']['tier-4'] ) &&  $page['tiers']['tier-4'] )
 		{
 			$url = '/' . $page['tiers']['tier-2'] . '/' . $page['tiers']['tier-3'] . SITE_CENTER_DIR . '/';
@@ -142,7 +145,7 @@ class FireFlyHTML
 			/** Right div. */
 			$str .= sprintf( '<div class="level-02 right %s">', $page['class']['tier-4'] );
 			$str .= '<span class="header-height"><span class="icon icon-height"></span>';
-			$str .= sprintf( '%s</span></div>%s', ucfirst( $page['class']['tier-4'] ), PHP_EOL );
+			$str .= sprintf( '%s</span></div>%s', $this->getTierFourName( $page ), PHP_EOL );
 			$str .= '</div><!-- .color .lighter -->' . PHP_EOL;
 			$str .= '</div><!-- .tier-4 -->' . PHP_EOL;
 			$str .= '</header>' . PHP_EOL;
@@ -153,6 +156,30 @@ class FireFlyHTML
 		{
 			return false;
 		}
+	}
+
+	/**
+	 * Get the Tier-4 Name.
+	 *
+	 *
+	 */
+	private function getTierFourName( $page )
+	{
+		if ( 'who' == $page['tiers']['tier-2'] )
+		{
+			$items = get_tier_four_data();
+			{
+				if ( isset( $items[ $page['tiers']['tier-4'] ]['who'] ) )
+				{
+					return ucfirst( $items[ $page['tiers']['tier-4'] ]['who'] );
+				}
+			}
+		}
+		else
+		{
+			return false;
+		}
+
 	}
 
 	/**
