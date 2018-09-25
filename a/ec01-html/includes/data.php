@@ -135,7 +135,7 @@ function get_tier_four_data(){
 		'cookg' => [ 'name' => 'cooking', 'who' => 'cook', ],
 		'recyl' => [ 'name' => 'recycling', 'who' => 'recycler', ],
 		'servg' => [ 'name' => 'serving', 'who' => 'server', ],
-		'storg' => [ 'name' => 'storage', 'who' => 'storagist', ],
+		'storg' => [ 'name' => 'storage', 'who' => 'storage', ],
 
 		'bodyc' => [ 'name' => 'baking', 'who' => 'bodyc', ],
 		'cloth' => [ 'name' => 'clothing', 'who' => 'tailor', ],

@@ -41,7 +41,7 @@ class FireFlyHTML
 		$page['header']['main'] = $this-> getHeader( $page );
 		$page['article']= $this-> getArticle( $page );
 		$page['article-title'] = $this-> getArticleTitle( $page['article'] );
-		$page = $this-> getHtmlClass( $page );
+		$page = $this-> getPageData( $page );
 		$page['header']['sub'] = $this-> getHeaderTierThree( $page );
 		$page['page-title'] = $this-> getPageTitle( $page );
 		$page['sidebar']= defined( 'SITE_USE_SIDEBAR' ) && SITE_USE_SIDEBAR ? $this->getSidebar() : '';
@@ -135,51 +135,28 @@ class FireFlyHTML
 			$str .= sprintf( '<div class="%s">%s', $page['class']['tier-4'], PHP_EOL );
 			$str .= sprintf( '<div class="color lighter">%s', PHP_EOL );
 
-			/** Left div. */
+			/** Left div. (Tier 3). */
 			$str .= sprintf( '<div class="%s left">%s', $page['class']['tier-3'], PHP_EOL );
 			$str .= sprintf( '<a class="level-01 %s color darker" ', $page['class']['tier-3'], PHP_EOL );
 			$str .= sprintf( 'href="%s">', $url );
 			$str .= sprintf( '<span class="icon"></span>%s</a>', ucfirst( $page['class']['tier-3'] ) );
 			$str .= '</div><!-- .tier-3 -->' . PHP_EOL;
 
-			/** Right div. */
+			/** Right div. (Tier 4). */
 			$str .= sprintf( '<div class="level-02 right %s">', $page['class']['tier-4'] );
 			$str .= '<span class="header-height"><span class="icon icon-height"></span>';
-			$str .= sprintf( '%s</span></div>%s', $this->getTierFourName( $page ), PHP_EOL );
+			$str .= sprintf( '%s</span></div>%s', ucfirst( $page['tier-4']['title'] ), PHP_EOL );
 			$str .= '</div><!-- .color .lighter -->' . PHP_EOL;
 			$str .= '</div><!-- .tier-4 -->' . PHP_EOL;
 			$str .= '</header>' . PHP_EOL;
 
 
 			return $str;
-		} else
-		{
-			return false;
-		}
-	}
-
-	/**
-	 * Get the Tier-4 Name.
-	 *
-	 *
-	 */
-	private function getTierFourName( $page )
-	{
-		if ( 'who' == $page['tiers']['tier-2'] )
-		{
-			$items = get_tier_four_data();
-			{
-				if ( isset( $items[ $page['tiers']['tier-4'] ]['who'] ) )
-				{
-					return ucfirst( $items[ $page['tiers']['tier-4'] ]['who'] );
-				}
-			}
 		}
 		else
 		{
 			return false;
 		}
-
 	}
 
 	/**
@@ -246,13 +223,13 @@ class FireFlyHTML
 	}
 
 	/**
-	 * Get the class(es) to use in the HTML element.
+	 * Get the Page Data (including the Classes) to Use in Construction the Page.
 	 *
 	 * @param array
 	 *
 	 * @return string
 	 */
-	private function getHtmlClass( $page )
+	private function getPageData( $page )
 	{
 		$page['class']['dynamic'] = $this->isPageDynamic( $page );
 
@@ -262,7 +239,11 @@ class FireFlyHTML
 
 		$page['class']['tier-3'] = $this->getUriTierThree( $page['tiers'] );
 
-		$page['class']['tier-4'] = $this->getUriTierFour( $page['tiers'] );
+		$tier4 = $this->getUriTierFour( $page );
+
+		$page['class']['tier-4'] = $tier4['class'];
+
+		$page['tier-4']['title'] = $tier4['title'];
 
 		$page['class']['article'] = $this->getArticleClass( $page['article'] );
 
@@ -524,23 +505,48 @@ class FireFlyHTML
 
 	/**
 	 * Analyze the URI for Tier Four
+	 *
+	 * There is a subtle inheritance happening here, whereby the "who" (say, the carpenter)
+	 * inherits the class (the style, the dust and wood chips) from the where (the workshop).
+	 * On the one hand, this keeps things simple. We do not need to change the style here, only
+	 * the icon. On the other hand, this is how it actually is.
+	 *
 	 * @param array $arr
 	 *
 	 * @return array|bool
 	 */
-	private function getUriTierFour( $arr )
+	private function getUriTierFour( $page )
 	{
 		$items = get_tier_four_data();
-		if ( ! empty( $arr['tier-4'] ) )
+
+		if ( 'who' == $page['tiers']['tier-2'] )
 		{
-			$name = isset( $items[ $arr['tier-4'] ]['name'] ) ? $items[ $arr['tier-4'] ]['name'] : '';
-			return $name;
+			{
+				if ( isset( $items[ $page['tiers']['tier-4'] ]['who'] ) )
+				{
+					$arr['title'] = $items[ $page['tiers']['tier-4'] ]['who'];
+				}
+			}
+		}
+
+		if ( ! empty( $page['tiers']['tier-4'] ) )
+		{
+			$arr['class'] = isset( $items[ $page['tiers']['tier-4'] ]['name'] ) ? $items[ $page['tiers']['tier-4'] ]['name'] : '';
+
+			if ( ! isset( $arr['title'] ) )
+			{
+				$arr['title'] = $arr['class'];
+			}
+
 		}
 		else
 		{
-			return false;
+			$arr['class'] = null;
+			$arr['title'] = null;
 		}
+		return $arr;
 	}
+
 
 	/**
 	 * Get the URI parts.
