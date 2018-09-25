@@ -782,7 +782,7 @@ span.entity-large {
 }
 
 .hide {
-	display: none;
+	display: none !important;
 }
 
 /***** OTHER GENERIC END *****/

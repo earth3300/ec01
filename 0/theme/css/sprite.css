@@ -284,10 +284,16 @@
 	line-height: 35px;
 }
 
+.sprite .unit h4 {
+	margin: 0;
+	display: inline-block;
+	vertical-align: middle;
+	line-height: 35px;
+}
+
 .sprite .unit a {
 	height: 35px;
 	line-height: 35px;
-	display: inline-block;
 	vertical-align: middle;
 }
 
