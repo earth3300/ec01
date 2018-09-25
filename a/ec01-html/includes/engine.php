@@ -114,6 +114,8 @@ class FireFlyHTML
 	/**
 	 * Builds the Tier 3 Header.
 	 *
+	 * Needs to differentiate between the "Where" (name) and the "Who".
+	 *
 	 * @param array $page
 	 *
 	 * @return array

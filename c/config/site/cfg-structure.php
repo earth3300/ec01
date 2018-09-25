@@ -7,6 +7,7 @@
  * If this is not present, do not load the file.
  */
 define( 'NDA', true );
+
 /**
  * Loads the directory structure.
  *
@@ -62,6 +63,14 @@ define( 'SITE_3_DIR', '/3' );
 define( 'SITE_D_DIR', '/d' );
 
 /**
+ * Alternate Engine Directory.
+ *
+ * Separate from the Main Engine Directory to improve the chances it will
+ * still be functional in the event of a core meltdown.
+ */
+define( 'SITE_A_DIR', '/a' );
+
+/**
  * Main Engine Directory (Yes, this is a starship).
  * Includes the "core" which can then contain different versions of the same core
  * or different complex frameworks, so that we can choose the one we need for the
@@ -90,8 +99,8 @@ define( 'SITE_CONFIG_DIR', '/c/config' );
 /** Alt(ernative) framework directory. */
 define( 'SITE_ALT_DIR', '/alt' );
 
-/** "Simple" framework directory. */
-define( 'SITE_MINIMAL_DIR', '/firefly-html' );
+/** Directory for the minimal framework. */
+define( 'SITE_MINIMAL_DIR', '/a/ec01-html' );
 
 /** Main (core) directory */
 define( 'SITE_CORE_DIR', '/e/core' );
@@ -285,8 +294,8 @@ define( 'SITE_P_PATH', SITE_PATH . SITE_P_DIR );
 /** Replace this with SITE_ENGINE_CORE_PATH */
 define( 'SITE_CORE_PATH', SITE_PATH . SITE_CORE_DIR );
 
-/** The path to the "simple" engine. */
-define( 'SITE_MINIMAL_PATH', SITE_PATH . SITE_E_DIR . SITE_ALT_DIR . SITE_MINIMAL_DIR );
+/** The path to the "minimal" engine framework. */
+define( 'SITE_MINIMAL_PATH', SITE_PATH . SITE_MINIMAL_DIR );
 
 /** The path to the config directory. */
 define( 'SITE_CONFIG_PATH', SITE_PATH . SITE_CONFIG_DIR );
