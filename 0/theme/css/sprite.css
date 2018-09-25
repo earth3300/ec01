@@ -109,6 +109,9 @@
 
 /* Row 2 (Set 2-2) */
 .sprite .icon9x2, .building .icon { background-position: -280px -35px; }
+.sprite .icon10x2, .shelter .icon { background-position: -315px -35px; }
+.sprite .icon11x2, .dwelling .icon { background-position: -385px -35px; }
+.sprite .icon13x2, .workshop .icon { background-position: -420px -35px; }
 
 /* Row 3 (Set 2-3) */
 .sprite .icon9x3, .equipment .icon { background-position: -280px -70px; }
