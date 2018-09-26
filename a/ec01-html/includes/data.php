@@ -170,7 +170,31 @@ function get_tier_four_data(){
 		'roofg' => [ 'name' => 'roofing', 'who' => 'roofer', ],
 
 		// Wha (What)
-		'shelt' => [ 'name' => 'shelter', 'who' => 'builder', ],
+		'geolo' => [ 'name' => 'geology', 'who' => 'geologist', ],
+		'miner' => [ 'name' => 'mineral', 'who' => 'geologist', ],
+		'strat' => [ 'name' => 'strata', 'who' => 'geologist', ],
+		'terrn' => [ 'name' => 'terrain', 'who' => 'geologist', ],
+		'water' => [ 'name' => 'water', 'who' => 'hydrologist', ],
+		'atmos' => [ 'name' => 'atmosphere', 'who' => 'meterologist', ],
+		'climt' => [ 'name' => 'climate', 'who' => 'meterologist', ],
+		'wther' => [ 'name' => 'weather', 'who' => 'meterologist', ],
+		'lakes' => [ 'name' => 'lakes', 'who' => '', ],
+		'ecosy' => [ 'name' => 'ecosystem', 'who' => '', ],
+		'plant' => [ 'name' => 'plant', 'who' => '', ],
+		'insct' => [ 'name' => 'insect', 'who' => '', ],
+		'animl' => [ 'name' => 'animal', 'who' => '', ],
+
+		'shelt' => [ 'name' => 'shelter', 'who' => 'carpenter', ],
+		'dwell' => [ 'name' => 'dwelling', 'who' => 'builder', ],
+		'wkshp' => [ 'name' => 'workshop', 'who' => 'builder', ],
+
+		'agric' => [ 'name' => 'agricultural', 'who' => 'farmer', ],
+		'mecha' => [ 'name' => 'mechanical', 'who' => 'mechanic', ],
+		'elect' => [ 'name' => 'electrical', 'who' => 'electrician', ],
+
+		'fastn' => [ 'name' => 'fasteners', 'who' => 'fasteners', ],
+		'sheet' => [ 'name' => 'sheet-goods', 'who' => 'sheet-goods', ],
+		'struc' => [ 'name' => 'structural', 'who' => 'structural', ],
 
 		// How (How)
 		'softw' => [ 'name' => 'software', 'who' => 'programmer', ],

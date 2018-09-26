@@ -150,19 +150,16 @@
 .sprite .icon1x11, .project .icon { background-position: 0 -350px; }
 
 /* Row 12 (Set 3-4) */
-.sprite .icon1x12, .communication .icon { background-position: 0 -385px; }
+.sprite .icon1x12, .service .icon { background-position: 0 -385px; }
 
 /* Row 13 (Set 3-5) */
-.sprite .icon1x13, .news .icon { background-position: 0 -420px; }
+.sprite .icon1x13, .learning .icon { background-position: 0 -420px; }
 
 /* Row 14 (Set 3-6) */
-.sprite .icon1x14, .service .icon { background-position: 0 -455px; }
+.sprite .icon1x14, .store .icon { background-position: 0 -455px; }
 
 /* Row 15 (Set 3-7) */
-.sprite .icon1x15, .wholesale .icon { background-position: 0 -490px; }
-
-/* Row 16 (Set 3-8) */
-.sprite .icon1x16, .store .icon { background-position: 0 -525px; }
+.sprite .icon1x15, .recovery .icon { background-position: 0 -490px; }
 
 /**
  * IV. Where (Second Block Right / Second Block Down)
