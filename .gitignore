@@ -28,6 +28,10 @@
 *.doc
 *.docx
 
+## GIMP
+
+*.xcf
+
 # PROJECT TYPES
 
 *.komodoproject
