@@ -48,31 +48,29 @@ if ( file_exists( __DIR__ . '/site/other' . '/cfg-plugins.php' ) ) {
 
 if ( ( defined( 'SITE_USE_CORE' ) && SITE_USE_CORE ) || ( defined( 'WP_ADMIN' ) && WP_ADMIN ) ) {
 
-	if ( $_SERVER['SERVER_ADDR'] == '127.0.0.1'
-	&& file_exists( __DIR__ . '/db' . '/db-local.dnp.php' ) ) {
-
-		/** Eliminate or rename this file if on a production or staging site */
-		require_once( __DIR__ . '/db' . '/db-local.dnp.php' );
-
-	/** Eliminate or rename this file if on a production site */
-	} else if ( file_exists( __DIR__ . '/db' . '/db-staging.dnp.php' ) ) {
-
-		require_once( __DIR__ . '/db' . '/db-staging.dnp.php' );
-
-	/** Ensure this file is available for use on a production site. */
-	} else if ( file_exists( __DIR__ . '/db' . '/db-production.dnp.php' ) ) {
+	/**
+	 * For efficiency, we start with the production site.
+	 * If the following file is available, load it. Since it will be loaded first,
+	 * on the local machine as well, it needs to be uploaded and then renamed. To
+	 * make this works, it needs a different name, that shows it is not in production.
+	 * This can be achieved by adding the word .local. to the name. Remove this after
+	 * uploading. Doing it this way will also prevent automatic overriding when uploading.
+	 */
+	if ( file_exists( __DIR__ . '/db' . '/db-production.dnp.php' ) ) {
 
 		require_once( __DIR__ . '/db' . '/db-production.dnp.php' );
 
+	/** Do not have the above file on the staging server, so the below file can load. */
+	} else if ( file_exists( __DIR__ . '/db' . '/db-staging.dnp.php' ) ) {
+
+		require_once( __DIR__ . '/db' . '/db-staging.dnp.php' );
+	}
+	/** This file is called last. It should load only on a local machine.  */
+	else if ( file_exists( __DIR__ . '/db' . '/db-local.dnp.php' ) ) {
+
+		require_once( __DIR__ . '/db' . '/db-local.dnp.php' );
 	}
 	else {
-		echo 'The database settings are not available!';
-	}
-}
-
-if ( 0 ) {
-	if ( file_exists( __DIR__ . '/model' . '/cfg-model.php' ) ) {
-	/** Load the "model" specific configuration */
-	require_once( __DIR__ . '/model' . '/cfg-model.php' );
+		echo 'A database settings file is not available. Please provide one.';
 	}
 }
