@@ -34,7 +34,7 @@ DirectoryIndex index.php default.html index.html
 
 <IfModule mod_headers.c>
   <FilesMatch "\.(html|jpg|png|gif|css|js|pdf|ico)$">
-    Header set Cache-Control "max-age=0, public, must-revalidate"
+    Header set Cache-Control "max-age=3600, public, must-revalidate"
     Header unset ETag
     FileETag None
   </FilesMatch>
