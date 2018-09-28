@@ -785,6 +785,10 @@ span.entity-large {
 	display: none !important;
 }
 
+.absolute {
+	position: absolute;
+}
+
 /***** OTHER GENERIC END *****/
 
 /***** FULL SCREEN START *****/

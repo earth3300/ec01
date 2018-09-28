@@ -132,22 +132,24 @@ class FireFlyHTML
 			$str = '<header class="site-header-sub">' . PHP_EOL;
 
 			/** The less specific overlays the more specific to get the effect we want. */
-			$str .= sprintf( '<div class="%s">%s', $page['class']['tier-4'], PHP_EOL );
-			$str .= sprintf( '<div class="color lighter">%s', PHP_EOL );
+			$str .= sprintf( '<div>%s', PHP_EOL );
 
 			/** Left div. (Tier 3). */
-			$str .= sprintf( '<div class="%s left">%s', $page['class']['tier-3'], PHP_EOL );
-			$str .= sprintf( '<a class="level-01 %s color darker" ', $page['class']['tier-3'], PHP_EOL );
+			$str .= sprintf( '<div class="%s">%s', $page['class']['tier-3'], PHP_EOL );
+			$str .= '<div class="color darker">' . PHP_EOL;
+			$str .= sprintf( '<a class="level-01 %s" ', $page['class']['tier-3'], PHP_EOL );
 			$str .= sprintf( 'href="%s">', $url );
 			$str .= sprintf( '<span class="icon"></span>%s</a>', ucfirst( $page['class']['tier-3'] ) );
-			$str .= '</div><!-- .tier-3 -->' . PHP_EOL;
 
-			/** Right div. (Tier 4). */
-			$str .= sprintf( '<div class="level-02 right %s">', $page['class']['tier-4'] );
+			/** Right div. (Tier 4). Absolute Positioning, within Tier 3. */
+			$str .= sprintf( '<div class="level-02 right absolute %s">', $page['class']['tier-4'] );
+			$str .= sprintf( '<div class="color lighter">%s', PHP_EOL );
 			$str .= '<span class="header-height"><span class="icon icon-height"></span>';
 			$str .= sprintf( '%s</span></div>%s', ucfirst( $page['tier-4']['title'] ), PHP_EOL );
 			$str .= '</div><!-- .color .lighter -->' . PHP_EOL;
 			$str .= '</div><!-- .tier-4 -->' . PHP_EOL;
+			$str .= '</div><!-- .color .darker -->' . PHP_EOL;
+			$str .= '</div><!-- .tier-3 -->' . PHP_EOL;
 			$str .= '</header>' . PHP_EOL;
 
 

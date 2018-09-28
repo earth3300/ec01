@@ -137,6 +137,7 @@ p.date { font-size: 80%; }
 
 .tier-2 .site-logo {
 	position: absolute;
+	z-index: 10;
 }
 
 .tier-2 .site-logo .inner {
@@ -163,14 +164,14 @@ p.date { font-size: 80%; }
 	text-align: left;
 	vertical-align: middle;
 	line-height: 75px;
+	position: relative;
 }
 
 .tier-2 .site-header-sub .level-01 {
 	display: inline-block;
-	width: 200px;
 	height: 75px;
+	padding: 0 1.0em;
 	line-height: 75px;
-	background-color: #777;
 	text-align: center;
 	font-weight: bold;
 	font-size: 120%;
@@ -179,6 +180,9 @@ p.date { font-size: 80%; }
 .tier-2 .site-header-sub .level-02 {
 	font-weight: bold;
 	font-size: 110%;
+	width: 75%;
+	right: 0;
+	top: 0;
 }
 
 .tier-2 .site-header-sub .level-02 span {
