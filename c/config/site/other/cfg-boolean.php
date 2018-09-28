@@ -54,6 +54,9 @@ define( 'SITE_USE_JS', false );
 define( 'SITE_USE_JS_MIN', false );
 
 /** Default: false */
+define( 'SITE_USE_HEADER_SUB', true );
+
+/** Default: false */
 define( 'SITE_USE_SIDEBAR', false );
 
 /** Default: false */

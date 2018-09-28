@@ -42,7 +42,7 @@ class FireFlyHTML
 		$page['article']= $this-> getArticle( $page );
 		$page['article-title'] = $this-> getArticleTitle( $page['article'] );
 		$page = $this-> getPageData( $page );
-		$page['header']['sub'] = $this-> getHeaderTierThree( $page );
+		$page['header']['sub'] = defined( 'SITE_USE_HEADER_SUB' ) && SITE_USE_HEADER_SUB ? $this-> getHeaderTierThree( $page ) : '';
 		$page['page-title'] = $this-> getPageTitle( $page );
 		$page['sidebar']= defined( 'SITE_USE_SIDEBAR' ) && SITE_USE_SIDEBAR ? $this->getSidebar() : '';
 		$page['footer']= $this-> getFooter();
