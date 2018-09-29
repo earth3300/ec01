@@ -248,7 +248,7 @@
 .sprite .icon9x16, .care > .icon { background-position: -280px -525px; }
 
 /* Commons */
-.sprite .icon16x16, .commons > .icon { background-position: -525px -525px; }
+.sprite .icon16x15, .commons > .icon { background-position: -525px -490px; }
 
 /* V. WHEN */
 
