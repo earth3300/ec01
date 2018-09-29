@@ -8,6 +8,7 @@
 .building .color.lighter { background: #d9d9d9; }
 .information .color.lighter { background: #ffe599; }
 .project .color.lighter { background: #ffd966; }
+.safety .color.lighter { background: #d9d9d9; }
 .recovery .color.lighter { background: #93c47d; }
 .profession .color.lighter { background: #d0e0e3; }
 .news .color.lighter { background: #f1c232; }
@@ -39,10 +40,11 @@
 .information .color.darker { background-color: #ffe599; }
 .interface .color.darker { background-color: #ffe599; }
 .project .color.darker { background-color: #ffd966; }
+.safety .color.darker { background-color: #d9d9d9; }
 .recovery .color.darker { background-color: #93c47d; }
 .profession { background-color: #d0e0e3; }
 .supply .color.darker { background-color: #f9cb9c; }
-.storefront .color.darker { background-color: #76a5af; }
+.store .color.darker { background-color: #76a5af; }
 .news .color.darker { background-color: #f1c232; }
 .process .color.darker { background-color: #e6b8af; }
 .method .color.darker { background-color: #cccccc; }
