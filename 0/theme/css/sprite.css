@@ -157,8 +157,8 @@
 /* Row 13 (Set 3-5) */
 .sprite .icon1x13, .learning > .icon { background-position: 0 -420px; }
 
-/* Row 14 (Set 3-6) */
-.sprite .icon1x14, .store > .icon { background-position: 0 -455px; }
+/* Row 14 (Set 3-6) (Level 1) */
+.sprite .icon1x14, .store .icon { background-position: 0 -455px; }
 
 /* Row 15 (Set 3-7) */
 .sprite .icon1x15, .recovery > .icon { background-position: 0 -490px; }

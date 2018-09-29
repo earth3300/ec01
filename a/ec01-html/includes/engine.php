@@ -37,11 +37,11 @@ class FireFlyHTML
 	private function getPage()
 	{
 		$page = $this->getUri();
+		$page = $this-> getPageData( $page );
 		$page['slug'] = $this-> getPageSlug( $page );
-		$page['header']['main'] = $this-> getHeader( $page );
+		$page['header']['main'] = $this->getHeader( $page );
 		$page['article']= $this-> getArticle( $page );
 		$page['article-title'] = $this-> getArticleTitle( $page['article'] );
-		$page = $this-> getPageData( $page );
 		$page['header']['sub'] = defined( 'SITE_USE_HEADER_SUB' ) && SITE_USE_HEADER_SUB ? $this-> getHeaderTierThree( $page ) : '';
 		$page['page-title'] = $this-> getPageTitle( $page );
 		$page['sidebar']= defined( 'SITE_USE_SIDEBAR' ) && SITE_USE_SIDEBAR ? $this->getSidebar() : '';
@@ -88,13 +88,45 @@ class FireFlyHTML
 	}
 
 	/**
-	 * Get the header.
+	 * 	Get the Header (Tiers 1 and 2).
+	 *
+	 * 	Build from constants in the configuration (/c/config/...).
+	 *
+	 * 	@param array $page
+	 *
+	 * 	@return string
+	 */
+	private function getHeader( $page )
+	{
+		$str = '<header class="site-header">' . PHP_EOL;
+		$str .= '<a href="/" title="Earth Colony 01">' . PHP_EOL;
+		$str .= '<div class="inner">' . PHP_EOL;
+		$str .= '<div class="site-logo">' . PHP_EOL;
+		$str .= '<div class="inner">' . PHP_EOL;
+		$str .= '<img src="/0/theme/image/site-logo.png" alt="Site Logo" width="75" height="75" />' . PHP_EOL;
+		$str .= '</div>' . PHP_EOL;
+		$str .= '</div><!-- .site-logo -->' . PHP_EOL;
+		$str .= '<div class="title-wrap">' . PHP_EOL;
+		$str .= '<div class="inner">' . PHP_EOL;
+		$str .= sprintf( '<div class="site-title">%s</div>%s', SITE_TITLE, PHP_EOL );
+		$str .= sprintf( '<div class="site-description">%s</div>%s', SITE_DESCRIPTION, PHP_EOL );
+		$str .= '</div><!-- .inner -->' . PHP_EOL;
+		$str .= '</div><!-- .title-wrap -->' . PHP_EOL;
+		$str .= '</div><!-- .inner -->' . PHP_EOL;
+		$str .= '</a>' . PHP_EOL;
+		$str .= '</header>' . PHP_EOL;
+
+		return $str;
+	}
+
+	/**
+	 * Get the header file. (Tiers 1 and 2).
 	 *
 	 * @param array $page
 	 *
 	 * @return str
 	 */
-	private function getHeader( $page )
+	private function getHeaderFile( $page )
 	{
 		$str = 'Header N/A';
 
@@ -150,6 +182,7 @@ class FireFlyHTML
 			$str .= '</div><!-- .tier-4 -->' . PHP_EOL;
 			$str .= '</div><!-- .color .darker -->' . PHP_EOL;
 			$str .= '</div><!-- .tier-3 -->' . PHP_EOL;
+			$str .= SITE_USE_HEADER_SUB ? sprintf('<a href="/%s/"><span class="tier-2 level-1 icon"></span></a>', $page['tiers']['tier-2'] ) : '';
 			$str .= '</header>' . PHP_EOL;
 
 

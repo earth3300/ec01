@@ -134,6 +134,10 @@ p.date { font-size: 80%; }
 
 /*** TIER 2 (CLUSTER) START ***/
 
+.tier-2 .site-header {
+	position: relative;
+}
+
 .tier-2 .site-logo {
 	position: absolute;
 	z-index: 10;
@@ -145,6 +149,16 @@ p.date { font-size: 80%; }
 .tier-2 .site-logo img {
 	width: 25px;
 	height: 25px;
+}
+
+.tier-2 .level-1.icon {
+	position: absolute;
+	z-index: 10;
+	right: 40px;
+	top: 19px;
+	height: 35px;
+	width: 35px;
+	display: inline-block;
 }
 
 .tier-2 .site-header { height: 20px; }

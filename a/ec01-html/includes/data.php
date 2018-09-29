@@ -23,6 +23,8 @@ function get_tier_two_data(){
 		'whe' => [ 'name' => 'where' ],
 		'how' => [ 'name' => 'how' ],
 		'why' => [ 'name' => 'why' ],
+		'wki' => [ 'name' => 'wiki' ],
+		'sto' => [ 'name' => 'store' ],
 		];
 	return $arr;
 }
