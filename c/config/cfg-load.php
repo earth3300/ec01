@@ -24,7 +24,7 @@ if ( file_exists( __DIR__ . '/site' . '/cfg-site-user.dnp.php' ) ) {
 }
 
 /** Boolean values. Required */
-require_once( __DIR__ . '/site/other' . '/cfg-boolean.php' );
+require_once( __DIR__ . '/site' . '/cfg-boolean.php' );
 
 /** Site specific defaults. Required. */
 require_once( __DIR__ . '/site' . '/cfg-site-default.php' );

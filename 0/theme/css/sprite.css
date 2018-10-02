@@ -98,6 +98,8 @@
 
 .sprite .icon1x8, .care > .icon { background-position:  0 -245px; }
 
+.sprite .icon8x8, .who > .icon { background-position:  -245px -245px; }
+
 /**
  * II. What (Across, then Down).
  *
@@ -132,6 +134,7 @@
 /* Row 8 (Set 2-8) */
 .sprite .icon9x8, .unknown .icon { background-position: -280px -245px; }
 
+.sprite .icon16x8, .what > .icon { background-position: -525px -245px; }
 
 /* Generic Icon */
 .sprite .icon16x1, .generic .icon { background-position: -525px -525px; }
@@ -162,6 +165,8 @@
 
 /* Row 15 (Set 3-7) */
 .sprite .icon1x15, .recovery > .icon { background-position: 0 -490px; }
+
+.sprite .icon8x16, .how > .icon { background-position: -245px -525px; }
 
 /**
  * IV. Where (Second Block Right / Second Block Down)
@@ -250,9 +255,15 @@
 /* Commons */
 .sprite .icon16x15, .commons > .icon { background-position: -525px -490px; }
 
+.sprite .icon16x16, .where > .icon { background-position: -525px -525px; }
+
 /* V. WHEN */
 
+.sprite .icon8x24, .when > .icon { background-position: -245px -805px; }
+
 /* VI. WHY */
+
+.sprite .icon16x24, .why > .icon { background-position: -525px -805px; }
 
 /**
  * Sprite Generic

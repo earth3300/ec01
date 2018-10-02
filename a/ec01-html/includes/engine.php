@@ -182,9 +182,8 @@ class FireFlyHTML
 			$str .= '</div><!-- .tier-4 -->' . PHP_EOL;
 			$str .= '</div><!-- .color .darker -->' . PHP_EOL;
 			$str .= '</div><!-- .tier-3 -->' . PHP_EOL;
-			$str .= SITE_USE_HEADER_SUB ? sprintf('<a href="/%s/"><span class="tier-2 level-1 icon"></span></a>', $page['tiers']['tier-2'] ) : '';
+			$str .= SITE_USE_HEADER_SUB ? sprintf('<a href="/%s/" class="%s"><span class="tier-2 level-1 icon"></span></a>', $page['tiers']['tier-2'], $page['class']['tier-2'] ) : '';
 			$str .= '</header>' . PHP_EOL;
-
 
 			return $str;
 		}
