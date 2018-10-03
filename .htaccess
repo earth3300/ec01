@@ -3,12 +3,6 @@
 Options -Indexes
 # Do not allow the listing of directories by default
 
-#<DirectoryMatch "/e/">
-  # Require all denied
-#</DirectoryMatch>
-# Deny access to all server PHP based files. Causes error when accessing file via browser.
-# Therefore, need to rewrite url to be outside of this directory.
-
 <FilesMatch "xmlrpc.php|config|error|debug|changelog|readme|license">
   Require all denied
 </FilesMatch>
@@ -41,26 +35,9 @@ DirectoryIndex index.php default.html index.html
   AddCharset UTF-8 .html
 </IfModule>
 
-# BEGIN Directory Protection
-# Placement: MUST be before WordPress Directive.
-<IfModule mod_rewrite.c>
-  RewriteEngine On
-  RewriteBase /
-  # RewriteRule ^c/config/(.*) - [L]
- </IfModule>
-# END Directory Protection
-
-# BEGIN Routing
-# Placement: MUST be before WordPress Directive.
-<IfModule mod_rewrite.c>
-  RewriteEngine On
-  RewriteBase /
-
-  # Rewrite non-empty URL /1
-  # RewriteRule ^wp-admin/(.*) e/core/wp-admin/$1 [QSA,L]
-  # Rewrite wp-admin/ to e/core/wp-admin (hide exact directory).
-</IfModule>
-# END Routing
+# BEGIN Redirect
+Redirect 301 /store /sto/
+# END Redirect
 
 # BEGIN WordPress
 <IfModule mod_rewrite.c>
