@@ -259,6 +259,11 @@
 
 /* V. WHEN */
 
+.sprite .icon1x17, .clothing .icon { background-position: 0 -560px; }
+.sprite .icon2x17, .hair .icon { background-position: -35px -560px; }
+.sprite .icon3x17, .shoes .icon { background-position: -70px -560px; }
+.sprite .icon4x17, .physio .icon { background-position: -105px -560px; }
+
 .sprite .icon8x24, .when > .icon { background-position: -245px -805px; }
 
 /* VI. WHY */
