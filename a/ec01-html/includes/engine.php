@@ -453,7 +453,8 @@ class FireFlyHTML
 		$str .= '</footer>' . PHP_EOL;
 		$str .= '<footer class="site-footer">' . PHP_EOL;
 		$str .= '<div class="inner">' . PHP_EOL;
-		$str .= sprintf( '<span class="copyright">Copyright &copy; %s %s</span>', date( 'Y' ), SITE_TITLE );
+		/** SITE_YEAR_TO_NOW is empty string if same as SITE_YEAR_START, else '&ndash' . date('Y'); */
+		$str .= sprintf( '<span class="copyright">Copyright &copy; %s%s %s</span>', SITE_YEAR_START, SITE_YEAR_TO_NOW, SITE_TITLE );
 		$str .= '<nav class="hide">' . PHP_EOL;
 		$str .= '<ul class="horizontal-menu">' . PHP_EOL;
 		$str .= '<li><a href="/page/privacy/">Privacy</a></li>' . PHP_EOL;
