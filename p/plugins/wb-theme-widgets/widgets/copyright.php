@@ -14,10 +14,10 @@ function html5_copyright() {
 
 function get_bundle_copyright_text(){
 	$site_end_year = date( 'Y' );
-	if ( defined( 'SITE_START_YEAR' ) && SITE_START_YEAR == $site_end_year ) {
-		$years = SITE_START_YEAR;
+	if ( defined( 'SITE_YEAR_START' ) && SITE_YEAR_START == $site_end_year ) {
+		$years = SITE_YEAR_START;
 	} else {
-		$years = sprintf( '%s-%s', SITE_START_YEAR, $site_end_year );
+		$years = sprintf( '%s-%s', SITE_YEAR_START, $site_end_year );
 	}
 	$str = sprintf( 'Copyright &copy; %s %s', $years, get_bloginfo( 'name' ) );
 	return $str;

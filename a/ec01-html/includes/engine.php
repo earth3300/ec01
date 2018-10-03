@@ -439,11 +439,39 @@ class FireFlyHTML
 	}
 
 	/**
+	 *
+	 */
+	private function getFooter()
+	{
+		$str = '<footer class="nav">' . PHP_EOL;
+		$str .= '<nav class="align-center">' . PHP_EOL;
+		$str .= '<a href="../../../../" class="icon-up-4" title="Up 4 Directories">^4</a>&nbsp;&nbsp;' . PHP_EOL;
+		$str .= '<a href="../../../" class="icon-up-3" title="Up 3 Directories">^3</a>&nbsp;&nbsp;' . PHP_EOL;
+		$str .= '<a href="../../" class="icon-up-2" title="Up 2 Directories">^2</a>&nbsp;&nbsp;' . PHP_EOL;
+		$str .= '<a href="../" class="icon-up-1" title="Up 1 Directory">^1</a>' . PHP_EOL;
+		$str .= '</nav>' . PHP_EOL;
+		$str .= '</footer>' . PHP_EOL;
+		$str .= '<footer class="site-footer">' . PHP_EOL;
+		$str .= '<div class="inner">' . PHP_EOL;
+		$str .= sprintf( '<span class="copyright">Copyright &copy; %s %s</span>', date( 'Y' ), SITE_TITLE );
+		$str .= '<nav class="hide">' . PHP_EOL;
+		$str .= '<ul class="horizontal-menu">' . PHP_EOL;
+		$str .= '<li><a href="/page/privacy/">Privacy</a></li>' . PHP_EOL;
+		$str .= '<li><a href="/page/terms/">Terms</a></li>' . PHP_EOL;
+		$str .= '</ul>' . PHP_EOL;
+		$str .= '</nav>' . PHP_EOL;
+		$str .= '</div>' . PHP_EOL;
+		$str .= '</footer>' . PHP_EOL;
+
+		return $str;
+	}
+
+	/**
 	 * Get the footer
 	 *
 	 * @return string
 	 */
-	private function getFooter()
+	private function getFooterFile()
 	{
 		$str = 'Footer N/A';
 		$file = SITE_FOOTER_PATH . SITE_FOOTER_DIR . SITE_HTML_EXT;

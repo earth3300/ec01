@@ -35,9 +35,9 @@ if ( ! defined( 'SITE_DESCRIPTION' ) ){
 	define( 'SITE_DESCRIPTION', 'Site Description' );
 }
 
-if ( ! defined( 'SITE_START_YEAR' ) ){
+if ( ! defined( 'SITE_YEAR_START' ) ){
 	/** Site start year. Example: Copyright: START YEAR - END YEAR */
-	define( 'SITE_START_YEAR', date('YYYY'));
+	define( 'SITE_YEAR_START', date('Y') );
 }
 
 /** If the root path is not defined from the root path, define it from the server variable. */
