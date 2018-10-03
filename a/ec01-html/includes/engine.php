@@ -99,11 +99,11 @@ class FireFlyHTML
 	private function getHeader( $page )
 	{
 		$str = '<header class="site-header">' . PHP_EOL;
-		$str .= '<a href="/" title="Earth Colony 01">' . PHP_EOL;
+		$str .= sprintf( '<a href="/" title="%s">%s', SITE_TITLE, PHP_EOL);
 		$str .= '<div class="inner">' . PHP_EOL;
 		$str .= '<div class="site-logo">' . PHP_EOL;
 		$str .= '<div class="inner">' . PHP_EOL;
-		$str .= '<img src="/0/theme/image/site-logo.png" alt="Site Logo" width="75" height="75" />' . PHP_EOL;
+		$str .= '<img src="/0/theme/image/site-logo-75x75.png" alt="Site Logo" width="75" height="75" />' . PHP_EOL;
 		$str .= '</div>' . PHP_EOL;
 		$str .= '</div><!-- .site-logo -->' . PHP_EOL;
 		$str .= '<div class="title-wrap">' . PHP_EOL;
