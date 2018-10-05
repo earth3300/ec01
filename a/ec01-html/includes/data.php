@@ -187,6 +187,7 @@ function get_tier_four_data(){
 		'animl' => [ 'name' => 'animal', 'who' => '', ],
 
 		'shelt' => [ 'name' => 'shelter', 'who' => 'carpenter', ],
+		'sleep' => [ 'name' => 'sleep', 'who' => 'carpenter', ],
 		'dwell' => [ 'name' => 'dwelling', 'who' => 'builder', ],
 		'wkshp' => [ 'name' => 'workshop', 'who' => 'builder', ],
 
