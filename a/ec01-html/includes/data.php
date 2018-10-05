@@ -186,6 +186,7 @@ function get_tier_four_data(){
 		'insct' => [ 'name' => 'insect', 'who' => '', ],
 		'animl' => [ 'name' => 'animal', 'who' => '', ],
 
+		'packs' => [ 'name' => 'packs', 'who' => 'tailor', ],
 		'shelt' => [ 'name' => 'shelter', 'who' => 'carpenter', ],
 		'sleep' => [ 'name' => 'sleep', 'who' => 'carpenter', ],
 		'dwell' => [ 'name' => 'dwelling', 'who' => 'builder', ],

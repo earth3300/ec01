@@ -118,6 +118,9 @@
 
 /* Row 3 (Set 2-3) */
 .sprite .icon9x3, .equipment > .icon { background-position: -280px -70px; }
+.sprite .icon10x3, .packs .icon { background-position: -315px -70px; }
+
+.sprite .icon12x3, .sleep .icon { background-position: -385px -70px; }
 
 /* Row 4 (Set 2-4) */
 .sprite .icon9x4, .supply > .icon { background-position: -280px -105px; }
@@ -132,9 +135,7 @@
 .sprite .icon9x7, .product > .icon { background-position: -280px -210px; }
 
 /* Row 8 (Set 2-8) */
-.sprite .icon9x8, .unknown .icon { background-position: -280px -245px; }
-
-.sprite .icon16x8, .what > .icon { background-position: -525px -245px; }
+.sprite .icon9x3, .what > .icon { background-position: -525px -245px; }
 
 /* Generic Icon */
 .sprite .icon16x1, .generic .icon { background-position: -525px -525px; }
@@ -161,7 +162,7 @@
 .sprite .icon1x13, .learning > .icon { background-position: 0 -420px; }
 
 /* Row 14 (Set 3-6) (Level 1) */
-.sprite .icon1x14, .store .icon { background-position: 0 -455px; }
+.sprite .icon1x14, .store > .icon { background-position: 0 -455px; }
 
 /* Row 15 (Set 3-7) */
 .sprite .icon1x15, .recovery > .icon { background-position: 0 -490px; }
