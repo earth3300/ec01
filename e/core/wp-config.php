@@ -4,12 +4,21 @@ if ( ! defined( 'SITE' ) ){
 	/** Used to ensure files are not accessed directly. */
 	define( 'SITE', true );
 }
-
+;
 /** Default: false */
 define( 'WP_CACHE', false );
 
-if ( file_exists( __DIR__ . '/../alt/config/cfg-site.dnp.php' ) ) {
-	require_once( __DIR__ . '/../alt/config/cfg-site.dnp.php' );
+/**
+ * SITE_PATH should be defined in `main.php` in the root of the site.
+ * When approaching this file from the login, SITE_PATH is not defined yet.
+ */
+if ( ! defined( 'SITE_PATH' ) ) {
+	define( 'SITE_PATH', str_replace( '/e/core' , '', __DIR__ ) );
+}
+
+if ( file_exists( SITE_PATH . '/c/config/cfg-load.php' ) ) {
+	/** We are hard coding the directory "stub" here to reduce dependencies. */
+	require_once( SITE_PATH . '/c/config/cfg-load.php' );
 }
 else {
 	exit( 'Please check the path to the config file (wp-config.php).' );

@@ -1,0 +1,888 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mlt LC_NUMERIC="en_US.UTF-8" title="Anonymous Submission" version="6.0.0" root="/home/cbos" producer="main bin">
+ <profile sample_aspect_num="1" progressive="1" display_aspect_num="16" frame_rate_num="30000" frame_rate_den="1001" height="720" width="1280" sample_aspect_den="1" display_aspect_den="9" description="HD 720p 29.97 fps" colorspace="709"/>
+ <producer in="0" out="1602" id="21" title="Anonymous Submission">
+  <property name="mlt_type">mlt_producer</property>
+  <property name="length">00:00:53;13</property>
+  <property name="eof">pause</property>
+  <property name="resource">/var/www/html/1/ec01/cluster/1/gardening/preparing/mulching/demonstration/trial/audio/.raw/180629_1000.mp3</property>
+  <property name="meta.media.nb_streams">1</property>
+  <property name="meta.media.0.stream.type">audio</property>
+  <property name="meta.media.0.codec.sample_fmt">s16p</property>
+  <property name="meta.media.0.codec.sample_rate">44100</property>
+  <property name="meta.media.0.codec.channels">2</property>
+  <property name="meta.media.0.codec.name">mp3</property>
+  <property name="meta.media.0.codec.long_name">MP3 (MPEG audio layer 3)</property>
+  <property name="meta.media.0.codec.bit_rate">192000</property>
+  <property name="meta.attr.title.markup">180629_1000</property>
+  <property name="meta.attr.artist.markup">My Recording</property>
+  <property name="meta.attr.encoded_by.markup">SONY IC RECORDER 8.4.0</property>
+  <property name="seekable">1</property>
+  <property name="audio_index">0</property>
+  <property name="video_index">-1</property>
+  <property name="mute_on_pause">1</property>
+  <property name="mlt_service">avformat-novalidate</property>
+  <property name="kdenlive:file_size">1287440</property>
+  <property name="kdenlive:file_hash">21385702c6794517b75794916f9cd56b</property>
+  <property name="global_feed">1</property>
+ </producer>
+ <producer in="0" out="902" id="22" title="Anonymous Submission">
+  <property name="mlt_type">mlt_producer</property>
+  <property name="length">00:00:30;03</property>
+  <property name="eof">pause</property>
+  <property name="resource">/var/www/html/1/ec01/cluster/1/gardening/preparing/mulching/demonstration/trial/audio/.raw/180629_1003.mp3</property>
+  <property name="meta.media.nb_streams">1</property>
+  <property name="meta.media.0.stream.type">audio</property>
+  <property name="meta.media.0.codec.sample_fmt">s16p</property>
+  <property name="meta.media.0.codec.sample_rate">44100</property>
+  <property name="meta.media.0.codec.channels">2</property>
+  <property name="meta.media.0.codec.name">mp3</property>
+  <property name="meta.media.0.codec.long_name">MP3 (MPEG audio layer 3)</property>
+  <property name="meta.media.0.codec.bit_rate">192000</property>
+  <property name="meta.attr.title.markup">180629_1003</property>
+  <property name="meta.attr.artist.markup">My Recording</property>
+  <property name="meta.attr.encoded_by.markup">SONY IC RECORDER 8.4.0</property>
+  <property name="seekable">1</property>
+  <property name="audio_index">0</property>
+  <property name="video_index">-1</property>
+  <property name="mute_on_pause">1</property>
+  <property name="mlt_service">avformat-novalidate</property>
+  <property name="kdenlive:file_size">726957</property>
+  <property name="kdenlive:file_hash">e9f9c44a196275bb03087061ed72507c</property>
+  <property name="global_feed">1</property>
+ </producer>
+ <producer in="0" out="2879" id="23" title="Anonymous Submission">
+  <property name="mlt_type">mlt_producer</property>
+  <property name="length">00:01:36;02</property>
+  <property name="eof">pause</property>
+  <property name="resource">/var/www/html/1/ec01/cluster/1/gardening/preparing/mulching/demonstration/trial/audio/.raw/180629_1011.mp3</property>
+  <property name="meta.media.nb_streams">1</property>
+  <property name="meta.media.0.stream.type">audio</property>
+  <property name="meta.media.0.codec.sample_fmt">s16p</property>
+  <property name="meta.media.0.codec.sample_rate">44100</property>
+  <property name="meta.media.0.codec.channels">2</property>
+  <property name="meta.media.0.codec.name">mp3</property>
+  <property name="meta.media.0.codec.long_name">MP3 (MPEG audio layer 3)</property>
+  <property name="meta.media.0.codec.bit_rate">192000</property>
+  <property name="meta.attr.title.markup">180629_1011</property>
+  <property name="meta.attr.artist.markup">My Recording</property>
+  <property name="meta.attr.encoded_by.markup">SONY IC RECORDER 8.4.0</property>
+  <property name="seekable">1</property>
+  <property name="audio_index">0</property>
+  <property name="video_index">-1</property>
+  <property name="mute_on_pause">1</property>
+  <property name="mlt_service">avformat-novalidate</property>
+  <property name="kdenlive:file_size">2310604</property>
+  <property name="kdenlive:file_hash">7343a3054a3599c10137ab658e8120c5</property>
+  <property name="global_feed">1</property>
+ </producer>
+ <producer in="0" out="13256" id="24" title="Anonymous Submission">
+  <property name="mlt_type">mlt_producer</property>
+  <property name="length">00:07:22;11</property>
+  <property name="eof">pause</property>
+  <property name="resource">/var/www/html/1/ec01/cluster/1/gardening/preparing/mulching/demonstration/trial/audio/.raw/180629_1014.mp3</property>
+  <property name="meta.media.nb_streams">1</property>
+  <property name="meta.media.0.stream.type">audio</property>
+  <property name="meta.media.0.codec.sample_fmt">s16p</property>
+  <property name="meta.media.0.codec.sample_rate">44100</property>
+  <property name="meta.media.0.codec.channels">2</property>
+  <property name="meta.media.0.codec.name">mp3</property>
+  <property name="meta.media.0.codec.long_name">MP3 (MPEG audio layer 3)</property>
+  <property name="meta.media.0.codec.bit_rate">192000</property>
+  <property name="meta.attr.title.markup">180629_1014</property>
+  <property name="meta.attr.artist.markup">My Recording</property>
+  <property name="meta.attr.encoded_by.markup">SONY IC RECORDER 8.4.0</property>
+  <property name="seekable">1</property>
+  <property name="audio_index">0</property>
+  <property name="video_index">-1</property>
+  <property name="mute_on_pause">1</property>
+  <property name="mlt_service">avformat-novalidate</property>
+  <property name="kdenlive:file_size">10620678</property>
+  <property name="kdenlive:file_hash">2237befb815ec62b276770936b264cb9</property>
+  <property name="global_feed">1</property>
+ </producer>
+ <producer in="0" out="7951" id="25" title="Anonymous Submission">
+  <property name="mlt_type">mlt_producer</property>
+  <property name="length">00:04:25;10</property>
+  <property name="eof">pause</property>
+  <property name="resource">/var/www/html/1/ec01/cluster/1/gardening/preparing/mulching/demonstration/trial/audio/.raw/180629_1023.mp3</property>
+  <property name="meta.media.nb_streams">1</property>
+  <property name="meta.media.0.stream.type">audio</property>
+  <property name="meta.media.0.codec.sample_fmt">s16p</property>
+  <property name="meta.media.0.codec.sample_rate">44100</property>
+  <property name="meta.media.0.codec.channels">2</property>
+  <property name="meta.media.0.codec.name">mp3</property>
+  <property name="meta.media.0.codec.long_name">MP3 (MPEG audio layer 3)</property>
+  <property name="meta.media.0.codec.bit_rate">192000</property>
+  <property name="meta.attr.title.markup">180629_1023</property>
+  <property name="meta.attr.artist.markup">My Recording</property>
+  <property name="meta.attr.encoded_by.markup">SONY IC RECORDER 8.4.0</property>
+  <property name="seekable">1</property>
+  <property name="audio_index">0</property>
+  <property name="video_index">-1</property>
+  <property name="mute_on_pause">1</property>
+  <property name="mlt_service">avformat-novalidate</property>
+  <property name="kdenlive:file_size">6371914</property>
+  <property name="kdenlive:file_hash">bec3d09f9ae23fe8155fa8a0160b3f8c</property>
+  <property name="global_feed">1</property>
+ </producer>
+ <producer in="0" out="42371" id="26" title="Anonymous Submission">
+  <property name="mlt_type">mlt_producer</property>
+  <property name="length">00:23:33;24</property>
+  <property name="eof">pause</property>
+  <property name="resource">/var/www/html/1/ec01/cluster/1/gardening/preparing/mulching/demonstration/trial/audio/.raw/180629_1030.mp3</property>
+  <property name="meta.media.nb_streams">1</property>
+  <property name="meta.media.0.stream.type">audio</property>
+  <property name="meta.media.0.codec.sample_fmt">s16p</property>
+  <property name="meta.media.0.codec.sample_rate">44100</property>
+  <property name="meta.media.0.codec.channels">2</property>
+  <property name="meta.media.0.codec.name">mp3</property>
+  <property name="meta.media.0.codec.long_name">MP3 (MPEG audio layer 3)</property>
+  <property name="meta.media.0.codec.bit_rate">192000</property>
+  <property name="meta.attr.title.markup">180629_1030</property>
+  <property name="meta.attr.artist.markup">My Recording</property>
+  <property name="meta.attr.encoded_by.markup">SONY IC RECORDER 8.4.0</property>
+  <property name="seekable">1</property>
+  <property name="audio_index">0</property>
+  <property name="video_index">-1</property>
+  <property name="mute_on_pause">1</property>
+  <property name="mlt_service">avformat-novalidate</property>
+  <property name="kdenlive:file_size">33935277</property>
+  <property name="kdenlive:file_hash">5134b3e6069a50d5eac4d3bb76f1b8d2</property>
+  <property name="global_feed">1</property>
+ </producer>
+ <producer in="0" out="23078" id="27" title="Anonymous Submission">
+  <property name="mlt_type">mlt_producer</property>
+  <property name="length">00:12:50;01</property>
+  <property name="eof">pause</property>
+  <property name="resource">/var/www/html/1/ec01/cluster/1/gardening/preparing/mulching/demonstration/trial/audio/.raw/180629_1056.mp3</property>
+  <property name="meta.media.nb_streams">1</property>
+  <property name="meta.media.0.stream.type">audio</property>
+  <property name="meta.media.0.codec.sample_fmt">s16p</property>
+  <property name="meta.media.0.codec.sample_rate">44100</property>
+  <property name="meta.media.0.codec.channels">2</property>
+  <property name="meta.media.0.codec.name">mp3</property>
+  <property name="meta.media.0.codec.long_name">MP3 (MPEG audio layer 3)</property>
+  <property name="meta.media.0.codec.bit_rate">192000</property>
+  <property name="meta.attr.title.markup">180629_1056</property>
+  <property name="meta.attr.artist.markup">My Recording</property>
+  <property name="meta.attr.encoded_by.markup">SONY IC RECORDER 8.4.0</property>
+  <property name="seekable">1</property>
+  <property name="audio_index">0</property>
+  <property name="video_index">-1</property>
+  <property name="mute_on_pause">1</property>
+  <property name="mlt_service">avformat-novalidate</property>
+  <property name="kdenlive:file_size">18485625</property>
+  <property name="kdenlive:file_hash">23107fa94d8439702ebe31d6bf4ed764</property>
+  <property name="global_feed">1</property>
+ </producer>
+ <producer in="0" out="2668" id="28">
+  <property name="mlt_type">producer</property>
+  <property name="length">2669</property>
+  <property name="eof">pause</property>
+  <property name="resource">/var/www/html/1/ec01/cluster/1/gardening/preparing/mulching/demonstration/trial/image/.raw/20180629_100356.jpg</property>
+  <property name="ttl">25</property>
+  <property name="aspect_ratio">1</property>
+  <property name="progressive">1</property>
+  <property name="seekable">1</property>
+  <property name="loop">1</property>
+  <property name="meta.media.width">1280</property>
+  <property name="meta.media.height">720</property>
+  <property name="mlt_service">pixbuf</property>
+  <property name="kdenlive:file_size">484355</property>
+  <property name="kdenlive:file_hash">07b39b805d6632b6497c3dfeae27622b</property>
+ </producer>
+ <producer in="0" out="542" id="29">
+  <property name="mlt_type">producer</property>
+  <property name="length">543</property>
+  <property name="eof">pause</property>
+  <property name="resource">/var/www/html/1/ec01/cluster/1/gardening/preparing/mulching/demonstration/trial/image/.raw/20180629_100411.jpg</property>
+  <property name="ttl">25</property>
+  <property name="aspect_ratio">1</property>
+  <property name="progressive">1</property>
+  <property name="seekable">1</property>
+  <property name="loop">1</property>
+  <property name="meta.media.width">1280</property>
+  <property name="meta.media.height">720</property>
+  <property name="mlt_service">pixbuf</property>
+  <property name="kdenlive:file_size">510157</property>
+  <property name="kdenlive:file_hash">20eb84f1322d579c15c6b8f6c534bdb0</property>
+ </producer>
+ <producer in="0" out="3384" id="30">
+  <property name="mlt_type">producer</property>
+  <property name="length">3385</property>
+  <property name="eof">pause</property>
+  <property name="resource">/var/www/html/1/ec01/cluster/1/gardening/preparing/mulching/demonstration/trial/image/.raw/20180629_101234.jpg</property>
+  <property name="ttl">25</property>
+  <property name="aspect_ratio">1</property>
+  <property name="progressive">1</property>
+  <property name="seekable">1</property>
+  <property name="loop">1</property>
+  <property name="meta.media.width">1280</property>
+  <property name="meta.media.height">720</property>
+  <property name="mlt_service">pixbuf</property>
+  <property name="kdenlive:file_size">662337</property>
+  <property name="kdenlive:file_hash">167c1be69785380a943b1a2b49000564</property>
+ </producer>
+ <producer in="0" out="1938" id="31">
+  <property name="mlt_type">producer</property>
+  <property name="length">1939</property>
+  <property name="eof">pause</property>
+  <property name="resource">/var/www/html/1/ec01/cluster/1/gardening/preparing/mulching/demonstration/trial/image/.raw/20180629_101921.jpg</property>
+  <property name="ttl">25</property>
+  <property name="aspect_ratio">1</property>
+  <property name="progressive">1</property>
+  <property name="seekable">1</property>
+  <property name="loop">1</property>
+  <property name="meta.media.width">1280</property>
+  <property name="meta.media.height">720</property>
+  <property name="mlt_service">pixbuf</property>
+  <property name="kdenlive:file_size">694261</property>
+  <property name="kdenlive:file_hash">f273f8dfd3d4fecaabfebab0ec282779</property>
+ </producer>
+ <producer in="0" out="2326" id="32">
+  <property name="mlt_type">producer</property>
+  <property name="length">2327</property>
+  <property name="eof">pause</property>
+  <property name="resource">/var/www/html/1/ec01/cluster/1/gardening/preparing/mulching/demonstration/trial/image/.raw/20180629_102257.jpg</property>
+  <property name="ttl">25</property>
+  <property name="aspect_ratio">1</property>
+  <property name="progressive">1</property>
+  <property name="seekable">1</property>
+  <property name="loop">1</property>
+  <property name="meta.media.width">1280</property>
+  <property name="meta.media.height">720</property>
+  <property name="mlt_service">pixbuf</property>
+  <property name="kdenlive:file_size">677067</property>
+  <property name="kdenlive:file_hash">04fc03af0fc2a14dfc0e0f4dde8b29ee</property>
+ </producer>
+ <producer in="0" out="2081" id="33">
+  <property name="mlt_type">producer</property>
+  <property name="length">2082</property>
+  <property name="eof">pause</property>
+  <property name="resource">/var/www/html/1/ec01/cluster/1/gardening/preparing/mulching/demonstration/trial/image/.raw/20180629_103126.jpg</property>
+  <property name="ttl">25</property>
+  <property name="aspect_ratio">1</property>
+  <property name="progressive">1</property>
+  <property name="seekable">1</property>
+  <property name="loop">1</property>
+  <property name="meta.media.width">1280</property>
+  <property name="meta.media.height">720</property>
+  <property name="mlt_service">pixbuf</property>
+  <property name="kdenlive:file_size">626991</property>
+  <property name="kdenlive:file_hash">dbe10175e5a9d4a5223b00ac402a0ebd</property>
+ </producer>
+ <producer in="0" out="1831" id="34">
+  <property name="mlt_type">producer</property>
+  <property name="length">1832</property>
+  <property name="eof">pause</property>
+  <property name="resource">/var/www/html/1/ec01/cluster/1/gardening/preparing/mulching/demonstration/trial/image/.raw/20180629_104953.jpg</property>
+  <property name="ttl">25</property>
+  <property name="aspect_ratio">1</property>
+  <property name="progressive">1</property>
+  <property name="seekable">1</property>
+  <property name="loop">1</property>
+  <property name="meta.media.width">1280</property>
+  <property name="meta.media.height">720</property>
+  <property name="mlt_service">pixbuf</property>
+  <property name="kdenlive:file_size">822848</property>
+  <property name="kdenlive:file_hash">94a0b7127ddb8ec6a0213fb4d3d491b6</property>
+ </producer>
+ <producer in="0" out="149" id="35">
+  <property name="mlt_type">producer</property>
+  <property name="length">00:00:05;00</property>
+  <property name="eof">pause</property>
+  <property name="resource">/var/www/html/1/ec01/cluster/1/gardening/preparing/mulching/demonstration/trial/image/.raw/20180629_105019.jpg</property>
+  <property name="ttl">25</property>
+  <property name="aspect_ratio">1</property>
+  <property name="progressive">1</property>
+  <property name="seekable">1</property>
+  <property name="loop">1</property>
+  <property name="meta.media.width">1280</property>
+  <property name="meta.media.height">720</property>
+  <property name="mlt_service">pixbuf</property>
+  <property name="kdenlive:file_size">706490</property>
+  <property name="kdenlive:file_hash">2c9b46126d3faedb9bb282a61aec29c1</property>
+ </producer>
+ <producer in="0" out="149" id="36">
+  <property name="mlt_type">producer</property>
+  <property name="length">00:00:05;00</property>
+  <property name="eof">pause</property>
+  <property name="resource">/var/www/html/1/ec01/cluster/1/gardening/preparing/mulching/demonstration/trial/image/.raw/20180629_105633.jpg</property>
+  <property name="ttl">25</property>
+  <property name="aspect_ratio">1</property>
+  <property name="progressive">1</property>
+  <property name="seekable">1</property>
+  <property name="loop">1</property>
+  <property name="meta.media.width">1280</property>
+  <property name="meta.media.height">720</property>
+  <property name="mlt_service">pixbuf</property>
+  <property name="kdenlive:file_size">542073</property>
+  <property name="kdenlive:file_hash">ed91cc6bfb7073463792fb1c43b48ccc</property>
+ </producer>
+ <producer in="0" out="149" id="37">
+  <property name="mlt_type">producer</property>
+  <property name="length">00:00:05;00</property>
+  <property name="eof">pause</property>
+  <property name="resource">/var/www/html/1/ec01/cluster/1/gardening/preparing/mulching/demonstration/trial/image/.raw/20180629_110836.jpg</property>
+  <property name="ttl">25</property>
+  <property name="aspect_ratio">1</property>
+  <property name="progressive">1</property>
+  <property name="seekable">1</property>
+  <property name="loop">1</property>
+  <property name="meta.media.width">1280</property>
+  <property name="meta.media.height">720</property>
+  <property name="mlt_service">pixbuf</property>
+  <property name="kdenlive:file_size">705184</property>
+  <property name="kdenlive:file_hash">0dd57559a8464732192a86695577d035</property>
+ </producer>
+ <producer in="0" out="300" id="38">
+  <property name="mlt_type">producer</property>
+  <property name="length">301</property>
+  <property name="eof">pause</property>
+  <property name="resource">/var/www/html/1/ec01/cluster/1/gardening/preparing/mulching/demonstration/trial/image/.raw/intro/20180629_100116.jpg</property>
+  <property name="ttl">25</property>
+  <property name="aspect_ratio">1</property>
+  <property name="progressive">1</property>
+  <property name="seekable">1</property>
+  <property name="loop">1</property>
+  <property name="meta.media.width">1280</property>
+  <property name="meta.media.height">720</property>
+  <property name="mlt_service">pixbuf</property>
+  <property name="kdenlive:file_size">605616</property>
+  <property name="kdenlive:file_hash">2dcb909f062b3d5d88b80535c4df49c7</property>
+ </producer>
+ <producer in="0" out="300" id="39">
+  <property name="mlt_type">producer</property>
+  <property name="length">301</property>
+  <property name="eof">pause</property>
+  <property name="resource">/var/www/html/1/ec01/cluster/1/gardening/preparing/mulching/demonstration/trial/image/.raw/intro/20180629_110153.jpg</property>
+  <property name="ttl">25</property>
+  <property name="aspect_ratio">1</property>
+  <property name="progressive">1</property>
+  <property name="seekable">1</property>
+  <property name="loop">1</property>
+  <property name="meta.media.width">1280</property>
+  <property name="meta.media.height">720</property>
+  <property name="mlt_service">pixbuf</property>
+  <property name="kdenlive:file_size">729309</property>
+  <property name="kdenlive:file_hash">889642398a2b1ce1d9a86ed0a66a45b1</property>
+ </producer>
+ <producer in="0" out="300" id="40">
+  <property name="mlt_type">producer</property>
+  <property name="length">301</property>
+  <property name="eof">pause</property>
+  <property name="resource">/var/www/html/1/ec01/cluster/1/gardening/preparing/mulching/demonstration/trial/image/.raw/intro/20180629_110232.jpg</property>
+  <property name="ttl">25</property>
+  <property name="aspect_ratio">1</property>
+  <property name="progressive">1</property>
+  <property name="seekable">1</property>
+  <property name="loop">1</property>
+  <property name="meta.media.width">1280</property>
+  <property name="meta.media.height">720</property>
+  <property name="mlt_service">pixbuf</property>
+  <property name="kdenlive:file_size">744033</property>
+  <property name="kdenlive:file_hash">a4cdaef13ba672d68fe6300a29e01973</property>
+ </producer>
+ <producer in="0" out="300" id="41">
+  <property name="mlt_type">producer</property>
+  <property name="length">301</property>
+  <property name="eof">pause</property>
+  <property name="resource">/var/www/html/1/ec01/cluster/1/gardening/preparing/mulching/demonstration/trial/image/.raw/intro/20180629_110237.jpg</property>
+  <property name="ttl">25</property>
+  <property name="aspect_ratio">1</property>
+  <property name="progressive">1</property>
+  <property name="seekable">1</property>
+  <property name="loop">1</property>
+  <property name="meta.media.width">1280</property>
+  <property name="meta.media.height">720</property>
+  <property name="mlt_service">pixbuf</property>
+  <property name="kdenlive:file_size">722806</property>
+  <property name="kdenlive:file_hash">01a944cbe65a80ec4a573417d1bb9afd</property>
+ </producer>
+ <playlist id="main bin" kdenlive:customeffects="&lt;customeffects/>&#xa;">
+  <property name="kdenlive:docproperties.documentid">1530287718801</property>
+  <property name="kdenlive:docproperties.enableproxy">0</property>
+  <property name="kdenlive:docproperties.generateimageproxy">0</property>
+  <property name="kdenlive:docproperties.generateproxy">0</property>
+  <property name="kdenlive:docproperties.kdenliveversion">15.12.3</property>
+  <property name="kdenlive:docproperties.position">6168</property>
+  <property name="kdenlive:docproperties.profile">hdv_720_30p</property>
+  <property name="kdenlive:docproperties.projectfolder">kdenlive</property>
+  <property name="kdenlive:docproperties.proxyextension">mpg</property>
+  <property name="kdenlive:docproperties.proxyimageminsize">2000</property>
+  <property name="kdenlive:docproperties.proxyminsize">1000</property>
+  <property name="kdenlive:docproperties.proxyparams">-s 640x480 -g 5 -qscale 6 -ab 128k -vcodec mpeg2video -acodec mp2</property>
+  <property name="kdenlive:docproperties.version">0.91</property>
+  <property name="kdenlive:docproperties.verticalzoom">1</property>
+  <property name="kdenlive:docproperties.zonein">0</property>
+  <property name="kdenlive:docproperties.zoneout">3300</property>
+  <property name="kdenlive:docproperties.zoom">10</property>
+  <property name="kdenlive:documentnotes"/>
+  <property name="kdenlive:clipgroups">&lt;groups/>
+</property>
+  <property name="xml_retain">1</property>
+  <entry in="0" out="1602" producer="21"/>
+  <entry in="0" out="902" producer="22"/>
+  <entry in="0" out="2879" producer="23"/>
+  <entry in="0" out="13256" producer="24"/>
+  <entry in="0" out="7951" producer="25"/>
+  <entry in="0" out="42371" producer="26"/>
+  <entry in="0" out="23078" producer="27"/>
+  <entry in="0" out="149" producer="28"/>
+  <entry in="0" out="149" producer="29"/>
+  <entry in="0" out="149" producer="30"/>
+  <entry in="0" out="149" producer="31"/>
+  <entry in="0" out="149" producer="32"/>
+  <entry in="0" out="149" producer="33"/>
+  <entry in="0" out="149" producer="34"/>
+  <entry in="0" out="149" producer="35"/>
+  <entry in="0" out="149" producer="36"/>
+  <entry in="0" out="149" producer="37"/>
+  <entry in="0" out="149" producer="38"/>
+  <entry in="0" out="149" producer="39"/>
+  <entry in="0" out="149" producer="40"/>
+  <entry in="0" out="149" producer="41"/>
+ </playlist>
+ <producer in="0" out="94942" id="black">
+  <property name="mlt_type">producer</property>
+  <property name="length">94943</property>
+  <property name="eof">pause</property>
+  <property name="resource">black</property>
+  <property name="aspect_ratio">1.06667</property>
+  <property name="mlt_service">colour</property>
+ </producer>
+ <playlist id="black_track">
+  <entry in="0" out="115842" producer="black"/>
+ </playlist>
+ <playlist id="playlist1">
+  <property name="kdenlive:track_name">Audio 2</property>
+  <property name="kdenlive:audio_track">1</property>
+ </playlist>
+ <producer in="0" out="1600" id="21_playlist2" title="Anonymous Submission">
+  <property name="mlt_type">producer</property>
+  <property name="length">00:00:53;13</property>
+  <property name="eof">pause</property>
+  <property name="resource">/var/www/html/1/ec01/cluster/1/gardening/preparing/mulching/demonstration/trial/audio/.raw/180629_1000.mp3</property>
+  <property name="audio_index">0</property>
+  <property name="video_index">-1</property>
+  <property name="mute_on_pause">1</property>
+  <property name="mlt_service">avformat-novalidate</property>
+  <property name="seekable">1</property>
+  <property name="kdenlive:file_size">1287440</property>
+  <property name="kdenlive:file_hash">21385702c6794517b75794916f9cd56b</property>
+  <property name="global_feed">1</property>
+  <property name="xml">was here</property>
+  <property name="meta.media.nb_streams">1</property>
+  <property name="meta.media.0.stream.type">audio</property>
+  <property name="meta.media.0.codec.sample_fmt">s16p</property>
+  <property name="meta.media.0.codec.sample_rate">44100</property>
+  <property name="meta.media.0.codec.channels">2</property>
+  <property name="meta.media.0.codec.name">mp3</property>
+  <property name="meta.media.0.codec.long_name">MP3 (MPEG audio layer 3)</property>
+  <property name="meta.media.0.codec.bit_rate">192000</property>
+  <property name="meta.attr.title.markup">180629_1000</property>
+  <property name="meta.attr.artist.markup">My Recording</property>
+  <property name="meta.attr.encoded_by.markup">SONY IC RECORDER 8.4.0</property>
+ </producer>
+ <producer in="0" out="901" id="22_playlist2" title="Anonymous Submission">
+  <property name="mlt_type">producer</property>
+  <property name="length">00:00:30;03</property>
+  <property name="eof">pause</property>
+  <property name="resource">/var/www/html/1/ec01/cluster/1/gardening/preparing/mulching/demonstration/trial/audio/.raw/180629_1003.mp3</property>
+  <property name="audio_index">0</property>
+  <property name="video_index">-1</property>
+  <property name="mute_on_pause">1</property>
+  <property name="mlt_service">avformat-novalidate</property>
+  <property name="seekable">1</property>
+  <property name="kdenlive:file_size">726957</property>
+  <property name="kdenlive:file_hash">e9f9c44a196275bb03087061ed72507c</property>
+  <property name="global_feed">1</property>
+  <property name="xml">was here</property>
+  <property name="meta.media.nb_streams">1</property>
+  <property name="meta.media.0.stream.type">audio</property>
+  <property name="meta.media.0.codec.sample_fmt">s16p</property>
+  <property name="meta.media.0.codec.sample_rate">44100</property>
+  <property name="meta.media.0.codec.channels">2</property>
+  <property name="meta.media.0.codec.name">mp3</property>
+  <property name="meta.media.0.codec.long_name">MP3 (MPEG audio layer 3)</property>
+  <property name="meta.media.0.codec.bit_rate">192000</property>
+  <property name="meta.attr.title.markup">180629_1003</property>
+  <property name="meta.attr.artist.markup">My Recording</property>
+  <property name="meta.attr.encoded_by.markup">SONY IC RECORDER 8.4.0</property>
+ </producer>
+ <producer in="0" out="2878" id="23_playlist2" title="Anonymous Submission">
+  <property name="mlt_type">producer</property>
+  <property name="length">00:01:36;02</property>
+  <property name="eof">pause</property>
+  <property name="resource">/var/www/html/1/ec01/cluster/1/gardening/preparing/mulching/demonstration/trial/audio/.raw/180629_1011.mp3</property>
+  <property name="audio_index">0</property>
+  <property name="video_index">-1</property>
+  <property name="mute_on_pause">1</property>
+  <property name="mlt_service">avformat-novalidate</property>
+  <property name="seekable">1</property>
+  <property name="kdenlive:file_size">2310604</property>
+  <property name="kdenlive:file_hash">7343a3054a3599c10137ab658e8120c5</property>
+  <property name="global_feed">1</property>
+  <property name="xml">was here</property>
+  <property name="meta.media.nb_streams">1</property>
+  <property name="meta.media.0.stream.type">audio</property>
+  <property name="meta.media.0.codec.sample_fmt">s16p</property>
+  <property name="meta.media.0.codec.sample_rate">44100</property>
+  <property name="meta.media.0.codec.channels">2</property>
+  <property name="meta.media.0.codec.name">mp3</property>
+  <property name="meta.media.0.codec.long_name">MP3 (MPEG audio layer 3)</property>
+  <property name="meta.media.0.codec.bit_rate">192000</property>
+  <property name="meta.attr.title.markup">180629_1011</property>
+  <property name="meta.attr.artist.markup">My Recording</property>
+  <property name="meta.attr.encoded_by.markup">SONY IC RECORDER 8.4.0</property>
+ </producer>
+ <producer in="0" out="13256" id="24_playlist2" title="Anonymous Submission">
+  <property name="mlt_type">producer</property>
+  <property name="length">00:07:22;11</property>
+  <property name="eof">pause</property>
+  <property name="resource">/var/www/html/1/ec01/cluster/1/gardening/preparing/mulching/demonstration/trial/audio/.raw/180629_1014.mp3</property>
+  <property name="audio_index">0</property>
+  <property name="video_index">-1</property>
+  <property name="mute_on_pause">1</property>
+  <property name="mlt_service">avformat-novalidate</property>
+  <property name="seekable">1</property>
+  <property name="kdenlive:file_size">10620678</property>
+  <property name="kdenlive:file_hash">2237befb815ec62b276770936b264cb9</property>
+  <property name="global_feed">1</property>
+  <property name="xml">was here</property>
+  <property name="meta.media.nb_streams">1</property>
+  <property name="meta.media.0.stream.type">audio</property>
+  <property name="meta.media.0.codec.sample_fmt">s16p</property>
+  <property name="meta.media.0.codec.sample_rate">44100</property>
+  <property name="meta.media.0.codec.channels">2</property>
+  <property name="meta.media.0.codec.name">mp3</property>
+  <property name="meta.media.0.codec.long_name">MP3 (MPEG audio layer 3)</property>
+  <property name="meta.media.0.codec.bit_rate">192000</property>
+  <property name="meta.attr.title.markup">180629_1014</property>
+  <property name="meta.attr.artist.markup">My Recording</property>
+  <property name="meta.attr.encoded_by.markup">SONY IC RECORDER 8.4.0</property>
+ </producer>
+ <producer in="0" out="7951" id="25_playlist2" title="Anonymous Submission">
+  <property name="mlt_type">producer</property>
+  <property name="length">00:04:25;10</property>
+  <property name="eof">pause</property>
+  <property name="resource">/var/www/html/1/ec01/cluster/1/gardening/preparing/mulching/demonstration/trial/audio/.raw/180629_1023.mp3</property>
+  <property name="audio_index">0</property>
+  <property name="video_index">-1</property>
+  <property name="mute_on_pause">1</property>
+  <property name="mlt_service">avformat-novalidate</property>
+  <property name="seekable">1</property>
+  <property name="kdenlive:file_size">6371914</property>
+  <property name="kdenlive:file_hash">bec3d09f9ae23fe8155fa8a0160b3f8c</property>
+  <property name="global_feed">1</property>
+  <property name="xml">was here</property>
+  <property name="meta.media.nb_streams">1</property>
+  <property name="meta.media.0.stream.type">audio</property>
+  <property name="meta.media.0.codec.sample_fmt">s16p</property>
+  <property name="meta.media.0.codec.sample_rate">44100</property>
+  <property name="meta.media.0.codec.channels">2</property>
+  <property name="meta.media.0.codec.name">mp3</property>
+  <property name="meta.media.0.codec.long_name">MP3 (MPEG audio layer 3)</property>
+  <property name="meta.media.0.codec.bit_rate">192000</property>
+  <property name="meta.attr.title.markup">180629_1023</property>
+  <property name="meta.attr.artist.markup">My Recording</property>
+  <property name="meta.attr.encoded_by.markup">SONY IC RECORDER 8.4.0</property>
+ </producer>
+ <producer in="0" out="42371" id="26_playlist2" title="Anonymous Submission">
+  <property name="mlt_type">mlt_producer</property>
+  <property name="length">00:23:33;24</property>
+  <property name="eof">pause</property>
+  <property name="resource">/var/www/html/1/ec01/cluster/1/gardening/preparing/mulching/demonstration/trial/audio/.raw/180629_1030.mp3</property>
+  <property name="audio_index">0</property>
+  <property name="video_index">-1</property>
+  <property name="mute_on_pause">1</property>
+  <property name="mlt_service">avformat-novalidate</property>
+  <property name="seekable">1</property>
+  <property name="kdenlive:file_size">33935277</property>
+  <property name="kdenlive:file_hash">5134b3e6069a50d5eac4d3bb76f1b8d2</property>
+  <property name="global_feed">1</property>
+  <property name="xml">was here</property>
+  <property name="meta.media.nb_streams">1</property>
+  <property name="meta.media.0.stream.type">audio</property>
+  <property name="meta.media.0.codec.sample_fmt">s16p</property>
+  <property name="meta.media.0.codec.sample_rate">44100</property>
+  <property name="meta.media.0.codec.channels">2</property>
+  <property name="meta.media.0.codec.name">mp3</property>
+  <property name="meta.media.0.codec.long_name">MP3 (MPEG audio layer 3)</property>
+  <property name="meta.media.0.codec.bit_rate">192000</property>
+  <property name="meta.attr.title.markup">180629_1030</property>
+  <property name="meta.attr.artist.markup">My Recording</property>
+  <property name="meta.attr.encoded_by.markup">SONY IC RECORDER 8.4.0</property>
+ </producer>
+ <producer in="0" out="23077" id="27_playlist2" title="Anonymous Submission">
+  <property name="mlt_type">producer</property>
+  <property name="length">00:12:50;01</property>
+  <property name="eof">pause</property>
+  <property name="resource">/var/www/html/1/ec01/cluster/1/gardening/preparing/mulching/demonstration/trial/audio/.raw/180629_1056.mp3</property>
+  <property name="audio_index">0</property>
+  <property name="video_index">-1</property>
+  <property name="mute_on_pause">1</property>
+  <property name="mlt_service">avformat-novalidate</property>
+  <property name="seekable">1</property>
+  <property name="kdenlive:file_size">18485625</property>
+  <property name="kdenlive:file_hash">23107fa94d8439702ebe31d6bf4ed764</property>
+  <property name="global_feed">1</property>
+  <property name="xml">was here</property>
+  <property name="meta.media.nb_streams">1</property>
+  <property name="meta.media.0.stream.type">audio</property>
+  <property name="meta.media.0.codec.sample_fmt">s16p</property>
+  <property name="meta.media.0.codec.sample_rate">44100</property>
+  <property name="meta.media.0.codec.channels">2</property>
+  <property name="meta.media.0.codec.name">mp3</property>
+  <property name="meta.media.0.codec.long_name">MP3 (MPEG audio layer 3)</property>
+  <property name="meta.media.0.codec.bit_rate">192000</property>
+  <property name="meta.attr.title.markup">180629_1056</property>
+  <property name="meta.attr.artist.markup">My Recording</property>
+  <property name="meta.attr.encoded_by.markup">SONY IC RECORDER 8.4.0</property>
+ </producer>
+ <playlist id="playlist2">
+  <property name="kdenlive:track_name">Audio 1</property>
+  <property name="kdenlive:audio_track">1</property>
+  <entry in="0" out="1600" producer="21_playlist2"/>
+  <blank length="2"/>
+  <entry in="0" out="901" producer="22_playlist2"/>
+  <blank length="1"/>
+  <entry in="0" out="793" producer="23_playlist2"/>
+  <entry in="1176" out="2878" producer="23_playlist2"/>
+  <blank length="1"/>
+  <entry in="0" out="270" producer="24_playlist2"/>
+  <entry in="2659" out="3029" producer="24_playlist2"/>
+  <entry in="5735" out="6346" producer="24_playlist2"/>
+  <entry in="6347" out="6664" producer="24_playlist2"/>
+  <blank length="4"/>
+  <entry in="6802" out="6962" producer="24_playlist2"/>
+  <entry in="8009" out="8699" producer="24_playlist2"/>
+  <entry in="8700" out="9033" producer="24_playlist2"/>
+  <entry in="10055" out="10420" producer="24_playlist2"/>
+  <entry in="11404" out="11563" producer="24_playlist2"/>
+  <entry in="11564" out="11829" producer="24_playlist2"/>
+  <entry in="11830" out="11950" producer="24_playlist2"/>
+  <entry in="12412" out="12858" producer="24_playlist2"/>
+  <entry in="12859" out="13170" producer="24_playlist2"/>
+  <entry in="0" out="170" producer="25_playlist2"/>
+  <entry in="171" out="445" producer="25_playlist2"/>
+  <entry in="3269" out="3723" producer="25_playlist2"/>
+  <entry in="7832" out="7951" producer="25_playlist2"/>
+  <blank length="1"/>
+  <entry in="0" out="124" producer="26_playlist2"/>
+  <entry in="2191" out="2824" producer="26_playlist2">
+   <filter id="gain">
+    <property name="window">75</property>
+    <property name="max_gain">20dB</property>
+    <property name="mlt_type">filter</property>
+    <property name="mlt_service">volume</property>
+    <property name="kdenlive_id">gain</property>
+    <property name="tag">volume</property>
+    <property name="kdenlive_ix">1</property>
+    <property name="gain">4</property>
+    <property name="kdenlive_info"/>
+   </filter>
+  </entry>
+  <entry in="3047" out="5096" producer="26_playlist2">
+   <filter id="filter0">
+    <property name="window">75</property>
+    <property name="max_gain">20dB</property>
+    <property name="mlt_type">filter</property>
+    <property name="mlt_service">volume</property>
+    <property name="kdenlive_id">gain</property>
+    <property name="tag">volume</property>
+    <property name="kdenlive_ix">1</property>
+    <property name="gain">4</property>
+    <property name="kdenlive_info"/>
+   </filter>
+  </entry>
+  <entry in="5097" out="6605" producer="26_playlist2">
+   <filter id="filter1">
+    <property name="window">75</property>
+    <property name="max_gain">20dB</property>
+    <property name="mlt_type">filter</property>
+    <property name="mlt_service">volume</property>
+    <property name="kdenlive_id">gain</property>
+    <property name="tag">volume</property>
+    <property name="kdenlive_ix">1</property>
+    <property name="gain">5</property>
+    <property name="kdenlive_info"/>
+   </filter>
+  </entry>
+  <entry in="7213" out="7425" producer="26_playlist2">
+   <filter id="filter2">
+    <property name="window">75</property>
+    <property name="max_gain">20dB</property>
+    <property name="mlt_type">filter</property>
+    <property name="mlt_service">volume</property>
+    <property name="kdenlive_id">gain</property>
+    <property name="tag">volume</property>
+    <property name="kdenlive_ix">1</property>
+    <property name="gain">5</property>
+    <property name="kdenlive_info"/>
+   </filter>
+  </entry>
+  <entry in="7898" out="8956" producer="26_playlist2">
+   <filter id="filter3">
+    <property name="window">75</property>
+    <property name="max_gain">20dB</property>
+    <property name="mlt_type">filter</property>
+    <property name="mlt_service">volume</property>
+    <property name="kdenlive_id">gain</property>
+    <property name="tag">volume</property>
+    <property name="kdenlive_ix">1</property>
+    <property name="gain">5</property>
+    <property name="kdenlive_info"/>
+   </filter>
+  </entry>
+  <entry in="13633" out="13906" producer="26_playlist2">
+   <filter id="filter4">
+    <property name="window">75</property>
+    <property name="max_gain">20dB</property>
+    <property name="mlt_type">filter</property>
+    <property name="mlt_service">volume</property>
+    <property name="kdenlive_id">gain</property>
+    <property name="tag">volume</property>
+    <property name="kdenlive_ix">1</property>
+    <property name="gain">5</property>
+    <property name="kdenlive_info"/>
+   </filter>
+  </entry>
+  <entry in="13907" out="14110" producer="26_playlist2">
+   <filter id="filter5">
+    <property name="window">75</property>
+    <property name="max_gain">20dB</property>
+    <property name="mlt_type">filter</property>
+    <property name="mlt_service">volume</property>
+    <property name="kdenlive_id">gain</property>
+    <property name="tag">volume</property>
+    <property name="kdenlive_ix">1</property>
+    <property name="gain">5</property>
+    <property name="kdenlive_info"/>
+   </filter>
+  </entry>
+  <entry in="22929" out="24411" producer="26_playlist2">
+   <filter id="filter6">
+    <property name="window">75</property>
+    <property name="max_gain">20dB</property>
+    <property name="mlt_type">filter</property>
+    <property name="mlt_service">volume</property>
+    <property name="kdenlive_id">gain</property>
+    <property name="tag">volume</property>
+    <property name="kdenlive_ix">1</property>
+    <property name="gain">5</property>
+    <property name="kdenlive_info"/>
+   </filter>
+  </entry>
+  <entry in="28944" out="29505" producer="26_playlist2">
+   <filter id="filter7">
+    <property name="window">75</property>
+    <property name="max_gain">20dB</property>
+    <property name="mlt_type">filter</property>
+    <property name="mlt_service">volume</property>
+    <property name="kdenlive_id">gain</property>
+    <property name="tag">volume</property>
+    <property name="kdenlive_ix">1</property>
+    <property name="gain">5</property>
+    <property name="kdenlive_info"/>
+   </filter>
+  </entry>
+  <entry in="41365" out="42371" producer="26_playlist2">
+   <filter id="filter8">
+    <property name="window">75</property>
+    <property name="max_gain">20dB</property>
+    <property name="mlt_type">filter</property>
+    <property name="mlt_service">volume</property>
+    <property name="kdenlive_id">gain</property>
+    <property name="tag">volume</property>
+    <property name="kdenlive_ix">1</property>
+    <property name="gain">5</property>
+    <property name="kdenlive_info"/>
+   </filter>
+  </entry>
+  <entry in="0" out="357" producer="27_playlist2"/>
+  <entry in="19943" out="20200" producer="27_playlist2"/>
+  <entry in="20331" out="20745" producer="27_playlist2"/>
+  <entry in="20941" out="21230" producer="27_playlist2"/>
+  <entry in="21326" out="23077" producer="27_playlist2"/>
+ </playlist>
+ <playlist id="playlist3">
+  <property name="kdenlive:track_name">Video 2</property>
+ </playlist>
+ <playlist id="playlist4">
+  <property name="kdenlive:track_name">Video 1</property>
+  <property name="kdenlive:locked_track">0</property>
+  <property name="kdenlive:composite">1</property>
+  <entry in="0" out="299" producer="38"/>
+  <entry in="0" out="299" producer="40"/>
+  <entry in="0" out="299" producer="41"/>
+  <entry in="0" out="299" producer="39"/>
+  <entry in="0" out="257" producer="28"/>
+  <blank length="3"/>
+  <entry in="0" out="541" producer="29"/>
+  <blank length="150"/>
+  <entry in="0" out="352" producer="29"/>
+  <entry in="0" out="3383" producer="30"/>
+  <blank length="2"/>
+  <entry in="0" out="2667" producer="28"/>
+  <entry in="0" out="1900" producer="29"/>
+  <entry in="0" out="2265" producer="30"/>
+  <entry in="0" out="1937" producer="31"/>
+  <entry in="0" out="2325" producer="32"/>
+  <entry in="0" out="2080" producer="33"/>
+  <entry in="0" out="1830" producer="34"/>
+  <entry in="0" out="94941" producer="black"/>
+ </playlist>
+ <tractor in="0" out="115844" id="maintractor" global_feed="1" title="Anonymous Submission">
+  <track producer="black_track"/>
+  <track hide="video" producer="playlist1"/>
+  <track hide="video" producer="playlist2"/>
+  <track producer="playlist3"/>
+  <track producer="playlist4"/>
+  <transition id="transition0">
+   <property name="a_track">0</property>
+   <property name="b_track">1</property>
+   <property name="mlt_type">transition</property>
+   <property name="mlt_service">mix</property>
+   <property name="always_active">1</property>
+   <property name="combine">1</property>
+   <property name="internal_added">237</property>
+  </transition>
+  <transition id="transition1">
+   <property name="a_track">0</property>
+   <property name="b_track">2</property>
+   <property name="mlt_type">transition</property>
+   <property name="mlt_service">mix</property>
+   <property name="always_active">1</property>
+   <property name="combine">1</property>
+   <property name="internal_added">237</property>
+  </transition>
+  <transition id="transition2">
+   <property name="a_track">0</property>
+   <property name="b_track">3</property>
+   <property name="mlt_type">transition</property>
+   <property name="mlt_service">mix</property>
+   <property name="always_active">1</property>
+   <property name="combine">1</property>
+   <property name="internal_added">237</property>
+  </transition>
+  <transition id="transition3">
+   <property name="a_track">0</property>
+   <property name="b_track">4</property>
+   <property name="mlt_type">transition</property>
+   <property name="mlt_service">mix</property>
+   <property name="always_active">1</property>
+   <property name="combine">1</property>
+   <property name="internal_added">237</property>
+  </transition>
+  <transition id="transition4">
+   <property name="a_track">3</property>
+   <property name="b_track">4</property>
+   <property name="version">0.9</property>
+   <property name="mlt_type">transition</property>
+   <property name="mlt_service">frei0r.cairoblend</property>
+   <property name="internal_added">237</property>
+  </transition>
+ </tractor>
+</mlt>

@@ -1,0 +1,8 @@
+# Time based routing.
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  # RewriteCond %{TIME_HOUR} <17
+  # RewriteCond %{TIME_HOUR} >09
+  RewriteRule ^/s/sandbox/route/(.*) /s/sandbox/route/open/$1 [L]
+</IfModule>

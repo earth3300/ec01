@@ -1,0 +1,5 @@
+# SECURITY BEGIN
+<RequireAll>
+  Require all denied
+</RequireAll>
+# SECURITY END
