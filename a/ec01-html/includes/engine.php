@@ -160,7 +160,7 @@ class FireFlyHTML
 		if ( isset( $page['tiers']['tier-4'] ) &&  $page['tiers']['tier-4'] )
 		{
 			$url_tier3 = '/' . $page['tiers']['tier-2'] . '/' . $page['tiers']['tier-3'];
-			$url_tier4 = '/' . $url_tier3  . '/' . $page['tiers']['tier-4'];
+			$url_tier4 = $url_tier3  . '/' . $page['tiers']['tier-4'];
 
 			$str = '<header class="site-header-sub">' . PHP_EOL;
 
