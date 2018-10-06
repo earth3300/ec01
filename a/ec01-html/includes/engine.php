@@ -159,7 +159,8 @@ class FireFlyHTML
 		/** We need Tier 4 Information to construct a unique Tier-3/Tier-4 header. */
 		if ( isset( $page['tiers']['tier-4'] ) &&  $page['tiers']['tier-4'] )
 		{
-			$url = '/' . $page['tiers']['tier-2'] . '/' . $page['tiers']['tier-3'] . SITE_CENTER_DIR . '/';
+			$url_tier3 = '/' . $page['tiers']['tier-2'] . '/' . $page['tiers']['tier-3'];
+			$url_tier4 = '/' . $url_tier3  . '/' . $page['tiers']['tier-4'];
 
 			$str = '<header class="site-header-sub">' . PHP_EOL;
 
@@ -170,14 +171,17 @@ class FireFlyHTML
 			$str .= sprintf( '<div class="%s">%s', $page['class']['tier-3'], PHP_EOL );
 			$str .= '<div class="color darker">' . PHP_EOL;
 			$str .= sprintf( '<a class="level-01 %s" ', $page['class']['tier-3'], PHP_EOL );
-			$str .= sprintf( 'href="%s">', $url );
+			$str .= sprintf( 'href="%s/">', $url_tier3 . SITE_CENTER_DIR );
 			$str .= sprintf( '<span class="icon"></span>%s</a>', ucfirst( $page['class']['tier-3'] ) );
 
 			/** Right div. (Tier 4). Absolute Positioning, within Tier 3. */
 			$str .= sprintf( '<div class="level-02 right absolute %s">', $page['class']['tier-4'] );
 			$str .= sprintf( '<div class="color lighter">%s', PHP_EOL );
-			$str .= '<span class="header-height"><span class="icon icon-height"></span>';
-			$str .= sprintf( '%s</span></div>%s', ucfirst( $page['tier-4']['title'] ), PHP_EOL );
+			$str .= '<span class="header-height">';
+			$str .= sprintf( '<a href="%s/">', $url_tier4 );
+			$str .= sprintf( '<span class="icon icon-height"></span>%s</span>', ucfirst( $page['tier-4']['title'] ) );
+			$str .= '</a>' . PHP_EOL;
+			$str .= '</div>' . PHP_EOL;
 			$str .= '</div><!-- .color .lighter -->' . PHP_EOL;
 			$str .= '</div><!-- .tier-4 -->' . PHP_EOL;
 			$str .= '</div><!-- .color .darker -->' . PHP_EOL;
