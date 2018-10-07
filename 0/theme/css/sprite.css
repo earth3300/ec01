@@ -52,7 +52,7 @@
 .sprite .icon2x4, .pianist .icon { background-position: -35px -105px; }
 .sprite .icon3x4, .violinist .icon { background-position: -70px -105px; }
 .sprite .icon4x4, .painter .icon { background-position: -105px -105px; }
-.sprite .icon5x4, .sculptor .icon { background-position: -140px -105px; }
+.sprite .icon5x4, .carver .icon { background-position: -140px -105px; }
 .sprite .icon6x4, .potter .icon { background-position: -175px -105px; }
 .sprite .icon7x4, .saxophonist .icon { background-position: -210px -105px; }
 
@@ -207,7 +207,7 @@
 .sprite .icon10x12, .piano .icon { background-position: -315px -385px; }
 .sprite .icon11x12, .violin .icon { background-position: -350px -385px; }
 .sprite .icon12x12, .painting .icon { background-position: -385px -385px; }
-.sprite .icon13x12, .sculpture .icon { background-position: -420px -385px; }
+.sprite .icon13x12, .carving .icon { background-position: -420px -385px; }
 .sprite .icon14x12, .pottery .icon { background-position: -455px -385px; }
 .sprite .icon15x12, .saxophone .icon { background-position: -490px -385px; }
 
