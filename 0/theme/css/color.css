@@ -1,26 +1,26 @@
 /***** COLOR.CSS START *****/
 
-.color-updated { background: #180729; }
+.color-updated { background: #181007; }
 
 .commons .color.lighter { background: #b6d7a8; } /* green */
 
 .nature .color.lighter { background: #b6d7a8; }
-.building .color.lighter { background: #d9d9d9; }
-.information .color.lighter { background: #ffe599; }
-.project .color.lighter { background: #ffd966; }
-.safety .color.lighter { background: #d9d9d9; }
-.recovery .color.lighter { background: #93c47d; }
-.profession .color.lighter { background: #d0e0e3; }
-.news .color.lighter { background: #f1c232; }
-.process .color.lighter { background: #e6b8af; }
-.method .color.lighter { background: #e6b8af; }
-.standard .color.lighter { background: #f4cccc; }
-.design .color.lighter { background: #ea9999; }
-.equipment .color.lighter { background: #fce5cd; }
-.resource .color.lighter { background: #d9ead3; }
-.service .color.lighter { background: #a2c4c9; }
-.supply .color.lighter { background: #f9cb9c; }
-.store .color.lighter { background: #76a5af; }
+.building .color.lighter { background: #d9d9d9; } /* light grey */
+.information .color.lighter { background: #ffe599; } /* light yellow */
+.project .color.lighter { background: #ffd966; } /* light orange */
+.safety .color.lighter { background: #d9d9d9; } /* light grey */
+.recovery .color.lighter { background: #93c47d; } /* medium green */
+.profession .color.lighter { background: #d0e0e3; } /* light blue */
+.news .color.lighter { background: #f1c232; } /* medium orange */
+.process .color.lighter { background: #e6b8af; } /* light magenta */
+.method .color.lighter { background: #e6b8af; } /* light magenta */
+.standard .color.lighter { background: #f4cccc; } /* light violet */
+.design .color.lighter { background: #ea9999; } /* light purple */
+.equipment .color.lighter { background: #fce5cd; } /* light orange */
+.resource .color.lighter { background: #d9ead3; } /* light green */
+.service .color.lighter { background: #a2c4c9; } /* medium blue */
+.supply .color.lighter { background: #f9cb9c; } /* light orange */
+.store .color.lighter { background: #76a5af; } /* medium blue */
 
 .download .color.lighter { background: #279f43; }
 
@@ -35,7 +35,7 @@
 .arts .color.darker { background-color: #a64d79; } /* magenta */
 .commons .color.darker { background-color: #b6d7a8; } /* green */
 
-.nature .color.darker { background-color: #b6d7a8; }
+.nature .color.darker { background-color: #b6d7a8; } /* green */
 .building .color.darker { background-color: #d9d9d9; }
 .information .color.darker { background-color: #ffe599; }
 .interface .color.darker { background-color: #ffe599; }
@@ -142,5 +142,27 @@
 .religion .color.lighter { background: #ffe599; }
 .other .color.lighter { background: #e6b8af; }
 
+/* BORDERS */
+.who.boxes .border { border-color: #70a5ac; } /* dark blue */
+.what.boxes .border { border-color: #72b257; } /* dark green */
+.how.boxes .border { border-color: #444; } /* dark grey */
+.where.boxes .border { border-color: #ffae4b; } /* dark orange */
+.when.boxes .border { border-color: #ad8100; } /* dark yellow */
+.why.boxes .border { border-color: #6c53a3; } /* dark purple */
+.store .border { border-color: #999; } /* medium grey */
 
+nav.icons .who .icon { background-color: #a2c4c9; } /* blue */
+nav.icons .what .icon { background-color: #b6d7a8; } /* green */
+nav.icons .how .icon { background-color: #d9d9d9; } /* grey */
+nav.icons .where .icon { background-color: #ffd199; } /* orange */
+nav.icons .when .icon { background-color: #ffe599; } /* yellow */
+nav.icons .why .icon { background-color: #d9d2e9; } /* purple */
+
+nav.icons .icon {
+    border-radius: 3px;
+    border: 1px solid #777;
+	width: 35px;
+	height: 35px;
+	box-shadow: 1px 1px 1px #999;
+}
 /***** COLOR.CSS END *****/
