@@ -1,6 +1,6 @@
 <?php
 
-defined( 'SITE' ) || exit;
+defined( 'NDA' ) || exit;
 
 /**
  * SITE constants with boolean value.

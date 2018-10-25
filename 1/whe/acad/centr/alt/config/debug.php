@@ -1,6 +1,6 @@
 <?php
 
-defined( 'SITE' ) || exit;
+defined( 'NDA' ) || exit;
 
 // Rename this file to turn WordPress debug mode OFF.
 

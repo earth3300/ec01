@@ -1,6 +1,6 @@
 <?php
 
-defined( 'SITE' ) || exit;
+defined( 'NDA' ) || exit;
 
 /**
  * Loads the configuration files. May include some logic.

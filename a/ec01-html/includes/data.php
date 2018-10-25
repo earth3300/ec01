@@ -1,6 +1,6 @@
 <?php
 
-defined( 'SITE' ) || exit;
+defined( 'NDA' ) || exit;
 
 /**
  * Get Tier Two Data (Three Characters).
@@ -80,6 +80,7 @@ function get_tier_three_data(){
 		'serv' => [ 'name' => 'service' ],
 		'whsl' => [ 'name' => 'wholesale' ],
 		'stor' => [ 'name' => 'store' ],
+		'dsgn' => [ 'name' => 'design' ],
 
 		// recycling
 		'reco' => [ 'name' => 'recovery' ],
@@ -106,6 +107,7 @@ function get_tier_four_data(){
 	$arr = [
 		'centr' => [ 'name' => 'center' ],
 
+		// Who
 		'chemi' => [ 'name' => 'chemistry', 'who' => 'chemist', ],
 		'cogni' => [ 'name' => 'cognition', 'who' => 'psychologist', ],
 		'cymat' => [ 'name' => 'cymatics', 'who' => 'cymaticist', ],
@@ -161,6 +163,7 @@ function get_tier_four_data(){
 		'presg' => [ 'name' => 'presenting', 'who' => 'presenter', ],
 		'video' => [ 'name' => 'video', 'who' => 'videographer', ],
 		'writg' => [ 'name' => 'writing', 'who' => 'writer', ],
+		'grphc' => [ 'name' => 'graphics', 'who' => 'graphics-designer', ],
 
 		'carpt' => [ 'name' => 'carpentry', 'who' => 'carpenter', ],
 		'drywl' => [ 'name' => 'drywall', 'who' => 'drywaller', ],

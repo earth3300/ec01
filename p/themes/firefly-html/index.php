@@ -36,7 +36,7 @@ if( function_exists( 'wp_get_server_protocol' ) )
 else
 {
 	/** We are not in WordPress, and check for direct access. */
-	defined('SITE') || exit('No direct access.');
+	defined('NDA') || exit('No direct access.');
 }
 
 if ( ! defined( 'SITE_PATH' ) && defined('ABSPATH') )

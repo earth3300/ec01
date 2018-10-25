@@ -1,6 +1,6 @@
 <?php
 
-defined( 'SITE' ) || exit;
+defined( 'NDA' ) || exit;
 
 /**
  * The "model" as defined here is the system that is designed to achieve a goal

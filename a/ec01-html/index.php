@@ -1,26 +1,26 @@
 <?php
 
 /**
- * FireFly HTML.
+ * EC01 HTML.
  *
  * A lighweight alternative to displaying HTML. Can be used on its own, or as a WordPress theme.
  * Requires SITE_ constants, defined in: `/c/cfg-structure.php`.
  *
- * @package FireFlyHTML
- * @since 2018.9.0
+ * @package EC01HTML
+ * @since 2018.10.25
  * @author Clarence Bos <cbos@tnoep.ca>
  * @copyright Copyright (c) 2018, Clarence Bos
  * @license https://www.gnu.org/licenses/gpl-3.0.en.html GPL-3.0+
- * @link http://wp.cbos.ca/themes/firefly-html/
+ * @link http://wp.cbos.ca/themes/ec01-html/
  *
  * @wordpress-theme
- * Plugin Name: FireFly HTML
- * Plugin URI: http://wp.cbos.ca/themes/firefly-html/
+ * Theme Name: EC01 HTML
+ * Theme URI: http://wp.cbos.ca/themes/ec01-html/
  * Description: A lightweight alternative to displaying HTML. Can be used on its own or as a WordPress theme.
- * Version: 2018.9.0
+ * Version: 2018.10.25
  * Author: Clarence Bos
  * Author URI: https://www.tnoep.ca/
- * Text Domain: firefly-html
+ * Text Domain: ec01-html
  * License: GPL-3.0+
  * License URI: https://www.gnu.org/licenses/gpl-3.0.en.html
  */
@@ -36,7 +36,7 @@ if( function_exists( 'wp_get_server_protocol' ) )
 else
 {
 	/** We are not in WordPress, and check for direct access. */
-	defined('SITE') || exit('No direct access.');
+	defined('NDA') || exit('No direct access.');
 }
 
 if ( ! defined( 'SITE_PATH' ) && defined('ABSPATH') )
@@ -56,13 +56,13 @@ elseif( defined( 'SITE_PATH' ) )
 		require_once( __DIR__ . '/includes/engine.php' );
 
 		/**
-		 * Instantiate the FireFlyHTML class and echo it.
+		 * Instantiate the EC01HTML class and echo it.
 		 *
 		 * The class does all the rest of the work.
 		 * It does not use a database. If we got this far, the class exists
 		 * in the engine directory, otherwise it is *really* broken.
 		 */
-		$html = new FireFlyHTML();
+		$html = new EC01HTML();
 		echo $html->get();
 	}
 	else

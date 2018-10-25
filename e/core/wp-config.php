@@ -1,8 +1,8 @@
 <?php
 
-if ( ! defined( 'SITE' ) ){
+if ( ! defined( 'NDA' ) ){
 	/** Used to ensure files are not accessed directly. */
-	define( 'SITE', true );
+	define( 'NDA', true );
 }
 ;
 /** Default: false */

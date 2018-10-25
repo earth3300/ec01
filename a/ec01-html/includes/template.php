@@ -1,13 +1,13 @@
 <?php
 
-defined( 'SITE' ) || exit;
+defined( 'NDA' ) || exit;
 
 /**
- * The FireFly HTML Template.
+ * The EC01 HTML Template.
  *
  * @return string
  */
-class FireFlyTemplate extends FireFlyHTML{
+class EC01Template extends EC01HTML{
 
 	/**
 	 * Get the HTML

@@ -15,7 +15,7 @@
 .process .color.lighter { background: #e6b8af; } /* light magenta */
 .method .color.lighter { background: #e6b8af; } /* light magenta */
 .standard .color.lighter { background: #f4cccc; } /* light violet */
-.design .color.lighter { background: #ea9999; } /* light purple */
+.design .color.lighter { background: #ffd966;} /* light yellow */
 .equipment .color.lighter { background: #fce5cd; } /* light orange */
 .resource .color.lighter { background: #d9ead3; } /* light green */
 .service .color.lighter { background: #a2c4c9; } /* medium blue */
@@ -49,7 +49,7 @@
 .process .color.darker { background-color: #e6b8af; }
 .method .color.darker { background-color: #cccccc; }
 .standard .color.darker { background-color: #f4cccc; }
-.design .color.darker { background-color: #ea9999; }
+.design .color.darker { background-color: #fc3; } /* darker yellow */
 .equipment .color.darker { background-color: #fce5cd; }
 .resource .color.darker { background-color: #d9ead3; }
 .service .color.darker { background-color: #a2c4c9; }
@@ -118,6 +118,7 @@
 .writing .color.lighter { background-color: #f9cb9c; }
 .audio .color.lighter { background-color: #ffe599; }
 .photography .color.lighter { background-color: #b6d7a8; }
+.graphics .color.lighter { background-color: #d0bef4; }
 .video .color.lighter { background-color: #9fc5e8; }
 .presenting .color.lighter { background-color: #b4a7d6; }
 

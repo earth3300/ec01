@@ -1,6 +1,6 @@
 <?php
 
-( defined( 'SITE' ) || defined( 'WP_ADMIN' ) ) || exit;
+( defined( 'NDA' ) || defined( 'WP_ADMIN' ) ) || exit;
 
 /***** USER EDITABLE VARIABLES BEGIN *****/
 

@@ -142,7 +142,7 @@ class BaseMedia
  * @see `/c/config/site/cfg-structure.php` for a list of these contants and their values.
  */
 if ( 0 ) {
-	if( defined('SITE') )
+	if( defined('NDA') )
 	{
 		{
 		$base_media = new BaseMedia();

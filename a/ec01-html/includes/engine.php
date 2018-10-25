@@ -3,9 +3,9 @@
 defined( 'SITE' ) || exit;
 
 /**
- * The FireFly HTML Engine.
+ * The EC01 HTML Engine.
  */
-class FireFlyHTML
+class EC01HTML
 {
 
 	/**
@@ -17,7 +17,7 @@ class FireFlyHTML
 	{
 		$this->load();
 		$page = $this->getPage();
-		$template = new FireFlyTemplate();
+		$template = new EC01Template();
 		$html = $template->getHtml( $page );
 		return $html;
 	}
@@ -37,10 +37,10 @@ class FireFlyHTML
 	private function getPage()
 	{
 		$page = $this->getUri();
-		$page = $this-> getPageData( $page );
 		$page['slug'] = $this-> getPageSlug( $page );
-		$page['header']['main'] = $this->getHeader( $page );
 		$page['article']= $this-> getArticle( $page );
+		$page = $this-> getPageData( $page ); //needs the article, to get the class.
+		$page['header']['main'] = $this->getHeader( $page );
 		$page['article-title'] = $this-> getArticleTitle( $page['article'] );
 		$page['header']['sub'] = defined( 'SITE_USE_HEADER_SUB' ) && SITE_USE_HEADER_SUB ? $this-> getHeaderTierThree( $page ) : '';
 		$page['page-title'] = $this-> getPageTitle( $page );
@@ -232,9 +232,13 @@ class FireFlyHTML
 		{
 			$file = SITE_PATH . SITE_ARTICLE_FILE;
 		}
-		else
+		elseif ( isset( $page['slug'] ) )
 		{
 			$file = SITE_HTML_PATH . rtrim( $page['slug'], '/' ) . SITE_ARTICLE_FILE;
+		}
+		else
+		{
+			$file = SITE_HTML_PATH . '/default.html';
 		}
 		return $file;
 	}
@@ -279,9 +283,9 @@ class FireFlyHTML
 
 		$tier4 = $this->getUriTierFour( $page );
 
-		$page['class']['tier-4'] = $tier4['class'];
-
 		$page['tier-4']['title'] = $tier4['title'];
+
+		$page['class']['tier-4'] = $tier4['class'];
 
 		$page['class']['article'] = $this->getArticleClass( $page['article'] );
 

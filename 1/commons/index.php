@@ -1,7 +1,7 @@
 <?php
 
 /** Used to ensure files are not accessed directly. */
-define( 'SITE', true );
+define( 'NDA', true );
 
 /** Call a separate file in case this one is overwritten */
 if ( file_exists( __DIR__ . '/main.php' ) ) {

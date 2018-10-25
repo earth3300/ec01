@@ -1,7 +1,7 @@
 <?php
 
 /** Do not call directly */
-defined( 'SITE' ) || exit;
+defined( 'NDA' ) || exit;
 
 /** Set a timer to measure performance. */
 global $site_elapsed;
