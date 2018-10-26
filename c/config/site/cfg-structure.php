@@ -3,12 +3,6 @@
 ( defined( 'NDA' ) || defined( 'WP_ADMIN' ) ) || exit;
 
 /**
- * A generic No Direct Access (NDA) check constant.
- * If this is not present, do not load the file.
- */
-define( 'NDA', true );
-
-/**
  * Loads the directory structure.
  *
  * Starts with the directory names, then builds the path based on these names.

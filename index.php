@@ -20,7 +20,10 @@ define( 'SITE_DIR', '/' . basename(__DIR__) );
  * site and assigns it to constants so that it can these can be used site wide.
  * and by the different frameworks, that will then inherit these values.
  */
-require_once( __DIR__ . '/c/config/cfg-load.php' );
+if ( file_exists( __DIR__ . '/c/config/cfg-load.php' ) )
+{
+	require_once( __DIR__ . '/c/config/cfg-load.php' );
+}
 
 /** Use this directory as the domain name if it is not commented out. Set in /c/config/ otherwise. */
 //define( 'SITE_DOMAIN_NAME', basename(__DIR__) );
@@ -40,6 +43,12 @@ else if ( defined('SITE_USE_MINIMAL') && SITE_USE_MINIMAL
 {
 	require_once( SITE_MINIMAL_PATH . '/index.php' );
 }
+else if ( file_exists( __DIR__ . '/a/ec01-html/index.php' ) )
+{
+	/** Look for it where we expect it. */
+	require_once( __DIR__ . '/a/ec01-html/index.php' );
+}
+
 /** Otherwise, look for index.html file and serve that. */
 else if ( file_exists( __DIR__ . "/index.html" ) )
 {

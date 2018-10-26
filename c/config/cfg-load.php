@@ -31,19 +31,19 @@ require_once( __DIR__ . '/site' . '/cfg-site-default.php' );
 
 /** These files depend on the "enhanced" configuration. */
 
-if ( file_exists( __DIR__ . '/site/other' . '/cfg-debug.php' ) ) {
+if ( file_exists( __DIR__ . '/site/wordpress' . '/cfg-debug.php' ) ) {
 	/** Optional */
-	require_once( __DIR__ . '/site/other' . '/cfg-debug.php' );
+	require_once( __DIR__ . '/site/wordpress' . '/cfg-debug.php' );
 }
 
-if ( file_exists( __DIR__ . '/site/other' . '/cfg-wordpress.php' ) ) {
+if ( file_exists( __DIR__ . '/site/wordpress' . '/cfg-wordpress.php' ) ) {
 	/** Required if WordPress used */
-	require_once( __DIR__ . '/site/other' . '/cfg-wordpress.php' );
+	require_once( __DIR__ . '/site/wordpress' . '/cfg-wordpress.php' );
 }
 
-if ( file_exists( __DIR__ . '/site/other' . '/cfg-plugins.php' ) ) {
+if ( file_exists( __DIR__ . '/site/wordpress' . '/cfg-plugins.php' ) ) {
 	/** Important if WordPress used */
-	require_once( __DIR__ . '/site/other' . '/cfg-plugins.php' );
+	require_once( __DIR__ . '/site/wordpress' . '/cfg-plugins.php' );
 }
 
 if ( ( defined( 'SITE_USE_CORE' ) && SITE_USE_CORE ) || ( defined( 'WP_ADMIN' ) && WP_ADMIN ) ) {

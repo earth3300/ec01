@@ -26,7 +26,19 @@ class EC01HTML
 	 * Load the required files.
 	 */
 	private function load(){
-		require_once( __DIR__ . '/data.php' );
+		/** This file may contain extra information. */
+		if( file_exists( __DIR__ . '/data.php' ) )
+		{
+			/** Using extra data to help define the site */
+			define('SITE_USE_TIERS', true );
+
+			require_once( __DIR__ . '/data.php' );
+		}
+		else
+		{
+			/** Not using extra data to help define the site. */
+			define('SITE_USE_TIERS', false );
+		}
 		require_once( __DIR__ . '/template.php' );
 	}
 
@@ -37,12 +49,15 @@ class EC01HTML
 	private function getPage()
 	{
 		$page = $this->getUri();
-		$page['slug'] = $this-> getPageSlug( $page );
-		$page['article']= $this-> getArticle( $page );
-		$page = $this-> getPageData( $page ); //needs the article, to get the class.
+		$page['slug'] = $this->getPageSlug( $page );
+		$page['article']= $this->getArticle( $page );
+		$page = $this->getPageData( $page ); //needs the article, to get the class.
 		$page['header']['main'] = $this->getHeader( $page );
-		$page['article-title'] = $this-> getArticleTitle( $page['article'] );
-		$page['header']['sub'] = defined( 'SITE_USE_HEADER_SUB' ) && SITE_USE_HEADER_SUB ? $this-> getHeaderTierThree( $page ) : '';
+		$page['article-title'] = $this->getArticleTitle( $page['article'] );
+		if ( SITE_USE_TIERS )
+		{
+			$page['header']['sub'] = defined( 'SITE_USE_HEADER_SUB' ) && SITE_USE_HEADER_SUB ? $this-> getHeaderTierThree( $page ) : '';
+		}
 		$page['page-title'] = $this-> getPageTitle( $page );
 		$page['sidebar']= defined( 'SITE_USE_SIDEBAR' ) && SITE_USE_SIDEBAR ? $this->getSidebar() : '';
 		$page['footer']= $this-> getFooter();
@@ -122,9 +137,11 @@ class EC01HTML
 	/**
 	 * Get the header file. (Tiers 1 and 2).
 	 *
+	 * Not used by default.
+	 *
 	 * @param array $page
 	 *
-	 * @return str
+	 * @return string
 	 */
 	private function getHeaderFile( $page )
 	{
@@ -222,8 +239,10 @@ class EC01HTML
 	}
 
 	/**
-	 * Get the article directory
+	 * Get the article directory.
+	 *
 	 * @param array $page
+	 * 
 	 * @return string
 	 */
 	private function getArticleDirectory( $page )
@@ -273,19 +292,22 @@ class EC01HTML
 	 */
 	private function getPageData( $page )
 	{
+		if ( SITE_USE_TIERS )
+		{
+			$page['tiers'] = $this->getUriTiers( $page['uri'] );
+
+			$page['class']['tier-2'] = $this->getUriTierTwo( $page['tiers'] );
+
+			$page['class']['tier-3'] = $this->getUriTierThree( $page['tiers'] );
+
+			$tier4 = $this->getUriTierFour( $page );
+
+			$page['tier-4']['title'] = $tier4['title'];
+
+			$page['class']['tier-4'] = $tier4['class'];
+		}
+
 		$page['class']['dynamic'] = $this->isPageDynamic( $page );
-
-		$page['tiers'] = $this->getUriTiers( $page['uri'] );
-
-		$page['class']['tier-2'] = $this->getUriTierTwo( $page['tiers'] );
-
-		$page['class']['tier-3'] = $this->getUriTierThree( $page['tiers'] );
-
-		$tier4 = $this->getUriTierFour( $page );
-
-		$page['tier-4']['title'] = $tier4['title'];
-
-		$page['class']['tier-4'] = $tier4['class'];
 
 		$page['class']['article'] = $this->getArticleClass( $page['article'] );
 
@@ -462,7 +484,14 @@ class EC01HTML
 		$str .= '<footer class="site-footer">' . PHP_EOL;
 		$str .= '<div class="inner">' . PHP_EOL;
 		/** SITE_YEAR_TO_NOW is empty string if same as SITE_YEAR_START, else '&ndash' . date('Y'); */
-		$str .= sprintf( '<span class="copyright">Copyright &copy; %s%s %s</span>', SITE_YEAR_START, SITE_YEAR_TO_NOW, SITE_TITLE );
+		if ( SITE_USE_BASIC )
+		{
+			$str .= sprintf( '<span class="copyright">Copyright &copy; %s %s</span>', date('Y'), SITE_TITLE );
+		}
+		else
+		{
+			$str .= sprintf( '<span class="copyright">Copyright &copy; %s%s %s</span>', SITE_YEAR_START, SITE_YEAR_TO_NOW, SITE_TITLE );
+		}
 		$str .= '<nav class="hide">' . PHP_EOL;
 		$str .= '<ul class="horizontal-menu">' . PHP_EOL;
 		$str .= '<li><a href="/page/privacy/">Privacy</a></li>' . PHP_EOL;
