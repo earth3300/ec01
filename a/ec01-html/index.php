@@ -7,17 +7,17 @@
  * A basic set of constants are in this index file.
  *
  * @package EC01HTML
- * @since 2018.10.25
+ * @since 2018.10.29
  * @author Clarence Bos <cbos@tnoep.ca>
  * @copyright Copyright (c) 2018, Clarence Bos
  * @license https://www.gnu.org/licenses/gpl-3.0.en.html GPL-3.0+
- * @link http://wp.cbos.ca/themes/ec01-html/
+ * @link https://github.com/earth3300/ec01-html
  *
  * @wordpress-theme
  * Theme Name: EC01 HTML
- * Theme URI: http://wp.cbos.ca/themes/ec01-html/
+ * Theme URI: https://github.com/earth3300/ec01-html
  * Description: A lightweight alternative to displaying HTML. Can be used on its own or as a WordPress theme.
- * Version: 2018.10.25
+ * Version: 2018.10.29
  * Author: Clarence Bos
  * Author URI: https://www.tnoep.ca/
  * Text Domain: ec01-html
