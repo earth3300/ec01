@@ -4,6 +4,9 @@ defined( 'NDA' ) || exit;
 
 /**
  * The EC01 HTML Engine.
+ *
+ * This file contains the entire codeset and logic to construct the page. The
+ * page is actually constructed using the `template.php` file.
  */
 class EC01HTML
 {
@@ -24,6 +27,12 @@ class EC01HTML
 
 	/**
 	 * Load the required files.
+	 *
+	 * The `data.php` file is optional. It is being developed to allow
+	 * more complex page headers to be constructed. In its most basic form
+	 * only one header type is constructed. When this is the case, no extra
+	 * data is needed. However, the `template.php` is required. It is not
+	 * optional.
 	 */
 	private function load(){
 		/** This file may contain extra information. */
@@ -43,14 +52,36 @@ class EC01HTML
 	}
 
 	/**
-	 * Get the page
+	 * Get the page.
+	 *
+	 * This function takes no arguments. All of the work is done, starting from
+	 * this function. Ths includes checking the URI, getting the page slug (which
+	 * can include multiple directories. It also needs to include the name of
+	 * the directory in which the file is found. This can then be used to check for
+	 * a file of the same name as the containing direcory, in case the default
+	 * name for the file (article.html) is not found. It returns the entire page
+	 * as an array, which can then be translated into HTML by the template file.
+	 *
+	 * @param none
+	 *
 	 * @return array
 	 */
 	private function getPage()
 	{
 		$page = $this->getUri();
 		$page['slug'] = $this->getPageSlug( $page );
-		$page['article']= $this->getArticle( $page );
+		$page['dir'] = $this->getPageDir( $page );
+		$page['file'] = $this->getArticlePathandFileName( $page );
+		if( $page['file']['page'] )
+		{
+			$page['page'] = $this->getPageFile( $page );
+			$page['article'] = false;
+		}
+		else
+		{
+			$page['page']= false;
+			$page['article'] = $this->getArticleFile( $page );
+		}
 		$page = $this->getPageData( $page ); //needs the article, to get the class.
 		$page['header']['main'] = $this->getHeader( $page );
 		$page['article-title'] = $this->getArticleTitle( $page['article'] );
@@ -67,7 +98,8 @@ class EC01HTML
 	/**
 	 * Get the filtered URI, ensuring it is safe, without the query string.
 	 *
-	 * Available: REQUEST_URI, QUERY_STRING and parse_url();
+	 * Available: REQUEST_URI, QUERY_STRING and parse_url(); Some work needs to
+	 * be done here to be absolutely sure that the URI is safe.
 	 *
 	 * @return boolean|string
 	 */
@@ -92,6 +124,8 @@ class EC01HTML
 	/**
 	 * Get the page slug.
 	 *
+	 * The page slug is the uri, with the following slash removed.
+	 *
 	 * @param array $page
 	 *
 	 * @return string
@@ -100,6 +134,30 @@ class EC01HTML
 	{
 		$slug = rtrim( $page['uri'], '/' );
 		return $slug;
+	}
+
+	/**
+	 * Get the page directory.
+	 *
+	 * The page directory is the name of the directory containing the page.
+	 * It is only one level deep (no nested directories).
+	 *
+	 * @param array $page
+	 *
+	 * @return string|bool
+	 */
+	private function getPageDir( $page )
+	{
+		$regex = '/\/([a-z]{3,25})$/';
+		preg_match( $regex, $page['slug'], $match );
+		if ( isset( $match[1] ) )
+		{
+			$dir = '/' . $match[1];
+			return $dir;
+		}
+		else {
+			return false;
+		}
 	}
 
 	/**
@@ -217,17 +275,19 @@ class EC01HTML
 	/**
 	 * Get the article.
 	 *
+	 * Do a basic check on the file length, to make sure nothing
+	 * squirrely is happening here.
+	 *
 	 * @param array $page
 	 *
 	 * @return string
 	 */
-	private function getArticle( $page )
+	private function getArticleFile( $page )
 	{
 		$str = '<article>Article N/A.</article>';
+		$file = $page['file']['name'];
 
-		$file = $this->getArticleDirectory( $page );
-
-		if ( file_exists( $file ) )
+		if ( strlen ( $file ) < 120 )
 		{
 			$str = file_get_contents( $file );
 			return $str;
@@ -239,26 +299,91 @@ class EC01HTML
 	}
 
 	/**
-	 * Get the article directory.
+	 * Get the page.
+	 *
+	 * The page exists. We are just being nice and delivering it as is. A basic
+	 * check on the file length is done. Otherwise, nothing much here.
 	 *
 	 * @param array $page
-	 * 
+	 *
 	 * @return string
 	 */
-	private function getArticleDirectory( $page )
+	private function getPageFile( $page )
 	{
-		if ( $page['front-page'] )
+		$str = "This page doesn't exist.";
+		$file = $page['file']['name'];
+		if ( strlen ( $file ) < 120 )
 		{
-			$file = SITE_PATH . SITE_ARTICLE_FILE;
-		}
-		elseif ( isset( $page['slug'] ) )
-		{
-			$file = SITE_HTML_PATH . rtrim( $page['slug'], '/' ) . SITE_ARTICLE_FILE;
+			$str = file_get_contents( $file );
+			return $str;
 		}
 		else
 		{
-			$file = SITE_HTML_PATH . '/default.html';
+			return $str;
 		}
+	}
+
+	/**
+	 * Get the Verfied Article Path and File Name.
+	 *
+	 * We need to do quite a bit of work here because we want to ensure that
+	 * natural ways of saving a file are taken into account. Also, it is possible
+	 * that the page is already saved as a complete HTML page with a DOCTYPE. If
+	 * this is the case then we don't want to wrap a complete page inside a another
+	 * page.
+	 *
+	 * @param array $page
+	 *
+	 * @return array
+	 */
+	private function getArticlePathandFileName( $page )
+	{
+		if ( $page['front-page'] )
+		{
+			if ( file_exists( SITE_PATH . SITE_ARTICLE_FILE ) )
+			{
+				$file['name'] = SITE_PATH . SITE_ARTICLE_FILE;
+				$file['page'] = false;
+			}
+			elseif ( file_exists( SITE_PATH . SITE_DEFAULT_FILE ) )
+			{
+				$file['name'] = SITE_PATH . SITE_DEFAULT_FILE;
+				$file['page'] = true;
+			}
+		}
+		elseif ( isset( $page['slug'] ) )
+		{
+			if ( file_exists( SITE_HTML_PATH . $page['slug'] . SITE_ARTICLE_FILE ) )
+			{
+				$file['name'] = SITE_HTML_PATH . $page['slug'] . SITE_ARTICLE_FILE;
+				$file['page'] = false;
+			}
+			elseif( file_exists( SITE_HTML_PATH . $page['slug'] . $page['dir'] . SITE_HTML_EXT ) )
+			{
+				$file['name'] = SITE_HTML_PATH . $page['slug'] . $page['dir'] . SITE_HTML_EXT;
+				$file['page'] = false;
+			}
+			elseif ( file_exists( SITE_HTML_PATH . $page['slug'] . SITE_DEFAULT_FILE ) )
+			{
+				$file['name'] = SITE_HTML_PATH . $page['slug'] . SITE_DEFAULT_FILE;
+				$file['page'] = true;
+			}
+			else
+			{
+				$file['name'] = false;
+				$file['page'] = false;
+			}
+		}
+		elseif ( file_exists( SITE_HTML_PATH . SITE_DEFAULT_FILE ) )
+		{
+			$file['name'] = SITE_HTML_PATH . SITE_DEFAULT_FILE;
+			$file['page'] = true;
+		}
+		else {
+				$file['name'] = false;
+				$file['page'] = false;
+		}
+
 		return $file;
 	}
 

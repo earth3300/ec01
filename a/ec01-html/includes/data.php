@@ -90,6 +90,17 @@ function get_tier_three_data(){
 		'sust' => [ 'name' => 'sustainability' ],
 		'reln' => [ 'name' => 'religion' ],
 		'othr' => [ 'name' => 'other' ],
+
+		// wki
+		'logc' => [ 'name' => 'logic' ],
+		'math' => [ 'name' => 'mathematics' ],
+		'comp' => [ 'name' => 'computing' ],
+		'phyc' => [ 'name' => 'physics' ],
+
+		'chem' => [ 'name' => 'chemistry' ],
+		'biol' => [ 'name' => 'biology' ],
+		'syst' => [ 'name' => 'systems' ],
+		'cogn' => [ 'name' => 'cognition' ],
 	];
 	return $arr;
 }
@@ -141,7 +152,7 @@ function get_tier_four_data(){
 		'servg' => [ 'name' => 'serving', 'who' => 'server', ],
 		'storg' => [ 'name' => 'storage', 'who' => 'storage', ],
 
-		'bodyc' => [ 'name' => 'baking', 'who' => 'bodyc', ],
+		'bodyc' => [ 'name' => 'bodyc', 'who' => 'bodyc', ],
 		'cloth' => [ 'name' => 'clothing', 'who' => 'tailor', ],
 		'hairc' => [ 'name' => 'haircare', 'who' => 'hairdresser', ],
 		'nutri' => [ 'name' => 'nutrition', 'who' => 'nutritionist', ],

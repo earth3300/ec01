@@ -77,7 +77,9 @@ elseif( defined( 'SITE_PATH' ) )
 		define( 'SITE_ELAPSED_TIME', false );
 		define( 'SITE_IS_FIXED_WIDTH', false );
 		define( 'SITE_USE_CSS_CHILD', false );
+		define( 'SITE_HTML_EXT', '.html' );
 		define( 'SITE_ARTICLE_FILE', '/article.html' );
+		define( 'SITE_DEFAULT_FILE', '/default.html' );
 		define( 'SITE_HTML_PATH', SITE_PATH . '/1' );
 	}
 

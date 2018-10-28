@@ -25,6 +25,9 @@
 .download .color.lighter { background: #279f43; }
 
 /* headers have a stronger color, same shade */
+
+.color.darker { background: #999; } /* darker grey */
+
 .trade .color.darker { background-color: #ffa332; } /* orange */
 .applied .color.darker { background-color: #45818e; } /* cyan */
 .gardening .color.darker { background-color: #9e6933; } /* brown */
@@ -57,6 +60,8 @@
 .download .color.darker { background-color: #279f43; }
 
 /* SUB LEVEL COLORS */
+
+.color.lighter { background: #d9d9d9; } /* light grey */
 
 /* TRADE */
 .trade .color.lighter { background: #ffd199; } /* orange */

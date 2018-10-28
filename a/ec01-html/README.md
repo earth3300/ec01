@@ -51,7 +51,7 @@ The second way it can be used is as a theme of WordPress, which is then saved in
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
 "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
-document are to be interpreted as described in RFC 2119.
+document are to be interpreted as described in [RFC 2119](https://www.ietf.org/rfc/rfc2119.txt).
 
 ## Installation
 
@@ -78,7 +78,7 @@ document are to be interpreted as described in RFC 2119.
 1. Upload the theme files to the `/{wp-content}/themes/ec01-html` directory.
 2. Activate the theme through the 'Themes' screen in WordPress.
 3. Proceed as normal.
-4. TODO: The EC01 HTML theme system works by looking for files called `article.html` in a directory structure that matches the URL structure. In order for this to work, WordPress MUST save pages or posts in a directory (under the top level root directory called `/1`) that match the URL exactly. It does not do this by default.
+4. TODO: The EC01 HTML theme system works by looking for files called `article.html` in a directory structure that matches the URL structure. In order for this to work, WordPress MUST save pages or posts in a directory (under the top level root directory called `/1`) that matches the URL exactly. It does not do this by default.
 
 At the time of this writing a simple plugin has been written that DOES do this, however it behaves incorrectly when a page or post is deleted. It is hoped that this will be fixed in the near future. In the meantime, EC01 HTML _can_ be used as a theme, _provided_ that the files it is looking for (`article.html`) is in a directory that matches the URL structure. i.e. the URL `/my/awesome/idea/` maps to `my/awesome/idea/article.html' in the file structure (i.e. on your host and on your local computer.
 

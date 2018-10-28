@@ -16,7 +16,7 @@
  *
  * Lines 18 ~ 100
  */
-.sprite .icon8x1, .center > .icon { background-position: -525px -280px; }
+.sprite .icon16x9, .center .icon { background-position: -525px -280px; }
 
 /* First row */
 .sprite .icon2x1, .carpenter .icon { background-position: -35px 0; }

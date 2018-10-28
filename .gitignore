@@ -5,6 +5,8 @@
 
 .*
 
+_*
+
 ## DO NOT POST (DNP)
 
 *.dnp.*
@@ -44,6 +46,7 @@
 # bin/
 # core/
 # vendor/
+wki/
 
 d/
 # dependency manager (for now)

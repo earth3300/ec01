@@ -343,6 +343,9 @@ define( 'SITE_HTML_EXT', '.html' );
 /** Article file name (including .html extension and preceding forward slash). */
 define( 'SITE_ARTICLE_FILE', '/article.html' );
 
+/** Default file name (assumes complete page, including DOCTYPE). */
+define( 'SITE_DEFAULT_FILE', '/default.html' );
+
 /*** THEME PATH ***/
 
 /** Theme Path */
