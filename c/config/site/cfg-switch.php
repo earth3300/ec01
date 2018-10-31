@@ -5,6 +5,8 @@ defined( 'NDA' ) || exit;
 /**
  * "High Level" Main Routing Switch
  *
+ * @file cfg-switch.php
+ *
  * See bottom for notes
  */
 

@@ -1,5 +1,7 @@
 <?php
 
+namespace Earth3300\EC01;
+
 /**
  * EC01 HTML.
  *
@@ -8,8 +10,8 @@
  *
  * @package EC01HTML
  * @since 2018.10.29
- * @author Clarence Bos <cbos@tnoep.ca>
- * @copyright Copyright (c) 2018, Clarence Bos
+ * @author Clarence J. Bos <cbos@tnoep.ca>
+ * @copyright Copyright (c) 2018, Clarence J. Bos
  * @license https://www.gnu.org/licenses/gpl-3.0.en.html GPL-3.0+
  * @link https://github.com/earth3300/ec01-html
  *
@@ -18,8 +20,8 @@
  * Theme URI: https://github.com/earth3300/ec01-html
  * Description: A lightweight alternative to displaying HTML. Can be used on its own or as a WordPress theme.
  * Version: 2018.10.29
- * Author: Clarence Bos
- * Author URI: https://www.tnoep.ca/
+ * Author: Clarence J. Bos
+ * Author URI: https://github.com/earth3300
  * Text Domain: ec01-html
  * License: GPL-3.0+
  * License URI: https://www.gnu.org/licenses/gpl-3.0.en.html

@@ -19,7 +19,10 @@ Options -Indexes
 
 # SECURITY END
 
-DirectoryIndex index.php default.html index.html
+DirectoryIndex fallback.html index.php
+# Look for files in this order.
+
+# DirectoryIndex index.php default.html
 # Look for files in this order.
 
 <IfModule mod_deflate.c>
