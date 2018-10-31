@@ -4,7 +4,7 @@
 define( 'NDA', true );
 
 /** Default: true. Set to false if critical problems */
-define( 'SITE_NORMAL', false );
+define( 'SITE_NORMAL', true );
 
 /** The main engine ( use the correct word, with no typos). */
 define( 'SITE_ENGINE_MAIN', 'wordpress' );
@@ -88,5 +88,5 @@ else {
 	else {
 		echo "<div style='font:16px/1.6 sans-serif;text-align:center;'><br>";
 		echo "Nothing here.</div>" . PHP_EOL;
-}
+	}
 }

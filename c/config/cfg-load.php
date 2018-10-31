@@ -1,6 +1,7 @@
 <?php
 
-defined( 'NDA' ) || exit;
+//defined('NDA') || exit('NDA');
+defined('NDA') || exit(header('Location: default.html' ));
 
 /**
  * Loads the configuration files. May include some logic.
@@ -10,7 +11,7 @@ defined( 'NDA' ) || exit;
  */
 
 /** Site Main Breaker Switch. */
-require_once( __DIR__ . '/site' . '/cfg-switch.php' );
+require_once( __DIR__ . '/cfg-switch.php' );
 
 /**
  * If called from an alternate location, we need to ensure we have this. Required.

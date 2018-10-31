@@ -1,6 +1,6 @@
 <?php
 
-defined( 'NDA' ) || exit;
+defined('NDA') || exit('NDA');
 
 /**
  * WordPress Constants.

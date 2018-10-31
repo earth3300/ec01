@@ -300,6 +300,7 @@ class EC01HTML
 	 */
 	private function getArticleFile( $page )
 	{
+		var_dump( $page );
 		$str = '<article>Article N/A.</article>';
 		$file = $page['file']['name'];
 
@@ -328,6 +329,7 @@ class EC01HTML
 	{
 		$str = "This page doesn't exist.";
 		$file = $page['file']['name'];
+		echo strlen ( $file );
 		if ( strlen ( $file ) < 120 )
 		{
 			$str = file_get_contents( $file );
