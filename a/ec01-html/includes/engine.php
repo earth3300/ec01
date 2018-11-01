@@ -300,11 +300,11 @@ class EC01HTML
 	 */
 	private function getArticleFile( $page )
 	{
-		var_dump( $page );
 		$str = '<article>Article N/A.</article>';
+
 		$file = $page['file']['name'];
 
-		if ( strlen ( $file ) < 120 )
+		if ( ! empty( $file ) && strlen ( $file ) < 120 )
 		{
 			$str = file_get_contents( $file );
 			return $str;
