@@ -1,6 +1,17 @@
 # EC01
 
-# CDN Prep / PHP Secured
+This package attempts to pull together the files and directory structure needed to run a community of between 150 and 450 people. It is not intended for a community or set of people numbering 5,000 and up. By using the directory structure and static files as much as possible before a database is invoked, this makes this configuration readable by a lower level of tech. That is, anything that can view an image or a view and edit a text file can use this system, without the need for a database set up on the system. This is by design.
 
-All PHP files should be in "e" (except for user files). All other files can (also) be served via CDN. This is tricky, but it can be expensive if not done properly from the beginning. 
+## Configuration
 
+A lot of the "heavy lifting" is done by the configuration files (`/c/config/`). The intent here is to move toward a platform agnostic approach, so that the directory structure and constants already set and worked upon can be used by different platforms. It is recognized that each platform may have its own particular flavour, however, as the end results MUST be valid HTML, CSS and Javascript, the abstract model that one uses SHOULD be able to be used by different underlying approaches. Some frameworks may use JSON or YAML to store configuration. However, with a clear understanding of the abstract model being used and an understanding of the particulars of each framework, it should be possible to translate the configuration set up here to these other types of files.
+
+## Security
+
+One of the surprises (and it was a surprise) was that--if ALL of the PHP files were placed in a directory apart from ALL static text based files, CSS, Javascript, media and the like, then it would be possible to secure these PHP files with htaccess level password protection. That is, instead of allowing the outside world to ping server based PHP files without restriction, the added layer of htaccess password protection would prevent this from even happening! (Nobel prize, anyone?) As long as all of the static files (such as media, CSS, Javascript and so on), were freely available outside of this protected zone, then the site should continue to function as normal. Of course, there may be nuances, where certain PHP files need to be browser accessible, however, in general, it can be seen that the underlying technology should be invisible to the end user.
+
+Although the framework the author is familiar with does not place all CSS and Javascript files in a directory separate from PHP files by default, enough is known about how to make this happen that it is not a technical concern. However, the habit and the current way of doing things is to allow for CSS and JS files to reside right next to PHP files in the directory. What this approach does is simply to take the thinking that style should be separated from content one step further and then also ensure that style is separate from content which is then also all separate from the PHP files that stitch it all together. Although this is a relatively simple concept to understand, it is known that it won't happen automatically and there will be glitches, as most plugins and themes include CSS and JS files mixed among their PHP files by default.
+
+## CDN Ready
+
+To make this work, the steps that certain plugins take to bring all of the CSS, JS and media out of their respective directories and place them somewhere else so that they can be copied to a CDN is the step that will need to be taken here. However, instead of copying these files directly to a CDN, it will stop at an  intermediate step. That is, they will all be placed in a "CDN Ready" directory. This directory is being labelled `/0` and is in the root directory.
