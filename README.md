@@ -30,7 +30,7 @@ These wages earned could then be used for other things; like paying for a univer
 
 ## Try 'n Buy
 
-Thus, this package (EC01) as it is available here, is being made avaiable on an open source licence, which means changes can be made, but with the added restriction that a payment is requested to cover the cost of development, and help with further development. That price is being set at $2,950, or about a month's worth of work. In part, this is to give value to this work, as there are many nuances in it that make a difference. It is set at this price to make one think first before proceeding. That is then intent. It could be thought of as a community-in-a-box.
+Thus, this package (EC01) as it is available here, is being made avaiable on an open source licence, which means changes can be made, but with the added restriction that a payment is requested to cover the cost of development, and help with further development. That price is being set at $2,950, or about a month's worth of work. In part, this is to give value to this work, as there are many nuances in it that make a difference. It is set at this price to make one think first before proceeding. That is the intent. It could be thought of as a community-in-a-box.
 
 If a community of 500 is valued at $40,000 per year, then the expected income of those 500 people would be $20,000,000. If this package enables that community to run better, more efficiently, and allows for a net positive output, with a smaller total cost, then that $2,950 is a very good investment. Given that, then the intent also would be to kept the cost of this "community-in-a-box" consistent, even if further developments are added.
 
