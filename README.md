@@ -24,7 +24,9 @@ Another part to the equation is that the person writing the code is living in an
 
 The entire direction this community is going is to *de*emphasize money, not eliminate it entirely. That is, by making use of land to produce food, water and energy and to design the community so that its participants can support each other by intention, and by design, less money should be needed when interacting with each other and with others not directly part of the community.
 
-In a personal example, the author received a reasonable amount when working for his Dad on the farm. This wasn't absolutely required, as most of the author's needs were provided for, yet it gave enough of an incentive to pay attention and do the work well. There may have been some bitterness if that payment wasn't received, but it was, and there was a good feeling to the whole thing. These wages earned could then be used for other things--like paying for a university eduction, buying clothes or whatnot. In the same way, money _is_ convenient when interacting with someone one barely knows and wanted to acknowledge them. It seems fair that either a  payment of money should be made or a trade of a goods or service, so that there can be an equality in the exchange.
+In a personal example, the author received a reasonable hourly wage when working for his Dad on the farm. This wasn't absolutely required, as most of the author's needs were provided for, yet it gave enough of an incentive to pay attention and do the work well. There may have been some bitterness if that payment wasn't received, but it was, and there was a good feeling to the whole thing.
+
+These wages earned could then be used for other things--like paying for a university eduction, buying clothes or whatnot. In the same way, money _is_ convenient when interacting with someone one barely knows and wanted to acknowledge them. It seems fair that either a  payment of money should be made or a trade of a goods or service, so that there can be an equality in the exchange.
 
 ## Try 'n Buy
 
