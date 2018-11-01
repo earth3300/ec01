@@ -12,7 +12,6 @@ defined('NDA') || exit('NDA');
  */
 class EC01HTML
 {
-
 	/**
 	 * Get the HTML Page.
 	 *
@@ -41,9 +40,6 @@ class EC01HTML
 		/** Contains optional information. */
 		if( file_exists( __DIR__ . '/data.php' ) )
 		{
-			/** Don't use the basic version. */
-			define('SITE_USE_BASIC', false );
-
 			/** Using optional data to help define the site */
 			require_once( __DIR__ . '/data.php' );
 
@@ -58,9 +54,6 @@ class EC01HTML
 		}
 		else
 		{
-			/** Use the basic version */
-			define('SITE_USE_BASIC', true );
-
 			/** Don't use tiers. */
 			define('SITE_USE_TIERS', false );
 		}
@@ -103,7 +96,17 @@ class EC01HTML
 		$page['article-title'] = $this->getArticleTitle( $page['article'] );
 		if ( SITE_USE_TIERS )
 		{
-			$page['header']['sub'] = defined( 'SITE_USE_HEADER_SUB' ) && SITE_USE_HEADER_SUB ? $this-> getHeaderTierThree( $page ) : '';
+			if ( defined( 'SITE_USE_HEADER_SUB' )
+					&& SITE_USE_HEADER_SUB
+					&& ! isset( $page['tiers']['tier-4'] ) )
+				{
+					$page['header']['sub'] = $this-> getHeaderTierThree( $page );
+				}
+				else
+				{
+					$page['header']['sub'] = $this-> getHeaderTierFour( $page );
+				}
+
 		}
 		$page['page-title'] = $this-> getPageTitle( $page );
 		$page['sidebar']= defined( 'SITE_USE_SIDEBAR' ) && SITE_USE_SIDEBAR ? $this->getSidebar() : '';
@@ -140,7 +143,7 @@ class EC01HTML
 	/**
 	 * Get the page slug.
 	 *
-	 * The page slug is the uri, with the following slash removed.
+	 * The page slug is the URI, with the following slash removed.
 	 *
 	 * @param array $page
 	 *
@@ -235,7 +238,50 @@ class EC01HTML
 	}
 
 	/**
-	 * Builds the Tier 3 Header.
+	 * Builds the Tier 2 Header.
+	 *
+	 * The Tier 2 Header is like the Tier 3 header (which was built first), but simpler
+	 * as it does not contain the second part. However it is usual to visually differentiate
+	 * between these Tiers as they contain different icons and colors.
+	 *
+	 * @param array $page
+	 *
+	 * @return array
+	 */
+	private function getHeaderTierThree( $page )
+	{
+		/** We need Tier 4 Information to construct a unique Tier-3/Tier-4 header. */
+		if ( isset( $page['tiers']['tier-3'] ) &&  $page['tiers']['tier-3'] )
+		{
+			$url_tier3 = '/' . $page['tiers']['tier-2'] . '/' . $page['tiers']['tier-3'];
+
+			$str = '<header class="site-header-sub">' . PHP_EOL;
+
+			/** The less specific overlays the more specific to get the effect we want. */
+			$str .= sprintf( '<div>%s', PHP_EOL );
+
+			/** Left div. (Tier 3). */
+			$str .= sprintf( '<div class="%s">%s', $page['class']['tier-3'], PHP_EOL );
+			$str .= '<div class="color darker">' . PHP_EOL;
+			$str .= sprintf( '<a class="level-01 %s" ', $page['class']['tier-3'], PHP_EOL );
+			$str .= sprintf( 'href="%s/">', $url_tier3 . SITE_CENTER_DIR );
+			$str .= sprintf( '<span class="icon"></span>%s</a>', ucfirst( $page['class']['tier-3'] ) );
+
+			$str .= '</div><!-- .color .darker -->' . PHP_EOL;
+			$str .= '</div><!-- .tier-3 -->' . PHP_EOL;
+			$str .= SITE_USE_HEADER_SUB ? sprintf('<a href="/%s/" class="%s"><span class="tier-2 level-1 icon"></span></a>', $page['tiers']['tier-2'], $page['class']['tier-2'] ) : '';
+			$str .= '</header>' . PHP_EOL;
+
+			return $str;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	/**
+	 * Builds the Tier 3 and 4 Header.
 	 *
 	 * Needs to differentiate between the "Where" (name) and the "Who".
 	 * We have $page['tiers'], which contains the Tier-2 short form (i.e.
@@ -245,7 +291,7 @@ class EC01HTML
 	 *
 	 * @return array
 	 */
-	private function getHeaderTierThree( $page )
+	private function getHeaderTierFour( $page )
 	{
 		/** We need Tier 4 Information to construct a unique Tier-3/Tier-4 header. */
 		if ( isset( $page['tiers']['tier-4'] ) &&  $page['tiers']['tier-4'] )
@@ -329,7 +375,6 @@ class EC01HTML
 	{
 		$str = "This page doesn't exist.";
 		$file = $page['file']['name'];
-		echo strlen ( $file );
 		if ( strlen ( $file ) < 120 )
 		{
 			$str = file_get_contents( $file );
@@ -443,6 +488,7 @@ class EC01HTML
 		if ( SITE_USE_TIERS )
 		{
 			$tiers = new EC01Tiers();
+
 			$page['tiers'] = $tiers->getUriTiers( $page['uri'] );
 
 			$page['class']['tier-2'] = $tiers->getUriTierTwo( $page['tiers'] );

@@ -5,7 +5,7 @@
  * A lighweight alternative to displaying HTML. Can be used on its own, or as a WordPress theme.
  * A basic set of constants are in this index file.
  *
- * @package Earth3300\EC01\EC01HTML
+ * @package Earth3300\EC01
  * @since 2018.10.29
  * @author Clarence J. Bos <cbos@tnoep.ca>
  * @copyright Copyright (c) 2018, Clarence J. Bos
@@ -16,7 +16,7 @@
  * Theme Name: EC01 HTML
  * Theme URI: https://github.com/earth3300/ec01-html
  * Description: A lightweight alternative to displaying HTML. Can be used on its own or as a WordPress theme.
- * Version: 2018.10.29
+ * Version: 2018.11.01
  * Author: Clarence J. Bos
  * Author URI: https://github.com/earth3300
  * Text Domain: ec01-html
@@ -32,12 +32,12 @@ namespace Earth3300\EC01;
 if( function_exists( 'wp_get_server_protocol' ) )
 {
 	/** We are in WordPress, and check for direct access. */
-	defined('ABSPATH') || exit('No direct access.');
+	defined('ABSPATH') || exit('NDA');
 }
 else
 {
 	/** We are not in WordPress, and check for direct access. */
-	defined('NDA') || exit('No direct access.');
+	defined('NDA') || exit('NDA');
 }
 
 if ( ! defined( 'SITE_PATH' ) && defined('ABSPATH') )

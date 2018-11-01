@@ -135,20 +135,30 @@ class EC01Tiers extends EC01HTML{
 	 */
 	protected function getUriTiers( $uri )
 	{
+		/** Have found nothing yet. */
+		$tiers = false;
+
 		/** Look for a grouping of three letters, followed by four. */
 		$regex = '/\/([a-z]{3})\/([a-z]{4})\/([a-z]{5})\//';
 		preg_match( $regex, $uri, $match );
 
 		if ( ! empty( $match ) )
 		{
-			$arr['tier-2'] = ! empty( $match[1] ) ? $match[1] : null;
-			$arr['tier-3'] = ! empty( $match[2] ) ? $match[2] : null;
-			$arr['tier-4'] = ! empty( $match[3] ) ? $match[3] : null;
-			return $arr;
+			$tiers['tier-2'] = ! empty( $match[1] ) ? $match[1] : null;
+			$tiers['tier-3'] = ! empty( $match[2] ) ? $match[2] : null;
+			$tiers['tier-4'] = ! empty( $match[3] ) ? $match[3] : null;
 		}
 		else
 		{
-			return false;
+			$regex = '/\/([a-z]{3})\/([a-z]{4})\//';
+			preg_match( $regex, $uri, $match );
+
+			if ( ! empty( $match ) )
+			{
+				$tiers['tier-2'] = ! empty( $match[1] ) ? $match[1] : null;
+				$tiers['tier-3'] = ! empty( $match[2] ) ? $match[2] : null;
+			}
 		}
+		return $tiers;
 	}
 }
