@@ -1,6 +1,6 @@
 # EC01
 
-This package attempts to pull together the files and directory structure needed to run a community of between 150 and 450 people. It is not intended for a community or set of people numbering 5,000 and up. By using the directory structure and static files as much as possible before a database is invoked, this makes this configuration readable by a lower level of tech. That is, anything that can view an image or a view and edit a text file can use this system, without the need for a database set up on the system. This is by design.
+This package attempts to pull together the files and directory structure needed to run a community of between 150 and 450 people. It is not intended for a community or set of people numbering 5,000 and up. By using the directory structure and static files as much as possible before a database is invoked, this makes this configuration readable by a lower level of technology. That is, anything that can view an image or a view and edit a text file can use this system, without the need for a database set up on the system. This is by design.
 
 ## Configuration
 
