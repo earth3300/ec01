@@ -1,14 +1,11 @@
 <?php
-
-namespace Earth3300\EC01;
-
 /**
  * EC01 HTML.
  *
  * A lighweight alternative to displaying HTML. Can be used on its own, or as a WordPress theme.
  * A basic set of constants are in this index file.
  *
- * @package EC01HTML
+ * @package Earth3300\EC01\EC01HTML
  * @since 2018.10.29
  * @author Clarence J. Bos <cbos@tnoep.ca>
  * @copyright Copyright (c) 2018, Clarence J. Bos
@@ -26,6 +23,8 @@ namespace Earth3300\EC01;
  * License: GPL-3.0+
  * License URI: https://www.gnu.org/licenses/gpl-3.0.en.html
  */
+
+namespace Earth3300\EC01;
 
 /**
  * If `wp_get_server_protocol` exists, we are in WordPress, otherwise not.

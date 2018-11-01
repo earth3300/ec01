@@ -2,7 +2,7 @@
 
 namespace Earth3300\EC01;
 
-defined( 'NDA' ) || exit;
+defined('NDA') || exit('NDA');
 
 /**
  * EC01 Tiers
