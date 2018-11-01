@@ -4,7 +4,7 @@ This package attempts to pull together the files and directory structure needed 
 
 ## Configuration
 
-A lot of the "heavy lifting" is done by the configuration files (`/c/config/`). The intent here is to move toward a platform agnostic approach, so that the directory structure and constants already set and worked upon can be used by different platforms. It is recognized that each platform may have its own particular flavour, however, as the end results MUST be valid HTML, CSS and Javascript, the abstract model that one uses SHOULD be able to be used by different underlying approaches. Some frameworks may use JSON or YAML to store configuration. However, with a clear understanding of the abstract model being used and an understanding of the particulars of each framework, it should be possible to translate the configuration set up here to these other types of files.
+A lot of the "heavy lifting" is done by the configuration files (`/c/config/`). The intent here is to move toward a platform agnostic approach, so that the directory structure and constants already set and worked upon can be used by different platforms. It is recognized that each platform may have its own particular flavour, however, as the end results MUST be valid HTML, CSS and Javascript, the abstract model that one uses SHOULD be able to be used by different underlying approaches. Some frameworks may use JSON or YAML to store their configurations. However, with a clear understanding of the abstract model being used and an understanding of the particulars of each framework, it should be possible to translate the configuration set up here to these other types of files.
 
 ## Security
 
