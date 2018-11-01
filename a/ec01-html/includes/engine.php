@@ -618,7 +618,9 @@ class EC01HTML
 	}
 
 	/**
+	 * Get the Footer
 	 *
+	 * @return string
 	 */
 	private function getFooter()
 	{
@@ -674,7 +676,7 @@ class EC01HTML
 	}
 
 	/**
-	 * Firefly sanitize HTML
+	 * Sanitize HTML
 	 *
 	 * Not currently used (2018.09.0)
 	 * Remove everything but valid HTML

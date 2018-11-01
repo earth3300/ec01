@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * The Index File for EC01.
+ *
+ * This file loads all the others and is also called from the `/1` directory.
+ * Required.
+ */
+
 /** Set a constant for security. Use it to ensure files are not accessed directly. */
 define( 'NDA', true );
 
