@@ -40,23 +40,29 @@ class EC01Template extends EC01HTML{
 				$str .= sprintf( '<title>%s</title>%s', $page['page-title'], PHP_EOL );
 				if ( SITE_USE_BASIC )
 				{
-					$str .= '<link rel=stylesheet href="/0/theme/css/style.css">' . PHP_EOL;
+					$str .= '<link rel=stylesheet href="/0/theme/css/bootstrap.css">' . PHP_EOL;
+					$str .= '<link rel=stylesheet href="/0/theme/css/main.css">' . PHP_EOL;
 					$str .= SITE_USE_CSS_CHILD ? '<link rel=stylesheet href="/0/theme/css/child.css">' . PHP_EOL : '';
 				}
 				else {
 					$str  .= SITE_INDEX_ALLOW ? '' : '<meta name="robots" content="noindex,nofollow" />' . PHP_EOL;
-					$str .= ! SITE_USE_CSS_MIN ? sprintf( '<link rel=stylesheet href="%s/style.css">%s', SITE_CSS_URL, PHP_EOL ) : '';
+					
 					if ( SITE_USE_CSS_MIN )
 					{
-						$str .= SITE_USE_CSS_MIN ? sprintf( '<link rel=stylesheet href="%s/style.min.css">%s', SITE_CSS_URL, PHP_EOL ) : '';
-					} else
+						$str .= sprintf( '<link rel=stylesheet href="%s/style.min.css">%s', SITE_CSS_URL, PHP_EOL );
+					}
+					elseif ( SITE_USE_CSS_ALL )
 					{
-						$str .= SITE_USE_CSS_FONT ? sprintf( '<link rel=stylesheet href="%s/font.css">%s', SITE_CSS_URL, PHP_EOL ) : '';
-						$str .= SITE_USE_CSS_CHILD ? sprintf( '<link rel=stylesheet href="%s/child.css">%s', SITE_CSS_URL, PHP_EOL ) : '';
-						$str .= SITE_USE_CSS_SPRITE ? sprintf( '<link rel=stylesheet href="%s/sprite.css">%s', SITE_CSS_URL, PHP_EOL ) : '';
+						$str .= sprintf( '<link rel=stylesheet href="%s/style.all.css">%s', SITE_CSS_URL, PHP_EOL );
+					}
+					else
+					{
+						$str .= SITE_USE_CSS_BOOTSTRAP ? sprintf( '<link rel=stylesheet href="%s/bootstrap.css">%s', SITE_CSS_URL, PHP_EOL ) : '';
+						$str .= SITE_USE_CSS_MAIN ? sprintf( '<link rel=stylesheet href="%s/main.css">%s', SITE_CSS_URL, PHP_EOL ) : '';
 						$str .= SITE_USE_CSS_COLOR ? sprintf( '<link rel=stylesheet href="%s/color.css">%s', SITE_CSS_URL, PHP_EOL ) : '';
-						$str .= SITE_USE_CSS_MONITORS ? sprintf( '<link rel=stylesheet href="%s/monitors.css">%s', SITE_CSS_URL, PHP_EOL ) : '';
-						$str .= SITE_USE_CSS_PRINT ? sprintf( '<link rel=stylesheet href="%s/print.css">%s', SITE_CSS_URL, PHP_EOL ) : '';
+						$str .= SITE_USE_CSS_SPRITE ? sprintf( '<link rel=stylesheet href="%s/sprite.css">%s', SITE_CSS_URL, PHP_EOL ) : '';
+						$str .= SITE_USE_CSS_DEVICE ? sprintf( '<link rel=stylesheet href="%s/device.css">%s', SITE_CSS_URL, PHP_EOL ) : '';
+						$str .= SITE_USE_CSS_CHILD ? sprintf( '<link rel=stylesheet href="%s/child.css">%s', SITE_CSS_URL, PHP_EOL ) : '';
 					}
 				}
 				// make path to style dependent on whether site is is subdomain or subfolder

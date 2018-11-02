@@ -35,8 +35,8 @@ class EC01HTML
 	 * data is needed. However, the `template.php` is required. It is not
 	 * optional.
 	 */
-	private function load(){
-
+	private function load()
+	{
 		/** Contains optional information. */
 		if( file_exists( __DIR__ . '/data.php' ) )
 		{

@@ -23,26 +23,29 @@ define( 'SITE_IS_FIXED_WIDTH', true );
 /** Default: false (Allows indexing by bots) */
 define( 'SITE_INDEX_ALLOW', false );
 
+/** Default: false */
+define( 'SITE_USE_CSS_MIN', false );
+
+/** Default: false */
+define( 'SITE_USE_CSS_ALL', false );
+
 /** Default: true */
-define( 'SITE_USE_CSS_CHILD', true );
+define( 'SITE_USE_CSS_BOOTSTRAP', true );
+
+/** Default: true */
+define( 'SITE_USE_CSS_MAIN', true );
 
 /** Default: false */
 define( 'SITE_USE_CSS_SPRITE', true );
 
 /** Default: false */
-define( 'SITE_USE_CSS_MIN', false );
-
-/** Default: false */
 define( 'SITE_USE_CSS_COLOR', true );
 
 /** Default: false */
-define( 'SITE_USE_CSS_FONT', false );
+define( 'SITE_USE_CSS_DEVICE', true );
 
-/** Default: false */
-define( 'SITE_USE_CSS_MONITORS', false );
-
-/** Default: false */
-define( 'SITE_USE_CSS_PRINT', true );
+/** Default: true */
+define( 'SITE_USE_CSS_CHILD', true );
 
 /** Default: false */
 define( 'SITE_USE_JQUERY', false );
