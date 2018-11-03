@@ -40,13 +40,12 @@ class EC01Template extends EC01HTML{
 				$str .= sprintf( '<title>%s</title>%s', $page['page-title'], PHP_EOL );
 				if ( SITE_USE_BASIC )
 				{
-					$str .= '<link rel=stylesheet href="/0/theme/css/bootstrap.css">' . PHP_EOL;
-					$str .= '<link rel=stylesheet href="/0/theme/css/main.css">' . PHP_EOL;
-					$str .= SITE_USE_CSS_CHILD ? '<link rel=stylesheet href="/0/theme/css/child.css">' . PHP_EOL : '';
+					$str .= '<link rel=stylesheet href="/0/theme/css/01-bootstrap.css">' . PHP_EOL;
+					$str .= '<link rel=stylesheet href="/0/theme/css/02-main.css">' . PHP_EOL;
 				}
 				else {
 					$str  .= SITE_INDEX_ALLOW ? '' : '<meta name="robots" content="noindex,nofollow" />' . PHP_EOL;
-					
+
 					if ( SITE_USE_CSS_MIN )
 					{
 						$str .= sprintf( '<link rel=stylesheet href="%s/style.min.css">%s', SITE_CSS_URL, PHP_EOL );
@@ -57,12 +56,12 @@ class EC01Template extends EC01HTML{
 					}
 					else
 					{
-						$str .= SITE_USE_CSS_BOOTSTRAP ? sprintf( '<link rel=stylesheet href="%s/bootstrap.css">%s', SITE_CSS_URL, PHP_EOL ) : '';
-						$str .= SITE_USE_CSS_MAIN ? sprintf( '<link rel=stylesheet href="%s/main.css">%s', SITE_CSS_URL, PHP_EOL ) : '';
-						$str .= SITE_USE_CSS_COLOR ? sprintf( '<link rel=stylesheet href="%s/color.css">%s', SITE_CSS_URL, PHP_EOL ) : '';
-						$str .= SITE_USE_CSS_SPRITE ? sprintf( '<link rel=stylesheet href="%s/sprite.css">%s', SITE_CSS_URL, PHP_EOL ) : '';
-						$str .= SITE_USE_CSS_DEVICE ? sprintf( '<link rel=stylesheet href="%s/device.css">%s', SITE_CSS_URL, PHP_EOL ) : '';
-						$str .= SITE_USE_CSS_CHILD ? sprintf( '<link rel=stylesheet href="%s/child.css">%s', SITE_CSS_URL, PHP_EOL ) : '';
+						$str .= SITE_USE_CSS_BOOTSTRAP ? sprintf( '<link rel=stylesheet href="%s/01-bootstrap.css">%s', SITE_CSS_URL, PHP_EOL ) : '';
+						$str .= SITE_USE_CSS_MAIN ? sprintf( '<link rel=stylesheet href="%s/02-main.css">%s', SITE_CSS_URL, PHP_EOL ) : '';
+						$str .= SITE_USE_CSS_COLOR ? sprintf( '<link rel=stylesheet href="%s/03-color.css">%s', SITE_CSS_URL, PHP_EOL ) : '';
+						$str .= SITE_USE_CSS_SPRITE ? sprintf( '<link rel=stylesheet href="%s/04-sprite.css">%s', SITE_CSS_URL, PHP_EOL ) : '';
+						$str .= SITE_USE_CSS_DEVICE ? sprintf( '<link rel=stylesheet href="%s/05-device.css">%s', SITE_CSS_URL, PHP_EOL ) : '';
+						$str .= SITE_USE_CSS_ADJUSTMENTS ? sprintf( '<link rel=stylesheet href="%s/06-adjustments.css">%s', SITE_CSS_URL, PHP_EOL ) : '';
 					}
 				}
 				// make path to style dependent on whether site is is subdomain or subfolder
@@ -110,8 +109,8 @@ function get_firefly_elapsed(){
    /** Calculates elapsed time (accurate to 1/10000 seconds). Expressed as milliseconds */
    $time = number_format( ( $site_elapsed['end'] - $site_elapsed['start'] ) * 1000, 2, '.', ',' );
 
-   $str = '<div id="elapsed-time" class="subdued text-center" ';
-   $str .= sprintf( 'title="%s">Elapsed: %s ms</div>%s', $msg, $time , PHP_EOL ) ;
+   $str = '<footer id="elapsed-time" class="subdued text-center" ';
+   $str .= sprintf( 'title="%s">Elapsed: %s ms</footer>%s', $msg, $time , PHP_EOL ) ;
 
    return $str;
 }

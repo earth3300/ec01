@@ -1,18 +1,19 @@
-/*
-Theme Name: EC01 Commons Style
-Theme URI: http://ec01.earth3300.info/
-Author: Clarence Bos
-Author URI: http://ec01.earth3300.info/
-Description: Part of a sustainable community design.
-Version: 1.0.0
-License: GPL-3.0+
-License URI: https://www.gnu.org/licenses/gpl-3.0.en.html
-Text Domain: ec01-commons
-Tags: lightweight, simple
+
+/**
+* Main CSS
+*
+* @link https://github.com/earth3300/ec01-css
+* @author https://github.com/earth3300
+* @license GPL v3.0
+*
+* File: 02-main.css
+* Created: 2016.12.15
+* Updated: 2018-11-03
+* Time: 10:47 EST
 */
 
 /**
- * EC01 Commons Screen Specifications.
+ * EC01 Screen Specifications.
  */
 @media screen {
 
@@ -37,18 +38,6 @@ Tags: lightweight, simple
 	html, body { background-color: #e6e6e6; }
 
 	html, body { color: #222; }
-
-	a { color: #073763; }
-	/* Blue Dark 3 */
-
-	a:link { color: #073763;
-	/* Blue Dark 3 */ }
-
-	a:hover { color: #3d85c6;
-	/* Blue Dark 1 */ }
-
-	/* a:visited { color: #073763; } */
-	/* Blue Dark 3 */
 
 	nav li:hover { background-color: #f5f5f5; }
 
@@ -123,6 +112,10 @@ Tags: lightweight, simple
 
 	footer {
 		clear: both;
+	}
+
+	footer.nav,
+	footer.site-footer {
 		border-top: #555 dashed 1px;
 	}
 
@@ -426,8 +419,13 @@ Tags: lightweight, simple
 		border-bottom: none;
 	}
 
-	.center-x {
+	.center-x,
+	.text-center {
 		text-align: center;
+	}
+
+	.more {
+		font-weight: 500;
 	}
 
 	/***** BODY END *****/
@@ -840,4 +838,31 @@ Tags: lightweight, simple
 
 	/** CUSTOM END **/
 }
-/* MAIN END */
+/* Main Screen End */
+
+/**
+ * EC01 Screen, Print, Speech Specifications.
+ */
+@media all {
+
+	article .padding {
+			padding: 1em 1.3em;
+	}
+
+	article .margin {
+			margin: .5em 0;
+	}
+
+	article .border h2,
+	article .border h3,
+	article .border h4 {
+		margin-top: 0;
+	}
+
+	article p:last-child {
+		margin-bottom: 0;
+	}
+}
+/* Main All End */
+
+/* Main End */

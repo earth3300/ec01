@@ -29,6 +29,9 @@ define( 'SITE_USE_CSS_MIN', false );
 /** Default: false */
 define( 'SITE_USE_CSS_ALL', false );
 
+/** Default: true (more basic). */
+define( 'SITE_USE_CSS_CHILD', true );
+
 /** Default: true */
 define( 'SITE_USE_CSS_BOOTSTRAP', true );
 
@@ -44,8 +47,8 @@ define( 'SITE_USE_CSS_COLOR', true );
 /** Default: false */
 define( 'SITE_USE_CSS_DEVICE', true );
 
-/** Default: true */
-define( 'SITE_USE_CSS_CHILD', true );
+/** Default: true (more fine tuned). */
+define( 'SITE_USE_CSS_ADJUSTMENTS', true );
 
 /** Default: false */
 define( 'SITE_USE_JQUERY', false );

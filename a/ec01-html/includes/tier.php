@@ -11,10 +11,10 @@ class EC01Tiers extends EC01HTML{
 
 	/**
 	 * Get Tier Two.
-	 *	 *
+	 *
 	 * @param array $arr
 	 *
-	 * @return array|bool
+	 * @return array|bool  class, name OR false.
 	 */
 
 	protected function getUriTierTwo( $arr )
@@ -22,7 +22,10 @@ class EC01Tiers extends EC01HTML{
 		$items = get_tier_two_data();
 		if ( ! empty( $arr['tier-2'] ) )
 		{
-			return 'tier-2 ' . $items[ $arr['tier-2'] ]['name'];
+			$tier['class'] = 'tier-2 ' . $items[ $arr['tier-2'] ]['name'];
+			$tier['name'] = $items[ $arr['tier-2'] ]['name'];
+			$tier['abbr'] = $arr['tier-2'];	
+			return $tier;
 		}
 		else
 		{

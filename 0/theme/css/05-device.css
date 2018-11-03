@@ -2,10 +2,21 @@
 /**
  * Device Screen Basic
  *
- * @file: device.css
- *
  * This section handles basic formatting for various device and monitor sizes.
+
+ * @link https://github.com/earth3300/ec01-css
+ * @author https://github.com/earth3300
+ * @license GPL v3.0
+ *
+ * File: 05-device.css
+ * Created: 2018
+ * Updated: 2018-11-03
+ * Time: 09:30 EST
  */
+
+ /**
+  * Screen formatting Only for Devices.
+	*/
 @media screen {
 
 	/** WIDE SCREEN */
@@ -56,7 +67,7 @@
 		}
 	}
 }
-/* DEVICE BASIC END */
+/* Device Basic End */
 
 /**
  * Device Screen.
@@ -70,9 +81,7 @@
 		.full-screen article {
 			overflow: hidden;
 			}
-
 		}
-	}
 
 	@media (min-width: 1200px) {
 
@@ -487,3 +496,4 @@
 		}
 	}
 }
+/* Device Advanced End */

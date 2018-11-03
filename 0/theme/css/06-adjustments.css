@@ -1,8 +1,23 @@
 
 /**
- * Child CSS.
+ * Adjustments CSS.
  *
  * This should appear last in the chain.
+ *
+ * @link https://github.com/earth3300/ec01-css
+ * @author https://github.com/earth3300
+ * @license GPL v3.0
+ *
+ * File: 06-adjustments.css
+ * Created: 2018
+ * Updated: 2018-11-03
+ * Time: 09:23 EST
+ */
+
+/**
+ * Screen Formatting.
+ *
+ * Print formatting may be included below, if needed.
  */
 @media screen {
 
@@ -55,7 +70,6 @@
 	}
 
 	.unit .border {
-		border: #999 solid 4px;
 		box-shadow: 1px 1px 3px rgba(50, 50, 50, 1.0);
 	}
 
@@ -251,4 +265,4 @@
 
 	/*** CLUSTER END ***/
 }
-/* CHILD.CSS END **/
+/* Adjustments End **/

@@ -1,0 +1,252 @@
+
+/**
+ * EC01 Bootstrap CSS
+ *
+ * This file includes basic formatting. It specifys a san-serif font, makes the
+ * links look nicer, specifies a width for the body, and a font size and line
+ * height. It does not include responsive design, or additional styling of elements.
+ * It may include styling in the future (such as for buttons), to bring it closer
+ * in line to Bootstrap CSS {@see https://getbootstrap.com/docs/3.3/css/}. However,
+ * it is meant to just include the basics, and so does not include all the styling
+ * included there by intention. It also uses the HSL color model, which the author
+ * has found *much* easier to work with, as all that is needed is a basic knowledge
+ * of where the color is (from red to violet) on a circle of 360 degrees. With that
+ * in place, the saturation and lightness can be adjusted with confidence, knowing
+ * that the basic hue (the color) will not change. This can't be done using the RBG
+ * color model or when using hex, the standard way of specifying color at the time
+ * of this writing. All modern browsers support this color model
+ * {@see https://caniuse.com/#search=hsl} and there are no known issues with it.
+ *
+ * File URI: https://github.com/earth3300/ec01-css
+ * Author URI: https://github.com/earth3300
+ * License: GPL v3.0
+ *
+ * File: 01-bootstrap.css
+ * Created: 2016.12.15
+ * Updated: 2018-11-03
+ * Time: 09:21 EST
+ */
+
+/**
+ * Media All
+ *
+ * For all media types (screen, print, speech).
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/Media_Queries/Using_media_queries
+ */
+@media all {
+
+	body {
+		height: 100%;
+	}
+
+	body {
+		font: 1em/1.6 sans-serif;
+		background-color: hsl(0, 0%, 100%);
+		color: hsl(0, 0%, 20%);
+		max-width: 750px;
+		display: block;
+		margin: 0 auto;
+	}
+
+	a {
+		color: hsl(204, 25%, 25%);
+		text-decoration: none;
+	}
+
+	header,
+	footer {
+		text-align: center;
+	}
+
+	footer {
+		font-size: 90%;
+		opacity: .85;
+	}
+
+	.hide {
+		display: none;
+	}
+
+}
+/* Media All End */
+
+/**
+ * Screen Media
+ *
+ * Screen specific formatting that is not meant for printing.
+ * This will include responsive layouts.
+ */
+@media screen {
+
+	/** The effect transitions over the time period specified. */
+	a {
+
+	}
+
+	/** The color of the link, before any action has been taken. */
+	a:link {
+		color: hsl(204, 25%, 25%);
+	}
+
+	/** Triggered after the element has been visited. */
+	a:visited {
+		color: hsl(204, 25%, 30%);
+	}
+
+	/** The cursor changes to a pointer, when mouse is over element. */
+	a:hover {
+		cursor: pointer;
+	}
+
+	/** Triggered when cursor is hovering over the element. */
+	a:hover {
+		color: hsl(75, 75%, 25%);
+	}
+
+	/** Triggered when the element has focus, such as after tabbing to it. */
+	a:focus {
+		color: hsl(4, 75%, 40%);
+		outline: none;
+	}
+
+	/** Triggered when the element is active. */
+	a:active {
+		color: hsl(244, 50%, 25%);
+	}
+
+	.btn {
+	  display: inline-block;
+	  font-weight: 400;
+	  text-align: center;
+	  white-space: nowrap;
+	  vertical-align: middle;
+	  -webkit-user-select: none;
+	  -moz-user-select: none;
+	  -ms-user-select: none;
+	  user-select: none;
+	  border: 1px solid transparent;
+	  padding: 0.375rem 0.75rem;
+	  font-size: 1rem;
+	  line-height: 1.5;
+	  border-radius: 0.25rem;
+	  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+	}
+
+	.btn-primary {
+		color: #fff;
+		background-color: hsl(204, 75%, 35%);
+		border-color: hsl(204, 75%, 33%);
+	}
+
+	.btn-primary:hover {
+		color: #fff;
+		background-color: #0069d9;
+		border-color: #0062cc;
+	}
+
+	.btn-primary:focus,
+	.btn-primary.focus {
+		box-shadow: 0 0 0 0.12rem hsla(204, 100%, 50%, 0.5);
+	}
+
+	.btn-primary.disabled,
+	.btn-primary:disabled {
+		color: #fff;
+		background-color: hsl(204, 75%, 25%);
+		border-color: hsl(204, 75%, 50%);
+	}
+
+	.btn-primary:not(:disabled):not(.disabled):active,
+	.btn-primary:not(:disabled):not(.disabled).active,
+	.show > .btn-primary.dropdown-toggle {
+		color: #fff;
+		background-color: #0062cc;
+		border-color: #005cbf;
+	}
+
+	.btn-primary:not(:disabled):not(.disabled):active:focus,
+	.btn-primary:not(:disabled):not(.disabled).active:focus,
+	.show > .btn-primary.dropdown-toggle:focus {
+		box-shadow: 0 0 0 0.2rem hsla(204, 100%, 50%, 0.5);
+	}
+
+	.btn-secondary {
+	  color: #fff;
+	  background-color: #6c757d;
+	  border-color: #6c757d;
+	}
+
+	.btn-secondary:hover {
+	  color: #fff;
+	  background-color: #5a6268;
+	  border-color: #545b62;
+	}
+
+	.btn-secondary:focus,
+	.btn-secondary.focus {
+	  box-shadow: 0 0 0 0.2rem rgba(108, 117, 125, 0.5);
+	}
+
+	.btn-secondary.disabled,
+	.btn-secondary:disabled {
+	  color: #fff;
+	  background-color: #6c757d;
+	  border-color: #6c757d;
+	}
+
+	.btn-secondary:not(:disabled):not(.disabled):active,
+	.btn-secondary:not(:disabled):not(.disabled).active,
+	.show > .btn-secondary.dropdown-toggle {
+	  color: #fff;
+	  background-color: #545b62;
+	  border-color: #4e555b;
+	}
+
+	.btn-secondary:not(:disabled):not(.disabled):active:focus,
+	.btn-secondary:not(:disabled):not(.disabled).active:focus,
+	.show > .btn-secondary.dropdown-toggle:focus {
+	  box-shadow: 0 0 0 0.2rem rgba(108, 117, 125, 0.5);
+	}
+
+}
+/* Media Screen End */
+
+/**
+ * Print Media
+ *
+ * This can be used to hide elements that don't need to be printed.
+ * As @media screen only affects elements when displayed on the screen,
+ * the styling here should be minimal. Be aware that styling further down
+ * the chain that specify @media all may affect the styling specified here.
+ * However, this is a "bootstrap" file that may be used on its own, if needed.
+ */
+@media print {
+
+	header,
+	footer {
+		display: none !important;
+	}
+
+	nav {
+		display: none !important;
+	}
+	article p {
+		widows: 4;
+		orphans: 4;
+	}
+}
+/* Media Print End */
+
+/**
+ * Speech Media
+ *
+ * Extra formatting which may be useful for speech synthesizers.
+ */
+@media speech {
+
+
+}
+/* Media Speech End */
+
+/* Bootstrap End */

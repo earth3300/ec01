@@ -4,12 +4,19 @@
  *
  * A crucial part of the whole system.
  *
- * @file: sprite.css
- *
  * Sprite: 560x840 (from 1600x2400, with 100px blocks and 75 px icons.)
  *
  * Read across (width), then down (height).
- * */
+ *
+ * @link https://github.com/earth3300/ec01-css
+ * @author https://github.com/earth3300
+ * @license GPL v3.0
+ *
+ * File: 04-sprite.css
+ * Created: 2018
+ * Updated: 2018-11-03
+ * Time: 10:48 EST
+ */
 
 @media all {
 
@@ -337,4 +344,4 @@
 	.icon-height { height: 35px; }
 	}
 }
-/* SPRITE END */
+/* Sprite End */

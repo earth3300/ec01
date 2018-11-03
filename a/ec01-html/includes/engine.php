@@ -269,7 +269,11 @@ class EC01HTML
 
 			$str .= '</div><!-- .color .darker -->' . PHP_EOL;
 			$str .= '</div><!-- .tier-3 -->' . PHP_EOL;
-			$str .= SITE_USE_HEADER_SUB ? sprintf('<a href="/%s/" class="%s"><span class="tier-2 level-1 icon"></span></a>', $page['tiers']['tier-2'], $page['class']['tier-2'] ) : '';
+			$str .= SITE_USE_HEADER_SUB ? sprintf('<a href="/%s/" class="%s" title="%s"><span class="tier-2 level-1 icon"></span></a>',
+				$page['tiers']['tier-2']['abbr'],
+				$page['tiers']['tier-2']['class'],
+				ucfirst( $page['tiers']['tier-2']['name'] )
+				) : '';
 			$str .= '</header>' . PHP_EOL;
 
 			return $str;
@@ -296,7 +300,7 @@ class EC01HTML
 		/** We need Tier 4 Information to construct a unique Tier-3/Tier-4 header. */
 		if ( isset( $page['tiers']['tier-4'] ) &&  $page['tiers']['tier-4'] )
 		{
-			$url_tier3 = '/' . $page['tiers']['tier-2'] . '/' . $page['tiers']['tier-3'];
+			$url_tier3 = '/' . $page['tiers']['tier-2']['abbr'] . '/' . $page['tiers']['tier-3'];
 			$url_tier4 = $url_tier3  . '/' . $page['tiers']['tier-4'];
 
 			$str = '<header class="site-header-sub">' . PHP_EOL;
@@ -323,7 +327,10 @@ class EC01HTML
 			$str .= '</div><!-- .tier-4 -->' . PHP_EOL;
 			$str .= '</div><!-- .color .darker -->' . PHP_EOL;
 			$str .= '</div><!-- .tier-3 -->' . PHP_EOL;
-			$str .= SITE_USE_HEADER_SUB ? sprintf('<a href="/%s/" class="%s"><span class="tier-2 level-1 icon"></span></a>', $page['tiers']['tier-2'], $page['class']['tier-2'] ) : '';
+			$str .= SITE_USE_HEADER_SUB ? sprintf('<a href="/%s/" class="%s" title="%s"><span class="tier-2 level-1 icon"></span></a>',
+				$page['tiers']['tier-2']['abbr'],
+				$page['tiers']['tier-2']['class'],
+				ucfirst( $page['tiers']['tier-2']['name'] ) ) : '';
 			$str .= '</header>' . PHP_EOL;
 
 			return $str;
@@ -491,7 +498,9 @@ class EC01HTML
 
 			$page['tiers'] = $tiers->getUriTiers( $page['uri'] );
 
-			$page['class']['tier-2'] = $tiers->getUriTierTwo( $page['tiers'] );
+			$page['tiers']['tier-2'] = $tiers->getUriTierTwo( $page['tiers'] );
+
+			$page['class']['tier-2'] = $page['tiers']['tier-2']['class'];
 
 			$page['class']['tier-3'] = $tiers->getUriTierThree( $page['tiers'] );
 
@@ -601,7 +610,8 @@ class EC01HTML
 		{
 			if( $page['front-page'] )
 			{
-				$str = sprintf( '%s%s%s', SITE_TITLE, ' | ', SITE_DESCRIPTION );
+				$description = str_replace( '<br />', ' ', SITE_DESCRIPTION );
+				$str = sprintf( '%s%s%s', SITE_TITLE, ' | ', $description );
 				return $str;
 			}
 			else if ( ! empty ( $page['article-title'] ) )

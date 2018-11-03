@@ -2,9 +2,20 @@
 /**
  * Color CSS All (screen, print)
  *
- * @file: color.css
+ * This section handles all the detailed color specifications.
  *
- * This secttion handles all detailed color specifications.
+ * @link https://github.com/earth3300/ec01-css
+ * @author https://github.com/earth3300
+ * @license GPL v3.0
+ *
+ * File: 03-color.css
+ * Created: 2018
+ * Updated: 2018-11-03
+ * Time: 10:48 EST
+ */
+
+/**
+ * For all media (screen, print, speech)
  */
 @media all {
 
@@ -28,7 +39,7 @@
 	.resource .color.lighter { background: #d9ead3; } /* light green */
 	.service .color.lighter { background: #a2c4c9; } /* medium blue */
 	.supply .color.lighter { background: #f9cb9c; } /* light orange */
-	.store .color.lighter { background: #76a5af; } /* medium blue */
+	.store .color.lighter { background: hsl(300, 50%, 75%); } /* medium violet */
 
 	.download .color.lighter { background: #279f43; }
 
@@ -55,7 +66,7 @@
 	.recovery .color.darker { background-color: #93c47d; }
 	.profession { background-color: #d0e0e3; }
 	.supply .color.darker { background-color: #f9cb9c; }
-	.store .color.darker { background-color: #76a5af; }
+	.store .color.darker { background-color: hsl(300, 50%, 25%); }
 	.news .color.darker { background-color: #f1c232; }
 	.process .color.darker { background-color: #e6b8af; }
 	.method .color.darker { background-color: #cccccc; }
@@ -163,7 +174,7 @@
 	.where.boxes .border { border-color: #ffae4b; } /* dark orange */
 	.when.boxes .border { border-color: #ad8100; } /* dark yellow */
 	.why.boxes .border { border-color: #6c53a3; } /* dark purple */
-	.store .border { border-color: #999; } /* medium grey */
+	.store .border { border-color: hsl(300, 50%, 25%); } /* dark violet */
 
 	nav.icons .who .icon { background-color: #a2c4c9; } /* blue */
 	nav.icons .what .icon { background-color: #b6d7a8; } /* green */
@@ -171,6 +182,7 @@
 	nav.icons .where .icon { background-color: #ffd199; } /* orange */
 	nav.icons .when .icon { background-color: #ffe599; } /* yellow */
 	nav.icons .why .icon { background-color: #d9d2e9; } /* purple */
+	nav.icons .store .icon { background-color: hsl(300, 50%, 80%); } /* violet */
 
 	nav.icons .icon {
 		border-radius: 3px;
@@ -180,4 +192,4 @@
 		box-shadow: 1px 1px 1px #999;
 	}
 }
-/* COLOR END */
+/* Color End */
