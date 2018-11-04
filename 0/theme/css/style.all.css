@@ -1,6 +1,6 @@
 
 /*
-Theme Name: EC01 Commons Style
+Theme Name: EC01 Style
 Theme URI: http://ec01.earth3300.info/
 Author: Clarence Bos
 Author URI: http://ec01.earth3300.info/
@@ -13,8 +13,8 @@ Tags: lightweight, simple
 
 File: 00-header.css
 Created: 2018-11-02
-Updated: 2018-11-03
-Time: 10:50 EST
+Updated: 2018-11-04
+Time: 14:48 EST
 */
 
 /**
@@ -41,8 +41,8 @@ Time: 10:50 EST
  *
  * File: 01-bootstrap.css
  * Created: 2016.12.15
- * Updated: 2018-11-03
- * Time: 09:21 EST
+ * Updated: 2018-11-04
+ * Time: 14:48 EST
  */
 
 /**
@@ -80,6 +80,18 @@ Time: 10:50 EST
 	footer {
 		font-size: 90%;
 		opacity: .85;
+	}
+
+	.float-left {
+	  float: left;
+	}
+
+	.float-right {
+	  float: right;
+	}
+
+	.float-none {
+	  float: none;
 	}
 
 	.hide {
@@ -124,7 +136,7 @@ Time: 10:50 EST
 
 	/** Triggered when the element has focus, such as after tabbing to it. */
 	a:focus {
-		color: hsl(4, 75%, 40%);
+		color: hsl(16, 75%, 50%);
 		outline: none;
 	}
 
@@ -227,6 +239,19 @@ Time: 10:50 EST
 	  box-shadow: 0 0 0 0.2rem rgba(108, 117, 125, 0.5);
 	}
 
+	/* Highlight the target, if it has a border. */
+	:target.border {
+		box-shadow: 0 0 0 0.12rem hsla(75, 75%, 25%, 0.5);
+	}
+
+	/* Keep the target below the top of the page. */
+	:target::before {
+		content: "";
+		display: block;
+		height: 100px; /* fixed header height*/
+		margin-top: -100px; /* negative fixed header height */
+	}
+
 }
 /* Media Screen End */
 
@@ -313,7 +338,6 @@ Time: 10:50 EST
 
 	nav .has-parent li:hover { background-color: #f5f5f5; }
 
-	.title-wrap { background-color: #5a92b5; }
 	/* main visible color */
 
 	.site-title a { color: #515151; }
@@ -423,7 +447,7 @@ Time: 10:50 EST
 
 	.site-logo .inner {
 		height: 75px;
-		padding: 8px;
+		padding: 4px;
 	}
 
 	.title-wrap {
@@ -1046,17 +1070,23 @@ Time: 10:50 EST
 		margin: 0 auto;
 	}
 
-	.float-left,
 	.align-left,
 	.alignleft {
 		float: left;
 		margin-right: 1em;
 	}
 
-	.float-right,
 	.align-right,
 	.alignright {
 		float: right;
+		margin-left: 1em;
+	}
+
+	img.float-left {
+		margin-right: 1em;
+	}
+
+	img.float-right {
 		margin-left: 1em;
 	}
 
@@ -1132,6 +1162,11 @@ Time: 10:50 EST
 	article p:last-child {
 		margin-bottom: 0;
 	}
+
+	.thumbnail {
+		width: 85px;
+		height: 85px;
+	}
 }
 /* Main All End */
 
@@ -1177,7 +1212,7 @@ Time: 10:50 EST
 	.resource .color.lighter { background: #d9ead3; } /* light green */
 	.service .color.lighter { background: #a2c4c9; } /* medium blue */
 	.supply .color.lighter { background: #f9cb9c; } /* light orange */
-	.store .color.lighter { background: #76a5af; } /* medium blue */
+	.store .color.lighter { background: hsl(300, 50%, 75%); } /* medium violet */
 
 	.download .color.lighter { background: #279f43; }
 
@@ -1204,7 +1239,7 @@ Time: 10:50 EST
 	.recovery .color.darker { background-color: #93c47d; }
 	.profession { background-color: #d0e0e3; }
 	.supply .color.darker { background-color: #f9cb9c; }
-	.store .color.darker { background-color: #76a5af; }
+	.store .color.darker { background-color: hsl(300, 25%, 25%); }
 	.news .color.darker { background-color: #f1c232; }
 	.process .color.darker { background-color: #e6b8af; }
 	.method .color.darker { background-color: #cccccc; }
@@ -1312,7 +1347,7 @@ Time: 10:50 EST
 	.where.boxes .border { border-color: #ffae4b; } /* dark orange */
 	.when.boxes .border { border-color: #ad8100; } /* dark yellow */
 	.why.boxes .border { border-color: #6c53a3; } /* dark purple */
-	.store .border { border-color: #999; } /* medium grey */
+	.store .border { border-color: hsl(300, 25%, 25%); } /* dark violet */
 
 	nav.icons .who .icon { background-color: #a2c4c9; } /* blue */
 	nav.icons .what .icon { background-color: #b6d7a8; } /* green */
@@ -1320,6 +1355,7 @@ Time: 10:50 EST
 	nav.icons .where .icon { background-color: #ffd199; } /* orange */
 	nav.icons .when .icon { background-color: #ffe599; } /* yellow */
 	nav.icons .why .icon { background-color: #d9d2e9; } /* purple */
+	nav.icons .store .icon { background-color: hsl(300, 50%, 80%); } /* violet */
 
 	nav.icons .icon {
 		border-radius: 3px;
@@ -1459,7 +1495,7 @@ Time: 10:50 EST
 
 	/* Row 3 (Set 2-3) */
 	.sprite .icon9x3, .equipment > .icon { background-position: -280px -70px; }
-	.sprite .icon10x3, .packs .icon { background-position: -315px -70px; }
+	.sprite .icon10x3, .backpack .icon { background-position: -315px -70px; }
 
 	.sprite .icon12x3, .sleep .icon { background-position: -385px -70px; }
 
@@ -1489,9 +1525,9 @@ Time: 10:50 EST
 	.sprite .icon1x9, .standard > .icon { background-position: 0 -280px; }
 
 	/* Row 10 (Set 3-2) */
-	.sprite .icon2x10, .growth .icon { background-position: -35px -315px; }
-
 	.sprite .icon1x10, .method > .icon { background-position: 0 -315px; }
+	.sprite .icon2x10, .growth .icon { background-position: -35px -315px; }
+	.sprite .icon3x10, .software .icon { background-position: -70px -315px; }
 
 	/* Row 11 (Set 3-3) */
 	.sprite .icon1x11, .project > .icon { background-position: 0 -350px; }
@@ -2188,8 +2224,8 @@ Time: 10:50 EST
  *
  * File: 06-adjustments.css
  * Created: 2018
- * Updated: 2018-11-03
- * Time: 09:23 EST
+ * Updated: 2018-11-04
+ * Time: 14:48 EST
  */
 
 /**
@@ -2203,44 +2239,81 @@ Time: 10:50 EST
 
 	/*** COLOR START ***/
 
-	body { border: 1px solid #999; }
+	body {
+		border: 1px solid #999;
+	}
 
-	.title-wrap { background-color: #93c47d; }
+	.site-header {
+		position: relative;
+		border-bottom: 1px solid #999;
+	}
 
-	.site-title, .site-description { color: #efefef; }
+	.site-header:hover {
+		border-color: hsl(20, 30%, 50%);
+		background-color: hsl(24, 50%, 75%);
+	}
+
+	.site-header > a > .inner {
+		margin: 2px;
+		border-top-left-radius: 3px;
+		border-top-right-radius: 3px;
+		background-color: hsl(84, 25%, 50%);
+	}
+
+	.site-logo {
+		position: absolute;
+		top: 1px;
+		left: 3px;
+	}
+
+	.site-title,
+	.site-description {
+		color: hsl(15, 66%, 33%);
+	}
 
 	.site-title {
-		text-shadow: 2px -1px 2px #134f5c;
+		text-shadow: 2px -1px 2px hsl(204, 25%, 25%);
 		display: none;
 		}
 
 	.site-description {
-		text-shadow: 1px 1px 1px #134f5c;
-		/* faded sky blue */
+		text-shadow: 1px 1px 1px hsl(204, 25%, 25%);
 		line-height: 1.3em;
-		font-size: 1.2em;
+		font-size: 1.1em;
 	}
 
-	.site-header { border-bottom: 1px solid #999; }
+	.site-header-sub {
+		border-bottom: 1px solid #999;
+	}
 
-	.site-header-sub { border-bottom: 1px solid #999; }
+	.spacer-header {
+		border-bottom: #777 solid 4px;
+	}
 
-	.spacer-header { border-bottom: #777 solid 4px; }
-
-	.spacer-header-bottom { box-shadow: 0 1px 2px rgba(50, 50, 50, 1.0); }
+	.spacer-header-bottom {
+		box-shadow: 0 1px 2px rgba(50, 50, 50, 1.0);
+	}
 
 	.spacer-footer-top {
 		border-top: #777 solid 4px;
 		box-shadow: 1px 1px 2px rgba(50, 50, 50, 1.0);
 	}
 
-	.active { background: #e0e0e0; }
+	.active {
+		background: #e0e0e0;
+	}
 
-	.inactive {	background: #eee; }
+	.inactive {
+		background: #eee;
+	}
 
-	.core .border { background: #a2c4c9; }
+	.core .border {
+		background: #a2c4c9;
+	}
 
-	.alt .border { background: #ffd966; }
+	.alt .border {
+		background: #ffd966;
+	}
 
 	article .unit .border {
 		border-width: 6px;
@@ -2248,13 +2321,16 @@ Time: 10:50 EST
 	}
 
 	.unit .border {
-		border: #999 solid 4px;
 		box-shadow: 1px 1px 3px rgba(50, 50, 50, 1.0);
 	}
 
-	.boxes .unit .inner { box-shadow: inset 1px 1px 3px rgba(50, 50, 50, 1.0); }
+	.boxes .unit .inner {
+		box-shadow: inset 1px 1px 3px rgba(50, 50, 50, 1.0);
+	}
 
-	.boxes > .line > .unit > .inner { border: 1px solid #c8c8c8; }
+	.boxes > .line > .unit > .inner {
+		border: 1px solid #c8c8c8;
+	}
 
 	/*** COLOR END ***/
 
@@ -2284,24 +2360,39 @@ Time: 10:50 EST
 		overflow: hidden;
 	}
 
-	.boxes a { border-bottom: none; }
+	.boxes a {
+		border-bottom: none;
+	}
 
-	.boxes h2, .boxes h3 { text-align: center; }
+	.boxes h2,
+	.boxes h3 {
+		text-align: center;
+	}
 
-	.boxes h2 { font-size: 100%; }
+	.boxes h2 {
+		font-size: 100%;
+	}
 
-	.boxes h3 { font-size: 80%; }
+	.boxes h3 {
+		font-size: 80%;
+	}
 
-	.boxes h4 { font-size: 75%; }
+	.boxes h4 {
+		font-size: 75%;
+	}
 
-	.boxes > .line > .unit:last-child { margin-bottom: 0; }
+	.boxes > .line > .unit:last-child {
+		margin-bottom: 0;
+	}
 
 	.boxes > .line > .unit > .inner {
 		margin: 5px;
 		overflow: hidden;
 	}
 
-	.boxes .unit .inner { padding: 5px; }
+	.boxes .unit .inner {
+		padding: 5px;
+	}
 
 	.boxes h2 {
 		clear: both;
@@ -2311,17 +2402,29 @@ Time: 10:50 EST
 		opacity: .8;
 	}
 
-	.boxes .unit h2 { margin: 0; }
+	.boxes .unit h2 {
+		margin: 0;
+	}
 
-	.boxes.vertical a { display: block; }
+	.boxes.vertical a {
+		display: block;
+	}
 
 	/*** BOXES END ***/
 
 	/*** BORDER RADIUS START ***/
 
-	.boxes .unit .border { border-radius: 7px; }
-	.boxes .unit .inner { border-radius: 3px; }
-	.boxes > .line > .unit > .inner { border-radius: 4px; }
+	.boxes .unit .border {
+		border-radius: 7px;
+	}
+
+	.boxes .unit .inner {
+		border-radius: 3px;
+	}
+
+	.boxes > .line > .unit > .inner {
+		border-radius: 4px;
+	}
 
 	/*** BORDER RADIUS END ***/
 
@@ -2336,24 +2439,34 @@ Time: 10:50 EST
 	}
 	*/
 
-	h1 { text-align: center; }
+	h1 {
+		text-align: center;
+	}
 
-	.community .unit a { font-weight: bold; }
+	.community .unit a {
+		font-weight: bold;
+	}
 
 	iframe {
 		display: block;
 		margin: 0 auto;
 	}
 
-	p.date { font-size: 80%; }
+	p.date {
+		font-size: 80%;
+	}
 
 	/*** OTHER END ***/
 
 	/*** MISC START ***/
 
-	.what h3 { display: none; }
+	.what h3 {
+		display: none;
+	}
 
-	.spacer { margin-bottom: 20px; }
+	.spacer {
+		margin-bottom: 20px;
+	}
 
 	/* Survey Monkey Embedded Survey Form */
 	.smcx-embed {
@@ -2377,6 +2490,7 @@ Time: 10:50 EST
 	.tier-2 .site-logo .inner {
 		height: 25px;
 	}
+
 	.tier-2 .site-logo img {
 		width: 25px;
 		height: 25px;
@@ -2392,7 +2506,9 @@ Time: 10:50 EST
 		display: inline-block;
 	}
 
-	.tier-2 .site-header { height: 20px; }
+	.tier-2 .site-header {
+		height: 20px;
+	}
 
 	.tier-2 .title-wrap {
 		height: 20px;
@@ -2400,7 +2516,9 @@ Time: 10:50 EST
 		background-position: 5px;
 	}
 
-	.tier-2 .title-wrap .inner { display: none; }
+	.tier-2 .title-wrap .inner {
+		display: none;
+	}
 
 	.tier-2 .site-header-sub {
 		margin-top: 0;

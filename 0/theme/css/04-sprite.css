@@ -127,7 +127,7 @@
 
 	/* Row 3 (Set 2-3) */
 	.sprite .icon9x3, .equipment > .icon { background-position: -280px -70px; }
-	.sprite .icon10x3, .packs .icon { background-position: -315px -70px; }
+	.sprite .icon10x3, .backpack .icon { background-position: -315px -70px; }
 
 	.sprite .icon12x3, .sleep .icon { background-position: -385px -70px; }
 
@@ -157,9 +157,9 @@
 	.sprite .icon1x9, .standard > .icon { background-position: 0 -280px; }
 
 	/* Row 10 (Set 3-2) */
-	.sprite .icon2x10, .growth .icon { background-position: -35px -315px; }
-
 	.sprite .icon1x10, .method > .icon { background-position: 0 -315px; }
+	.sprite .icon2x10, .growth .icon { background-position: -35px -315px; }
+	.sprite .icon3x10, .software .icon { background-position: -70px -315px; }
 
 	/* Row 11 (Set 3-3) */
 	.sprite .icon1x11, .project > .icon { background-position: 0 -350px; }

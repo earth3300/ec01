@@ -43,7 +43,6 @@
 
 	nav .has-parent li:hover { background-color: #f5f5f5; }
 
-	.title-wrap { background-color: #5a92b5; }
 	/* main visible color */
 
 	.site-title a { color: #515151; }
@@ -153,7 +152,7 @@
 
 	.site-logo .inner {
 		height: 75px;
-		padding: 8px;
+		padding: 4px;
 	}
 
 	.title-wrap {
@@ -776,17 +775,23 @@
 		margin: 0 auto;
 	}
 
-	.float-left,
 	.align-left,
 	.alignleft {
 		float: left;
 		margin-right: 1em;
 	}
 
-	.float-right,
 	.align-right,
 	.alignright {
 		float: right;
+		margin-left: 1em;
+	}
+
+	img.float-left {
+		margin-right: 1em;
+	}
+
+	img.float-right {
 		margin-left: 1em;
 	}
 
@@ -861,6 +866,11 @@
 
 	article p:last-child {
 		margin-bottom: 0;
+	}
+
+	.thumbnail {
+		width: 85px;
+		height: 85px;
 	}
 }
 /* Main All End */
