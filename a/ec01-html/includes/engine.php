@@ -38,7 +38,7 @@ class EC01HTML
 	private function load()
 	{
 		/** Contains optional information. */
-		if( file_exists( __DIR__ . '/data.php' ) )
+		if ( file_exists( __DIR__ . '/data.php' ) )
 		{
 			/** Using optional data to help define the site */
 			require_once( __DIR__ . '/data.php' );
@@ -212,7 +212,6 @@ class EC01HTML
 			 return $str;
 	 }
 
-
 	/**
 	 * Get the header file. (Tiers 1 and 2).
 	 *
@@ -240,7 +239,7 @@ class EC01HTML
 	}
 
 	/**
-	 * Get the article.
+	 * Get the Article File.
 	 *
 	 * Do a basic check on the file length, to make sure nothing
 	 * squirrely is happening here.
@@ -267,7 +266,7 @@ class EC01HTML
 	}
 
 	/**
-	 * Get the page.
+	 * Get the Page File.
 	 *
 	 * The page exists. We are just being nice and delivering it as is. A basic
 	 * check on the file length is done. Otherwise, nothing much here.
@@ -356,7 +355,7 @@ class EC01HTML
 	}
 
 	/**
-	 * Get the article title.
+	 * Get the Article Title.
 	 *
 	 * @param array $page
 	 *
@@ -400,13 +399,13 @@ class EC01HTML
 
 			$page['class']['tier-2'] = $page['tiers']['tier-2']['class'];
 
-			$page['class']['tier-3'] = $tiers->getUriTierThree( $page['tiers'] );
+			$page['tiers']['tier-3'] = $tiers->getUriTierThree( $page['tiers'] );
 
-			$tier4 = $tiers->getUriTierFour( $page );
+			$page['class']['tier-3'] = $page['tiers']['tier-3']['class'];
 
-			$page['tier-4']['title'] = $tier4['title'];
+			$page['tiers']['tier-4'] = $tiers->getUriTierFour( $page );
 
-			$page['class']['tier-4'] = $tier4['class'];
+			$page['class']['tier-4'] = $page['tiers']['tier-4']['class'];
 		}
 
 		$page['class']['dynamic'] = $this->isPageDynamic( $page );

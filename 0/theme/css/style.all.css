@@ -2604,18 +2604,18 @@ Time: 14:48 EST
 
 	.tier-2 .site-header-sub {
 		margin-top: 0;
-		height: 75px;
+		height: 77px;
 		text-align: left;
 		vertical-align: middle;
-		line-height: 75px;
+		line-height: 73px;
 		position: relative;
 	}
 
 	.tier-2 .site-header-sub .level-01 {
 		display: inline-block;
-		height: 75px;
+		height: 73px;
 		padding: 0 1.0em;
-		line-height: 75px;
+		line-height: 73px;
 		text-align: center;
 		font-weight: bold;
 		font-size: 120%;
@@ -2633,8 +2633,12 @@ Time: 14:48 EST
 		display: inline-block;
 	}
 
+	.site-header-sub .level-02 .header-height {
+		height: 74px;
+	}
+
 	.header-height {
-		height: 75px;
+		height: 73px;
 		padding-left: 15px;
 	}
 

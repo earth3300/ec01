@@ -54,7 +54,7 @@ class EC01Tiers extends EC01HTML
 		/** We need Tier 4 Information to construct a unique Tier-3/Tier-4 header. */
 		if ( isset( $page['tiers']['tier-3'] ) &&  $page['tiers']['tier-3'] )
 		{
-			$url_tier3 = '/' . $page['tiers']['tier-2']['abbr'] . '/' . $page['tiers']['tier-3'];
+			$url_tier3 = '/' . $page['tiers']['tier-2']['abbr'] . '/' . $page['tiers']['tier-3']['abbr'];
 
 			$str = '<div class="site-header-sub">' . PHP_EOL;
 
@@ -65,7 +65,7 @@ class EC01Tiers extends EC01HTML
 			$str .= sprintf( '<div class="%s">%s', $page['class']['tier-3'], PHP_EOL );
 			$str .= '<div class="color darker">' . PHP_EOL;
 			$str .= sprintf( '<a class="level-01 %s" ', $page['class']['tier-3'], PHP_EOL );
-			$str .= sprintf( 'href="%s/">', $url_tier3 . SITE_CENTER_DIR );
+			$str .= sprintf( 'href="%s/" title="%s">', $url_tier3 . SITE_CENTER_DIR, $page['tiers']['tier-3']['title'] );
 			$str .= sprintf( '<span class="icon"></span>%s</a>%s', ucfirst( $page['class']['tier-3'] ), PHP_EOL );
 
 			$str .= '</div><!-- .color .darker -->' . PHP_EOL;
@@ -102,8 +102,8 @@ class EC01Tiers extends EC01HTML
 		/** We need Tier 4 Information to construct a unique Tier-3/Tier-4 header. */
 		if ( isset( $page['tiers']['tier-4'] ) &&  $page['tiers']['tier-4'] )
 		{
-			$url_tier3 = '/' . $page['tiers']['tier-2']['abbr'] . '/' . $page['tiers']['tier-3'];
-			$url_tier4 = $url_tier3  . '/' . $page['tiers']['tier-4'];
+			$url_tier3 = '/' . $page['tiers']['tier-2']['abbr'] . '/' . $page['tiers']['tier-3']['abbr'];
+			$url_tier4 = $url_tier3  . '/' . $page['tiers']['tier-4']['abbr'];
 
 			$str = '<div class="site-header-sub">' . PHP_EOL;
 
@@ -114,7 +114,7 @@ class EC01Tiers extends EC01HTML
 			$str .= sprintf( '<div class="%s">%s', $page['class']['tier-3'], PHP_EOL );
 			$str .= '<div class="color darker">' . PHP_EOL;
 			$str .= sprintf( '<a class="level-01 %s" ', $page['class']['tier-3'], PHP_EOL );
-			$str .= sprintf( 'href="%s/">%s', $url_tier3 . SITE_CENTER_DIR, PHP_EOL );
+			$str .= sprintf( 'href="%s/" title="%s">%s', $url_tier3 . SITE_CENTER_DIR, $page['tiers']['tier-3']['title'], PHP_EOL );
 			$str .= '<span class="icon"></span>' . PHP_EOL;
 			$str .= sprintf( '<span class="text hide-tablet">%s</span>%s', ucfirst( $page['class']['tier-3'] ), PHP_EOL );
 			$str .= '</a><!-- .level-01 -->' . PHP_EOL;
@@ -124,10 +124,10 @@ class EC01Tiers extends EC01HTML
 			$str .= sprintf( '<div class="color lighter header-height">%s', PHP_EOL );
 			$str .= '<div class="header-height">' . PHP_EOL;
 
-			$str .= sprintf( '<a href="%s/">%s', $url_tier4, PHP_EOL );
+			$str .= sprintf( '<a href="%s/" title="%s">%s', $url_tier4, $page['tiers']['tier-4']['title'], PHP_EOL );
 			$str .= '<span class="icon icon-height"></span>' . PHP_EOL;
 			$str .= sprintf( '<span class="text hide-phone">%s</span>%s',
-							ucfirst( $page['tier-4']['title'] ), PHP_EOL );
+							ucfirst( $page['tiers']['tier-4']['title'] ), PHP_EOL );
 			$str .= '</a><!-- .tier-4 -->' . PHP_EOL;
 			$str .= '</div><!-- .header-height -->' . PHP_EOL;
 			$str .= '</div><!-- .color .lighter -->' . PHP_EOL;
@@ -137,7 +137,7 @@ class EC01Tiers extends EC01HTML
 			$str .= sprintf('<a href="/%s/" class="%s" title="%s">%s',
 				$page['tiers']['tier-2']['abbr'],
 				$page['tiers']['tier-2']['class'],
-				ucfirst( $page['tiers']['tier-2']['name'] ), PHP_EOL );
+				$page['tiers']['tier-2']['title'], PHP_EOL );
 				$str .= '<span class="tier-2 level-1 icon"></span>' . PHP_EOL;
 				$str .= '</a><!--- .tier-2 -->' . PHP_EOL;
 			$str .= '</div><!-- .site-header-sub tier-3 tier-4 -->' . PHP_EOL;
@@ -163,9 +163,10 @@ class EC01Tiers extends EC01HTML
 		$items = get_tier_two_data();
 		if ( ! empty( $arr['tier-2'] ) )
 		{
-			$tier['class'] = 'tier-2 ' . $items[ $arr['tier-2'] ]['name'];
-			$tier['name'] = $items[ $arr['tier-2'] ]['name'];
 			$tier['abbr'] = $arr['tier-2'];
+			$tier['name'] = $items[ $arr['tier-2'] ]['name'];
+			$tier['title'] = ucfirst( $tier['name'] );
+			$tier['class'] = 'tier-2 ' . $items[ $arr['tier-2'] ]['name'];
 			return $tier;
 		}
 		else
@@ -197,13 +198,23 @@ class EC01Tiers extends EC01HTML
 	 * @return array|bool
 	 */
 
-	protected function getUriTierThree( $arr )
+	protected function getUriTierThree( $tiers )
 	{
 		$items = get_tier_three_data();
-		if ( ! empty( $arr['tier-3'] ) )
+		if ( ! empty( $tiers['tier-3'] ) )
 		{
-			$name = isset( $items[ $arr['tier-3'] ]['name'] ) ? $items[ $arr['tier-3'] ]['name'] : '';
-			return $name;
+			if ( isset( $items[ $tiers['tier-3'] ]['name'] ) )
+			{
+				$tier['abbr'] = $items[ $tiers['tier-3'] ];
+				$tier['name'] = $items[ $tiers['tier-3'] ]['name'];
+				$tier['title'] = ucfirst( $tier['name'] );
+				$tier['class'] = $tier['name'];
+				return $tier;
+			}
+			else {
+				return false;
+			}
+
 		}
 		else
 		{
@@ -227,32 +238,37 @@ class EC01Tiers extends EC01HTML
 	{
 		$items = get_tier_four_data();
 
+		$tier['abbr'] = '';
+		$tier['name'] = '';
+		$tier['title'] = '';
+		$tier['class'] = '';
+
 		if ( 'who' == $page['tiers']['tier-2'] )
 		{
 			{
 				if ( isset( $items[ $page['tiers']['tier-4'] ]['who'] ) )
 				{
-					$arr['title'] = $items[ $page['tiers']['tier-4'] ]['who'];
+					$tier['abbr'] = $items[ $page['tiers']['tier-4'] ];
+					$tier['title'] = $items[ $page['tiers']['tier-4'] ]['who'];
 				}
 			}
 		}
 
 		if ( ! empty( $page['tiers']['tier-4'] ) )
 		{
-			$arr['class'] = isset( $items[ $page['tiers']['tier-4'] ]['name'] ) ? $items[ $page['tiers']['tier-4'] ]['name'] : '';
-
-			if ( ! isset( $arr['title'] ) )
+			if ( isset( $items[ $page['tiers']['tier-4'] ]['name'] ) )
 			{
-				$arr['title'] = $arr['class'];
+				$tier['abbr'] = $items[ $page['tiers']['tier-4'] ];
+				$tier['class'] = $items[ $page['tiers']['tier-4'] ]['name'];
+				$tier['name'] = ucfirst( $items[ $page['tiers']['tier-4'] ]['name'] );
+				if ( ! isset( $tier['title'] ) )
+				{
+					$tier['title'] = ucfirst( $tier['name'] );
+				}
 			}
+		}
 
-		}
-		else
-		{
-			$arr['class'] = null;
-			$arr['title'] = null;
-		}
-		return $arr;
+		return $tier;
 	}
 
 
