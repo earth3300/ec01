@@ -54,7 +54,7 @@ class EC01Tiers extends EC01HTML
 		/** We need Tier 4 Information to construct a unique Tier-3/Tier-4 header. */
 		if ( isset( $page['tiers']['tier-3'] ) &&  $page['tiers']['tier-3'] )
 		{
-			$url_tier3 = '/' . $page['tiers']['tier-2'] . '/' . $page['tiers']['tier-3'];
+			$url_tier3 = '/' . $page['tiers']['tier-2']['abbr'] . '/' . $page['tiers']['tier-3'];
 
 			$str = '<div class="site-header-sub">' . PHP_EOL;
 
