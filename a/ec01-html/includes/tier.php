@@ -121,7 +121,7 @@ class EC01Tiers extends EC01HTML
 
 			/** Right div. (Tier 4). Absolute Positioning, within Tier 3. */
 			$str .= sprintf( '<div class="level-02 right absolute %s">%s', $page['class']['tier-4'], PHP_EOL );
-			$str .= sprintf( '<div class="color lighter">%s', PHP_EOL );
+			$str .= sprintf( '<div class="color lighter header-height">%s', PHP_EOL );
 			$str .= '<div class="header-height">' . PHP_EOL;
 
 			$str .= sprintf( '<a href="%s/">%s', $url_tier4, PHP_EOL );
