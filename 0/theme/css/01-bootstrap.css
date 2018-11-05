@@ -17,6 +17,15 @@
  * of this writing. All modern browsers support this color model
  * {@see https://caniuse.com/#search=hsl} and there are no known issues with it.
  *
+ * These files may use some styling from Bootstrap, gratefully acknowledged:
+  *
+ * Bootstrap v4.1.3 (https://getbootstrap.com/)
+ * Copyright 2011-2018 The Bootstrap Authors
+ * Copyright 2011-2018 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+*/
+
+ *
  * File URI: https://github.com/earth3300/ec01-css
  * Author URI: https://github.com/earth3300
  * License: GPL v3.0
@@ -44,6 +53,7 @@
 		font: 1em/1.6 sans-serif;
 		background-color: hsl(0, 0%, 100%);
 		color: hsl(0, 0%, 20%);
+		min-width: 480px;
 		max-width: 750px;
 		display: block;
 		margin: 0 auto;
@@ -234,6 +244,47 @@
 		margin-top: -100px; /* negative fixed header height */
 	}
 
+	/* Hide when less than 480px */
+	@media (max-width: 480px) {
+		.hide-phone {
+			display: none !important;
+		}
+	}
+
+	/* Hide when less than 991px */
+	@media (max-width: 991px) {
+		.hide-tablet {
+			display: none !important;
+		}
+	}
+
+  /* Hide when less than 991px */
+	@media (max-width: 991px) {
+		.show-desktop {
+			display: none !important;
+		}
+	}
+
+  /* Show when greater than 992px */
+	@media (min-width: 992px) {
+		.show-desktop {
+			display: block;
+		}
+	}
+
+	/* Hide when less than 1799px */
+	@media (max-width: 1799px) {
+		.show-hd {
+			display: none !important;
+		}
+	}
+
+  /* Show when greater than 1800px */
+	@media (min-width: 1800px) {
+			.show-hd {
+				display: block;
+			}
+		}
 }
 /* Media Screen End */
 

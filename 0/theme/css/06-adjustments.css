@@ -70,6 +70,18 @@
 
 	.site-header-sub {
 		border-bottom: 1px solid #999;
+		box-sizing: border-box;
+	}
+
+	.site-header-sub .none {
+		padding-left: 2px;
+	}
+
+	.site-header-sub .color.lighter,
+	.site-header-sub .color.darker
+	 {
+			margin-right: 2px;
+			margin-left: 2px;
 	}
 
 	.spacer-header {
@@ -292,7 +304,7 @@
 		display: inline-block;
 	}
 
-	.tier-2 .site-header {
+	.tier-2 .site-header > a {
 		height: 20px;
 	}
 

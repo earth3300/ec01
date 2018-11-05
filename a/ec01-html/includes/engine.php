@@ -94,20 +94,6 @@ class EC01HTML
 		$page = $this->getPageData( $page ); //needs the article, to get the class.
 		$page['header']['main'] = $this->getHeader( $page );
 		$page['article-title'] = $this->getArticleTitle( $page['article'] );
-		if ( SITE_USE_TIERS )
-		{
-			if ( defined( 'SITE_USE_HEADER_SUB' )
-					&& SITE_USE_HEADER_SUB
-					&& ! isset( $page['tiers']['tier-4'] ) )
-				{
-					$page['header']['sub'] = $this-> getHeaderTierThree( $page );
-				}
-				else
-				{
-					$page['header']['sub'] = $this-> getHeaderTierFour( $page );
-				}
-
-		}
 		$page['page-title'] = $this-> getPageTitle( $page );
 		$page['sidebar']= defined( 'SITE_USE_SIDEBAR' ) && SITE_USE_SIDEBAR ? $this->getSidebar() : '';
 		$page['footer']= $this-> getFooter();
@@ -196,20 +182,36 @@ class EC01HTML
 		$str .= '<div class="site-logo">' . PHP_EOL;
 		$str .= '<div class="inner">' . PHP_EOL;
 		$str .= '<img src="/0/theme/image/site-logo-75x75.png" alt="Site Logo" width="75" height="75" />' . PHP_EOL;
-		$str .= '</div>' . PHP_EOL;
+		$str .= '</div><!-- .site-logo .inner -->' . PHP_EOL;
 		$str .= '</div><!-- .site-logo -->' . PHP_EOL;
 		$str .= '<div class="title-wrap">' . PHP_EOL;
 		$str .= '<div class="inner">' . PHP_EOL;
 		$str .= sprintf( '<div class="site-title">%s</div>%s', SITE_TITLE, PHP_EOL );
 		$str .= sprintf( '<div class="site-description">%s</div>%s', SITE_DESCRIPTION, PHP_EOL );
-		$str .= '</div><!-- .inner -->' . PHP_EOL;
+		$str .= '</div><!-- .title-wrap .inner -->' . PHP_EOL;
 		$str .= '</div><!-- .title-wrap -->' . PHP_EOL;
-		$str .= '</div><!-- .inner -->' . PHP_EOL;
-		$str .= '</a>' . PHP_EOL;
+		$str .= '</div><!-- .site-header .inner -->' . PHP_EOL;
+		$str .= '</a><!-- .home -->' . PHP_EOL;
+		$str .= $this->getHeaderSub( $page );
 		$str .= '</header>' . PHP_EOL;
 
 		return $str;
 	}
+
+	/**
+   * Get the Sub Header
+	 *
+	 * @param array $page
+   *
+	 * @return string|bool
+	 */
+	 private function getHeaderSub( $page )
+	 {
+		 	 $tiers = new EC01Tiers();
+			 $str = $tiers->getHeaderTiersSub( $page );
+			 return $str;
+	 }
+
 
 	/**
 	 * Get the header file. (Tiers 1 and 2).
@@ -234,110 +236,6 @@ class EC01HTML
 		else
 		{
 			return $str;
-		}
-	}
-
-	/**
-	 * Builds the Tier 2 Header.
-	 *
-	 * The Tier 2 Header is like the Tier 3 header (which was built first), but simpler
-	 * as it does not contain the second part. However it is usual to visually differentiate
-	 * between these Tiers as they contain different icons and colors.
-	 *
-	 * @param array $page
-	 *
-	 * @return array
-	 */
-	private function getHeaderTierThree( $page )
-	{
-		/** We need Tier 4 Information to construct a unique Tier-3/Tier-4 header. */
-		if ( isset( $page['tiers']['tier-3'] ) &&  $page['tiers']['tier-3'] )
-		{
-			$url_tier3 = '/' . $page['tiers']['tier-2'] . '/' . $page['tiers']['tier-3'];
-
-			$str = '<header class="site-header-sub">' . PHP_EOL;
-
-			/** The less specific overlays the more specific to get the effect we want. */
-			$str .= sprintf( '<div>%s', PHP_EOL );
-
-			/** Left div. (Tier 3). */
-			$str .= sprintf( '<div class="%s">%s', $page['class']['tier-3'], PHP_EOL );
-			$str .= '<div class="color darker">' . PHP_EOL;
-			$str .= sprintf( '<a class="level-01 %s" ', $page['class']['tier-3'], PHP_EOL );
-			$str .= sprintf( 'href="%s/">', $url_tier3 . SITE_CENTER_DIR );
-			$str .= sprintf( '<span class="icon"></span>%s</a>', ucfirst( $page['class']['tier-3'] ) );
-
-			$str .= '</div><!-- .color .darker -->' . PHP_EOL;
-			$str .= '</div><!-- .tier-3 -->' . PHP_EOL;
-			$str .= SITE_USE_HEADER_SUB ? sprintf('<a href="/%s/" class="%s" title="%s"><span class="tier-2 level-1 icon"></span></a>',
-				$page['tiers']['tier-2']['abbr'],
-				$page['tiers']['tier-2']['class'],
-				ucfirst( $page['tiers']['tier-2']['name'] )
-				) : '';
-			$str .= '</header>' . PHP_EOL;
-
-			return $str;
-		}
-		else
-		{
-			return false;
-		}
-	}
-
-	/**
-	 * Builds the Tier 3 and 4 Header.
-	 *
-	 * Needs to differentiate between the "Where" (name) and the "Who".
-	 * We have $page['tiers'], which contains the Tier-2 short form (i.e.
-	 * who, wha, how, whe, whn, and why.
-	 *
-	 * @param array $page
-	 *
-	 * @return array
-	 */
-	private function getHeaderTierFour( $page )
-	{
-		/** We need Tier 4 Information to construct a unique Tier-3/Tier-4 header. */
-		if ( isset( $page['tiers']['tier-4'] ) &&  $page['tiers']['tier-4'] )
-		{
-			$url_tier3 = '/' . $page['tiers']['tier-2']['abbr'] . '/' . $page['tiers']['tier-3'];
-			$url_tier4 = $url_tier3  . '/' . $page['tiers']['tier-4'];
-
-			$str = '<header class="site-header-sub">' . PHP_EOL;
-
-			/** The less specific overlays the more specific to get the effect we want. */
-			$str .= sprintf( '<div>%s', PHP_EOL );
-
-			/** Left div. (Tier 3). */
-			$str .= sprintf( '<div class="%s">%s', $page['class']['tier-3'], PHP_EOL );
-			$str .= '<div class="color darker">' . PHP_EOL;
-			$str .= sprintf( '<a class="level-01 %s" ', $page['class']['tier-3'], PHP_EOL );
-			$str .= sprintf( 'href="%s/">', $url_tier3 . SITE_CENTER_DIR );
-			$str .= sprintf( '<span class="icon"></span>%s</a>', ucfirst( $page['class']['tier-3'] ) );
-
-			/** Right div. (Tier 4). Absolute Positioning, within Tier 3. */
-			$str .= sprintf( '<div class="level-02 right absolute %s">', $page['class']['tier-4'] );
-			$str .= sprintf( '<div class="color lighter">%s', PHP_EOL );
-			$str .= '<span class="header-height">';
-			$str .= sprintf( '<a href="%s/">', $url_tier4 );
-			$str .= sprintf( '<span class="icon icon-height"></span>%s</span>', ucfirst( $page['tier-4']['title'] ) );
-			$str .= '</a>' . PHP_EOL;
-			$str .= '</div>' . PHP_EOL;
-			$str .= '</div><!-- .color .lighter -->' . PHP_EOL;
-			$str .= '</div><!-- .tier-4 -->' . PHP_EOL;
-			$str .= '</div><!-- .color .darker -->' . PHP_EOL;
-			$str .= '</div><!-- .tier-3 -->' . PHP_EOL;
-			$str .= SITE_USE_HEADER_SUB ? sprintf('<a href="/%s/" class="%s" title="%s"><span class="tier-2 level-1 icon"></span></a>',
-				$page['tiers']['tier-2']['abbr'],
-				$page['tiers']['tier-2']['class'],
-				ucfirst( $page['tiers']['tier-2']['name'] ) ) : '';
-			$str .= '</header>' . PHP_EOL;
-
-			return $str;
-		}
-		else
-		{
-			return false;
 		}
 	}
 

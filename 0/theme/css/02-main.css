@@ -31,7 +31,15 @@
 
 	/********** GENERIC STYLING BEGIN **********/
 
-	html { padding: 1em; }
+	html {
+			padding: .12em;
+	}
+
+	@media ( min-width: 849px) {
+		html {
+			padding: 1em;
+		}
+	}
 
 	/*** COLOR START ***/
 
@@ -346,10 +354,15 @@
 		font-size: 100%;
 	}
 
+  /**
+	 * Display as a block, keep the max-width to a reasonable size, keep padding
+	 * the same all around, center in the containing div. 
+	 */
 	article {
 		display: block;
 		margin: 0 auto;
-		padding: 1em 2em;
+		padding: 1em;
+		max-width: 780px;
 		position: relative;
 		overflow: hidden;
 	}
@@ -872,7 +885,13 @@
 		width: 85px;
 		height: 85px;
 	}
+
+	.img-medium {
+		width: 150px;
+		height: 150px;
+	}
 }
+
 /* Main All End */
 
 /* Main End */
