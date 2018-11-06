@@ -101,19 +101,20 @@ class EC01HTML
 		if( $page['file']['page'] )
 		{
 			$page['page'] = $this->getPageFile( $page );
-			$page['article'] = false;
+			$page['article'] = 'Not available.';
 		}
 		else
 		{
 			$page['page']= false;
 			$page['article'] = $this->getArticleFile( $page );
 		}
-		$page = $this->getPageData( $page ); //needs the article, to get the class.
+		$page['data'] = $this->getPageData( $page ); //needs the article, to get the class.
 		$page['header']['main'] = $this->getHeader( $page );
 		$page['article-title'] = $this->getArticleTitle( $page['article'] );
 		$page['page-title'] = $this-> getPageTitle( $page );
 		$page['sidebar']= defined( 'SITE_USE_SIDEBAR' ) && SITE_USE_SIDEBAR ? $this->getSidebar() : '';
 		$page['footer']= $this-> getFooter();
+
 		return $page;
 	}
 
@@ -329,25 +330,25 @@ class EC01HTML
 	 * version as the first section of this function isn't used if the files
 	 * (tier.php and data.php) are not available.
 	 *
-	 * @param array
+	 * @param array $page
 	 *
-	 * @return string
+	 * @return array
 	 */
 	private function getPageData( $page )
 	{
 		if ( SITE_USE_TIERS )
 		{
 			$tiers = new EC01Tiers();
-			$page = $tiers->getTiersData( $page );
+			$data = $tiers->getTiersData( $page );
 		}
 
-		$page['class']['dynamic'] = $this->isPageDynamic( $page );
+		$data['class']['dynamic'] = $this->isPageDynamic( $page );
 
-		$page['class']['article'] = $this->getArticleClass( $page['article'] );
+		$data['class']['article'] = $this->getArticleClass( $page['article'] );
 
-		$page['class']['html'] = $this->getHtmlClassStr( $page['class'] );
+		$data['class']['html'] = $this->getHtmlClassStr( $data['class'] );
 
-		return $page;
+		return $data;
 	}
 
 	/**
@@ -364,16 +365,12 @@ class EC01HTML
 		if ( ! empty( $items ) )
 		{
 			$str = '';
-			$cnt = 0;
 			foreach ( $items as $item )
 			{
-				/** Only need the first two items. */
-				$cnt++;
-				if ( $cnt > 2 )
+				if ( ! empty( $item ) )
 				{
-					break;
+					$str .= $item . ' ';
 				}
-				$str .= $item . ' ';
 			}
 			return trim( $str );
 		}
@@ -586,12 +583,13 @@ class EC01HTML
 	 * This can be used if this template part is static and rarely changes.
 	 * It just retrieves the template part saved to disk as an HTML file and
 	 * may be faster than if constructing the template part dynamically for every
-	 * page load. Also performs a basic check on the file length, to make sure
-	 * nothing squirrely is happening here.
+	 * page load. Also performs a basic check on the file name length and the file
+	 * itself, to make sure nothing squirrely is happening here and that the content
+	 * is not trivial.
 	 *
 	 * @param array $page
 	 *
-	 * @return string
+	 * @return string|bool
 	 */
 	private function getArticleFile( $page )
 	{
@@ -599,14 +597,20 @@ class EC01HTML
 
 		$file = $page['file']['name'];
 
-		if ( ! empty( $file ) && strlen ( $file ) < 120 )
+		if ( ! empty( $file ) && strlen ( $file ) < 180 )
 		{
 			$str = file_get_contents( $file );
-			return $str;
+			if  ( strlen( $str ) > 4 )
+			{
+				return $str;
+			}
+			else {
+				return false;
+			}
 		}
 		else
 		{
-			return $str;
+			return false;
 		}
 	}
 
