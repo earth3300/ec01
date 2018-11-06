@@ -22,29 +22,37 @@ class EC01Tiers extends EC01HTML
 {
 
 	/**
-	 * Get the Sub Header
+	 * Get the Tiered Sub Header
+	 *
+	 * This is being called from engine.php and no checks are being done there.
+	 * This means that ...
 	 *
 	 * @param array $page
 	 *
 	 * @return string|bool
    */
-	protected function getHeaderTiersSub( $page )
+	protected function getHeaderSubTiered( $page )
 	{
-		if ( SITE_USE_TIERS )
+		if ( SITE_HAS_TIERS )
 		{
-			if ( defined( 'SITE_USE_HEADER_SUB' )
-					&& SITE_USE_HEADER_SUB
-					&& ! isset( $page['tiers']['tier-3'] ) )
+				if ( $page['data']['tiers']['tier-2']['get'] )
 				{
-					$str = $this-> getHeaderTierThree( $page );
+					/** Get Header Tier 2. */
+					$str = $this-> getHeaderTierTwo( $page );
+					return $str;
 				}
-				else
+				elseif ( $page['data']['tiers']['tier-3']['get'] )
 				{
-					$str = $this-> getHeaderTierFour( $page );
+					/** Get Header Tier 2 and 3. */
+					$str = $this-> getHeaderTierTwoThree( $page );
+					return $str;
 				}
-				return $str;
+				else {
+					return false;
+				}
 		}
-		else {
+		else
+		{
 			return false;
 		}
 	}
@@ -60,7 +68,7 @@ class EC01Tiers extends EC01HTML
 	 *
 	 * @return string|bool
 	 */
-	private function getHeaderTierThree( $page )
+	private function getHeaderTierTwo( $page )
 	{
 		/** We need Tier 4 Information to construct a unique Tier-3/Tier-4 header. */
 		if ( isset( $page['tiers']['tier-2'] ) &&  $page['tiers']['tier-2'] )
@@ -98,7 +106,7 @@ class EC01Tiers extends EC01HTML
 	}
 
 	/**
-	 * Builds the Tier 3 and 4 Header.
+	 * Builds the Tier 2 and 3 Header.
 	 *
 	 * Needs to differentiate between the "Where" (name) and the "Who".
 	 * We have $page['tiers'], which contains the Tier-2 short form (i.e.
@@ -108,7 +116,7 @@ class EC01Tiers extends EC01HTML
 	 *
 	 * @return string|bool
 	 */
-	private function getHeaderTierFour( $page )
+	private function getHeaderTierTwoThree( $page )
 	{
 		/** We need Tier 4 Information to construct a unique Tier-3/Tier-4 header. */
 		if ( isset( $page['tiers']['tier-3'] ) &&  $page['tiers']['tier-3'] )
@@ -220,7 +228,7 @@ class EC01Tiers extends EC01HTML
 			$tier['abbr'] = $tiers['tier-1'];
 			$tier['name'] = $items[ $tier['abbr'] ]['name'];
 			$tier['title'] = ucfirst( $tier['name'] );
-			$tier['class'] = 'tier-2 ' . $items[ $page['tier-1'] ]['name'];
+			$tier['class'] = 'tier-2 ' . $items[ $tiers['tier-1'] ]['name'];
 			return $tier;
 		}
 		else
@@ -299,7 +307,7 @@ class EC01Tiers extends EC01HTML
 			{
 				$tier['abbr'] = $items[ $tiers['tier-3'] ];
 				$tier['name'] = $items[ $tiers['tier-3'] ]['name'];
-				$tier['class'] = 'tier-4 ' . $tiers['name'];
+				$tier['class'] = 'tier-4 ' . $tier['name'];
 				$tier['title'] = ucfirst( $tier['name'] );
 				return $tier;
 			}

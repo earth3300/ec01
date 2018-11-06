@@ -60,10 +60,15 @@ class EC01HTML
 			{
 				if ( file_exists( __DIR__ . '/tiers.php' ) )
 				{
+					/** Site has tiers. Let it know that. */
+					define('SITE_HAS_TIERS', true );
+
 					/** Works together with the data file. */
 					require_once( __DIR__ . '/tiers.php' );
 				}
 				else {
+					/** Site does not have tiers. Let it know that. */
+					define('SITE_HAS_TIERS', false );
 					echo "The file <code>tiers.php</code> is not available.";
 				}
 			}
@@ -220,11 +225,13 @@ class EC01HTML
    * Get the Sub Header.
    *
    * This is being used here to construct a rather complex three (or four) part
-   * header. This is so the header can be used to provide better visual cues
+   * header. This is so that it can be used to provide better visual cues
    * as to where one is on the site. Color, blocking and icons are all used for
-   * maximum effect. If necessary, this can be replaced as needed. Not where the
+   * maximum effect. If necessary, this can be replaced as needed. Note where the
    * sub header is being placed with respect to the containing header and style
-   * accordingly.
+   * accordingly. Since this is using the tiers concept, we can do another check
+   * for the file and then call it only if there. Checking if the class file_exist
+   * may not work.
 	 *
 	 * @param array $page
    *
@@ -233,7 +240,7 @@ class EC01HTML
 	 private function getHeaderSub( $page )
 	 {
 		 	 $tiers = new EC01Tiers();
-			 $str = $tiers->getHeaderTiersSub( $page );
+			 $str = $tiers->getHeaderSubTiered( $page );
 			 return $str;
 	 }
 

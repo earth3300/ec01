@@ -276,25 +276,25 @@
 
 	/*** TIER 2 (CLUSTER) START ***/
 
-	.tier-2 .site-header {
+	.tier-1 .site-header {
 		position: relative;
 	}
 
-	.tier-2 .site-logo {
+	.tier-1 .site-logo {
 		position: absolute;
 		z-index: 10;
 	}
 
-	.tier-2 .site-logo .inner {
+	.tier-1 .site-logo .inner {
 		height: 25px;
 	}
 
-	.tier-2 .site-logo img {
+	.tier-1 .site-logo img {
 		width: 25px;
 		height: 25px;
 	}
 
-	.tier-2 .level-1.icon {
+	.tier-1 .level-1.icon {
 		position: absolute;
 		z-index: 10;
 		right: 40px;
@@ -304,21 +304,21 @@
 		display: inline-block;
 	}
 
-	.tier-2 .site-header > a {
+	.tier-1 .site-header > a {
 		height: 20px;
 	}
 
-	.tier-2 .title-wrap {
+	.tier-1 .title-wrap {
 		height: 20px;
 		background-size: 18px;
 		background-position: 5px;
 	}
 
-	.tier-2 .title-wrap .inner {
+	.tier-1 .title-wrap .inner {
 		display: none;
 	}
 
-	.tier-2 .site-header-sub {
+	.tier-1 .site-header-sub {
 		margin-top: 0;
 		height: 77px;
 		text-align: left;
@@ -327,7 +327,7 @@
 		position: relative;
 	}
 
-	.tier-2 .site-header-sub .level-01 {
+	.tier-1 .site-header-sub .level-01 {
 		display: inline-block;
 		height: 73px;
 		padding: 0 1.0em;
@@ -337,7 +337,7 @@
 		font-size: 120%;
 	}
 
-	.tier-2 .site-header-sub .level-02 {
+	.tier-1 .site-header-sub .level-02 {
 		font-weight: bold;
 		font-size: 110%;
 		width: 75%;
@@ -345,7 +345,7 @@
 		top: 0;
 	}
 
-	.tier-2 .site-header-sub .level-02 span {
+	.tier-1 .site-header-sub .level-02 span {
 		display: inline-block;
 	}
 

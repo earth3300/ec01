@@ -75,7 +75,7 @@
 	}
 
 	.float-left {
-	  float: left;
+	  float: left !important;
 	}
 
 	.float-right {

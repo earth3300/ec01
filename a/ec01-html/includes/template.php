@@ -40,7 +40,8 @@ class EC01Template extends EC01HTML{
 				return $page['page'];
 				//Done!!!
 			}
-			else {
+			else
+			{
 				/** Construct the page on the "engine" page */
 				header('Content-type: text/html; charset=utf-8;');
 				$str = '<!DOCTYPE html>' . PHP_EOL;

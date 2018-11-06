@@ -356,7 +356,7 @@
 
   /**
 	 * Display as a block, keep the max-width to a reasonable size, keep padding
-	 * the same all around, center in the containing div. 
+	 * the same all around, center in the containing div.
 	 */
 	article {
 		display: block;
@@ -801,10 +801,12 @@
 	}
 
 	img.float-left {
+		float: left;
 		margin-right: 1em;
 	}
 
 	img.float-right {
+		float: right;
 		margin-left: 1em;
 	}
 
