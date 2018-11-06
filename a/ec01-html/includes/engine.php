@@ -1,7 +1,18 @@
 <?php
+/**
+ * EC01 Engine (Earth3300\EC01)
+ *
+ * This file constructs the page.
+ *
+ * File: engine.php
+ * Created: 2018-10-01
+ * Update: 2018-11-06
+ * Time: 07:57 EST
+ */
 
 namespace Earth3300\EC01;
 
+/** No direct access (NDA). */
 defined('NDA') || exit('NDA');
 
 /**

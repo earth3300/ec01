@@ -1,4 +1,18 @@
 <?php
+/**
+ * EC01 Data (Earth3300\EC01)
+ *
+ * This data is used to construct the header on the site. There are three tiers.
+ * Tier One: Who, What, When, Where, Why and How (and Store and Wiki)
+ * Tier Two: Similar groupings for each top level tiers. May be minor variations.
+ * Tier Three: Further Detail. May be greater variation at this level.
+ * This data file is optional.
+ *
+ * File: data.php
+ * Created: 2018-10-01
+ * Update: 2018-11-06
+ * Time: 07:41 EST
+ */
 
 namespace Earth3300\EC01;
 
@@ -6,21 +20,21 @@ namespace Earth3300\EC01;
 defined('NDA') || exit('NDA');
 
 /**
- * Get Tier Two Data (Three Characters).
+ * Get Tier One Data (Three Characters).
  *
  * Who, What, When, Where, How and Why, shortened to:
  * who, wha, whn, whe, how and why.
  *
- * Although each tier two grouping can have about ten tier
- * three groupings, some (many?) may be duplicated at the tier three
- * and tier four levels, with minor variations in wording to reflect
- * the difference between the tier two groupings.
+ * Although each tier one grouping can have about ten tier
+ * two groupings, some (many?) may be duplicated at the tier two
+ * and tier three levels, with minor variations in wording to reflect
+ * the difference between the tier one groupings.
  *
  * @return array
  */
-function get_tier_two_data()
+function get_tier_one_data()
 {
-	$arr = [
+	$items = [
 		'who' => [ 'name' => 'who' ],
 		'wha' => [ 'name' => 'what' ],
 		'whn' => [ 'name' => 'when' ],
@@ -30,23 +44,23 @@ function get_tier_two_data()
 		'wki' => [ 'name' => 'wiki' ],
 		'sto' => [ 'name' => 'store' ],
 		];
-	return $arr;
+	return $items;
 }
 
 /**
- * Get Tier Three Data (Four Characters).
+ * Get Tier Two Data (Four Characters).
  *
  * These all are currently placed under the "Where" (whr) directory.
  * Formerly, this was called the "cluster" directory, as that had best
  * defined what that was at that time. However, with the addition of
  * other higher level categories which include: who, what, when, how and
- * why, it seemed best to change this to "where" (or "whr") for consistency.
+ * why, it seemed best to change this to "where" (or "whe") for consistency.
  *
  * @return array
  */
-function get_tier_three_data()
+function get_tier_two_data()
 {
-	$arr = [
+	$items = [
 		// whe (where)
 		'acad' => [ 'name' => 'academic' ],
 		'arts' => [ 'name' => 'arts' ],
@@ -106,21 +120,21 @@ function get_tier_three_data()
 		'syst' => [ 'name' => 'systems' ],
 		'cogn' => [ 'name' => 'cognition' ],
 	];
-	return $arr;
+	return $items;
 }
 
 /**
- * Get Tier Four Data (Five Characters).
+ * Get Tier Three Data (Five Characters).
  *
- * There are eight to ten tier three groupings. With about eight
- * tier four groupings per tier three grouping, we have:
- * 10 x 8 = 80. About sixty to eighty tier four groupings.
+ * There are eight to ten tier two groupings. With about eight
+ * tier three groupings per tier two grouping, we have:
+ * 10 x 8 = 80. About sixty to eighty tier three groupings.
  *
  * @return array
  */
-function get_tier_four_data()
+function get_tier_three_data()
 {
-	$arr = [
+	$items = [
 		'centr' => [ 'name' => 'center' ],
 
 		// Who
@@ -223,5 +237,5 @@ function get_tier_four_data()
 		'softw' => [ 'name' => 'software', 'who' => 'programmer', ],
 		'grwth' => [ 'name' => 'growth', 'who' => 'planner', ],
 	];
-	return $arr;
+	return $items;
 }

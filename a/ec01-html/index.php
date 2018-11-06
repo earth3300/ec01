@@ -2,8 +2,8 @@
 /**
  * EC01 HTML.
  *
- * A lighweight alternative to displaying HTML. Can be used on its own, or as a WordPress theme.
- * A basic set of constants are in this index file.
+ * A lighweight alternative to displaying HTML. Can be used on its own, or as a
+ * WordPress theme. A basic set of constants are in this index file.
  *
  * @package Earth3300\EC01
  * @since 2018.10.29
