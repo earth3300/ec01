@@ -49,7 +49,7 @@ class EC01HTML
 			if ( SITE_USE_TIERS )
 			{
 				/** Works together with the data file. */
-				require_once( __DIR__ . '/tier.php' );
+				require_once( __DIR__ . '/tiers.php' );
 			}
 		}
 		else
@@ -213,7 +213,7 @@ class EC01HTML
 	 }
 
 	/**
-	 * Get the header file. (Tiers 1 and 2).
+	 * Get the Header File. (Tiers 1 and 2).
 	 *
 	 * Not used by default.
 	 *
@@ -392,20 +392,7 @@ class EC01HTML
 		if ( SITE_USE_TIERS )
 		{
 			$tiers = new EC01Tiers();
-
-			$page['tiers'] = $tiers->getUriTiers( $page['uri'] );
-
-			$page['tiers']['tier-2'] = $tiers->getUriTierTwo( $page['tiers'] );
-
-			$page['class']['tier-2'] = $page['tiers']['tier-2']['class'];
-
-			$page['tiers']['tier-3'] = $tiers->getUriTierThree( $page['tiers'] );
-
-			$page['class']['tier-3'] = $page['tiers']['tier-3']['class'];
-
-			$page['tiers']['tier-4'] = $tiers->getUriTierFour( $page );
-
-			$page['class']['tier-4'] = $page['tiers']['tier-4']['class'];
+			$page = $tiers->getTiersData( $page );
 		}
 
 		$page['class']['dynamic'] = $this->isPageDynamic( $page );
@@ -493,7 +480,7 @@ class EC01HTML
 	}
 
 	/**
-	 * Get the page and site title.
+	 * Get the Page and Site Title.
 	 *
 	 * @param array $page
 	 *
@@ -528,7 +515,7 @@ class EC01HTML
 	}
 
 	/**
-	 * Get the menu.
+	 * Get the Menu.
 	 *
 	 * @param array $page
 	 *

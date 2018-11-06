@@ -2,6 +2,7 @@
 
 namespace Earth3300\EC01;
 
+/** No direct access (NDA). */
 defined('NDA') || exit('NDA');
 
 /**
@@ -17,7 +18,8 @@ defined('NDA') || exit('NDA');
  *
  * @return array
  */
-function get_tier_two_data(){
+function get_tier_two_data()
+{
 	$arr = [
 		'who' => [ 'name' => 'who' ],
 		'wha' => [ 'name' => 'what' ],
@@ -42,9 +44,9 @@ function get_tier_two_data(){
  *
  * @return array
  */
-function get_tier_three_data(){
+function get_tier_three_data()
+{
 	$arr = [
-
 		// whe (where)
 		'acad' => [ 'name' => 'academic' ],
 		'arts' => [ 'name' => 'arts' ],
@@ -116,7 +118,8 @@ function get_tier_three_data(){
  *
  * @return array
  */
-function get_tier_four_data(){
+function get_tier_four_data()
+{
 	$arr = [
 		'centr' => [ 'name' => 'center' ],
 
@@ -219,7 +222,6 @@ function get_tier_four_data(){
 		// How (How)
 		'softw' => [ 'name' => 'software', 'who' => 'programmer', ],
 		'grwth' => [ 'name' => 'growth', 'who' => 'planner', ],
-
 	];
 	return $arr;
 }

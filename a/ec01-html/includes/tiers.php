@@ -152,21 +152,64 @@ class EC01Tiers extends EC01HTML
 	}
 
 	/**
+	 * Get Tiers Data
+	 *
+	 * This will be first extracted from the URI,
+	 * From there, the abbreviations, names, title and class will be built.
+	 *
+	 * @param array $page
+	 *
+	 * @return array
+	 */
+	protected function getTiersData( $page )
+	{
+
+		/** Extract the tier information from the URI, if available */
+		$tiers = $this->getTiersFromURI( $page['uri'] );
+
+		/** Build Tier Two */
+		$data['tiers']['tier-2'] = $this->buildTierTwo( $tiers );
+
+		$data['class']['tier-2'] = $page['tiers']['tier-2']['class'];
+
+		/** Build Tier Three */
+		$data['tiers']['tier-3'] = $this->buildTierThree( $tiers );
+
+		$data['class']['tier-3'] = $page['tiers']['tier-3']['class'];
+
+		/** Build Tier Four */
+		$data['tiers']['tier-4'] = $this->buildTierFour( $tiers );
+
+		$data['class']['tier-4'] = $page['tiers']['tier-4']['class'];
+
+		return $data;
+}
+
+	/**
 	 * Get Tier Two.
+	 *
+	 * The abbreviation comes from the URI. It is $tiers['tier-2'], if it is set.
+	 * The name of the tier (usually only one word), is all in lower case.
+	 * The *title* of the tier has the first letter of the name capitalized, and
+	 * is used as the title for the link for that tier in the header. Finally,
+	 * the *class* is the name of the tier (i.e. 'tier-2'), with the name of the
+	 * tier appended. This is then used to style the header appropriately and ensure
+	 * the right icon is used to help the viewer know where they are on the site.
 	 *
 	 * @param array $arr
 	 *
 	 * @return array|bool  class, name OR false.
 	 */
-	protected function getUriTierTwo( $arr )
+	protected function buildTierTwo( $tiers )
 	{
-		$items = get_tier_two_data();
-		if ( ! empty( $arr['tier-2'] ) )
+		if ( ! empty( $tiers['tier-2'] ) )
 		{
-			$tier['abbr'] = $arr['tier-2'];
-			$tier['name'] = $items[ $arr['tier-2'] ]['name'];
+			$items = get_tier_two_data();
+
+			$tier['abbr'] = $tiers['tier-2'];
+			$tier['name'] = $items[ $tier['abbr'] ]['name'];
 			$tier['title'] = ucfirst( $tier['name'] );
-			$tier['class'] = 'tier-2 ' . $items[ $arr['tier-2'] ]['name'];
+			$tier['class'] = 'tier-2 ' . $items[ $page['tier-2'] ]['name'];
 			return $tier;
 		}
 		else
@@ -198,23 +241,25 @@ class EC01Tiers extends EC01HTML
 	 * @return array|bool
 	 */
 
-	protected function getUriTierThree( $tiers )
+	protected function buildTierThree( $tiers )
 	{
-		$items = get_tier_three_data();
 		if ( ! empty( $tiers['tier-3'] ) )
 		{
+			$items = get_tier_three_data();
+
 			if ( isset( $items[ $tiers['tier-3'] ]['name'] ) )
 			{
-				$tier['abbr'] = $items[ $tiers['tier-3'] ];
+				$tier['abbr'] = $tiers['tier-3'];
 				$tier['name'] = $items[ $tiers['tier-3'] ]['name'];
+				$tier['class'] = 'tier-3 ' . $tier['name'];
 				$tier['title'] = ucfirst( $tier['name'] );
-				$tier['class'] = $tier['name'];
+
 				return $tier;
 			}
-			else {
+			else
+			{
 				return false;
 			}
-
 		}
 		else
 		{
@@ -234,43 +279,22 @@ class EC01Tiers extends EC01HTML
 	 *
 	 * @return array|bool
 	 */
-	protected function getUriTierFour( $page )
+	protected function buildTierFour( $tiers )
 	{
-		$items = get_tier_four_data();
-
-		$tier['abbr'] = '';
-		$tier['name'] = '';
-		$tier['title'] = '';
-		$tier['class'] = '';
-
-		if ( 'who' == $page['tiers']['tier-2'] )
+		if ( ! empty( $tiers['tier-4'] ) )
 		{
+			$items = get_tier_four_data();
+
+			if ( isset( $items[ $tiers['tier-4'] ]['name'] ) )
 			{
-				if ( isset( $items[ $page['tiers']['tier-4'] ]['who'] ) )
-				{
-					$tier['abbr'] = $items[ $page['tiers']['tier-4'] ];
-					$tier['title'] = $items[ $page['tiers']['tier-4'] ]['who'];
-				}
+				$tier['abbr'] = $items[ $tiers['tier-4'] ];
+				$tier['name'] = $items[ $tiers['tier-4'] ]['name'] );
+				$tier['class'] = 'tier-4 ' . $tiers['name'];
+				$tier['title'] = ucfirst( $tier['name'] );
 			}
 		}
-
-		if ( ! empty( $page['tiers']['tier-4'] ) )
-		{
-			if ( isset( $items[ $page['tiers']['tier-4'] ]['name'] ) )
-			{
-				$tier['abbr'] = $items[ $page['tiers']['tier-4'] ];
-				$tier['class'] = $items[ $page['tiers']['tier-4'] ]['name'];
-				$tier['name'] = ucfirst( $items[ $page['tiers']['tier-4'] ]['name'] );
-				if ( ! isset( $tier['title'] ) )
-				{
-					$tier['title'] = ucfirst( $tier['name'] );
-				}
-			}
-		}
-
 		return $tier;
 	}
-
 
 	/**
 	 * Get the URI parts.
@@ -293,7 +317,7 @@ class EC01Tiers extends EC01HTML
 	 * @example /whr/acad/
 	 * @example /wha/bldg/
 	 */
-	protected function getUriTiers( $uri )
+	protected function getTiersFromURI( $uri )
 	{
 		/** Have found nothing yet. */
 		$tiers = false;
