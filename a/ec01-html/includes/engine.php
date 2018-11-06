@@ -38,13 +38,12 @@ class EC01HTML
 	}
 
 	/**
-	 * Load the required files.
+	 * Load the Required Files.
 	 *
 	 * The `data.php` file is optional. It is being developed to allow
 	 * more complex page headers to be constructed. In its most basic form
 	 * only one header type is constructed. When this is the case, no extra
-	 * data is needed. However, the `template.php` is required. It is not
-	 * optional.
+	 * data is needed. The `template.php` file is required. It is not optional.
 	 */
 	private function load()
 	{
@@ -59,8 +58,14 @@ class EC01HTML
 
 			if ( SITE_USE_TIERS )
 			{
-				/** Works together with the data file. */
-				require_once( __DIR__ . '/tiers.php' );
+				if ( file_exists( __DIR__ . '/tiers.php' ) )
+				{
+					/** Works together with the data file. */
+					require_once( __DIR__ . '/tiers.php' );
+				}
+				else {
+					echo "The file <code>tiers.php</code> is not available.";
+				}
 			}
 		}
 		else
@@ -68,6 +73,7 @@ class EC01HTML
 			/** Don't use tiers. */
 			define('SITE_USE_TIERS', false );
 		}
+		/** This template file is required. */
 		require_once( __DIR__ . '/template.php' );
 	}
 
@@ -177,9 +183,9 @@ class EC01HTML
 	}
 
 	/**
-	 * 	Get the Header (Tiers 1 and 2).
+	 * 	Get the Header.
 	 *
-	 * 	Build from constants in the configuration (/c/config/...).
+	 * 	The SITE_TITLE and SITE_DESCRIPTION constants are used here.
 	 *
 	 * 	@param array $page
 	 *
@@ -203,14 +209,21 @@ class EC01HTML
 		$str .= '</div><!-- .title-wrap -->' . PHP_EOL;
 		$str .= '</div><!-- .site-header .inner -->' . PHP_EOL;
 		$str .= '</a><!-- .home -->' . PHP_EOL;
-		$str .= $this->getHeaderSub( $page );
+		$str .= SITE_USE_HEADER_SUB ? $this->getHeaderSub( $page ) : '';
 		$str .= '</header>' . PHP_EOL;
 
 		return $str;
 	}
 
 	/**
-   * Get the Sub Header
+   * Get the Sub Header.
+   *
+   * This is being used here to construct a rather complex three (or four) part
+   * header. This is so the header can be used to provide better visual cues
+   * as to where one is on the site. Color, blocking and icons are all used for
+   * maximum effect. If necessary, this can be replaced as needed. Not where the
+   * sub header is being placed with respect to the containing header and style
+   * accordingly.
 	 *
 	 * @param array $page
    *
@@ -222,84 +235,6 @@ class EC01HTML
 			 $str = $tiers->getHeaderTiersSub( $page );
 			 return $str;
 	 }
-
-	/**
-	 * Get the Header File. (Tiers 1 and 2).
-	 *
-	 * Not used by default.
-	 *
-	 * @param array $page
-	 *
-	 * @return string
-	 */
-	private function getHeaderFile( $page )
-	{
-		$str = 'Header N/A';
-
-		$file = SITE_HEADER_PATH . SITE_HEADER_DIR . SITE_HTML_EXT;
-
-		if ( file_exists( $file ) )
-		{
-			$str = file_get_contents( $file );
-			return $str;
-		}
-		else
-		{
-			return $str;
-		}
-	}
-
-	/**
-	 * Get the Article File.
-	 *
-	 * Do a basic check on the file length, to make sure nothing
-	 * squirrely is happening here.
-	 *
-	 * @param array $page
-	 *
-	 * @return string
-	 */
-	private function getArticleFile( $page )
-	{
-		$str = '<article>Article N/A.</article>';
-
-		$file = $page['file']['name'];
-
-		if ( ! empty( $file ) && strlen ( $file ) < 120 )
-		{
-			$str = file_get_contents( $file );
-			return $str;
-		}
-		else
-		{
-			return $str;
-		}
-	}
-
-	/**
-	 * Get the Page File.
-	 *
-	 * The page exists. We are just being nice and delivering it as is. A basic
-	 * check on the file length is done. Otherwise, nothing much here.
-	 *
-	 * @param array $page
-	 *
-	 * @return string
-	 */
-	private function getPageFile( $page )
-	{
-		$str = "This page doesn't exist.";
-		$file = $page['file']['name'];
-		if ( strlen ( $file ) < 120 )
-		{
-			$str = file_get_contents( $file );
-			return $str;
-		}
-		else
-		{
-			return $str;
-		}
-	}
 
 	/**
 	 * Get the Verfied Article Path and File Name.
@@ -526,50 +461,10 @@ class EC01HTML
 	}
 
 	/**
-	 * Get the Menu.
-	 *
-	 * @param array $page
-	 *
-	 * @return string
-	 */
-	private function getMenu()
-	{
-		$str = 'Menu N/A';
-		$file = SITE_MENU_PATH . SITE_MENU_DIR . SITE_HTML_EXT;
-		if ( file_exists( $file ) )
-		{
-			$str = file_get_contents( $file );
-			return $str;
-		} else
-		{
-			return $str;
-		}
-	}
-
-	/**
-	 * Get the sidebar
-	 *
-	 * @param array $page
-	 *
-	 * @return string
-	 */
-	private function getSidebar( $page )
-	{
-		$str = 'Sidebar N/A';
-		$file = SITE_SIDEBAR_PATH . SITE_SIDEBAR_DIR . SITE_HTML_EXT;
-		if ( file_exists( $file ) )
-		{
-			$str = file_get_contents( $file );
-			return $str;
-		}
-		else
-		{
-			return $str;
-		}
-	}
-
-	/**
 	 * Get the Footer
+	 *
+	 * Adds the Site Title and Copyright information based on SITE_TITLE,
+	 * SITE_YEAR_TO_NOW and SITE_TITLE.
 	 *
 	 * @return string
 	 */
@@ -607,26 +502,6 @@ class EC01HTML
 	}
 
 	/**
-	 * Get the footer
-	 *
-	 * @return string
-	 */
-	private function getFooterFile()
-	{
-		$str = 'Footer N/A';
-		$file = SITE_FOOTER_PATH . SITE_FOOTER_DIR . SITE_HTML_EXT;
-
-		if ( file_exists( $file ) )
-		{
-			$str = file_get_contents( $file );
-			return $str;
-		} else
-		{
-			return $str;
-		}
-	}
-
-	/**
 	 * Sanitize HTML
 	 *
 	 * Not currently used (2018.09.0)
@@ -644,6 +519,171 @@ class EC01HTML
 		} else
 		{
 			return false;
+		}
+	}
+
+	//**** GET HEADER, MENU, ARTICLE, SIDEBAR, FOOTER AND PAGE FILES *****/
+
+	/**
+	 * Get the Header File.
+	 *
+	 * This can be used if this template part is static and rarely changes.
+	 * It just retrieves the template part saved to disk as an HTML file and
+	 * may be faster than if constructing the template part dynamically for every
+	 * page load.
+	 *
+	 * @param array $page
+	 *
+	 * @return string
+	 */
+	private function getHeaderFile( $page )
+	{
+		$str = 'Header N/A';
+
+		$file = SITE_HEADER_PATH . SITE_HEADER_DIR . SITE_HTML_EXT;
+
+		if ( file_exists( $file ) )
+		{
+			$str = file_get_contents( $file );
+			return $str;
+		}
+		else
+		{
+			return $str;
+		}
+	}
+
+	/**
+	 * Get the Menu File
+	 *
+	 * This can be used if this template part is static and rarely changes.
+	 * It just retrieves the template part saved to disk as an HTML file and
+	 * may be faster than if constructing the template part dynamically for every
+	 * page load.
+	 *
+	 * @param array $page
+	 *
+	 * @return string
+	 */
+	private function getMenuFile()
+	{
+		$str = 'Menu N/A';
+		$file = SITE_MENU_PATH . SITE_MENU_DIR . SITE_HTML_EXT;
+		if ( file_exists( $file ) )
+		{
+			$str = file_get_contents( $file );
+			return $str;
+		}
+		else
+		{
+			return $str;
+		}
+	}
+
+	/**
+	 * Get the Article File.
+	 *
+	 * This can be used if this template part is static and rarely changes.
+	 * It just retrieves the template part saved to disk as an HTML file and
+	 * may be faster than if constructing the template part dynamically for every
+	 * page load. Also performs a basic check on the file length, to make sure
+	 * nothing squirrely is happening here.
+	 *
+	 * @param array $page
+	 *
+	 * @return string
+	 */
+	private function getArticleFile( $page )
+	{
+		$str = '<article>Article N/A.</article>';
+
+		$file = $page['file']['name'];
+
+		if ( ! empty( $file ) && strlen ( $file ) < 120 )
+		{
+			$str = file_get_contents( $file );
+			return $str;
+		}
+		else
+		{
+			return $str;
+		}
+	}
+
+	/**
+	 * Get the Sidebar File.
+	 *
+	 * This can be used if this template part is static and rarely changes.
+	 * It just retrieves the template part saved to disk as an HTML file and
+	 * may be faster than if constructing the template part dynamically for every
+	 * page load.
+	 *
+	 * @param array $page
+	 *
+	 * @return string
+	 */
+	private function getSidebarFile( $page )
+	{
+		$str = 'Sidebar N/A';
+		$file = SITE_SIDEBAR_PATH . SITE_SIDEBAR_DIR . SITE_HTML_EXT;
+		if ( file_exists( $file ) )
+		{
+			$str = file_get_contents( $file );
+			return $str;
+		}
+		else
+		{
+			return $str;
+		}
+	}
+
+	/**
+	 * Get the Footer File
+	 *
+	 * This can be used if this template part is static and rarely changes.
+	 * It just retrieves the template part saved to disk as an HTML file and
+	 * may be faster than if constructing the template part dynamically for every
+	 * page load.
+	 *
+	 * @return string
+	 */
+	private function getFooterFile( $page )
+	{
+		$str = 'Footer N/A';
+		$file = SITE_FOOTER_PATH . SITE_FOOTER_DIR . SITE_HTML_EXT;
+
+		if ( file_exists( $file ) )
+		{
+			$str = file_get_contents( $file );
+			return $str;
+		} else
+		{
+			return $str;
+		}
+	}
+
+	/**
+	 * Get the Page File.
+	 *
+	 * The entire page exists. We are just being nice and delivering it as is.
+	 * A basic check on the file length is done. Otherwise, nothing much here.
+	 *
+	 * @param array $page
+	 *
+	 * @return string
+	 */
+	private function getPageFile( $page )
+	{
+		$str = "This page doesn't exist.";
+		$file = $page['file']['name'];
+		if ( strlen ( $file ) < 120 )
+		{
+			$str = file_get_contents( $file );
+			return $str;
+		}
+		else
+		{
+			return $str;
 		}
 	}
 } //end class
