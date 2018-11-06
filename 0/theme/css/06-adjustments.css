@@ -39,7 +39,7 @@
 		background-color: hsl(24, 50%, 75%);
 	}
 
-	.site-header > a > .inner {
+	.site-header > .inner {
 		margin: 2px;
 		border-top-left-radius: 3px;
 		border-top-right-radius: 3px;
@@ -75,13 +75,6 @@
 
 	.site-header-sub .none {
 		padding-left: 2px;
-	}
-
-	.site-header-sub .color.lighter,
-	.site-header-sub .color.darker
-	 {
-			margin-right: 2px;
-			margin-left: 2px;
 	}
 
 	.spacer-header {
@@ -294,16 +287,6 @@
 		height: 25px;
 	}
 
-	.tier-1 .level-1.icon {
-		position: absolute;
-		z-index: 10;
-		right: 40px;
-		top: 19px;
-		height: 35px;
-		width: 35px;
-		display: inline-block;
-	}
-
 	.tier-1 .site-header > a {
 		height: 20px;
 	}
@@ -320,19 +303,19 @@
 
 	.tier-1 .site-header-sub {
 		margin-top: 0;
-		height: 77px;
+		height: 75px;
 		text-align: left;
 		vertical-align: middle;
-		line-height: 73px;
+		line-height: 75px;
 		position: relative;
 	}
 
 	/** This goes on the left hand side, but fills the whole width (behind) */
 	.tier-1 .site-header-sub .left {
 		display: inline-block;
-		height: 73px;
+		height: 75px;
 		padding: 0 1.0em;
-		line-height: 73px;
+		line-height: 75px;
 		text-align: center;
 		font-weight: bold;
 		font-size: 120%;
@@ -351,12 +334,21 @@
 		display: inline-block;
 	}
 
-	.site-header-sub .right .header-height {
-		height: 74px;
+	.tier-1.right.icon {
+		position: absolute;
+		z-index: 10;
+		right: 40px;
+		top: 19px;
+		height: 35px;
+		width: 35px;
+		display: inline-block;
 	}
 
 	.header-height {
-		height: 73px;
+		height: 75px;
+	}
+
+	.header-height a {
 		padding-left: 15px;
 	}
 

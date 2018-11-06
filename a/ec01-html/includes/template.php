@@ -121,13 +121,13 @@ class EC01Template extends EC01HTML{
 				$str .= '</main>' . PHP_EOL;
 
 				/** Close the inner body wrap. */
-				$str .= '</div>' . PHP_EOL; //inner
+				$str .= '</div><!-- .inner -->' . PHP_EOL; //inner
 
 				/** The optional page sidebar (if anything). */
 				$str .= $page['sidebar'];
 
 				/** Close the body wrap */
-				$str .= '</div>' . PHP_EOL; //wrap
+				$str .= '</div><!-- .wrap -->' . PHP_EOL; //wrap
 
 				/** The page footer. */
 				$str .= $page['footer'];

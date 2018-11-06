@@ -201,22 +201,32 @@ class EC01HTML
 	private function getHeader( $page )
 	{
 		$str = '<header class="site-header">' . PHP_EOL;
+		$str .= '<div class="inner">' . PHP_EOL;
+
+		/** The front page link needs to wrap around the logo and title, but nothing else. */
 		$str .= sprintf( '<a href="/" title="%s">%s', SITE_TITLE, PHP_EOL);
-		$str .= '<div class="inner">' . PHP_EOL;
-		$str .= '<div class="site-logo">' . PHP_EOL;
-		$str .= '<div class="inner">' . PHP_EOL;
-		$str .= '<img src="/0/theme/image/site-logo-75x75.png" alt="Site Logo" width="75" height="75" />' . PHP_EOL;
-		$str .= '</div><!-- .inner -->' . PHP_EOL;
-		$str .= '</div><!-- .site-logo -->' . PHP_EOL;
-		$str .= '<div class="title-wrap">' . PHP_EOL;
-		$str .= '<div class="inner">' . PHP_EOL;
-		$str .= sprintf( '<div class="site-title">%s</div>%s', SITE_TITLE, PHP_EOL );
-		$str .= sprintf( '<div class="site-description">%s</div>%s', SITE_DESCRIPTION, PHP_EOL );
-		$str .= '</div><!-- .inner -->' . PHP_EOL;
-		$str .= '</div><!-- .title-wrap -->' . PHP_EOL;
-		$str .= '</div><!-- .inner -->' . PHP_EOL;
+
+			$str .= '<div class="site-logo">' . PHP_EOL;
+			$str .= '<div class="inner">' . PHP_EOL;
+			$str .= '<img src="/0/theme/image/site-logo-75x75.png" alt="Site Logo" width="75" height="75" />' . PHP_EOL;
+			$str .= '</div><!-- .inner -->' . PHP_EOL;
+			$str .= '</div><!-- .site-logo -->' . PHP_EOL;
+
+			/** The title wrap includes the title and description, but nothing else. */
+			$str .= '<div class="title-wrap">' . PHP_EOL;
+			$str .= '<div class="inner">' . PHP_EOL;
+			$str .= sprintf( '<div class="site-title">%s</div>%s', SITE_TITLE, PHP_EOL );
+			$str .= sprintf( '<div class="site-description">%s</div>%s', SITE_DESCRIPTION, PHP_EOL );
+			$str .= '</div><!-- .inner -->' . PHP_EOL;
+			$str .= '</div><!-- .title-wrap -->' . PHP_EOL;
+
 		$str .= '</a><!-- .front-page-link -->' . PHP_EOL;
+
+		/** The sub header needs to be self closing. */
 		$str .= SITE_USE_HEADER_SUB ? $this->getHeaderSub( $page ) : '';
+
+		/** Close the inner wrap and the header itself. */
+		$str .= '</div><!-- .inner -->' . PHP_EOL;
 		$str .= '</header>' . PHP_EOL;
 
 		return $str;
@@ -398,7 +408,6 @@ class EC01HTML
 
 			foreach ( $tiers as $tier )
 			{
-				echo "tier: " . $tier['name'] . "<br >";
 
 				if ( ! empty( $tier['tier'] ) && ! in_array( $tier['tier'], $exclude ) )
 				{
