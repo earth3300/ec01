@@ -186,18 +186,18 @@ class EC01Tiers extends EC01HTML
 		/** Extract the tier information from the URI, if available */
 		$tiers = $this->getTiersFromURI( $page['uri'] );
 
-		/** Build Tier Two */
-		$data['tiers']['tier-1'] = $this->buildTierOne( $tiers );
+		/** Build Tier One (This is always there). */
+		$data['tiers']['tier-1'] = $this->getTierOneData( $tiers );
 
 		$data['class']['tier-1'] = $data['tiers']['tier-1']['class'];
 
-		/** Build Tier Three */
-		$data['tiers']['tier-2'] = $this->buildTierTwo( $tiers );
+		/** Build Tier Two. This may not always be present. */
+		$data['tiers']['tier-2'] = $this->getTierTwoData( $tiers );
 
 		$data['class']['tier-2'] = $data['tiers']['tier-2']['class'];
 
-		/** Build Tier Four */
-		$data['tiers']['tier-3'] = $this->buildTierThree( $tiers );
+		/** Build Tier Three. This may not always be present. */
+		$data['tiers']['tier-3'] = $this->getTierThreeData( $tiers );
 
 		$data['class']['tier-3'] = $data['tiers']['tier-3']['class'];
 
@@ -205,7 +205,7 @@ class EC01Tiers extends EC01HTML
 }
 
 	/**
-	 * Get Tier Two.
+	 * Get Tier One Data.
 	 *
 	 * The abbreviation comes from the URI. It is $tiers['tier-1'], if it is set.
 	 * The name of the tier (usually only one word), is all in lower case.
@@ -219,12 +219,13 @@ class EC01Tiers extends EC01HTML
 	 *
 	 * @return array|bool  class, name OR false.
 	 */
-	protected function buildTierOne( $tiers )
+		protected function getTierOneData( $tiers )
 	{
 		if ( ! empty( $tiers['tier-1'] ) )
 		{
 			$items = get_tier_one_data();
 
+			$tier['get'] = true;
 			$tier['abbr'] = $tiers['tier-1'];
 			$tier['name'] = $items[ $tier['abbr'] ]['name'];
 			$tier['title'] = ucfirst( $tier['name'] );
@@ -238,7 +239,7 @@ class EC01Tiers extends EC01HTML
 	}
 
 	/**
-	 * Analyze the URI for Tier Three.
+	 * Get Tier Two Data.
 	 *
 	 * Use this to add an html class based on an authorized cluster name.
 	 * That is, we do not want this to be *too* flexible, we want
@@ -260,7 +261,7 @@ class EC01Tiers extends EC01HTML
 	 * @return array|bool
 	 */
 
-	protected function buildTierTwo( $tiers )
+	protected function getTierTwoData( $tiers )
 	{
 		if ( ! empty( $tiers['tier-2'] ) )
 		{
@@ -268,6 +269,7 @@ class EC01Tiers extends EC01HTML
 
 			if ( isset( $items[ $tiers['tier-2'] ]['name'] ) )
 			{
+				$tier['get'] = true;
 				$tier['abbr'] = $tiers['tier-2'];
 				$tier['name'] = $items[ $tiers['tier-2'] ]['name'];
 				$tier['class'] = 'tier-3 ' . $tier['name'];
@@ -286,7 +288,7 @@ class EC01Tiers extends EC01HTML
 	}
 
 	/**
-	 * Analyze the URI for Tier Four
+	 * Get Tier Three Data.
 	 *
 	 * There is a subtle inheritance happening here, whereby the "who" (say, the carpenter)
 	 * inherits the class (the style, the dust and wood chips) from the where (the workshop).
@@ -297,7 +299,7 @@ class EC01Tiers extends EC01HTML
 	 *
 	 * @return array|bool
 	 */
-	protected function buildTierThree( $tiers )
+	protected function getTierThreeData( $tiers )
 	{
 		if ( ! empty( $tiers['tier-3'] ) )
 		{
@@ -305,6 +307,7 @@ class EC01Tiers extends EC01HTML
 
 			if ( isset( $items[ $tiers['tier-3'] ]['name'] ) )
 			{
+				$tier['get'] = true;
 				$tier['abbr'] = $items[ $tiers['tier-3'] ];
 				$tier['name'] = $items[ $tiers['tier-3'] ]['name'];
 				$tier['class'] = 'tier-4 ' . $tier['name'];
