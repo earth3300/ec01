@@ -2340,7 +2340,7 @@ Time: 14:48 EST
 
 	.site-title,
 	.site-description {
-		color: hsl(15, 66%, 33%);
+		color: hsl(15, 75%, 25%);
 	}
 
 	.site-title {
@@ -2349,7 +2349,7 @@ Time: 14:48 EST
 		}
 
 	.site-description {
-		text-shadow: 1px 1px 1px hsl(204, 25%, 25%);
+		text-shadow: 0px 1px 1px hsl(204, 100%, 99%);
 		line-height: 1.3em;
 		font-size: 1.1em;
 	}

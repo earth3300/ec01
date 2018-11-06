@@ -45,7 +45,7 @@ class EC01Template extends EC01HTML{
 				/** Construct the page on the "engine" page */
 				header('Content-type: text/html; charset=utf-8;');
 				$str = '<!DOCTYPE html>' . PHP_EOL;
-				$str .= ! empty( $page['data']['class']['html'] ) ? sprintf('<html class="%s" lang="%s">%s', $page['data']['class']['html'], SITE_LANG, PHP_EOL) : sprintf( '<html lang="%s">%s', SITE_LANG, PHP_EOL );
+				$str .= ! empty( $page['class']['html'] ) ? sprintf('<html class="%s" lang="%s">%s', $page['class']['html'], SITE_LANG, PHP_EOL) : sprintf( '<html lang="%s">%s', SITE_LANG, PHP_EOL );
 				$str .= '<head>' . PHP_EOL;
 				$str .= sprintf( '<meta charset="%s">%s', SITE_CHARSET, PHP_EOL );
 				$str .= '<meta name="viewport" content="width=device-width, initial-scale=1"/>' . PHP_EOL;
@@ -82,7 +82,10 @@ class EC01Template extends EC01HTML{
 				$str .= ! empty( $page['class']['body'] ) ? sprintf('<body class="%s">%s',$page['class']['body'], PHP_EOL) : '<body>' . PHP_EOL;
 				$str .= '<div class="wrap">' . PHP_EOL;
 				$str .= '<div class="inner">' . PHP_EOL;
+				/** We have the option to have one header element, and place everything within that. */
 				$str .= $page['header']['main'];
+
+				/** If necessary, we can add a sub header *with* its own header element. */
 				$str .= isset( $page['header']['sub'] ) ? $page['header']['sub'] : '';
 				$str .= '<main>' . PHP_EOL;
 				$str .= $page['article'];

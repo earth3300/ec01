@@ -113,7 +113,8 @@ class EC01HTML
 			$page['page']= false;
 			$page['article'] = $this->getArticleFile( $page );
 		}
-		$page['data'] = $this->getPageData( $page ); //needs the article, to get the class.
+		$page['tiers'] = $this->getPageData( $page ); //needs the article, to get the class.
+		$page['class'] = $this->getHTMLClass( $page );
 		$page['header']['main'] = $this->getHeader( $page );
 		$page['article-title'] = $this->getArticleTitle( $page['article'] );
 		$page['page-title'] = $this-> getPageTitle( $page );
@@ -346,17 +347,32 @@ class EC01HTML
 		if ( SITE_USE_TIERS )
 		{
 			$tiers = new EC01Tiers();
+
+			/** Get the tiers data ('tiers') */
 			$data = $tiers->getTiersData( $page );
+			return $data;
 		}
-
-		$data['class']['dynamic'] = $this->isPageDynamic( $page );
-
-		$data['class']['article'] = $this->getArticleClass( $page['article'] );
-
-		$data['class']['html'] = $this->getHtmlClassStr( $data['class'] );
-
-		return $data;
+		else
+		{
+			return false;
+		}
 	}
+
+	/**
+	 * Get the HTML Class.
+	 *
+	 */
+	 private function getHTMLClass( $page )
+	 {
+
+		$class['dynamic'] = $this->isPageDynamic( $page );
+
+ 		$class['article'] = $this->getArticleClass( $page['article'] );
+
+ 		$class['html'] = $this->getHtmlClassStr( $page['tiers'] );
+
+		return $class;
+	 }
 
 	/**
 	 * Build the HTML Class String From the Array.
@@ -367,16 +383,18 @@ class EC01HTML
 	 *
 	 * @return string
 	 */
-	private function getHtmlClassStr( $items )
+	private function getHtmlClassStr( $tiers )
 	{
-		if ( ! empty( $items ) )
+		if ( ! empty( $tiers ) )
 		{
+			$exclude = [ 'tier-2', 'tier-3' ];
+
 			$str = '';
-			foreach ( $items as $item )
+			foreach ( $tiers as $tier['class'] )
 			{
-				if ( ! empty( $item ) )
+				if ( ! empty( $class ) )
 				{
-					$str .= $item . ' ';
+					$str .= $class . ' ';
 				}
 			}
 			return trim( $str );
@@ -698,3 +716,12 @@ class EC01HTML
 		}
 	}
 } //end class
+
+function pre_dump( $arr )
+{
+	if ( 0 ) {
+		echo "<pre>" . PHP_EOL;
+		var_dump( $arr );
+		echo "</pre>" . PHP_EOL;
+	}
+}
