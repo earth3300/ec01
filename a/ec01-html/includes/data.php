@@ -107,7 +107,7 @@ function get_tier_two_data()
 		'ethc' => [ 'name' => 'ethics' ],
 		'sust' => [ 'name' => 'sustainability' ],
 		'reln' => [ 'name' => 'religion' ],
-		'othr' => [ 'name' => 'other' ],
+		'motv' => [ 'name' => 'motivation' ],
 
 		// wki
 		'logc' => [ 'name' => 'logic' ],

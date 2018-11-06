@@ -82,7 +82,7 @@ class EC01Tiers extends EC01HTML
 
 			/** Left div. (Tier 3). */
 			$str .= sprintf( '<div class="%s">%s', $page['tiers']['tier-2']['class'], PHP_EOL );
-			$str .= '<div class="color darker">' . PHP_EOL;
+			$str .= '<div class="header-height color darker">' . PHP_EOL;
 			$str .= sprintf( '<a class="left %s" ', $page['tiers']['tier-2']['class'], PHP_EOL );
 			$str .= sprintf( 'href="%s/" title="%s">', $url_tier2 . SITE_CENTER_DIR, $page['tiers']['tier-2']['title'] );
 			$str .= '<span class="icon"></span>';

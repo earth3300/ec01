@@ -42,7 +42,6 @@ class EC01Template extends EC01HTML{
 			}
 			else
 			{
-				pre_dump( $page['class'] );
 				/** Construct the page on the "engine" page */
 				header('Content-type: text/html; charset=utf-8;');
 
@@ -114,9 +113,15 @@ class EC01Template extends EC01HTML{
 				/** The HTML5 `main` element. */
 				$str .= '<main>' . PHP_EOL;
 
-				/** The "article". This is what it is all about. */
-				$str .= $page['article'];
-
+				/** The "article". This is what it is all about. Make sure it is there. */
+				if ( empty( $page['article'] ) )
+				{
+					$str .= '<article>Article N/A.</article>' . PHP_EOL;
+				}
+				else
+				{
+					$str .= $page['article'];
+				}
 				/** Close the main element. */
 				$str .= '</main>' . PHP_EOL;
 

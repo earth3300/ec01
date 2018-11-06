@@ -673,22 +673,14 @@ class EC01HTML
 		$str = '<article>Article N/A.</article>';
 
 		$file = $page['file']['name'];
-
 		if ( ! empty( $file ) && strlen ( $file ) < 180 )
 		{
-			$str = file_get_contents( $file );
-			if  ( strlen( $str ) > 4 )
+			if ( file_exists( $file ) )
 			{
-				return $str;
-			}
-			else {
-				return false;
+				$str = file_get_contents( $file );
 			}
 		}
-		else
-		{
-			return false;
-		}
+		return $str;
 	}
 
 	/**
@@ -771,7 +763,7 @@ class EC01HTML
 
 function pre_dump( $arr )
 {
-	if ( 0 ) {
+	if ( 1 ) {
 		echo "<pre>" . PHP_EOL;
 		var_dump( $arr );
 		echo "</pre>" . PHP_EOL;

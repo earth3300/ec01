@@ -21,6 +21,14 @@
 @media all {
 
 	/**
+ 	 * Define the text values to go with the icons.
+ 	 */
+	 span.text {
+		 display: inline-block;
+		 height: 35px;
+		 line-height: 35px;
+	 }
+	/**
 	 * I. Who (First Block Left / First Block Top)
 	 *
 	 * Lines 18 ~ 100
