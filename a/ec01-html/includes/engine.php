@@ -446,7 +446,7 @@ class EC01HTML
 	 */
 	private function isPageDynamic( $page )
 	{
-		if ( SITE_IS_FIXED_WIDTH && $page['front-page'] )
+		if ( SITE_IS_FIXED_WIDTH && isset( $page['front-page'] ) && $page['front-page'] )
 		{
 			return 'fixed-width';
 		}

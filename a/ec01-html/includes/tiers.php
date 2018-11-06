@@ -170,17 +170,17 @@ class EC01Tiers extends EC01HTML
 		/** Build Tier Two */
 		$data['tiers']['tier-2'] = $this->buildTierTwo( $tiers );
 
-		$data['class']['tier-2'] = $page['tiers']['tier-2']['class'];
+		$data['class']['tier-2'] = $data['tiers']['tier-2']['class'];
 
 		/** Build Tier Three */
 		$data['tiers']['tier-3'] = $this->buildTierThree( $tiers );
 
-		$data['class']['tier-3'] = $page['tiers']['tier-3']['class'];
+		$data['class']['tier-3'] = $data['tiers']['tier-3']['class'];
 
 		/** Build Tier Four */
 		$data['tiers']['tier-4'] = $this->buildTierFour( $tiers );
 
-		$data['class']['tier-4'] = $page['tiers']['tier-4']['class'];
+		$data['class']['tier-4'] = $data['tiers']['tier-4']['class'];
 
 		return $data;
 }
@@ -253,7 +253,6 @@ class EC01Tiers extends EC01HTML
 				$tier['name'] = $items[ $tiers['tier-3'] ]['name'];
 				$tier['class'] = 'tier-3 ' . $tier['name'];
 				$tier['title'] = ucfirst( $tier['name'] );
-
 				return $tier;
 			}
 			else
@@ -288,12 +287,20 @@ class EC01Tiers extends EC01HTML
 			if ( isset( $items[ $tiers['tier-4'] ]['name'] ) )
 			{
 				$tier['abbr'] = $items[ $tiers['tier-4'] ];
-				$tier['name'] = $items[ $tiers['tier-4'] ]['name'] );
+				$tier['name'] = $items[ $tiers['tier-4'] ]['name'];
 				$tier['class'] = 'tier-4 ' . $tiers['name'];
 				$tier['title'] = ucfirst( $tier['name'] );
+				return $tier;
+			}
+			else
+			{
+				return false;
 			}
 		}
-		return $tier;
+		else
+		{
+			return false;
+		}
 	}
 
 	/**
