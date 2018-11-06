@@ -33,7 +33,6 @@ class EC01Tiers extends EC01HTML
    */
 	protected function getHeaderSubTiered( $page )
 	{
-		pre_dump( $page['tiers'] );
 		if ( SITE_HAS_TIERS )
 		{
 				if ( $page['tiers']['tier-2']['get'] )
@@ -84,12 +83,12 @@ class EC01Tiers extends EC01HTML
 			/** Left div. (Tier 3). */
 			$str .= sprintf( '<div class="%s">%s', $page['tiers']['tier-2']['class'], PHP_EOL );
 			$str .= '<div class="color darker">' . PHP_EOL;
-			$str .= sprintf( '<a class="level-01 %s" ', $page['tiers']['tier-2']['class'], PHP_EOL );
+			$str .= sprintf( '<a class="left %s" ', $page['tiers']['tier-2']['class'], PHP_EOL );
 			$str .= sprintf( 'href="%s/" title="%s">', $url_tier2 . SITE_CENTER_DIR, $page['tiers']['tier-2']['title'] );
 			$str .= '<span class="icon"></span>';
 			$str .= sprintf( '<span class="text">%s</span></a>%s', ucfirst( $page['tiers']['tier-2']['title'] ), PHP_EOL );
 
-			$str .= '</div><!-- .color .darker -->' . PHP_EOL;
+			$str .= '</div><!-- .darker -->' . PHP_EOL;
 			$str .= '</div><!-- .tier-2 -->' . PHP_EOL;
 
 			$str .= sprintf(
@@ -98,7 +97,7 @@ class EC01Tiers extends EC01HTML
 				$page['tiers']['tier-1']['class'],
 				$page['tiers']['tier-1']['title']
 				);
-			$str .=	'<span class="tier-2 level-1 icon"></span></a>' . PHP_EOL;
+			$str .=	'<span class="tier-2 left icon"></span></a>' . PHP_EOL;
 			$str .= '</div><!-- .tier-2 -->' . PHP_EOL;
 
 			return $str;
@@ -137,7 +136,7 @@ class EC01Tiers extends EC01HTML
 			/** Left div. (Tier 2). */
 			$str .= sprintf( '<div class="%s">%s', $page['tiers']['tier-2']['class'], PHP_EOL );
 			$str .= '<div class="color darker">' . PHP_EOL;
-			$str .= sprintf( '<a class="level-01 %s" ', $page['tiers']['tier-2']['class'], PHP_EOL );
+			$str .= sprintf( '<a class="left %s" ', $page['tiers']['tier-2']['class'], PHP_EOL );
 			$str .= sprintf(
 				'href="%s/" title="%s">%s',
 				$url_tier2 . SITE_CENTER_DIR,
@@ -146,10 +145,10 @@ class EC01Tiers extends EC01HTML
 				);
 			$str .= '<span class="icon"></span>' . PHP_EOL;
 			$str .= sprintf( '<span class="text hide-tablet">%s</span>%s', ucfirst( $page['class']['tier-2'] ), PHP_EOL );
-			$str .= '</a><!-- .level-01 -->' . PHP_EOL;
+			$str .= '</a><!-- .left -->' . PHP_EOL;
 
 			/** Right div. (Tier 3). Absolute Positioning, within Tier 2. */
-			$str .= sprintf( '<div class="level-02 right absolute %s">%s', $page['tiers']['tier-3']['class'], PHP_EOL );
+			$str .= sprintf( '<div class="right absolute %s">%s', $page['tiers']['tier-3']['class'], PHP_EOL );
 			$str .= sprintf( '<div class="color lighter header-height">%s', PHP_EOL );
 			$str .= '<div class="header-height">' . PHP_EOL;
 
@@ -164,9 +163,9 @@ class EC01Tiers extends EC01HTML
 							ucfirst( $page['tiers']['tier-3']['title'] ), PHP_EOL );
 			$str .= '</a><!-- .tier-3 -->' . PHP_EOL;
 			$str .= '</div><!-- .header-height -->' . PHP_EOL;
-			$str .= '</div><!-- .color .lighter -->' . PHP_EOL;
+			$str .= '</div><!-- .lighter -->' . PHP_EOL;
 			$str .= '</div><!-- .inner -->' . PHP_EOL;
-			$str .= '</div><!-- .color .darker -->' . PHP_EOL;
+			$str .= '</div><!-- .darker -->' . PHP_EOL;
 			$str .= '</div><!-- .tier-3 -->' . PHP_EOL;
 			$str .= sprintf(
 				'<a href="/%s/" class="%s" title="%s">%s',

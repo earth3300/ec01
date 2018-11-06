@@ -42,6 +42,7 @@ class EC01Template extends EC01HTML{
 			}
 			else
 			{
+				pre_dump( $page['class'] );
 				/** Construct the page on the "engine" page */
 				header('Content-type: text/html; charset=utf-8;');
 				$str = '<!DOCTYPE html>' . PHP_EOL;

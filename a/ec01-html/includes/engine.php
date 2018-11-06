@@ -206,16 +206,16 @@ class EC01HTML
 		$str .= '<div class="site-logo">' . PHP_EOL;
 		$str .= '<div class="inner">' . PHP_EOL;
 		$str .= '<img src="/0/theme/image/site-logo-75x75.png" alt="Site Logo" width="75" height="75" />' . PHP_EOL;
-		$str .= '</div><!-- .site-logo .inner -->' . PHP_EOL;
+		$str .= '</div><!-- .inner -->' . PHP_EOL;
 		$str .= '</div><!-- .site-logo -->' . PHP_EOL;
 		$str .= '<div class="title-wrap">' . PHP_EOL;
 		$str .= '<div class="inner">' . PHP_EOL;
 		$str .= sprintf( '<div class="site-title">%s</div>%s', SITE_TITLE, PHP_EOL );
 		$str .= sprintf( '<div class="site-description">%s</div>%s', SITE_DESCRIPTION, PHP_EOL );
-		$str .= '</div><!-- .title-wrap .inner -->' . PHP_EOL;
+		$str .= '</div><!-- .inner -->' . PHP_EOL;
 		$str .= '</div><!-- .title-wrap -->' . PHP_EOL;
-		$str .= '</div><!-- .site-header .inner -->' . PHP_EOL;
-		$str .= '</a><!-- .home -->' . PHP_EOL;
+		$str .= '</div><!-- .inner -->' . PHP_EOL;
+		$str .= '</a><!-- .front-page-link -->' . PHP_EOL;
 		$str .= SITE_USE_HEADER_SUB ? $this->getHeaderSub( $page ) : '';
 		$str .= '</header>' . PHP_EOL;
 
@@ -390,11 +390,11 @@ class EC01HTML
 			$exclude = [ 'tier-2', 'tier-3' ];
 
 			$str = '';
-			foreach ( $tiers as $tier['class'] )
+			foreach ( $tiers as $tier )
 			{
-				if ( ! empty( $class ) )
+				if ( ! empty( $tier['class'] ) )
 				{
-					$str .= $class . ' ';
+					$str .= $tier['class'] . ' ';
 				}
 			}
 			return trim( $str );
