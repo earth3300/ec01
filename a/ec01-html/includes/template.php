@@ -45,20 +45,35 @@ class EC01Template extends EC01HTML{
 				pre_dump( $page['class'] );
 				/** Construct the page on the "engine" page */
 				header('Content-type: text/html; charset=utf-8;');
+
+				/** The `DOCTYPE` is `html` (HTML5) */
 				$str = '<!DOCTYPE html>' . PHP_EOL;
-				$str .= ! empty( $page['class']['html'] ) ? sprintf('<html class="%s" lang="%s">%s', $page['class']['html'], SITE_LANG, PHP_EOL) : sprintf( '<html lang="%s">%s', SITE_LANG, PHP_EOL );
+
+				/** Default Language is `en` or `en-CA`. The class is added as a complete string (i.e. 'class="..." ) */
+				$str .= sprintf('<html %slang="%s">%s', $page['class']['html'], SITE_LANG, PHP_EOL);
 				$str .= '<head>' . PHP_EOL;
+
+				/** Charset is `UTF-8`. */
 				$str .= sprintf( '<meta charset="%s">%s', SITE_CHARSET, PHP_EOL );
+
+				/** Viewport is set for mobile devices */
 				$str .= '<meta name="viewport" content="width=device-width, initial-scale=1"/>' . PHP_EOL;
+
+				/** Page title. */
 				$str .= sprintf( '<title>%s</title>%s', $page['page-title'], PHP_EOL );
+
+				/** Can deliver a very basic version, if needed. */
 				if ( SITE_USE_BASIC )
 				{
 					$str .= '<link rel=stylesheet href="/0/theme/css/01-bootstrap.css">' . PHP_EOL;
 					$str .= '<link rel=stylesheet href="/0/theme/css/02-main.css">' . PHP_EOL;
 				}
-				else {
+				else
+				{
+					/** Default is not to allow robots to index the site until we are ready. */
 					$str  .= SITE_INDEX_ALLOW ? '' : '<meta name="robots" content="noindex,nofollow" />' . PHP_EOL;
 
+					/** Style sheet variations */
 					if ( SITE_USE_CSS_MIN )
 					{
 						$str .= sprintf( '<link rel=stylesheet href="%s/style.min.css">%s', SITE_CSS_URL, PHP_EOL );
@@ -77,42 +92,73 @@ class EC01Template extends EC01HTML{
 						$str .= SITE_USE_CSS_ADJUSTMENTS ? sprintf( '<link rel=stylesheet href="%s/06-adjustments.css">%s', SITE_CSS_URL, PHP_EOL ) : '';
 					}
 				}
-				// make path to style dependent on whether site is is subdomain or subfolder
-				// $css_url_path
+
+				/** Close the `head` element. */
 				$str .= '</head>' . PHP_EOL;
-				$str .= ! empty( $page['class']['body'] ) ? sprintf('<body class="%s">%s',$page['class']['body'], PHP_EOL) : '<body>' . PHP_EOL;
+
+				/** If needed, the body has a class. Expecting: `class="..."`, with the appropriate spaces. */
+				$str .= sprintf('<body%s>%s',$page['class']['body'], PHP_EOL);
+
+				/** A body wrap. */
 				$str .= '<div class="wrap">' . PHP_EOL;
+
+				/** An inner wrap. */
 				$str .= '<div class="inner">' . PHP_EOL;
-				/** We have the option to have one header element, and place everything within that. */
+
+				/** The main header element. */
 				$str .= $page['header']['main'];
 
-				/** If necessary, we can add a sub header *with* its own header element. */
+				/** An optional sub header element.  */
 				$str .= isset( $page['header']['sub'] ) ? $page['header']['sub'] : '';
+
+				/** The HTML5 `main` element. */
 				$str .= '<main>' . PHP_EOL;
+
+				/** The "article". This is what it is all about. */
 				$str .= $page['article'];
+
+				/** Close the main element. */
 				$str .= '</main>' . PHP_EOL;
+
+				/** Close the inner body wrap. */
 				$str .= '</div>' . PHP_EOL; //inner
+
+				/** The optional page sidebar (if anything). */
 				$str .= $page['sidebar'];
+
+				/** Close the body wrap */
 				$str .= '</div>' . PHP_EOL; //wrap
+
+				/** The page footer. */
 				$str .= $page['footer'];
-				$str .= SITE_ELAPSED_TIME ? get_firefly_elapsed() : '';
+
+				/** Displays the time it took to generate the page. */
+				$str .= SITE_ELAPSED_TIME ? get_site_elapsed() : '';
+
+				/** Close the body element. */
 				$str .= '</body>' . PHP_EOL;
+
+				/** Close the `html` element. */
 				$str .= '</html>';
 
+				/** Return the string so it can be echoed. */
 				return $str;
 				}
 			}
 		else
 		{
+			/** Else, we've got nothing to work with. */
 			return "The Page Array is not available.";
 		}
-	}
+	} // end function.
 } // end class.
 
 /**
+* Get the elapsed time.
+*
 * Get the elapsed time from when the request first reached the server, to just before the end.
 */
-function get_firefly_elapsed(){
+function get_site_elapsed(){
 
    global $site_elapsed;
 

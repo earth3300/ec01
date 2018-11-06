@@ -719,7 +719,7 @@ class EC01HTML
 
 function pre_dump( $arr )
 {
-	if ( 0 ) {
+	if ( 1 ) {
 		echo "<pre>" . PHP_EOL;
 		var_dump( $arr );
 		echo "</pre>" . PHP_EOL;

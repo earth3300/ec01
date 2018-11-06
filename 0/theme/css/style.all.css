@@ -41,8 +41,6 @@ Time: 14:48 EST
  * Copyright 2011-2018 The Bootstrap Authors
  * Copyright 2011-2018 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
-*/
-
  *
  * File URI: https://github.com/earth3300/ec01-css
  * Author URI: https://github.com/earth3300
@@ -50,8 +48,8 @@ Time: 14:48 EST
  *
  * File: 01-bootstrap.css
  * Created: 2016.12.15
- * Updated: 2018-11-04
- * Time: 14:48 EST
+ * Updated: 2018-11-06
+ * Time: 12:09 EST
  */
 
 /**
@@ -2613,7 +2611,8 @@ Time: 14:48 EST
 		position: relative;
 	}
 
-	.tier-1 .site-header-sub .level-01 {
+	/** This goes on the left hand side, but fills the whole width (behind) */
+	.tier-1 .site-header-sub .left {
 		display: inline-block;
 		height: 73px;
 		padding: 0 1.0em;
@@ -2623,7 +2622,8 @@ Time: 14:48 EST
 		font-size: 120%;
 	}
 
-	.tier-1 .site-header-sub .level-02 {
+	/** This goes on the right hand side and fills only about 75% of the width. */
+	.tier-1 .site-header-sub .right {
 		font-weight: bold;
 		font-size: 110%;
 		width: 75%;
@@ -2631,11 +2631,11 @@ Time: 14:48 EST
 		top: 0;
 	}
 
-	.tier-1 .site-header-sub .level-02 span {
+	.tier-1 .site-header-sub .right span {
 		display: inline-block;
 	}
 
-	.site-header-sub .level-02 .header-height {
+	.site-header-sub .right .header-height {
 		height: 74px;
 	}
 
