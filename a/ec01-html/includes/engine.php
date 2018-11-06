@@ -114,7 +114,7 @@ class EC01HTML
 			$page['article'] = $this->getArticleFile( $page );
 		}
 		$page['tiers'] = $this->getPageData( $page ); //needs the article, to get the class.
-		$page['class'] = $this->getHTMLClass( $page );
+		$page['class'] = $this->getPageClasses( $page );
 		$page['header']['main'] = $this->getHeader( $page );
 		$page['article-title'] = $this->getArticleTitle( $page['article'] );
 		$page['page-title'] = $this-> getPageTitle( $page );
@@ -362,14 +362,15 @@ class EC01HTML
 	 * Get the HTML Class.
 	 *
 	 */
-	 private function getHTMLClass( $page )
+	 private function getPageClasses( $page )
 	 {
-
 		$class['dynamic'] = $this->isPageDynamic( $page );
 
  		$class['article'] = $this->getArticleClass( $page['article'] );
 
- 		$class['html'] = $this->getHtmlClassStr( $page['tiers'] );
+ 		$class['html'] = $this->getHtmlClass( $page['tiers'] );
+
+		$class['body'] = $this->getBodyClass( $page['tiers'] );
 
 		return $class;
 	 }
@@ -383,8 +384,9 @@ class EC01HTML
 	 *
 	 * @return string
 	 */
-	private function getHtmlClassStr( $tiers )
+	private function getHtmlClass( $tiers )
 	{
+		pre_dump( $tiers );
 		if ( ! empty( $tiers ) )
 		{
 			$exclude = [ 'tier-2', 'tier-3' ];
@@ -392,6 +394,7 @@ class EC01HTML
 			$str = '';
 			foreach ( $tiers as $tier )
 			{
+
 				if ( ! empty( $tier['class'] ) )
 				{
 					$str .= $tier['class'] . ' ';
@@ -403,6 +406,21 @@ class EC01HTML
 		{
 			return null;
 		}
+	}
+
+	/**
+	 * Build the Body Class String.
+	 *
+	 * Do any other necessary processing.
+	 *
+	 * @param array $tiers
+	 *
+	 * @return string|bool
+	 */
+	private function getBodyClass( $tiers )
+	{
+		/** Nothing here (yet). */
+		return null;
 	}
 
 	/**

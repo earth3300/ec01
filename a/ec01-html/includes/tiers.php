@@ -200,18 +200,31 @@ class EC01Tiers extends EC01HTML
 	protected function getTiersData( $page )
 	{
 
-		/** Extract the tier information from the URI, if available */
-		$tiers = $this->getTiersFromURI( $page['uri'] );
+		/** Tier 0 is the top level (front page only. */
+		$data['tier-0'] = $page['front-page'] ? true : false;
 
-		/** Build Tier One (This is always there). */
-		$data['tier-1'] = $this->getTierOneData( $tiers );
+		/** Initialize these values to false. */
+		$data['tier-1'] = false;
+		$data['tier-2'] = false;
+		$data['tier-3'] = false;
 
-		/** Build Tier Two. This may not always be present. */
-		$data['tier-2'] = $this->getTierTwoData( $tiers );
+		/** If it is not the front page, look for the information. */
+		if ( ! $page['front-page'] )
+		{
+			/** Extract the tier information from the URI, if available */
+			$tiers = $this->getTiersFromURI( $page['uri'] );
 
-		/** Build Tier Three. This may not always be present. */
-		$data['tier-3'] = $this->getTierThreeData( $tiers );
+			/** Build Tier One (This is always there). */
+			$data['tier-1'] = $this->getTierOneData( $tiers );
 
+			/** Build Tier Two. This may not always be present. */
+			$data['tier-2'] = $this->getTierTwoData( $tiers );
+
+			/** Build Tier Three. This may not always be present. */
+			$data['tier-3'] = $this->getTierThreeData( $tiers );
+		}
+
+		/** Return the data. */
 		return $data;
 }
 

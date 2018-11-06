@@ -160,6 +160,7 @@ class EC01Template extends EC01HTML{
 */
 function get_site_elapsed(){
 
+	/** Can be used anywhere on the site to determine load time to that point. */
    global $site_elapsed;
 
    /** Explains the meaning of the time to the end user */
