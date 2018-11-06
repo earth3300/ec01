@@ -18,7 +18,10 @@ defined('NDA') || exit('NDA');
 define( 'SITE_IS_SUB_DOMAIN', true );
 
 /** Default: false */
-define( 'SITE_IS_FIXED_WIDTH', true );
+define( 'SITE_IS_FIXED_WIDTH', false );
+
+/** Default: false */
+define( 'SITE_ALLOW_FIXED_WIDTH', true );
 
 /** Default: false (Allows indexing by bots) */
 define( 'SITE_INDEX_ALLOW', false );

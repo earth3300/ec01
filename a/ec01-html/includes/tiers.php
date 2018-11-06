@@ -121,7 +121,7 @@ class EC01Tiers extends EC01HTML
 	 */
 	private function getHeaderTierTwoThree( $page )
 	{
-		/** We need Tier 4 Information to construct a unique Tier-3/Tier-4 header. */
+		/** We need Tier 4 Information to construct a unique Tier-2/Tier-3 header. */
 		if ( isset( $page['tiers']['tier-3'] ) &&  $page['tiers']['tier-3'] )
 		{
 			$url_tier2 = '/' . $page['tiers']['tier-1']['abbr'] . '/' . $page['tiers']['tier-2']['abbr'];
@@ -250,6 +250,7 @@ class EC01Tiers extends EC01HTML
 			$items = get_tier_one_data();
 
 			$tier['get'] = true;
+			$tier['tier'] = 'tier-1';
 			$tier['abbr'] = $tiers['tier-1'];
 			$tier['name'] = $items[ $tier['abbr'] ]['name'];
 			$tier['title'] = ucfirst( $tier['name'] );
@@ -294,6 +295,7 @@ class EC01Tiers extends EC01HTML
 			if ( isset( $items[ $tiers['tier-2'] ]['name'] ) )
 			{
 				$tier['get'] = true;
+				$tier['tier'] = 'tier-2';
 				$tier['abbr'] = $tiers['tier-2'];
 				$tier['name'] = $items[ $tiers['tier-2'] ]['name'];
 				$tier['class'] = 'tier-3 ' . $tier['name'];
@@ -332,9 +334,10 @@ class EC01Tiers extends EC01HTML
 			if ( isset( $items[ $tiers['tier-3'] ]['name'] ) )
 			{
 				$tier['get'] = true;
+				$tier['tier'] = 'tier-3';
 				$tier['abbr'] = $tiers['tier-3'];
 				$tier['name'] = $items[ $tiers['tier-3'] ]['name'];
-				$tier['class'] = 'tier-4 ' . $tier['name'];
+				$tier['class'] = 'tier-3 ' . $tier['name'];
 				$tier['title'] = ucfirst( $tier['name'] );
 				return $tier;
 			}

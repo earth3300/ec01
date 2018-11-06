@@ -364,11 +364,11 @@ class EC01HTML
 	 */
 	 private function getPageClasses( $page )
 	 {
-		$class['dynamic'] = $this->isPageDynamic( $page );
+		$class['type'] = $this->isPageDynamic( $page );
 
  		$class['article'] = $this->getArticleClass( $page['article'] );
 
- 		$class['html'] = $this->getHtmlClass( $page['tiers'] );
+ 		$class['html'] = $this->getHtmlClass( $class['type'], $page['tiers'] );
 
 		$class['body'] = $this->getBodyClass( $page['tiers'] );
 
@@ -380,27 +380,40 @@ class EC01HTML
 	 *
 	 * Do any other necessary processing.
 	 *
-	 * @param array $arr
+	 * @param string $type
+	 * @param array $tiers
 	 *
 	 * @return string
 	 */
-	private function getHtmlClass( $tiers )
+	private function getHtmlClass( $type, $tiers )
 	{
-		pre_dump( $tiers );
+
+		/** Type of page (fixed-width or dynamic), with a trailing space. */
+		$str = $type . ' ';
+
 		if ( ! empty( $tiers ) )
 		{
+			/** Exclude these tiers in the html level element */
 			$exclude = [ 'tier-2', 'tier-3' ];
 
-			$str = '';
 			foreach ( $tiers as $tier )
 			{
+				echo "tier: " . $tier['name'] . "<br >";
 
-				if ( ! empty( $tier['class'] ) )
+				if ( ! empty( $tier['tier'] ) && ! in_array( $tier['tier'], $exclude ) )
 				{
 					$str .= $tier['class'] . ' ';
 				}
 			}
-			return trim( $str );
+
+			/** Remove the trailing space. */
+			$str = trim( $str );
+
+			/** Need a trailing space, but not a leading space. */
+			$class = sprintf( 'class="%s" ', $str );
+
+			/** Return the class. */
+			return $class;
 		}
 		else
 		{
@@ -424,30 +437,11 @@ class EC01HTML
 	}
 
 	/**
-	 * Whether or not the Page is Dynamic or Fixed Width.
-	 *
-	 * @param array
-	 *
-	 * @return string
-	 */
-	private function isPageDynamic( $page )
-	{
-		if ( SITE_IS_FIXED_WIDTH && isset( $page['front-page'] ) && $page['front-page'] )
-		{
-			return 'fixed-width';
-		}
-		else
-		{
-			return 'dynamic';
-		}
-	}
-
-	/**
 	 * Get the class from the article element
 	 *
-	 * @param array
+	 * @param string $article
 	 *
-	 * @return str
+	 * @return string
 	 */
 	private function getArticleClass( $article )
 	{
@@ -462,6 +456,37 @@ class EC01HTML
 		else
 		{
 			return false;
+		}
+	}
+
+	/**
+	 * Whether or not the Page is Dynamic or Fixed Width.
+	 *
+	 *
+	 *
+	 * @param array
+	 *
+	 * @return string
+	 */
+	private function isPageDynamic( $page )
+	{
+		/** The class for a fixed width page. */
+		$fixed_width = 'fixed-width';
+
+		/** The class for a dynamic (responsive) page. */
+		$dynamic = 'dynamic';
+
+		if ( SITE_IS_FIXED_WIDTH )
+		{
+			return $fixed_width;
+		}
+		elseif( $page['front-page'] )
+		{
+			return $fixed_width;
+		}
+		else
+		{
+			return $dynamic;
 		}
 	}
 
@@ -737,7 +762,7 @@ class EC01HTML
 
 function pre_dump( $arr )
 {
-	if ( 1 ) {
+	if ( 0 ) {
 		echo "<pre>" . PHP_EOL;
 		var_dump( $arr );
 		echo "</pre>" . PHP_EOL;
