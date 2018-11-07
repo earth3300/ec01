@@ -75,6 +75,10 @@ Time: 14:48 EST
 		margin: 0 auto;
 	}
 
+	p {
+		margin: 1em 0;
+	}
+
 	a {
 		color: hsl(204, 25%, 25%);
 		text-decoration: none;
@@ -1223,13 +1227,14 @@ Time: 14:48 EST
 		margin-top: 0;
 	}
 
-	article p:last-child {
+	/** No margin on the last paragraph in an article, *unless* a media item. */
+	article p:last-child not:.media {
 		margin-bottom: 0;
 	}
 
 	.thumbnail {
-		width: 85px;
-		height: 85px;
+		width: 75px;
+		height: 75px;
 	}
 
 	.img-medium {
@@ -1309,7 +1314,7 @@ Time: 14:48 EST
 	.recovery .color.darker { background-color: #93c47d; }
 	.profession { background-color: #d0e0e3; }
 	.supply .color.darker { background-color: #f9cb9c; }
-	.store .color.darker { background-color: hsl(300, 25%, 25%); }
+	.store .color.darker { background-color: hsl(300, 25%, 60%); }
 	.news .color.darker { background-color: #f1c232; }
 	.process .color.darker { background-color: #e6b8af; }
 	.method .color.darker { background-color: #cccccc; }
@@ -1456,8 +1461,8 @@ Time: 14:48 EST
  *
  * File: 04-sprite.css
  * Created: 2018
- * Updated: 2018-11-03
- * Time: 10:48 EST
+ * Updated: 2018-11-07
+ * Time: 12:02 EST
  */
 
 @media all {
@@ -1625,6 +1630,9 @@ Time: 14:48 EST
 
 	/* Row 15 (Set 3-7) */
 	.sprite .icon1x15, .recovery > .icon { background-position: 0 -490px; }
+
+	/* Row 16 (Set 3-8) */
+	.sprite .icon1x16, .wiki > .icon { background-position: 0 -525px; }
 
 	.sprite .icon8x16, .how > .icon { background-position: -245px -525px; }
 
@@ -2339,7 +2347,7 @@ Time: 14:48 EST
 		margin: 2px;
 		border-top-left-radius: 3px;
 		border-top-right-radius: 3px;
-		background-color: hsl(84, 25%, 50%);
+		background-color: hsl(90, 30%, 60%);
 	}
 
 	.site-logo {

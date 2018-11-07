@@ -99,6 +99,7 @@ class EC01Tiers extends EC01HTML
 				);
 			$str .=	'<span class="tier-1 right icon"></span></a>' . PHP_EOL;
 			$str .= '</div><!-- .tier-2 -->' . PHP_EOL;
+			$str .= '</div><!-- .extra -->' . PHP_EOL;
 
 			return $str;
 		}

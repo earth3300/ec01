@@ -14,8 +14,8 @@
  *
  * File: 04-sprite.css
  * Created: 2018
- * Updated: 2018-11-03
- * Time: 10:48 EST
+ * Updated: 2018-11-07
+ * Time: 12:02 EST
  */
 
 @media all {
@@ -183,6 +183,9 @@
 
 	/* Row 15 (Set 3-7) */
 	.sprite .icon1x15, .recovery > .icon { background-position: 0 -490px; }
+
+	/* Row 16 (Set 3-8) */
+	.sprite .icon1x16, .wiki > .icon { background-position: 0 -525px; }
 
 	.sprite .icon8x16, .how > .icon { background-position: -245px -525px; }
 

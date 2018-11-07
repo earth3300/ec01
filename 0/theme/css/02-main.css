@@ -8,8 +8,8 @@
 *
 * File: 02-main.css
 * Created: 2016.12.15
-* Updated: 2018-11-03
-* Time: 10:47 EST
+* Updated: 2018-11-07
+* Time: 18:18 EST
 */
 
 /**
@@ -362,7 +362,7 @@
 		display: block;
 		margin: 0 auto;
 		padding: 1em;
-		max-width: 780px;
+		max-width: 800px;
 		position: relative;
 		overflow: hidden;
 	}
@@ -649,6 +649,8 @@
 
 	/*** MEDIA START ***/
 
+	/** The `.theme-dark` class can replace the media type classes. */
+	html.theme-dark,
 	html.media,
 	html.video,
 	html.audio {
@@ -656,6 +658,7 @@
 		box-shadow: none;
 	}
 
+	html.theme-dark body,
 	html.media body,
 	html.video body,
 	html.audio body {
@@ -665,6 +668,7 @@
 		box-shadow: none;
 	}
 
+	html.theme-dark > .wrap > .inner,
 	html.media > .wrap > .inner,
 	html.video > .wrap > .inner,
 	html.audio > .wrap > .inner {
@@ -674,33 +678,41 @@
 		padding: 24px;
 	}
 
+
+	html.theme-dark .title-wrap,
 	html.media .title-wrap,
 	html.video .title-wrap,
 	html.audio .title-wrap {
 		background-color: transparent;
 	}
 
+
+	html.theme-dark .site-title a,
 	html.media .site-title a,
 	html.video .site-title a,
 	html.audio .site-title a,
+	html.theme-dark .site-description,
 	html.media .site-description,
 	html.video .site-description,
 	html.audio .site-description {
 		color: inherit;
 	}
 
+	html.theme-dark article,
 	html.media article,
 	html.video article,
 	html.audio article {
 		padding: 1em;
 	}
 
+	html.theme-dark h1,
 	html.media h1,
 	html.video h1,
 	html.audio h1 {
 		display: none;
 	}
 
+	html.theme-dark p,
 	html.media p,
 	html.video p,
 	html.audio p {
@@ -709,37 +721,45 @@
 		color: #777;
 	}
 
+	html.theme-dark a,
 	html.media a,
 	html.video a,
 	html.audio a {
 		color: #666;
-		/* 1 points darker than text */
+		/* 1 point darker than text */
 	}
 
+	html.theme-dark a:link,
 	html.media a:link,
 	html.video a:link,
 	html.audio a:link {
 		color: #666;
 	}
 
+	html.theme-dark a:hover,
 	html.media a:hover,
 	html.video a:hover,
 	html.audio a:hover {
 		color: #999;
 	}
 
+	html.theme-dark a:visited,
 	html.media a:visited,
 	html.video a:visited,
 	html.audio a:visited {
 
 	}
 
+	html.theme-dark a:active,
 	html.media a:active,
 	html.video a:active,
 	html.audio a:active {
 
 	}
 
+	html.theme-dark nav.prev-next a,
+	html.theme-dark nav.prev a,
+	html.theme-dark nav.next a,
 	html.media nav.prev-next a,
 	html.media nav.prev a,
 	html.video nav.prev a,
@@ -879,13 +899,14 @@
 		margin-top: 0;
 	}
 
-	article p:last-child {
+	/** No margin on the last paragraph in an article, *unless* a media item. */
+	article p:last-child not:.media {
 		margin-bottom: 0;
 	}
 
 	.thumbnail {
-		width: 85px;
-		height: 85px;
+		width: 75px;
+		height: 75px;
 	}
 
 	.img-medium {

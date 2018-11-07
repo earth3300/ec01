@@ -9,19 +9,24 @@
  * @since 2018.10.29
  * @author Clarence J. Bos <cbos@tnoep.ca>
  * @copyright Copyright (c) 2018, Clarence J. Bos
- * @license https://www.gnu.org/licenses/gpl-3.0.en.html GPL-3.0+
+ * @license https://www.gnu.org/licenses/gpl-3.0.en.html vGPL-3.0
  * @link https://github.com/earth3300/ec01-html
  *
  * @wordpress-theme
  * Theme Name: EC01 HTML
  * Theme URI: https://github.com/earth3300/ec01-html
  * Description: A lightweight alternative to displaying HTML. Can be used on its own or as a WordPress theme.
- * Version: 2018.11.01
+ * Version: 2018.11.06
  * Author: Clarence J. Bos
  * Author URI: https://github.com/earth3300
  * Text Domain: ec01-html
- * License: GPL-3.0+
+ * License: GPL v3.0
  * License URI: https://www.gnu.org/licenses/gpl-3.0.en.html
+ *
+ * File: index.php
+ * Created: 2018-10
+ * Updated: 2018-11-06
+ * Time: 16:17 EST
  */
 
 namespace Earth3300\EC01;

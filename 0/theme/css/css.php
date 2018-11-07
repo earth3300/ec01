@@ -53,7 +53,7 @@ class CSS_Processor
 							'length' => 99000,
 							],
 		'med' => [
-							'files' => 4,
+							'files' => 5,
 							'length' => 50000,
 							],
 		'min' => [

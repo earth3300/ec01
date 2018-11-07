@@ -31,6 +31,12 @@ _*
 *.doc
 *.docx
 
+## DATA
+
+*.xml
+*.csv
+*.sql
+
 ## GIMP
 
 *.xcf
