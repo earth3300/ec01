@@ -85,7 +85,7 @@ define( 'SITE_R_DIR', '/r' );
 define( 'SITE_U_DIR', '/u' );
 
 /** Commons directory. */
-define( 'SITE_COMMONS_DIR', '/1/commons' );
+define( 'SITE_COMMONS_DIR', '/1/com' );
 
 /** Configuration directory. !Important */
 define( 'SITE_CONFIG_DIR', '/c/config' );

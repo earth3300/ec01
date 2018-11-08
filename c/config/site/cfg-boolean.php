@@ -66,7 +66,7 @@ define( 'SITE_USE_JS_MIN', false );
 define( 'SITE_USE_HEADER_SUB', true );
 
 /** Default: false */
-define( 'SITE_USE_SIDEBAR', false );
+define( 'SITE_USE_ASIDE', true );
 
 /** Default: false */
 define( 'SITE_USE_WP_HEAD', false );

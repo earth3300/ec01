@@ -118,7 +118,7 @@ class EC01HTML
 		$page['header']['main'] = $this->getHeader( $page );
 		$page['article-title'] = $this->getArticleTitle( $page['article'] );
 		$page['page-title'] = $this-> getPageTitle( $page );
-		$page['sidebar']= defined( 'SITE_USE_SIDEBAR' ) && SITE_USE_SIDEBAR ? $this->getSidebar() : '';
+		$page['aside']= $this->getAside( $page );
 		$page['footer']= $this-> getFooter();
 
 		return $page;
@@ -190,72 +190,6 @@ class EC01HTML
 	}
 
 	/**
-	 * 	Get the Header.
-	 *
-	 * 	The SITE_TITLE and SITE_DESCRIPTION constants are used here.
-	 *
-	 * 	@param array $page
-	 *
-	 * 	@return string
-	 */
-	private function getHeader( $page )
-	{
-		$str = '<header class="site-header">' . PHP_EOL;
-		$str .= '<div class="inner">' . PHP_EOL;
-
-		/** The front page link needs to wrap around the logo and title, but nothing else. */
-		$str .= sprintf( '<a href="/" title="%s">%s', SITE_TITLE, PHP_EOL);
-
-			$str .= '<div class="site-logo">' . PHP_EOL;
-			$str .= '<div class="inner">' . PHP_EOL;
-			$str .= '<img src="/0/theme/image/site-logo-75x75.png" alt="Site Logo" width="75" height="75" />' . PHP_EOL;
-			$str .= '</div><!-- .inner -->' . PHP_EOL;
-			$str .= '</div><!-- .site-logo -->' . PHP_EOL;
-
-			/** The title wrap includes the title and description, but nothing else. */
-			$str .= '<div class="title-wrap">' . PHP_EOL;
-			$str .= '<div class="inner">' . PHP_EOL;
-			$str .= sprintf( '<div class="site-title">%s</div>%s', SITE_TITLE, PHP_EOL );
-			$str .= sprintf( '<div class="site-description">%s</div>%s', SITE_DESCRIPTION, PHP_EOL );
-			$str .= '</div><!-- .inner -->' . PHP_EOL;
-			$str .= '</div><!-- .title-wrap -->' . PHP_EOL;
-
-		$str .= '</a><!-- .front-page-link -->' . PHP_EOL;
-
-		/** The sub header needs to be self closing. */
-		$str .= SITE_USE_HEADER_SUB ? $this->getHeaderSub( $page ) : '';
-
-		/** Close the inner wrap and the header itself. */
-		$str .= '</div><!-- .inner -->' . PHP_EOL;
-		$str .= '</header>' . PHP_EOL;
-
-		return $str;
-	}
-
-	/**
-   * Get the Sub Header.
-   *
-   * This is being used here to construct a rather complex three (or four) part
-   * header. This is so that it can be used to provide better visual cues
-   * as to where one is on the site. Color, blocking and icons are all used for
-   * maximum effect. If necessary, this can be replaced as needed. Note where the
-   * sub header is being placed with respect to the containing header and style
-   * accordingly. Since this is using the tiers concept, we can do another check
-   * for the file and then call it only if there. Checking if the class file_exist
-   * may not work.
-	 *
-	 * @param array $page
-   *
-	 * @return string|bool
-	 */
-	 private function getHeaderSub( $page )
-	 {
-		 	 $tiers = new EC01Tiers();
-			 $str = $tiers->getHeaderSubTiered( $page );
-			 return $str;
-	 }
-
-	/**
 	 * Get the Verfied Article Path and File Name.
 	 *
 	 * We need to do quite a bit of work here because we want to ensure that
@@ -320,7 +254,7 @@ class EC01HTML
 	}
 
 	/**
-	 * Get the Article Title.
+	 * Get the Article Title
 	 *
 	 * @param array $page
 	 *
@@ -400,6 +334,8 @@ class EC01HTML
 
 		/** Type of page (fixed-width or dynamic), with a trailing space. */
 		$str = $type . ' ';
+
+		$str .= SITE_USE_ASIDE ? 'aside ' : '';
 
 		if ( ! empty( $tiers ) )
 		{
@@ -533,6 +469,97 @@ class EC01HTML
 			return $str;
 		}
 	}
+
+	/**
+	 * 	Get the Header
+	 *
+	 * 	The SITE_TITLE and SITE_DESCRIPTION constants are used here.
+	 *
+	 * 	@param array $page
+	 *
+	 * 	@return string
+	 */
+	private function getHeader( $page )
+	{
+		$str = '<header class="site-header">' . PHP_EOL;
+		$str .= '<div class="inner">' . PHP_EOL;
+
+		/** The front page link needs to wrap around the logo and title, but nothing else. */
+		$str .= sprintf( '<a href="/" title="%s">%s', SITE_TITLE, PHP_EOL);
+
+			$str .= '<div class="site-logo">' . PHP_EOL;
+			$str .= '<div class="inner">' . PHP_EOL;
+			$str .= '<img src="/0/theme/image/site-logo-75x75.png" alt="Site Logo" width="75" height="75" />' . PHP_EOL;
+			$str .= '</div><!-- .inner -->' . PHP_EOL;
+			$str .= '</div><!-- .site-logo -->' . PHP_EOL;
+
+			/** The title wrap includes the title and description, but nothing else. */
+			$str .= '<div class="title-wrap">' . PHP_EOL;
+			$str .= '<div class="inner">' . PHP_EOL;
+			$str .= sprintf( '<div class="site-title">%s</div>%s', SITE_TITLE, PHP_EOL );
+			$str .= sprintf( '<div class="site-description">%s</div>%s', SITE_DESCRIPTION, PHP_EOL );
+			$str .= '</div><!-- .inner -->' . PHP_EOL;
+			$str .= '</div><!-- .title-wrap -->' . PHP_EOL;
+
+		$str .= '</a><!-- .front-page-link -->' . PHP_EOL;
+
+		/** The sub header needs to be self closing. */
+		$str .= SITE_USE_HEADER_SUB ? $this->getHeaderSub( $page ) : '';
+
+		/** Close the inner wrap and the header itself. */
+		$str .= '</div><!-- .inner -->' . PHP_EOL;
+		$str .= '</header>' . PHP_EOL;
+
+		return $str;
+	}
+
+	/**
+	 * Get the Sub Header.
+	 *
+	 * This is being used here to construct a rather complex three (or four) part
+	 * header. This is so that it can be used to provide better visual cues
+	 * as to where one is on the site. Color, blocking and icons are all used for
+	 * maximum effect. If necessary, this can be replaced as needed. Note where the
+	 * sub header is being placed with respect to the containing header and style
+	 * accordingly. Since this is using the tiers concept, we can do another check
+	 * for the file and then call it only if there. Checking if the class file_exist
+	 * may not work.
+	 *
+	 * @param array $page
+	 *
+	 * @return string|bool
+	 */
+	 private function getHeaderSub( $page )
+	 {
+			 $tiers = new EC01Tiers();
+			 $str = $tiers->getHeaderSubTiered( $page );
+			 return $str;
+	 }
+
+	 /**
+		* Get the Aside
+		*
+		* The "aside" is also referred to as the "sidebar".
+		*
+		* @param array $page
+		*
+		* @return string|bool
+		*/
+		private function getAside( $page )
+		{
+				if ( SITE_USE_ASIDE )
+				{
+					$str = '<aside>' . PHP_EOL;
+					$str .= $this->getAsideFile( $page );
+					$str .= '</aside>' . PHP_EOL;
+
+					return $str;
+				}
+				else
+				{
+					return false;
+				}
+		}
 
 	/**
 	 * Get the Footer
@@ -695,10 +722,11 @@ class EC01HTML
 	 *
 	 * @return string
 	 */
-	private function getSidebarFile( $page )
+	private function getAsideFile( $page )
 	{
 		$str = 'Sidebar N/A';
 		$file = SITE_SIDEBAR_PATH . SITE_SIDEBAR_DIR . SITE_HTML_EXT;
+
 		if ( file_exists( $file ) )
 		{
 			$str = file_get_contents( $file );

@@ -79,6 +79,7 @@ elseif( defined( 'SITE_PATH' ) )
 		define( 'SITE_DESCRIPTION', 'Site Description' );
 		define( 'SITE_USE_BASIC', true );
 		define( 'SITE_USE_HEADER_SUB', true );
+		define( 'SITE_USE_ASIDE', true );
 		define( 'SITE_LANG', 'en' );
 		define( 'SITE_CHARSET', 'UTF-8' );
 		define( 'SITE_ELAPSED_TIME', false );

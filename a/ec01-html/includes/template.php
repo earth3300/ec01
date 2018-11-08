@@ -99,10 +99,10 @@ class EC01Template extends EC01HTML{
 				$str .= sprintf('<body%s>%s',$page['class']['body'], PHP_EOL);
 
 				/** A body wrap. */
-				$str .= '<div class="wrap">' . PHP_EOL;
+				//$str .= '<div class="wrap">' . PHP_EOL;
 
 				/** An inner wrap. */
-				$str .= '<div class="inner">' . PHP_EOL;
+				//$str .= '<div class="inner">' . PHP_EOL;
 
 				/** The main header element. */
 				$str .= $page['header']['main'];
@@ -110,7 +110,7 @@ class EC01Template extends EC01HTML{
 				/** An optional sub header element.  */
 				$str .= isset( $page['header']['sub'] ) ? $page['header']['sub'] : '';
 
-				/** The HTML5 `main` element. */
+				/** The HTML5 `main` element (main content of the body). */
 				$str .= '<main>' . PHP_EOL;
 
 				/** The "article". This is what it is all about. Make sure it is there. */
@@ -122,17 +122,35 @@ class EC01Template extends EC01HTML{
 				{
 					$str .= $page['article'];
 				}
+
+				/**
+				 * Note: Placing and `aside` *within* an article treats it as related
+				 * to the article. Otherwise, *outside of the article*, it is treated
+				 * as tangentially related to the page, but not necessarily the article.
+				 *
+				 * @see http://html5doctor.com/tag/aside/
+				 */
+
 				/** Close the main element. */
 				$str .= '</main>' . PHP_EOL;
 
+				/**
+				 * The optional aside (sidebar).
+				 *
+				 * Place this *outside* of main if it is
+				 * not directly related to the main idea of the page. Place it *inside*
+				 * the main if it is. Perform this change manually in this template
+				 * for simplicity.
+				 *
+				 * @example Weather related data goes outside of main.
+				 */
+				$str .= $page['aside'];
+
 				/** Close the inner body wrap. */
-				$str .= '</div><!-- .inner -->' . PHP_EOL; //inner
-
-				/** The optional page sidebar (if anything). */
-				$str .= $page['sidebar'];
-
+				//$str .= '</div><!-- .inner -->' . PHP_EOL; //inner
+				//$
 				/** Close the body wrap */
-				$str .= '</div><!-- .wrap -->' . PHP_EOL; //wrap
+				//$str .= '</div><!-- .wrap -->' . PHP_EOL; //wrap
 
 				/** The page footer. */
 				$str .= $page['footer'];
