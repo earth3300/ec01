@@ -30,7 +30,7 @@ define( 'SITE_INDEX_ALLOW', false );
 define( 'SITE_USE_CSS_MIN', false );
 
 /** Default: false */
-define( 'SITE_USE_CSS_ALL', true );
+define( 'SITE_USE_CSS_ALL', false );
 
 /** Default: true (more basic). */
 define( 'SITE_USE_CSS_CHILD', true );

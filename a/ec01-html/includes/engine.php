@@ -312,7 +312,7 @@ class EC01HTML
 
  		$class['article'] = $this->getArticleClass( $page['article'] );
 
- 		$class['html'] = $this->getHtmlClass( $class['type'], $page['tiers'] );
+ 		$class['html'] = $this->getHtmlClass( $page, $class['type'] );
 
 		$class['body'] = $this->getBodyClass( $page['tiers'] );
 
@@ -329,13 +329,16 @@ class EC01HTML
 	 *
 	 * @return string
 	 */
-	private function getHtmlClass( $type, $tiers )
+	private function getHtmlClass( $page, $type )
 	{
 
+		$tiers = $page['tiers'];
+		
 		/** Type of page (fixed-width or dynamic), with a trailing space. */
 		$str = $type . ' ';
 
-		$str .= SITE_USE_ASIDE ? 'aside ' : '';
+		/** Add an 'aside' class, but not on the front page. */
+		$str .= SITE_USE_ASIDE && ! $page['front-page'] ? 'aside ' : '';
 
 		if ( ! empty( $tiers ) )
 		{
@@ -547,11 +550,11 @@ class EC01HTML
 		*/
 		private function getAside( $page )
 		{
+				$str = '';
+
 				if ( SITE_USE_ASIDE )
 				{
-					$str = '<aside>' . PHP_EOL;
 					$str .= $this->getAsideFile( $page );
-					$str .= '</aside>' . PHP_EOL;
 
 					return $str;
 				}
