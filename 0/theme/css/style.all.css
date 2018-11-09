@@ -356,8 +356,8 @@ Time: 14:48 EST
 *
 * File: 02-main.css
 * Created: 2016.12.15
-* Updated: 2018-11-03
-* Time: 10:47 EST
+* Updated: 2018-11-09
+* Time: 18:49 EST
 */
 
 /**
@@ -676,8 +676,27 @@ Time: 14:48 EST
 
 	/***** BODY START *****/
 
-	main { clear: both; }
+	main {
+		display: block;
+		clear: both;
+	}
 
+/** Part width only for displays large enough. */
+@media (min-width: 800px) {
+
+		html.aside main {
+			float: left;
+			width: 72%;
+		}
+
+		/** Only for an `aside` outside of the article element. */
+		html.aside > body > aside {
+			float: right;
+			width: 23%;
+			background-color: hsl(90, 25%, 85%);
+		}
+
+	}
 	h1, h2, h3, h4 {
 		line-height: 1.3;
 	}
@@ -710,7 +729,7 @@ Time: 14:48 EST
 		display: block;
 		margin: 0 auto;
 		padding: 1em;
-		max-width: 780px;
+		max-width: 800px;
 		position: relative;
 		overflow: hidden;
 	}
@@ -721,10 +740,10 @@ Time: 14:48 EST
 	}
 
 	aside {
-		margin-top: .5em;
-		padding: .5em;
-		text-align: center;
-		font-style: italic;
+		padding: 1em;
+		font-size: 85%;
+		border-left: 1px solid #c8c8c8;
+		border-bottom: 1px solid #c8c8c8;
 	}
 
 	section {
@@ -997,6 +1016,8 @@ Time: 14:48 EST
 
 	/*** MEDIA START ***/
 
+	/** The `.theme-dark` class can replace the media type classes. */
+	html.theme-dark,
 	html.media,
 	html.video,
 	html.audio {
@@ -1004,6 +1025,7 @@ Time: 14:48 EST
 		box-shadow: none;
 	}
 
+	html.theme-dark body,
 	html.media body,
 	html.video body,
 	html.audio body {
@@ -1013,42 +1035,51 @@ Time: 14:48 EST
 		box-shadow: none;
 	}
 
-	html.media > .wrap > .inner,
-	html.video > .wrap > .inner,
-	html.audio > .wrap > .inner {
+	html.theme-dark > body > main,
+	html.media  > body > main,
+	html.video  > body > main,
+	html.audio  > body > main {
 		background-color: #121212;
 		opacity: 1;
 		border-radius: 6px;
 		padding: 24px;
 	}
 
+
+	html.theme-dark .title-wrap,
 	html.media .title-wrap,
 	html.video .title-wrap,
 	html.audio .title-wrap {
 		background-color: transparent;
 	}
 
+
+	html.theme-dark .site-title a,
 	html.media .site-title a,
 	html.video .site-title a,
 	html.audio .site-title a,
+	html.theme-dark .site-description,
 	html.media .site-description,
 	html.video .site-description,
 	html.audio .site-description {
 		color: inherit;
 	}
 
+	html.theme-dark article,
 	html.media article,
 	html.video article,
 	html.audio article {
 		padding: 1em;
 	}
 
+	html.theme-dark h1,
 	html.media h1,
 	html.video h1,
 	html.audio h1 {
 		display: none;
 	}
 
+	html.theme-dark p,
 	html.media p,
 	html.video p,
 	html.audio p {
@@ -1057,37 +1088,45 @@ Time: 14:48 EST
 		color: #777;
 	}
 
+	html.theme-dark a,
 	html.media a,
 	html.video a,
 	html.audio a {
 		color: #666;
-		/* 1 points darker than text */
+		/* 1 point darker than text */
 	}
 
+	html.theme-dark a:link,
 	html.media a:link,
 	html.video a:link,
 	html.audio a:link {
 		color: #666;
 	}
 
+	html.theme-dark a:hover,
 	html.media a:hover,
 	html.video a:hover,
 	html.audio a:hover {
 		color: #999;
 	}
 
+	html.theme-dark a:visited,
 	html.media a:visited,
 	html.video a:visited,
 	html.audio a:visited {
 
 	}
 
+	html.theme-dark a:active,
 	html.media a:active,
 	html.video a:active,
 	html.audio a:active {
 
 	}
 
+	html.theme-dark nav.prev-next a,
+	html.theme-dark nav.prev a,
+	html.theme-dark nav.next a,
 	html.media nav.prev-next a,
 	html.media nav.prev a,
 	html.video nav.prev a,
