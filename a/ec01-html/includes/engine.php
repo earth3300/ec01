@@ -6,8 +6,8 @@
  *
  * File: engine.php
  * Created: 2018-10-01
- * Update: 2018-11-06
- * Time: 16:19 EST
+ * Update: 2018-11-08
+ * Time: 19:37 EST
  */
 
 namespace Earth3300\EC01;
@@ -333,7 +333,7 @@ class EC01HTML
 	{
 
 		$tiers = $page['tiers'];
-		
+
 		/** Type of page (fixed-width or dynamic), with a trailing space. */
 		$str = $type . ' ';
 
