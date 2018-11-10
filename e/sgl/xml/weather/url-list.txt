@@ -1,0 +1,16 @@
+http://www.windatlas.ca/rose-en.php?
+field=E1
+&height=80
+&season=DJF
+&no=24
+&roads=1
+&cities=1
+&ni=941
+&nj=187
+
+https://www.google.com/maps/
+
+@44.412571,
+-78.0417624,
+7500m
+/data=!3m1!1e3!5m1!1e4

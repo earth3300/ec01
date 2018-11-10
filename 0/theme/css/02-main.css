@@ -336,17 +336,22 @@
 /** Part width only for displays large enough. */
 @media (min-width: 800px) {
 
-		html.aside main {
-			float: left;
-			width: 72%;
-		}
+  body {
+    /** Increase the width of the body. */
+    max-width: 960px;
+  }
 
-		/** Only for an `aside` outside of the article element. */
-		html.aside > body > aside {
-			float: right;
-			width: 23%;
-			background-color: hsl(90, 25%, 85%);
-		}
+	html.aside main {
+		float: left;
+		width: 65%;
+	}
+
+	/** Only for an `aside` outside of the article element. */
+	html.aside > body > aside {
+		float: right;
+		width: 27%;
+		background-color: hsl(90, 25%, 85%);
+	}
 
 	}
 	h1, h2, h3, h4 {
@@ -932,6 +937,10 @@
 		width: 150px;
 		height: 150px;
 	}
+
+  aside footer {
+    text-align: left;
+  }
 }
 
 /* Main All End */

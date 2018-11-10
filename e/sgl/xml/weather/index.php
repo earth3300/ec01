@@ -6,7 +6,7 @@
  * valid HTML. Can also be used as a WordPress plugin.
  *
  * @package Earth3300\EC01
- * @version 0.0.1
+ * @version 0.0.2
  * @author Clarence J. Bos <cbos@tnoep.ca>
  * @copyright Copyright (c) 2018, Clarence J. Bos
  * @license https://www.gnu.org/licenses/gpl-3.0.en.html GPL v3.0
@@ -16,7 +16,7 @@
  * Plugin Name: EC01 XML Reader
  * Plugin URI:  https://github.com/earth3300/ec01-xml-reader
  * Description: Reads and XML file and displays it in HTML.  Shortcode [xml-reader dir=""].
- * Version: 0.0.1
+ * Version: 0.0.2
  * Author: Clarence J. Bos
  * Author URI: https://github.com/earth3300/
  * Text Domain: ec01-xml-reader
@@ -25,12 +25,14 @@
  *
  * Standards: https://semver.org/  Versioning
  * Standards: https://www.php-fig.org/psr/  PHP Formatting
- * Standards: http://docs.phpdoc.org/references/phpdoc/tags/ Documentation.
+ * Standards: http://docs.phpdoc.org/references/phpdoc/tags/  Documentation.
+ *
+ * Standards: https://www.w3.org/standards/xml/  XML
  *
  * File: index.php
  * Created: 2018-10-07
- * Updated: 2018-11-08
- * Time: 10:13 EST
+ * Updated: 2018-11-10
+ * Time: 10:12 EST
  */
 
 namespace Earth3300\EC01;
@@ -51,7 +53,7 @@ class XMLReader
     'ext' => '.xml',
 		'dir' => '/data',
 		'index' => false,
-		'file' => 'data.xml', //set to empty to read directory contents.
+		'file' => 'weather.xml',
 		'title' => 'XML Reader',
     'css' => '/0/theme/css/style.css',
 		'url' => 'https://github.com/earth3300/ec01-xml-reader',
@@ -78,76 +80,44 @@ class XMLReader
 		/** Figure out what is happening, set the switches accordingly. */
 		$args = $this->setTheSwitches( $args );
 
+		/** Set the page class to the type. */
+		$args['class'] = $this->opts['type'];
+
+    /** Add the file to the argument array. */
+    $file['path'] = $this->getFilePath( $args ) . '/' .$this->opts['file'];
+
+    /** Get the name of the containing directory. */
+    $file['dir'] = basename(__DIR__);
+
+    /** Construct the file name out of the file directory and its extension. */
+    $file['name'] = $file['dir'] . $this->opts['ext'];
+
+    /** Get the base path of the file, including the file name. */
+    $file['src'] = $this->getSrcFromFile( $file );
+
+    /** Get the item XML. */
+    $file['xml'] = $this->getItemXML( $file );
+
+    /** Get the item array from XML */
+    $file['data'] = $this->xmlObjToArr( $file );
+
+    /** Open the article element. */
+    $file['html'] = '<article>' . PHP_EOL;
+
+    /** Get the item HTML. Note the dot preceding the equals sign. */
+    $file['html'] .= $this->getItemHtml( $file );
+
+		/** Close the article element. Note the dot preceding the equals sign. */
+		$file['html'] .= '</article>' . PHP_EOL;
+
+		/** If the request is for a full page, wrap the HTML in page HTML. */
+		if ( isset( $args['doctype'] ) && $args['doctype'] )
 		{
-
-			/** Set the page class to the type. */
-			$args['class'] = $this->opts['type'];
-
-			/** Open the article element. */
-			$str = '<article>' . PHP_EOL;
-
-			/** Get the match pattern for the files. */
-			if ( $match = $this->getMatchPattern( $this->opts['ext'], $args ) )
-				{
-					/** This will look only for the first file if max == 1. */
-					$str .= $this->iterateFiles( $match, $args );
-				}
-			}
-
-			/** Close the article element. */
-			$str .= '</article>' . PHP_EOL;
-
-			/** If the request is for a full page, wrap the HTML in page HTML. */
-			if ( isset( $args['doctype'] ) && $args['doctype'] )
-			{
-				/** Note the lack of a preceding '.' before the equals sign. Important!!! */
-				$str = $this->getPageHtml( $str, $args );
-			}
-
-			/** Deliver the HTML, wrapped in page HTML or not. */
-			return $str;
-	}
-
-	/**
-	 * Iterate over files.
-	 *
-	 * Capability for jpg, png, mp3 and mp4
-	 *
-	 * @param string $match
-	 * @param array $args
-	 *
-	 * @return string
-	 */
-	private function iterateFiles( $match, $args )
-	{
-		/** Initialize the string variable. */
-		$str = '';
-
-		/** Set the counter to 0. */
-		$cnt = 0;
-
-		/** Use the PHP 'glob' function to iterate through the files that match the pattern. */
-		foreach ( glob( $match ) as $file )
-		{
-
-			/** Increment the counter by one. */
-			$cnt++;
-
-			/** Stop processing if the count equals the maximum. */
-			if ( $cnt > $this->opts['max_length'] )
-			{
-				break;
-			}
-
-			/** Add the file to the argument array. */
-			$args['file'] = $file;
-
-			/** Get the base path of the file, including the file name. */
-			$args['src'] = $this->getSrcFromFile( $args['file'] );
-
-			/** Get the item HTML. */
-			$str .= $this->getItemHtml( $args );
+			/** Note the lack of a preceding '.' before the equals sign. Important!!! */
+			$str = $this->getPageHtml( $file, $args );
 		}
+
+		/** Deliver the HTML, wrapped in page HTML or not. */
 		return $str;
 	}
 
@@ -158,10 +128,11 @@ class XMLReader
 	 *
 	 * @return string
 	 */
-	private function getSrcFromFile( $str )
+	private function getSrcFromFile( $file )
 	{
+
 		/** Remove the part of the path that is before the site root. */
-		$src = str_replace( $this->getSitePath(), '', $str );
+		$src = str_replace( $this->getSitePath(), '', $file['path'] );
 
 		/** Just in case, we remove the preceding slash and add it again. */
 		$src = ltrim( $src, '/' );
@@ -179,7 +150,7 @@ class XMLReader
 	 * Both of these have been tested online to have a preceding forward slash.
 	 * Therefore do not add one later.
 	 *
-	 * @return bool
+	 * @return string
 	 */
 	private function getSitePath()
 	{
@@ -198,44 +169,29 @@ class XMLReader
 		}
 	}
 
-	/**
-	 * Build the Match String
-	 *
-	 * Allowing only `xml` here.
-	 *
-	 * @param string $type  'xml'
-	 * @param array $args
-	 *
-	 * @return string|false
-	 */
-	private function getMatchPattern( $ext, $args )
-	{
-		if ( '.xml' == $ext ) {
+  /**
+   * Get the File Path
+   *
+   * @param array $file
+   * @param array $args
+   *
+   * @return string
+   */
+   private function getFilePath( $args )
+   {
+     if ( $args['self'] )
+     {
+       /** The path is the path to this directory. */
+       $path = __DIR__;
+     }
+     else
+     {
+       /** The 'dir' is from the base of the site. */
+       $path = $this->getSitePath() . '/' . $args['dir'];
+     }
 
-			/** Get the base path (from the root of the server. */
-			$path = $this->getBasePath( $args );
-
-			/** Add a wild card to allow for any file name (not including the extension). */
-			$prefix = "/*";
-
-			/** Built the match string. */
-			$match =  $path . $prefix . $ext;
-
-			/** Ensure it is non-trivial. */
-			if ( strlen( $match ) > 10 )
-			{
-				return $match;
-			}
-			else
-			{
-				return false;
-			}
-		}
-		else
-		{
-			return false;
-		}
-	}
+     return $path;
+   }
 
 	/**
 	 * Get the Base Path to the Media Directory.
@@ -286,8 +242,37 @@ class XMLReader
 		return $dir;
 	}
 
+  /**
+   * Get Item XML
+
+   * Load the file as an XML object, if it exists and perform some basic checks.
+	 *
+	 * @param array $file  Contains $file['path']
+	 *
+	 * @return object|false|null
+	 */
+	private function getItemXML( $file )
+	{
+    /** Initialize the $xml object to null. */
+    $xml = null;
+
+  	/** Check if the file exists. */
+		if ( file_exists( $file['path'] ) )
+		{
+      /** Load the well formed XML file as an XML object.  */
+      $xml = simplexml_load_file( $file['path'] );
+      /** If $xml evaluates to false, set it explicitly to false. */
+      if ( $xml === false )
+      {
+        $xml = false;
+      }
+    }
+    /** Return $xml ( object|false|null ). */
+    return $xml;
+  }
+
 	/**
-	 * Get the Item HTML
+	 * Get the Item HTML (From an Array)
 	 *
 	 *  string file_get_contents (
 	 *  	string $filename [,
@@ -311,109 +296,28 @@ class XMLReader
 	 *
 	 * @return string|bool
 	 */
-	private function getItemHTML( $args )
+	private function getItemHTML( $file )
 	{
-		/** Check if the file exists. */
-		if ( file_exists( $args['file'] ) )
-		{
-			/** Read the contents into a string. */
-			$str = file_get_contents( $args['file'] );
-
-			if ( $xml = $this->strToXML( $str ) )
-			{
-				/** Convert the xml to an array */
-				$arr = $this->xmlToArray( $xml );
-
-				/** Convert the array into HTML */
-				if( $html = $this->arrToHTML( $arr ) )
-				{
-					return $html;
-				}
-				else
-				{
-					return false;
-				}
-			}
-			else
-			{
-				return false;
-			}
-		}
-		else
-		{
-			return false;
-		}
-	}
-
-	/**
-	 * Convert an Associative Array to HTML
-	 *
-	 * @param array $array
-	 *
-	 * @return string|bool
-	 *
-	 * ["name"]=> string(12) "Peterborough"
-   * ["lat"]=> string(9) "44.306805"
-   * ["lng"]=> string(11) "-78.3201927"
-   * ["width"]=> string(4) "8.88"
-   * ["height"]=> string(4) "9.25"
-   * ["area"] => string(5) "70.82"
-   * ["radius"]=> string(4) "4300"
-   * ["people"]=> string(6) "116570"
-	 */
-	private function arrToHTML( $arr )
-	{
-		if ( is_array( $arr ) && ! empty( $arr ) )
-		{
-			if ( 0 ) {
-			echo "<pre>";
-			echo "</pre>"; }
-			var_dump( $arr[ key( $arr ) ] );
-
-			$data = $arr[ key( $arr ) ];
-
-			foreach ( $data as $key => $row )
-			{
-
-			}
-			/** loop through array up to n depth */
-
-		}
-		else
-		{
-			return false;
-		}
-	}
-
-	private function twoDeeArrToHTML( $data )
-	{
+    $html = '';
 
     $rows = [];
 
-    foreach ($data as $row)
-		{
+    foreach ( $file['data'] as $row )
+    {
         $cells = array();
 
         foreach ($row as $cell)
-				{
+        {
             $cells[] = "<td>{$cell}</td>";
         }
 
         $rows[] = "<tr>" . implode( '', $cells ) . "</tr>" . PHP_EOL;
     }
 
-    return "<table>" . implode( '', $rows ) . "</table>";
-	}
+    $html = "<table>" . implode( '', $rows ) . "</table>";
 
-/*
- * $data = array(
-    array('1' => '1', '2' => '2'),
-    array('1' => '111', '2' => '222'),
-    array('1' => '111111', '2' => '222222'),
-    );
-		echo html_table($data);
-	}
-	*/
+    return $html;
+  }
 
 	/**
 	 * Convert an XML String to an XML Object
@@ -469,10 +373,10 @@ class XMLReader
 	 *
 	 *  @return array|bool
 	 */
-	private function xmlToArray( $xml )
+	private function getItemArr( $file )
 	{
 			/** Encode the xml as JSON */
-			$json = json_encode( $xml );
+			$json = json_encode( $file['xml'] );
 
 			/** Decode the $json into an array */
 			$arr = json_decode( $json, true );
@@ -488,6 +392,125 @@ class XMLReader
 				return false;
 			}
 	}
+
+  /**
+   * [xmlObjToArr description]
+   *
+   * @link http://php.net/manual/en/book.simplexml.php
+   *
+   * @param  array $file  Array containing an XML Object.
+   * @param int $depth Maximum depth to process.
+   *
+   * @return array  array
+   */
+  private function xmlObjToArr( $file, $depth = 4 )
+  {
+    /** Set the object from the array given */
+    $obj = $file['xml'];
+
+    if ( is_object( $obj ) )
+      {
+      /** Initialize the count of the depth to process. */
+      $cnt = 0;
+
+      $namespaces = $this->getXMLNamespaces( $obj );
+
+      $namespaces[null] = null;
+
+      $children = [];
+
+      $attr = [];
+
+      $name = strtolower( (string)$obj->getName() );
+
+      $text = trim( (string)$obj );
+
+      if( strlen( $text ) <= 0 )
+      {
+          $text = null;
+      }
+
+      // get info for all namespaces
+      if( is_object( $obj ) )
+      {
+        /** Increment the depth counter. */
+        $cnt++;
+        if ( $cnt > $depth )
+        {
+          foreach( $namespaces as $ns => $nsUrl )
+          {
+            /** Attributes. */
+            $objAttr = $obj->attributes( $ns, true );
+
+            foreach( $objAttr as $attrName => $attrValue )
+            {
+                $attribName = strtolower( trim( (string)$attrName ) );
+
+                $attribVal = trim( (string)$attrValue );
+
+                if ( ! empty( $ns ) )
+                {
+                    $attribName = $ns . ':' . $attribName;
+                }
+                $attr[$attribName] = $attribVal;
+            }
+
+            /** Children. */
+            $objChildren = $obj->children( $ns, true );
+
+            foreach( $objChildren as $childName => $child )
+            {
+                $childName = strtolower( (string)$childName );
+
+                if( ! empty( $ns ) )
+                {
+                    $childName = $ns.':'.$childName;
+                }
+                /** Call this function recursively. */
+                $children[ $childName ][] = xmlObjToArr( $child );
+            }
+          }
+        }
+      }
+
+      $data = array(
+          'name'=>$name,
+          'text'=>$text,
+          'attr'=>$attr,
+          'children'=>$children
+      );
+      pre_dump( $data );
+
+      return $data;
+    }
+    else
+    {
+      return false;
+    }
+  }
+
+  /**
+   * Get the Namespaces in an XML Object
+   *
+   */
+  private function getXMLNamespaces( $obj )
+  {
+    $arr = null;
+
+    foreach ( $obj as $outer_ns )
+    {
+      $ns = $outer_ns->getNamespaces( true );
+
+      $child = $outer_ns->children( $ns['p'] );
+
+      foreach ( $child as $out )
+      {
+          $arr[] =  $out;
+      }
+    }
+    pre_dump( $arr );
+    return $arr;
+  }
 
 	/**
 	 * Set the Switches
@@ -538,7 +561,7 @@ class XMLReader
 	 *
 	 * @return string
 	 */
-	public function getPageHtml( $html, $args )
+	public function getPageHtml( $file, $args )
 	{
 		$str = '<!DOCTYPE html>' . PHP_EOL;
 		$str .= sprintf( '<html class="dynamic theme-dark %s" lang="en-CA">%s', $args['class'], PHP_EOL );
@@ -551,7 +574,7 @@ class XMLReader
 		$str .= '</head>' . PHP_EOL;
 		$str .= '<body>' . PHP_EOL;
 		$str .= '<main>' . PHP_EOL;
-		$str .= $html;
+		$str .= $file['html'];
 		$str .= '</main>' . PHP_EOL;
 		$str .= '<footer>' . PHP_EOL;
 		$str .= '<div class="text-center"><small>';
@@ -564,6 +587,67 @@ class XMLReader
 	}
 
 } // End class
+
+/**
+ * Data Class
+ *
+ * @var [type]
+ */
+class XMLData extends XMLReader
+{
+  protected function dataStation()
+  {
+    $items = [
+        'maxtemp' => [ 'Max Temp', 'unit'=> '°C', 'load' => 1 ],
+        'mintemp' => [ 'Min Temp', 'unit'=> '°C', 'load' => 1 ],
+        'meantemp' => [ 'Mean Temp', 'unit'=> '°C', 'load' => 1 ],
+        'heatdegdays' => [ 'Heaating Deg Days', 'unit'=> '°C', 'load' => 1 ],
+        'cooldegdays' => [ 'Cooling Deg Days', 'unit'=> '°C', 'load' => 1 ],
+        'totalrain' => [ 'Total Rain', 'unit'=> 'mm', 'load' => 1 ],
+        'totalsnow' => [ 'Total Snow', 'unit'=> 'cm', 'load' => 1 ],
+        'totalprecipitation' => [ 'Total Precip', 'unit'=> 'mm', 'load' => 1 ],
+        'snowonground' => [ 'Snow on Ground', 'unit'=> 'cm', 'load' => 1 ],
+        'dirofmaxgust' => [ 'Max Gust Dir', 'unit'=> '10s Deg', 'load' => 1 ],
+        'speedofmaxgust' => [ 'Max Gust Speed', 'unit'=> 'km/h', 'load' => 1 ],
+      ];
+      return $items;
+  }
+}
+
+/*
+
+<stationdata day="1" month="1" year="2018">
+  <maxtemp description="Maximum Temperature" units="°C">-10.9</maxtemp>
+  <mintemp description="Minimum Temperature" units="°C">-31.2</mintemp>
+  <meantemp description="Mean Temperature" units="°C">-21.1</meantemp>
+  <heatdegdays description="Heating Degree Days" units="°C">39.1</heatdegdays>
+  <cooldegdays description="Cooling Degree Days" units="°C">0.0</cooldegdays>
+  <totalrain description="Total Rain" flag="M" units="mm"/>
+  <totalsnow description="Total Snow" flag="M" units="cm"/>
+  <totalprecipitation description="Total Precipitation" units="mm">0.0</totalprecipitation>
+  <snowonground description="Snow on Ground" units="cm">23</snowonground>
+  <dirofmaxgust description="Direction of Maximum Gust" units="10s Deg">26</dirofmaxgust>
+  <speedofmaxgust description="Speed of Maximum Gust" units="km/h">37</speedofmaxgust>
+</stationdata>
+
+ */
+
+/**
+ * Helper Function
+ *
+ * Call `pre_dump( $arr );` to have array or string outputted and formatted
+ * for debugging purposes. A check is done to ensure this function is not
+ * called twice.
+ */
+if ( ! function_exists( 'pre_dump' ) )
+{
+  function pre_dump( $arr )
+  {
+    echo "<pre>" . PHP_EOL;
+    var_dump( $arr );
+    echo "</pre>" . PHP_EOL;
+  }
+}
 
 /**
  * Callback from the xml-reader Shortcode
