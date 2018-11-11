@@ -54,6 +54,7 @@ _*
 # core/
 # vendor/
 wki/
+cncr/
 
 d/
 # dependency manager (for now)

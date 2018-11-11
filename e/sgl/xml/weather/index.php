@@ -83,18 +83,28 @@ class XMLReader
 		/** Set the page class to the type. */
 		$args['class'] = $this->opts['type'];
 
-    /** Add the file to the argument array. */
-    $file['path'] = $this->getFilePath( $args ) . '/' .$this->opts['file'];
-
     /** Get the name of the containing directory. */
     $file['dir'] = basename(__DIR__);
 
     /** Construct the file name out of the file directory and its extension. */
     $file['name'] = $file['dir'] . $this->opts['ext'];
 
-    /** Get the base path of the file, including the file name. */
-    $file['src'] = $this->getSrcFromFile( $file );
+    /** Get the root path for the file (sever root to site root). */
+    $file['root'] = $this->getSitePath();
 
+    /** Get the file path (root to directory file is in). */
+    $file['path'] = $this->getFilePath( $args );
+
+    /** Get the base path of the file, including the file name. (Needs name, path, root). */
+    $file['base'] = $this->getFileBase( $file );
+
+    /** The file path, plus the name of the file. */
+    $file['patf'] = $file['path'] . '/' . $file['name'];
+
+    /** Get the base path of the file, including the file name. */
+    $file['src'] = $this->getFileSrc( $file );
+
+    pre_dump( $file );
     /** Get the item XML. */
     $file['xml'] = $this->getItemXML( $file );
 
@@ -122,23 +132,44 @@ class XMLReader
 	}
 
 	/**
-	 * Get the source from the file, checking for a preceding slash.
+	 * Get the source for the file, for use in an image element, for example.
 	 *
-	 * @param string $str
+	 * @param array $file
 	 *
 	 * @return string
 	 */
-	private function getSrcFromFile( $file )
+	private function getFileSrc( $file )
 	{
-
 		/** Remove the part of the path that is before the site root. */
-		$src = str_replace( $this->getSitePath(), '', $file['path'] );
+		$src = $file['base'] . '/' . $file['name'];
 
-		/** Just in case, we remove the preceding slash and add it again. */
-		$src = ltrim( $src, '/' );
+		/** Return $src. */
+		return $src;
+	}
 
-		/** Return the file src with the preceding slash. */
-		return '/' . $src;
+  /**
+	 * Get the File Base (Site Root to File Directory)
+	 *
+	 * @param array $file
+	 *
+	 * @return string
+	 */
+	private function getFileBase( $file )
+	{
+		/** Remove the file name from the full path. */
+		$base = str_replace( $file['name'], '', $file['path'] );
+
+    /** Remove the root path from the full base. */
+    $base = str_replace( $file['root'], '', $base );
+
+    /** Just in case, remove the preceding slash, and add it again. */
+		$base = '/' . ltrim( $base, '/' );
+
+    /** Remove the following slash, if it exists */
+    $base = rtrim( $base, '/' );
+
+		/** Return the base path. */
+		return $base;
 	}
 
 	/**
@@ -337,7 +368,7 @@ class XMLReader
 	 */
 	 private function strToXML( $str )
 	 {
-		 /** Convert a well-formed xml string into an xml object. */
+		 /** Convert a well-formed XML string into an XML object. */
 		 $xml = simplexml_load_string( $str, "SimpleXMLElement", LIBXML_NOCDATA );
 
 		 /** Check the returned value. */
@@ -595,21 +626,52 @@ class XMLReader
  */
 class XMLData extends XMLReader
 {
+  /**
+   *  Station Data
+   *
+   * @return array
+   */
   protected function dataStation()
   {
     $items = [
-        'maxtemp' => [ 'Max Temp', 'unit'=> '°C', 'load' => 1 ],
-        'mintemp' => [ 'Min Temp', 'unit'=> '°C', 'load' => 1 ],
-        'meantemp' => [ 'Mean Temp', 'unit'=> '°C', 'load' => 1 ],
-        'heatdegdays' => [ 'Heaating Deg Days', 'unit'=> '°C', 'load' => 1 ],
-        'cooldegdays' => [ 'Cooling Deg Days', 'unit'=> '°C', 'load' => 1 ],
-        'totalrain' => [ 'Total Rain', 'unit'=> 'mm', 'load' => 1 ],
-        'totalsnow' => [ 'Total Snow', 'unit'=> 'cm', 'load' => 1 ],
-        'totalprecipitation' => [ 'Total Precip', 'unit'=> 'mm', 'load' => 1 ],
-        'snowonground' => [ 'Snow on Ground', 'unit'=> 'cm', 'load' => 1 ],
-        'dirofmaxgust' => [ 'Max Gust Dir', 'unit'=> '10s Deg', 'load' => 1 ],
-        'speedofmaxgust' => [ 'Max Gust Speed', 'unit'=> 'km/h', 'load' => 1 ],
+        'maxtemp' => [ 'id' => 0, 'Max Temp', 'unit'=> '°C', 'load' => 1 ],
+        'mintemp' => [ 'id' => 1, 'Min Temp', 'unit'=> '°C', 'load' => 1 ],
+        'meantemp' => [ 'id' => 2, 'Mean Temp', 'unit'=> '°C', 'load' => 1 ],
+        'heatdegdays' => [ 'id' => 3, 'Heaating Deg Days', 'unit'=> '°C', 'load' => 1 ],
+        'cooldegdays' => [ 'id' => 4, 'Cooling Deg Days', 'unit'=> '°C', 'load' => 1 ],
+        'totalrain' => [ 'id' => 5, 'Total Rain', 'unit'=> 'mm', 'load' => 1 ],
+        'totalsnow' => [ 'id' => 6, 'Total Snow', 'unit'=> 'cm', 'load' => 1 ],
+        'totalprecipitation' => [ 'id' => 7, 'Total Precip', 'unit'=> 'mm', 'load' => 1 ],
+        'snowonground' => [ 'id' => 8, 'Snow on Ground', 'unit'=> 'cm', 'load' => 1 ],
+        'dirofmaxgust' => [ 'id' => 9, 'Max Gust Dir', 'unit'=> '10s Deg', 'load' => 1 ],
+        'speedofmaxgust' => [ 'id' => 10, 'Max Gust Speed', 'unit'=> 'km/h', 'load' => 1 ],
       ];
+      return $items;
+  }
+
+  /**
+   * Show Columns
+   *
+   * Determine which columns to show, based on their numerical key,
+   * regardless of what is in that column, or whether or not their
+   * contents are known.
+   *
+   * @return array
+   */
+  protected function showColumns()
+  {
+    $items = [
+        0 => [ 'load' => 1 ],
+        1 => [ 'load' => 1 ],
+        2 => [ 'load' => 1 ],
+        3 => [ 'load' => 1 ],
+        4 => [ 'load' => 1 ],
+        5 => [ 'load' => 1 ],
+        6 => [ 'load' => 1 ],
+        7 => [ 'load' => 1 ],
+        8 => [ 'load' => 1 ],
+        9 => [ 'load' => 1 ],
+        ];
       return $items;
   }
 }
