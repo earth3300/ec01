@@ -46,6 +46,10 @@ _*
 *.komodoproject
 *.sh3d
 
+# ARCHIVES
+
+*.bz2
+
 ### FOLDER TYPES
 
 ## MAJOR EXCLUDE

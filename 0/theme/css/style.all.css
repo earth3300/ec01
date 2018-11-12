@@ -691,7 +691,7 @@ Time: 14:48 EST
 
 	html.aside main {
 		float: left;
-		width: 65%;
+		width: 66%;
 	}
 
 	/** Only for an `aside` outside of the article element. */
@@ -1847,8 +1847,14 @@ Time: 14:48 EST
 		line-height: 35px;
 	}
 
-	.icon-height { height: 35px; }
-	}
+	.icon-height {
+    height: 35px;
+  }
+
+  .icon.wide {
+    width: 245px !important;
+  }
+
 }
 /* Sprite End */
 

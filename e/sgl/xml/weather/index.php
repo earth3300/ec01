@@ -104,12 +104,13 @@ class XMLReader
     /** Get the base path of the file, including the file name. */
     $file['src'] = $this->getFileSrc( $file );
 
-    pre_dump( $file );
     /** Get the item XML. */
     $file['xml'] = $this->getItemXML( $file );
 
+    $file['data'] = $this->objArrJSON( $file );
+
     /** Get the item array from XML */
-    $file['data'] = $this->xmlObjToArr( $file );
+    //$file['data'] = $this->xmlObjToArr( $file );
 
     /** Open the article element. */
     $file['html'] = '<article>' . PHP_EOL;
@@ -288,12 +289,13 @@ class XMLReader
     $xml = null;
 
   	/** Check if the file exists. */
-		if ( file_exists( $file['path'] ) )
+		if ( file_exists( $file['patf'] ) )
 		{
       /** Load the well formed XML file as an XML object.  */
-      $xml = simplexml_load_file( $file['path'] );
+      $xml = simplexml_load_file( $file['patf'] );
+
       /** If $xml evaluates to false, set it explicitly to false. */
-      if ( $xml === false )
+      if ( false === $xml )
       {
         $xml = false;
       }
@@ -333,7 +335,7 @@ class XMLReader
 
     $rows = [];
 
-    foreach ( $file['data'] as $row )
+    foreach ( $file['data']['stationdata'] as $row )
     {
         $cells = array();
 
@@ -400,11 +402,11 @@ class XMLReader
 	 * 	)
 	 * 	@link http://php.net/manual/en/function.json-decode.php
 	 *
-	 *  @param string $str
+	 *  @param array
 	 *
 	 *  @return array|bool
 	 */
-	private function getItemArr( $file )
+	private function objArrJSON( $file )
 	{
 			/** Encode the xml as JSON */
 			$json = json_encode( $file['xml'] );
@@ -629,6 +631,12 @@ class XMLData extends XMLReader
   /**
    *  Station Data
    *
+   * The station data occurs in the first level down. Above this, but at the
+   * same level are the language, the station information and the flags. For a
+   * known station and language, and when the flags are known,  all of this is
+   * optional. Howeve the flags are stored as attributes, not as data points.
+   * As well, description and unit information is stored as an attribute.
+   *
    * @return array
    */
   protected function dataStation()
@@ -637,13 +645,13 @@ class XMLData extends XMLReader
         'maxtemp' => [ 'id' => 0, 'Max Temp', 'unit'=> '°C', 'load' => 1 ],
         'mintemp' => [ 'id' => 1, 'Min Temp', 'unit'=> '°C', 'load' => 1 ],
         'meantemp' => [ 'id' => 2, 'Mean Temp', 'unit'=> '°C', 'load' => 1 ],
-        'heatdegdays' => [ 'id' => 3, 'Heaating Deg Days', 'unit'=> '°C', 'load' => 1 ],
-        'cooldegdays' => [ 'id' => 4, 'Cooling Deg Days', 'unit'=> '°C', 'load' => 1 ],
-        'totalrain' => [ 'id' => 5, 'Total Rain', 'unit'=> 'mm', 'load' => 1 ],
-        'totalsnow' => [ 'id' => 6, 'Total Snow', 'unit'=> 'cm', 'load' => 1 ],
+        'heatdegdays' => [ 'id' => 3, 'Heaating Deg Days', 'unit'=> '°C', 'load' => 0 ],
+        'cooldegdays' => [ 'id' => 4, 'Cooling Deg Days', 'unit'=> '°C', 'load' => 0 ],
+        'totalrain' => [ 'id' => 5, 'Total Rain', 'unit'=> 'mm', 'load' => 0 ],
+        'totalsnow' => [ 'id' => 6, 'Total Snow', 'unit'=> 'cm', 'load' => 0 ],
         'totalprecipitation' => [ 'id' => 7, 'Total Precip', 'unit'=> 'mm', 'load' => 1 ],
-        'snowonground' => [ 'id' => 8, 'Snow on Ground', 'unit'=> 'cm', 'load' => 1 ],
-        'dirofmaxgust' => [ 'id' => 9, 'Max Gust Dir', 'unit'=> '10s Deg', 'load' => 1 ],
+        'snowonground' => [ 'id' => 8, 'Snow on Ground', 'unit'=> 'cm', 'load' => 0 ],
+        'dirofmaxgust' => [ 'id' => 9, 'Max Gust Dir', 'unit'=> '10s Deg', 'load' => 0 ],
         'speedofmaxgust' => [ 'id' => 10, 'Max Gust Speed', 'unit'=> 'km/h', 'load' => 1 ],
       ];
       return $items;
@@ -664,13 +672,14 @@ class XMLData extends XMLReader
         0 => [ 'load' => 1 ],
         1 => [ 'load' => 1 ],
         2 => [ 'load' => 1 ],
-        3 => [ 'load' => 1 ],
-        4 => [ 'load' => 1 ],
-        5 => [ 'load' => 1 ],
-        6 => [ 'load' => 1 ],
+        3 => [ 'load' => 0 ],
+        4 => [ 'load' => 0 ],
+        5 => [ 'load' => 0 ],
+        6 => [ 'load' => 0 ],
         7 => [ 'load' => 1 ],
-        8 => [ 'load' => 1 ],
-        9 => [ 'load' => 1 ],
+        8 => [ 'load' => 0 ],
+        9 => [ 'load' => 9 ],
+        10 => [ 'load' => 1 ],
         ];
       return $items;
   }
@@ -719,7 +728,7 @@ if ( ! function_exists( 'pre_dump' ) )
  *
  * @param array  $args['dir']
  *
- * @return string  HTML as a list of images, wrapped in the article element.
+ * @return string  HTML, wrapped in the article element.
  */
 function media_index( $args )
 {
@@ -730,7 +739,7 @@ function media_index( $args )
 	}
 	else
 	{
-		return '<!-- Missing the image directory to process. [xml-reader dir=""]-->';
+		return '<!-- Missing the directory to process. [xml-reader dir=""]-->';
 	}
 }
 
@@ -738,7 +747,7 @@ function media_index( $args )
  * Environment Check.
  *
  * In WordPress if a WordPress specific function is found ('add_shortcode' is
- * the one we need, so that is the one a  check is made for).
+ * the one we need, so that is the one for which a check is made).
  */
 if( function_exists( 'add_shortcode' ) )
 {

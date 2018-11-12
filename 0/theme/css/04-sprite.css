@@ -352,7 +352,13 @@
 		line-height: 35px;
 	}
 
-	.icon-height { height: 35px; }
-	}
+	.icon-height {
+    height: 35px;
+  }
+
+  .icon.wide {
+    width: 245px !important;
+  }
+
 }
 /* Sprite End */
