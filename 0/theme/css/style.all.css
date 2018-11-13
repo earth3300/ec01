@@ -456,7 +456,13 @@ Time: 14:48 EST
 
 	.full-screen section .wrap { background-color: #fff; }
 
-	.border { border: 1px solid #debc65; }
+	.border {
+    border: 1px solid #debc65;
+  }
+
+  .border-top {
+    border: 1px solid #c8c8c8; 
+  }
 
 	.box-shadow { box-shadow: 0 2px 2px rgba(100, 100, 100, 0.5); }
 
@@ -2677,6 +2683,16 @@ Time: 14:48 EST
 		text-align: center;
 		font-weight: bold;
 		font-size: 120%;
+	}
+
+  .tier-1 .site-header-sub .full-width {
+		display: inline-block;
+		height: 75px;
+		line-height: 75px;
+		text-align: center;
+		font-weight: bold;
+		font-size: 120%;
+    width: 100%;
 	}
 
 	/** This goes on the right hand side and fills only about 75% of the width. */

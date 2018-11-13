@@ -6,17 +6,17 @@
  * WordPress theme. A basic set of constants are in this index file.
  *
  * @package Earth3300\EC01
- * @since 2018.10.29
+ * @version 1.0.1
  * @author Clarence J. Bos <cbos@tnoep.ca>
  * @copyright Copyright (c) 2018, Clarence J. Bos
- * @license https://www.gnu.org/licenses/gpl-3.0.en.html vGPL-3.0
+ * @license https://www.gnu.org/licenses/gpl-3.0.en.html GPL v3.0
  * @link https://github.com/earth3300/ec01-html
  *
  * @wordpress-theme
  * Theme Name: EC01 HTML
  * Theme URI: https://github.com/earth3300/ec01-html
  * Description: A lightweight alternative to displaying HTML. Can be used on its own or as a WordPress theme.
- * Version: 2018.11.06
+ * Version: 1.0.1
  * Author: Clarence J. Bos
  * Author URI: https://github.com/earth3300
  * Text Domain: ec01-html
@@ -24,9 +24,9 @@
  * License URI: https://www.gnu.org/licenses/gpl-3.0.en.html
  *
  * File: index.php
- * Created: 2018-10
- * Updated: 2018-11-06
- * Time: 16:17 EST
+ * Created: 2018-10-01
+ * Updated: 2018-11-13
+ * Time: 10:27 EST
  */
 
 namespace Earth3300\EC01;
@@ -57,16 +57,10 @@ elseif ( ! defined( 'SITE_PATH' ) )
 }
 elseif( defined( 'SITE_PATH' ) )
 {
-	/**
-	 * It should be entirely possible to run this thing without a humungous config file.
-	 * That means if it isn't there, this should still load but set a basic set of constants.
-	 * Lets see what they are.
-	 */
-
-	/** The following is conditional. If these conditions are not met, it won't work. */
+	/** If the complete set of constants is available, load them. */
 	if ( file_exists( SITE_PATH . '/c/config/cfg-load.php' ) )
 	{
-		/** Load the complete config file set, and use it. */
+		/** We are not using the basic version of this framework. */
 		define( 'SITE_USE_BASIC', false );
 
 		/** Require the configuration files. */
@@ -91,8 +85,16 @@ elseif( defined( 'SITE_PATH' ) )
 		define( 'SITE_HTML_PATH', SITE_PATH . '/1' );
 	}
 
-	/** Require the "engine" file. This is expected to be there. */
-	require_once( __DIR__ . '/includes/engine.php' );
+  /** Load the required files. */
+	require_once( __DIR__ . '/required/engine.php' );
+
+  require_once( __DIR__ . '/required/template.php' );
+
+  /** Load optional files, if they exist. */
+  if ( file_exists( __DIR__ . '/optional/index.php' ) )
+  {
+    require_once( __DIR__ . '/optional/index.php' );
+  }
 
 	/**
 	 * Instantiate the EC01HTML class and echo it.

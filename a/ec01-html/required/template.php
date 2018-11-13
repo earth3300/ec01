@@ -6,8 +6,8 @@
  *
  * File: template.php
  * Created: 2018-10-01
- * Update: 2018-11-09
- * Time: 17:39 EST
+ * Update: 2018-11-13
+ * Time: 10:37 EST
  */
 
 namespace Earth3300\EC01;
@@ -20,7 +20,8 @@ defined('NDA') || exit('NDA');
  *
  * @return string
  */
-class EC01Template extends EC01HTML{
+class EC01Template extends EC01HTML
+{
 
 	/**
 	 * Get the HTML
@@ -96,13 +97,7 @@ class EC01Template extends EC01HTML{
 				$str .= '</head>' . PHP_EOL;
 
 				/** If needed, the body has a class. Expecting: `class="..."`, with the appropriate spaces. */
-				$str .= sprintf('<body%s>%s',$page['class']['body'], PHP_EOL);
-
-				/** A body wrap. */
-				//$str .= '<div class="wrap">' . PHP_EOL;
-
-				/** An inner wrap. */
-				//$str .= '<div class="inner">' . PHP_EOL;
+				$str .= sprintf('<body%s>%s', $page['class']['body'], PHP_EOL);
 
 				/** The main header element. */
 				$str .= $page['header']['main'];
@@ -146,12 +141,6 @@ class EC01Template extends EC01HTML{
 				 */
 				$str .= $page['aside'];
 
-				/** Close the inner body wrap. */
-				//$str .= '</div><!-- .inner -->' . PHP_EOL; //inner
-				//$
-				/** Close the body wrap */
-				//$str .= '</div><!-- .wrap -->' . PHP_EOL; //wrap
-
 				/** The page footer. */
 				$str .= $page['footer'];
 
@@ -164,7 +153,7 @@ class EC01Template extends EC01HTML{
 				/** Close the `html` element. */
 				$str .= '</html>';
 
-				/** Return the string so it can be echoed. */
+				/** Return the string, so that it can be echoed. */
 				return $str;
 				}
 			}

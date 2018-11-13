@@ -321,6 +321,16 @@
 		font-size: 120%;
 	}
 
+  .tier-1 .site-header-sub .full-width {
+		display: inline-block;
+		height: 75px;
+		line-height: 75px;
+		text-align: center;
+		font-weight: bold;
+		font-size: 120%;
+    width: 100%;
+	}
+
 	/** This goes on the right hand side and fills only about 75% of the width. */
 	.tier-1 .site-header-sub .right {
 		font-weight: bold;

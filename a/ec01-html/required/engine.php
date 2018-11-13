@@ -30,56 +30,10 @@ class EC01HTML
 	 */
 	public function get()
 	{
-		$this->load();
 		$page = $this->getPage();
 		$template = new EC01Template();
 		$html = $template->getHtml( $page );
 		return $html;
-	}
-
-	/**
-	 * Load the Required Files.
-	 *
-	 * The `data.php` file is optional. It is being developed to allow
-	 * more complex page headers to be constructed. In its most basic form
-	 * only one header type is constructed. When this is the case, no extra
-	 * data is needed. The `template.php` file is required. It is not optional.
-	 */
-	private function load()
-	{
-		/** Contains optional information. */
-		if ( file_exists( __DIR__ . '/data.php' ) )
-		{
-			/** Using optional data to help define the site */
-			require_once( __DIR__ . '/data.php' );
-
-			/** Use tiers (to construct more complex headers). */
-			define('SITE_USE_TIERS', true );
-
-			if ( SITE_USE_TIERS )
-			{
-				if ( file_exists( __DIR__ . '/tiers.php' ) )
-				{
-					/** Site has tiers. Let it know that. */
-					define('SITE_HAS_TIERS', true );
-
-					/** Works together with the data file. */
-					require_once( __DIR__ . '/tiers.php' );
-				}
-				else {
-					/** Site does not have tiers. Let it know that. */
-					define('SITE_HAS_TIERS', false );
-					echo "The file <code>tiers.php</code> is not available.";
-				}
-			}
-		}
-		else
-		{
-			/** Don't use tiers. */
-			define('SITE_USE_TIERS', false );
-		}
-		/** This template file is required. */
-		require_once( __DIR__ . '/template.php' );
 	}
 
 	/**
@@ -337,8 +291,19 @@ class EC01HTML
 		/** Type of page (fixed-width or dynamic), with a trailing space. */
 		$str = $type . ' ';
 
-		/** Add an 'aside' class, but not on the front page. */
-		$str .= SITE_USE_ASIDE && ! $page['front-page'] ? 'aside ' : '';
+		/** Add an 'aside' class, but not on the front page or on Tier 1 pages. */
+    if (
+      SITE_USE_ASIDE && ! $page['front-page']
+      && $page['tiers']['tier-1']['get']
+      && $page['tiers']['tier-2']['get']
+    )
+    {
+	    $str .= 'aside ';
+    }
+    else
+    {
+      $str .=  '';
+    }
 
 		if ( ! empty( $tiers ) )
 		{
@@ -492,24 +457,31 @@ class EC01HTML
 
 			$str .= '<div class="site-logo">' . PHP_EOL;
 			$str .= '<div class="inner">' . PHP_EOL;
+
+      /** The site logo is hard coded to 75px by 75px. */
 			$str .= '<img src="/0/theme/image/site-logo-75x75.png" alt="Site Logo" width="75" height="75" />' . PHP_EOL;
-			$str .= '</div><!-- .inner -->' . PHP_EOL;
+
+      $str .= '</div><!-- .inner -->' . PHP_EOL;
 			$str .= '</div><!-- .site-logo -->' . PHP_EOL;
 
 			/** The title wrap includes the title and description, but nothing else. */
 			$str .= '<div class="title-wrap">' . PHP_EOL;
 			$str .= '<div class="inner">' . PHP_EOL;
+
+      /** The site title and descriptions are constants set in /c/config/ or the index file of this package. */
 			$str .= sprintf( '<div class="site-title">%s</div>%s', SITE_TITLE, PHP_EOL );
 			$str .= sprintf( '<div class="site-description">%s</div>%s', SITE_DESCRIPTION, PHP_EOL );
-			$str .= '</div><!-- .inner -->' . PHP_EOL;
+
+      $str .= '</div><!-- .inner -->' . PHP_EOL;
 			$str .= '</div><!-- .title-wrap -->' . PHP_EOL;
 
+    /** Close the front page link. */
 		$str .= '</a><!-- .front-page-link -->' . PHP_EOL;
 
-		/** The sub header needs to be self closing. */
+		/** The sub header needs to be self closing. Turn it on or off using the constant below. */
 		$str .= SITE_USE_HEADER_SUB ? $this->getHeaderSub( $page ) : '';
 
-		/** Close the inner wrap and the header itself. */
+		/** Close the inner wrap and the header element. */
 		$str .= '</div><!-- .inner -->' . PHP_EOL;
 		$str .= '</header>' . PHP_EOL;
 
@@ -534,9 +506,10 @@ class EC01HTML
 	 */
 	 private function getHeaderSub( $page )
 	 {
-			 $tiers = new EC01Tiers();
-			 $str = $tiers->getHeaderSubTiered( $page );
-			 return $str;
+      /** The sub header is constructed in the `tiers.php` file. */
+      $tiers = new EC01Tiers();
+      $str = $tiers->getHeaderSubTiered( $page );
+      return $str;
 	 }
 
 	 /**
@@ -552,7 +525,11 @@ class EC01HTML
 		{
 				$str = '';
 
-				if ( SITE_USE_ASIDE )
+				if (
+          SITE_USE_ASIDE && ! $page['front-page']
+          && $page['tiers']['tier-1']['get']
+          && $page['tiers']['tier-2']['get']
+          )
 				{
 					$str .= $this->getAsideFile( $page );
 

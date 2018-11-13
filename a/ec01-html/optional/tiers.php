@@ -33,29 +33,97 @@ class EC01Tiers extends EC01HTML
    */
 	protected function getHeaderSubTiered( $page )
 	{
-		if ( SITE_HAS_TIERS )
+    if ( SITE_HAS_TIERS )
 		{
-			if ( $page['tiers']['tier-2']['get'] && ! $page['tiers']['tier-3']['get'] )
-				{
-					/** Get Header Tier 2. */
-					$str = $this-> getHeaderTierTwo( $page );
+      if ( $page['tiers']['tier-1']['get'] && ! $page['tiers']['tier-2']['get'] )
+			{
+					/** Get Header Tier 1. */
+					$str = $this-> getHeaderTierOne( $page );
+
+          /** Return the string. */
 					return $str;
-				}
-				elseif ( $page['tiers']['tier-3']['get'] )
-				{
-					/** Get Header Tier 2 and 3. */
-					$str = $this-> getHeaderTierTwoThree( $page );
-					return $str;
-				}
-				else {
-					return false;
-				}
+			}
+			elseif ( $page['tiers']['tier-2']['get'] && ! $page['tiers']['tier-3']['get'] )
+			{
+				/** Get Header Tier 2. */
+				$str = $this-> getHeaderTierTwo( $page );
+
+        /** Return the string. */
+				return $str;
+			}
+			elseif ( $page['tiers']['tier-3']['get'] )
+			{
+				/** Get Header Tier 2 and 3. */
+				$str = $this-> getHeaderTierTwoThree( $page );
+
+        /** Return the string. */
+				return $str;
+			}
+			else
+      {
+        /** Return false. Nothing there. */
+				return false;
+			}
 		}
 		else
 		{
 			return false;
 		}
 	}
+
+  /**
+   * Builds the Tier 1 Header.
+   *
+   * The Tier 1 Header is like the Tier 2 header (which was built first), but simpler
+   * as it does not contain Tier 2. However it is usual to visually differentiate
+   * between these Tiers as they contain different icons and colors.
+   *
+   * @param array $page
+   *
+   * @return string|bool
+   */
+  private function getHeaderTierOne( $page )
+  {
+    /** We need Tier 3 Information to construct a unique Tier-2/Tier-3 header. */
+    if ( $page['tiers']['tier-1']['get'] )
+    {
+      $url_tier1 = '/' . $page['tiers']['tier-1']['abbr'] . '/';
+
+      /** Open the sub header div. */
+      $str = '<div class="site-header-sub color darker">' . PHP_EOL;
+
+      /** Set the inner div. */
+      $str .= sprintf( '<div class="inner">%s', PHP_EOL );
+
+      /** Open the sub header link. */
+      $str .= sprintf( '<a class="full-width %s" ', $page['tiers']['tier-1']['class'] );
+      $str .= sprintf(
+        'href="%s" title="%s">',
+        $url_tier1,
+        $page['tiers']['tier-1']['title']
+      );
+
+      /** Set the icon and the text for the icon (tier 1). */
+      $str .= '<span class="icon"></span>';
+      $str .= sprintf( '<span class="text">%s</span>%s', $page['tiers']['tier-1']['title'], PHP_EOL );
+
+      /** Close the tier 1 link. */
+      $str .= '</a>' . PHP_EOL;
+
+      /** Close the inner div. */
+      $str .= '</div><!-- .inner -->' . PHP_EOL;
+
+      /** Close the sub header div. */
+      $str .= '</div><!-- .sub header -->' . PHP_EOL;
+
+      /** Return the string. */
+      return $str;
+    }
+    else
+    {
+      return false;
+    }
+  }
 
 	/**
 	 * Builds the Tier 2 Header.
@@ -411,8 +479,10 @@ class EC01Tiers extends EC01HTML
 	 */
 	protected function getTiersFromURI( $uri )
 	{
-		/** Have found nothing yet. */
-		$tiers = false;
+		/** Have found nothing yet. Set to null. */
+		$tiers['tier-1'] = null;
+    $tiers['tier-2'] = null;
+    $tiers['tier-3'] = null;
 
 		/** Look for a grouping of three letters, followed by four. */
 		$regex = '/\/([a-z]{3})\/([a-z]{4})\/([a-z]{5})\//';
@@ -434,6 +504,17 @@ class EC01Tiers extends EC01HTML
 				$tiers['tier-1'] = ! empty( $match[1] ) ? $match[1] : null;
 				$tiers['tier-2'] = ! empty( $match[2] ) ? $match[2] : null;
 			}
+      /** One last try. */
+      else
+      {
+        $regex = '/\/([a-z]{3})\//';
+        preg_match( $regex, $uri, $match );
+
+        if ( ! empty( $match ) )
+        {
+          $tiers['tier-1'] = ! empty( $match[1] ) ? $match[1] : null;
+        }
+      }
 		}
 		return $tiers;
 	}
