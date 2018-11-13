@@ -9,9 +9,9 @@
  * @license GPL v3.0
  *
  * File: 03-color.css
- * Created: 2018
- * Updated: 2018-11-03
- * Time: 10:48 EST
+ * Created: 2018-10-01
+ * Updated: 2018-11-13
+ * Time: 13:29 EST
  */
 
 /**
@@ -19,7 +19,22 @@
  */
 @media all {
 
+  /** Style the link, which is a wrap around the Tier 0 header. */
+  .site-header > .inner > .color {
+    background-color: hsl(90, 30%, 60%);
+  }
+
 	.color-updated { background-color: #181007; }
+
+  .color.lighter { background-color: #d9d9d9; } /* light grey */
+
+  .who .color.lighter { background-color: hsl(200, 33%, 70%); } /* blue */
+  .what .color.lighter { background-color: hsl(100, 33%, 70%); } /* green */
+  .where .color.lighter { background-color: hsl(33, 33%, 70%); } /* orange */
+  .how .color.lighter { background-color: hsl(0, 0%, 70%); } /* grey */
+  .when .color.lighter { background-color: hsl(44, 33%, 70%); } /* yellow */
+  .why .color.lighter { background-color: hsl(240, 33%, 70%); } /* violet */
+  .wiki .color.lighter { background-color: hsl(0, 0%, 70%); } /* grey */
 
 	.commons .color.lighter { background-color: #b6d7a8; } /* green */
 
@@ -45,7 +60,15 @@
 
 	/* headers have a stronger color, same shade */
 
-	.color.darker { background-color: #999; } /* darker grey */
+	.color.darker { background-color: hsl(0, 0%, 60%); } /* grey */
+
+  .who .color.darker { background-color: hsl(200, 33%, 50%); } /* blue */
+  .what .color.darker { background-color: hsl(100, 33%, 50%); } /* green */
+  .where .color.darker { background-color: hsl(33, 33%, 50%); } /* orange */
+  .how .color.darker { background-color: hsl(0, 0%, 85%); } /* grey */
+  .when .color.darker { background-color: hsl(44, 33%, 50%); } /* yellow */
+  .why .color.darker { background-color: hsl(240, 33%, 50%); } /* violet */
+  .wiki .color.darker { background-color: hsl(0, 0%, 60%); } /* grey */
 
 	.trade .color.darker { background-color: #ffa332; } /* orange */
 	.applied .color.darker { background-color: #45818e; } /* cyan */
@@ -83,8 +106,6 @@
 	.download .color.darker { background-color: #279f43; }
 
 	/* SUB LEVEL COLORS */
-
-	.color.lighter { background-color: #d9d9d9; } /* light grey */
 
 	/* TRADE */
 	.trade .color.lighter { background-color: #ffd199; } /* orange */

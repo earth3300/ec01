@@ -90,7 +90,7 @@ class EC01Tiers extends EC01HTML
       $url_tier1 = '/' . $page['tiers']['tier-1']['abbr'] . '/';
 
       /** Open the sub header div. */
-      $str = '<div class="site-header-sub color darker">' . PHP_EOL;
+      $str = '<div class="site-header-sub color lighter">' . PHP_EOL;
 
       /** Set the inner div. */
       $str .= sprintf( '<div class="inner">%s', PHP_EOL );

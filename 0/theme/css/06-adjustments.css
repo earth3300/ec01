@@ -43,7 +43,10 @@
 		margin: 2px;
 		border-top-left-radius: 3px;
 		border-top-right-radius: 3px;
-		background-color: hsl(90, 30%, 60%);
+	}
+
+  .site-header > .inner > a {
+		display: block;
 	}
 
 	.site-logo {
@@ -69,7 +72,6 @@
 	}
 
 	.site-header-sub {
-		border-bottom: 1px solid #999;
 		box-sizing: border-box;
 	}
 
@@ -302,7 +304,7 @@
 	}
 
 	.tier-1 .site-header-sub {
-		margin-top: 0;
+		margin-top: 2px;
 		height: 75px;
 		text-align: left;
 		vertical-align: middle;

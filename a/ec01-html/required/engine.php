@@ -453,7 +453,7 @@ class EC01HTML
 		$str .= '<div class="inner">' . PHP_EOL;
 
 		/** The front page link needs to wrap around the logo and title, but nothing else. */
-		$str .= sprintf( '<a href="/" title="%s">%s', SITE_TITLE, PHP_EOL);
+		$str .= sprintf( '<a href="/" class="color" title="%s">%s', SITE_TITLE, PHP_EOL);
 
 			$str .= '<div class="site-logo">' . PHP_EOL;
 			$str .= '<div class="inner">' . PHP_EOL;
