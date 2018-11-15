@@ -1,9 +1,6 @@
 <?php
-
-defined('NDA') || exit('NDA');
-
 /**
- * WordPress Constants.
+ * WordPress Constants
  *
  * Section I. Constants using a SITE_ prefix.
  *
@@ -27,7 +24,14 @@ defined('NDA') || exit('NDA');
  * to find and assemble all of the .htaccess directives. As this is the case on
  * many shared hosts, we want to ensure the entire system remains as efficient
  * as possible in this respect.
+ *
+ * File: cfg-wordpress.php
+ * Created: 2018
+ * Updated: 2018-11-14
+ * Time: 09:32 EST
  */
+
+defined('NDA') || exit('NDA');
 
 /**** CONSTANTS USING A SITE_ PREFIX ****/
 

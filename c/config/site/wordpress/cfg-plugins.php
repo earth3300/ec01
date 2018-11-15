@@ -1,12 +1,14 @@
 <?php
+/**
+ * Constants for Plugins
+ *
+ * File: cfg-plugins.php
+ * Created: 2018
+ * Updated: 2018-11-14
+ * Time: 09:32 EST
+ */
 
 ( defined( 'NDA' ) || defined( 'WP_ADMIN' ) ) || exit;
-
-/**
- * 1. Site related constants.
- *
- * 2. Plugin related constants.
- */
 
 /** Folder name used by caching plugin */
 define( 'SITE_CACHE_PLUGIN', '/cache-enabler' );

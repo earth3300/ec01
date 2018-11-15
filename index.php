@@ -13,6 +13,18 @@ define( 'NDA', true );
 /** Default: true. Set to false if critical problems */
 define( 'SITE_NORMAL', true );
 
+/** Site is local, or not */
+if ( '127.0.0.1' == $_SERVER['REMOTE_ADDR'] )
+{
+    define( 'SITE_IS_LOCAL', true );
+    define( 'SITE_IS_ONLINE', false );
+}
+else
+{
+  define( 'SITE_IS_LOCAL', false );
+  define( 'SITE_IS_ONLINE', true );
+}
+
 /** The main engine ( use the correct word, with no typos). */
 define( 'SITE_ENGINE_MAIN', 'wordpress' );
 

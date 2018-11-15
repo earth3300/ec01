@@ -1,7 +1,4 @@
 <?php
-
-( defined( 'NDA' ) || defined( 'WP_ADMIN' ) ) || exit;
-
 /**
  * Loads the directory structure.
  *
@@ -33,6 +30,8 @@
  * Clearly, the second example easier to work with as the main function of the
  * "/e" directory is the "engine" or the core. Simpler is better.
  */
+
+( defined( 'NDA' ) || defined( 'WP_ADMIN' ) ) || exit;
 
 /**** NUMBERED DIRECTORIES (content) ****/
 

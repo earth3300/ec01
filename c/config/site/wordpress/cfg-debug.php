@@ -1,4 +1,12 @@
 <?php
+/**
+ * Debug Constants (Optional)
+ *
+ * File: cfg-debug.php
+ * Created: 2018
+ * Updated: 2018-11-14
+ * Time: 09:27 EST
+ */
 
 ( defined( 'NDA' ) || defined( 'WP_ADMIN' ) ) || exit;
 

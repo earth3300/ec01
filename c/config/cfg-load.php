@@ -1,14 +1,16 @@
 <?php
-
-//defined('NDA') || exit('NDA');
-defined('NDA') || exit(header('Location: default.html' ));
-
 /**
- * Loads the configuration files. May include some logic.
- * There are two types. The first is site specific, and the second is "model"
- * related, that is, geared towards solving real world (i.e. physical 3D)
- * problems. This may be moved to a json file.
+ * Loads the Configuration Files
+ *
+ * May include some logic.
+ *
+ * File: cfg-load.php
+ * Created: 2018
+ * Updated: 2018-11-14
+ * Time: 09:27 EST
  */
+
+defined('NDA') || exit('NDA');
 
 /** Site Main Breaker Switch. */
 require_once( __DIR__ . '/cfg-switch.php' );

@@ -1,6 +1,6 @@
 <?php
 /**
- * EC01 HTML.
+ * EC01 HTML
  *
  * A lighweight alternative to displaying HTML. Can be used on its own, or as a
  * WordPress theme. A basic set of constants are in this index file.

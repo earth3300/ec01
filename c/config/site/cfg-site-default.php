@@ -1,7 +1,4 @@
 <?php
-
-defined('NDA') || exit('NDA');
-
 /**
  * Site Default.
  *
@@ -9,7 +6,14 @@ defined('NDA') || exit('NDA');
  * on the defaults. Geared to the country of origin. May make certain
  * assumptions. Use this as a template and adjust as necessary,
  * if needed.
+ *
+ * File: cfg-site-default-load.php
+ * Created: 2018
+ * Updated: 2018-11-14
+ * Time: 09:27 EST
  */
+
+defined('NDA') || exit('NDA');
 
 /**** FILE NAMES START ****/
 

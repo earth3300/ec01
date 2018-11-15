@@ -1,9 +1,6 @@
 <?php
-
-defined('NDA') || exit('NDA');
-
 /**
- * SITE constants with boolean value.
+ * SITE constants with Boolean Values
  *
  * It is helpful to use normal english here to ensure the user understands
  * the meaning. To provide this, three verbs are used: "USE", "IS" and "ALLOW".
@@ -12,7 +9,14 @@ defined('NDA') || exit('NDA');
  * @example SITE_IS_SUB_DOMAIN  The entire site as defined here is a sub domain.
  * @example SITE_INDEX_ALLOW  Whether or not to _allow_ bots to index the site.
  * @example SITE_USE_CSS_CHILD  Using a css child stylesheet may be helpful in some cases.
+ *
+ * File: cfg-boolean.php
+ * Created: 2018
+ * Updated: 2018-11-14
+ * Time: 09:27 EST
  */
+
+defined('NDA') || exit('NDA');
 
 /** Default: false (Whether or not site is a subdomain. */
 define( 'SITE_IS_SUB_DOMAIN', true );

@@ -1,14 +1,16 @@
 <?php
-
-defined('NDA') || exit(header('Location: ' . SITE_PATH . '/default.html'));
-
 /**
  * "High Level" Main Routing Switch
  *
- * @file cfg-switch.php
- *
- * See bottom for notes
+ * See bottom for notes.
+ * 
+ * File: cfg-switch.php
+ * Created: 2018
+ * Updated: 2018-11-14
+ * Time: 09:26 EST
  */
+
+defined('NDA') || exit('NDA');
 
 /** NEVER||MAYBE. Default: false. If false, NEVER use it. If true, MAYBE, depending on next constant. */
 define( 'SITE_USE_CORE', 0 );
