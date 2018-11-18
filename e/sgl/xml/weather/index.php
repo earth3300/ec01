@@ -104,6 +104,9 @@ class XMLReader
     /** Get the base path of the file, including the file name. */
     $file['src'] = $this->getFileSrc( $file );
 
+    /** Get the file size, in bytes. */
+    $file['size'] = filesize( $file['patf'] );
+
     /** Get the item XML. */
     $file['xml'] = $this->getItemXML( $file );
 

@@ -451,7 +451,7 @@ Time: 14:48 EST
   }
 
   .border-top {
-    border: 1px solid #c8c8c8;
+    border-top: 1px solid #c8c8c8;
   }
 
 	.box-shadow { box-shadow: 0 2px 2px rgba(100, 100, 100, 0.5); }
@@ -916,10 +916,17 @@ Time: 14:48 EST
 	}
 
 	.subdued {
-		opacity: 0.5;
 		font-size: 80%;
 		margin-bottom: 15px;
 	}
+
+  .subdued-dark {
+    opacity: 0.65;
+  }
+
+  .subdued-light {
+    opacity: 0.5;
+  }
 
 	.text-center {
 		text-align: center;
@@ -1160,6 +1167,11 @@ Time: 14:48 EST
 		display: block;
 		margin: 0 auto;
 	}
+
+  iframe {
+    display: block;
+    margin: 0 auto;
+  }
 
 	article .border {
 		border: 1px solid #c8c8c8;
@@ -1536,8 +1548,8 @@ Time: 14:48 EST
  *
  * File: 04-sprite.css
  * Created: 2018
- * Updated: 2018-11-07
- * Time: 12:02 EST
+ * Updated: 2018-11-15
+ * Time: 15:39 EST
  */
 
 @media all {
@@ -1658,6 +1670,7 @@ Time: 14:48 EST
 	/* Row 3 (Set 2-3) */
 	.sprite .icon9x3, .equipment > .icon { background-position: -280px -70px; }
 	.sprite .icon10x3, .backpack .icon { background-position: -315px -70px; }
+  .sprite .icon11x3, .generator .icon { background-position: -350px -280px; }
 
 	.sprite .icon12x3, .sleep .icon { background-position: -385px -70px; }
 
@@ -1689,13 +1702,16 @@ Time: 14:48 EST
 	/* Row 10 (Set 3-2) */
 	.sprite .icon1x10, .method > .icon { background-position: 0 -315px; }
 	.sprite .icon2x10, .growth .icon { background-position: -35px -315px; }
-	.sprite .icon3x10, .software .icon { background-position: -70px -315px; }
+  .sprite .icon3x10, .computing .icon { background-position: -70px -315px; }
+  .sprite .icon4x10, .software .icon { background-position: -105px -315px; }
 
 	/* Row 11 (Set 3-3) */
 	.sprite .icon1x11, .project > .icon { background-position: 0 -350px; }
 
 	/* Row 12 (Set 3-4) */
 	.sprite .icon1x12, .service > .icon { background-position: 0 -385px; }
+
+  .sprite .icon1x13, .power .icon { background-position: -350px -280px; }
 
 	/* Row 13 (Set 3-5) */
 	.sprite .icon1x13, .learning > .icon { background-position: 0 -420px; }
@@ -1708,6 +1724,7 @@ Time: 14:48 EST
 
 	/* Row 16 (Set 3-8) */
 	.sprite .icon1x16, .wiki > .icon { background-position: 0 -525px; }
+  .sprite .icon2x16, .navigation > .icon { background-position: 35px -525px; }
 
 	.sprite .icon8x16, .how > .icon { background-position: -245px -525px; }
 
@@ -2623,11 +2640,6 @@ Time: 14:48 EST
 
 	.community .unit a {
 		font-weight: bold;
-	}
-
-	iframe {
-		display: block;
-		margin: 0 auto;
 	}
 
 	p.date {

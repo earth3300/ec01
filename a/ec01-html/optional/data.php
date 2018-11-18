@@ -97,8 +97,8 @@ function get_tier_two_data()
 		'news' => [ 'name' => 'news' ],
 		'serv' => [ 'name' => 'service' ],
 		'whsl' => [ 'name' => 'wholesale' ],
-		'stor' => [ 'name' => 'store' ],
 		'dsgn' => [ 'name' => 'design' ],
+    'powr' => [ 'name' => 'power' ],
 
 		// recycling
 		'reco' => [ 'name' => 'recovery' ],
@@ -228,6 +228,7 @@ function get_tier_three_data()
 		'agric' => [ 'name' => 'agricultural', 'who' => 'farmer', ],
 		'mecha' => [ 'name' => 'mechanical', 'who' => 'mechanic', ],
 		'elect' => [ 'name' => 'electrical', 'who' => 'electrician', ],
+		'gener' => [ 'name' => 'generator', 'who' => 'electrician', ],
 
 		'fastn' => [ 'name' => 'fasteners', 'who' => 'fasteners', ],
 		'sheet' => [ 'name' => 'sheet-goods', 'who' => 'sheet-goods', ],

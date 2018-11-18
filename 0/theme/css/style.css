@@ -451,7 +451,7 @@ Time: 14:48 EST
   }
 
   .border-top {
-    border: 1px solid #c8c8c8;
+    border-top: 1px solid #c8c8c8;
   }
 
 	.box-shadow { box-shadow: 0 2px 2px rgba(100, 100, 100, 0.5); }
@@ -916,10 +916,17 @@ Time: 14:48 EST
 	}
 
 	.subdued {
-		opacity: 0.5;
 		font-size: 80%;
 		margin-bottom: 15px;
 	}
+
+  .subdued-dark {
+    opacity: 0.65;
+  }
+
+  .subdued-light {
+    opacity: 0.5;
+  }
 
 	.text-center {
 		text-align: center;
@@ -1160,6 +1167,11 @@ Time: 14:48 EST
 		display: block;
 		margin: 0 auto;
 	}
+
+  iframe {
+    display: block;
+    margin: 0 auto;
+  }
 
 	article .border {
 		border: 1px solid #c8c8c8;

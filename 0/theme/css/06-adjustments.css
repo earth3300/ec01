@@ -240,11 +240,6 @@
 		font-weight: bold;
 	}
 
-	iframe {
-		display: block;
-		margin: 0 auto;
-	}
-
 	p.date {
 		font-size: 80%;
 	}

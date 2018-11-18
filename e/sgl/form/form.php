@@ -483,6 +483,17 @@ class FormWriter
     );
   }
 
+  /**
+   * Get the Nonce
+   *
+   */
+  protected function getNonce()
+  {
+    $nonce = hash( 'sha512', $random )
+    // Store nonce
+    return $nonce;
+  }
+
 	/**
 	 * Set the Switches
 	 *
@@ -541,6 +552,14 @@ class FormWriter
 		$str .= '<meta name="viewport" content="width=device-width, initial-scale=1"/>' . PHP_EOL;
 		$str .= sprintf( '<title>%s</title>%s', $this->opts['title'], PHP_EOL);
 		$str .= $this->opts['index'] ? '' : '<meta name="robots" content="noindex,nofollow" />' . PHP_EOL;
+    $str .= '<script type="text/javascript">
+    (function($) {
+        function enableSubmit() {
+            $("#form-submit").prop('disabled', false );
+        }
+        setTimeout(enableSubmit, 5000)
+    })(jQuery);';
+
 		$str .= sprintf('<link rel=stylesheet href="%s">%s', $this->opts['css'], PHP_EOL);
 		$str .= '</head>' . PHP_EOL;
 		$str .= '<body>' . PHP_EOL;
