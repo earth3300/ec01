@@ -1,5 +1,8 @@
 <?php
-defined( 'ABSPATH' ) || die();
+
+/** No direct access (NDA). */
+defined( 'NDA' ) || exit('NDA');
+
 function get_mailer_data() {
     $items = array(
         array( 'name' => 'name', 'type' => 'text', 'label' => 'Your Name (required)', 'required' => 1, 'maxlength' => 40, 'display' => 1 ),

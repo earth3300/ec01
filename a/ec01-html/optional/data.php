@@ -43,6 +43,7 @@ function get_tier_one_data()
 		'why' => [ 'name' => 'why' ],
 		'wki' => [ 'name' => 'wiki' ],
 		'sto' => [ 'name' => 'store' ],
+    'mem' => [ 'name' => 'members' ],
 		];
 	return $items;
 }
