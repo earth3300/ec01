@@ -35,8 +35,8 @@
  *
  * File: form.php
  * Created: 2018-10-15
- * Updated: 2018-11-19
- * Time: 11:42 EST
+ * Updated: 2018-11-20
+ * Time: 11:14 EST
  */
 
 namespace Earth3300\EC01;
@@ -99,14 +99,8 @@ class FormWriter
 		/** Open the article element. */
 		$file['html'] = '<article>' . PHP_EOL;
 
-    /** Get the item JSON. */
-    $file['json'] .= $this->getItemJSON( $file );
-
-    /** Get the item array from JSON */
-    $file['arr'] .= $this->getItemArr( $file );
-
-    /** Get the item HTML. */
-    $file['html'] .= $this->getItemHtml( $file );
+    /** Get the form HTML. */
+    $file['html'] .= $this->getForm( $file );
 
 		/** Close the article element. */
 		$file['html'] .= '</article>' . PHP_EOL;
@@ -244,243 +238,13 @@ class FormWriter
 	}
 
   /**
-   * Get Item JSON
-
-   * file_get_contents() is the preferred way to read the contents of a file
-	 * into a string. It will use memory mapping techniques if supported by your
-	 * OS to enhance performance.
-	 *
-	 * @param array $args
-	 *
-	 * @return string|bool
-	 */
-	private function getItemJSON( $file )
-	{
-    /** Initialize the $json object to null. */
-    $json = null;
-
-  	/** Check if the file exists. */
-		if ( file_exists( $file['path'] ) )
-		{
-			/** Read the contents into a string. */
-			$str = file_get_contents( $file['path'] );
-
-      /** OR. */
-      $json = simplejson_load_file( $file['path'] );
-
-      /** If the string is non-trivial */
-      if ( strlen( $str ) > 4 )
-      {
-          /**  Convert the JSON sting to an JSON Object */
-			    $json = $this->strToJSON( $str );
-      }
-    }
-    return $json;
-  }
-
-	/**
-	 * Get the Item HTML (From an Array)
-	 *
-	 *  string file_get_contents (
-	 *  	string $filename [,
-	 *  	bool $use_include_path = FALSE [,
-	 *  	resource $context [,
-	 *  	int $offset = 0 [,
-	 *  	int $maxlen ]]]]
-	 *  	)
-	 *
-	 * file_get_contents( $file, true, null, 0, $maxlen );
-	 *
-	 * This function is similar to file(),
-	 * except that file_get_contents() returns the file in a string,
-	 * starting at the specified offset up to maxlen bytes.
-	 * On failure, file_get_contents() will return FALSE.
-	 * file_get_contents() is the preferred way to read the contents of a file
-	 * into a string. It will use memory mapping techniques if supported by your
-	 * OS to enhance performance.
-	 *
-	 * @param array $args
-	 *
-	 * @return string|bool
-	 */
-	private function getItemHTML( $file )
-	{
-    $html = '';
-
-    $rows = [];
-
-    foreach ( $file['data'] as $row )
-    {
-        $cells = array();
-
-        foreach ($row as $cell)
-        {
-            $cells[] = "<td>{$cell}</td>";
-        }
-
-        $rows[] = "<tr>" . implode( '', $cells ) . "</tr>" . PHP_EOL;
-    }
-
-    $html = "<table>" . implode( '', $rows ) . "</table>";
-
-    return $html;
-  }
-
-	/**
-	 * Convert an JSON String to an JSON Object
-	 *
-	 * simplejson_load_string (
-	 * 		string $data [,
-	 * 		string $class_name = "SimpleJSONElement" [,
-	 * 		int $options = 0 [,
-	 * 		string $ns = "" [,
-	 * 		bool $is_prefix = FALSE ]]]]
-	 * 		)
-	 * @link http://php.net/manual/en/function.simplejson-load-string.php
-	 *
-	 * @param string $str
-	 *
-	 * @return object|bool
-	 */
-	 private function strToJSON( $str )
-	 {
-		 /** Convert a well-formed json string into an json object. */
-		 $json = simplejson_load_string( $str, "SimpleJSONElement", LIBJSON_NOCDATA );
-
-		 /** Check the returned value. */
-		 if ( $json !== false )
-		 {
-			 return $json;
-		 }
-		 else
-		 {
-			 return false;
-		 }
-
-	 }
-	/**
-	 * Convert String to JSON to JSON to Array
-	 *
-	 * json_encode (
-		 * 	mixed $value [,
-		 * 	int $options = 0 [,
-		 * 	int $depth = 512 ]]
-	 * 	)
-	 * @link http://php.net/manual/en/function.json-encode.php
-	 *
-	 * json_decode (
-		 * 	string $json [,
-		 * 	bool $assoc = FALSE [,
-		 * 	int $depth = 512 [,
-		 * 	int $options = 0 ]]]
-	 * 	)
-	 * 	@link http://php.net/manual/en/function.json-decode.php
-	 *
-	 *  @param string $str
-	 *
-	 *  @return array|bool
-	 */
-	private function getItemArr( $file )
-	{
-			/** Encode the json as JSON */
-			$json = json_encode( $file['json'] );
-
-			/** Decode the $json into an array */
-			$arr = json_decode( $json, true );
-
-			/** Basic check */
-			if ( is_array( $arr ) )
-			{
-				/** Return the array. */
-				return $arr;
-			}
-			else
-			{
-				return false;
-			}
-	}
-
-  /**
-   * [jsonObjToArr description]
+   * Get the Form
    *
-   * @link http://php.net/manual/en/book.simplejson.php
-   *
-   * @param  object $obj JSON Object.
-   * @param int $depth Maximum depth to process.
-   *
-   * @return array  array
    */
-  private function jsonObjToArr( $obj, $depth = 4)
+  private function getForm()
   {
-    /** Initialize the count of the depth to process. */
-    $cnt = 0;
-
-    $namespace = $obj->getDocNamespaces( true );
-
-    $namespace[null] = null;
-
-    $children = [];
-
-    $attr = [];
-
-    $name = strtolower( (string)$obj->getName() );
-
-    $text = trim( (string)$obj );
-
-    if( strlen( $text ) <= 0 )
-    {
-        $text = null;
-    }
-
-    // get info for all namespaces
-    if( is_object( $obj ) )
-    {
-      /** Increment the depth counter. */
-      $cnt++;
-      if ( $cnt > $depth )
-      {
-        foreach( $namespace as $ns => $nsUrl )
-        {
-          /** Attributes. */
-          $objAttr = $obj->attributes( $ns, true );
-
-          foreach( $objAttr as $attrName => $attrValue )
-          {
-              $attribName = strtolower( trim( (string)$attrName ) );
-
-              $attribVal = trim( (string)$attrValue );
-
-              if ( ! empty( $ns ) )
-              {
-                  $attribName = $ns . ':' . $attribName;
-              }
-              $attr[$attribName] = $attribVal;
-          }
-
-          /** Children. */
-          $objChildren = $obj->children( $ns, true );
-
-          foreach( $objChildren as $childName => $child )
-          {
-              $childName = strtolower( (string)$childName );
-
-              if( ! empty( $ns ) )
-              {
-                  $childName = $ns.':'.$childName;
-              }
-              /** Call this function recursively. */
-              $children[ $childName ][] = jsonObjToArr( $child );
-          }
-        }
-      }
-    }
-
-    return array(
-        'name'=>$name,
-        'text'=>$text,
-        'attr'=>$attr,
-        'children'=>$children
-    );
+    $template = new FormTemplate();
+    return $template->form();
   }
 
   /**
@@ -489,9 +253,38 @@ class FormWriter
    */
   protected function getNonce()
   {
-    $nonce = hash( 'sha512', $random )
+    $referer = 'self';
+    $random = rand();
+    $nonce = hash( 'sha512', $random );
+
     // Store nonce
-    return $nonce;
+
+    $str = sprintf(
+      '<input type="hidden" referer="%s" nonce="%s" />%s',
+      $referer, $nonce, PHP_EOL );
+
+    return $str;
+  }
+
+  /**
+   *  Get Javascript
+   *
+   * @param  array $file
+   * @param  array $args
+   *
+   * @return string
+   */
+  private function getJavascript( $file, $args )
+  {
+    $str = '<script>' . PHP_EOL;
+    $str .= '(function($) {' . PHP_EOL;
+    $str .= 'function enableSubmit() {' . PHP_EOL;
+    $str .= '        $("#form-submit").prop(\'disabled\', false );' . PHP_EOL;
+    $str .= '    }' . PHP_EOL;
+    $str .= '    setTimeout(enableSubmit, 5000)' . PHP_EOL;
+    $str .= '})(jQuery);' . PHP_EOL;
+    $str .= '</script>' . PHP_EOL;
+    return $str;
   }
 
 	/**
@@ -552,14 +345,7 @@ class FormWriter
 		$str .= '<meta name="viewport" content="width=device-width, initial-scale=1"/>' . PHP_EOL;
 		$str .= sprintf( '<title>%s</title>%s', $this->opts['title'], PHP_EOL);
 		$str .= $this->opts['index'] ? '' : '<meta name="robots" content="noindex,nofollow" />' . PHP_EOL;
-    $str .= '<script type="text/javascript">
-    (function($) {
-        function enableSubmit() {
-            $("#form-submit").prop('disabled', false );
-        }
-        setTimeout(enableSubmit, 5000)
-    })(jQuery);';
-
+    $str .= $this->getJavascript( $file, $args );
 		$str .= sprintf('<link rel=stylesheet href="%s">%s', $this->opts['css'], PHP_EOL);
 		$str .= '</head>' . PHP_EOL;
 		$str .= '<body>' . PHP_EOL;
@@ -579,23 +365,428 @@ class FormWriter
 		return $str;
 	}
 
-} // End class
+} // End FormWriter
 
 /**
- * Data Class
+ * Class FormTemplate
+ *
+ */
+class FormTemplate extends FormWriter
+{
+  /**
+   * Form
+   *
+   * @return string
+   */
+  public function form()
+  {
+      $form = $this->getFormData();
+
+      $response = $this->process();
+
+      /** Wrap the form in a div. */
+      $str = '<div class="form">' . PHP_EOL;
+
+      /** Open the form. */
+      $str .= sprintf( '<form action="" method="post">%s', PHP_EOL );
+
+      /** Add a "use once" field to help prevent misuse. */
+      $str .= $this->getNonce();
+
+      /** Cycle through the fields */
+      foreach ( $form['form'] as $item )
+      {
+        if ( $item['load'] )
+        {
+          $required = $item['required'] ? 'required' : '';
+
+          $placeholder = ! empty( $item['placeholder'] ) ? 'placeholder="%s"' : '';
+
+          switch( $item['element'] )
+          {
+            case 'input' :
+              $str .= $this->getInput( $item );
+              break;
+            case 'select' :
+              $str .= $this->getSelect( $item );
+              break;
+            case 'textarea' :
+              $str .= $this->getTextArea( $item );
+              break;
+            default:
+          }
+        }
+      }
+
+      /** A hidden field to attract those anxious bots. */
+      $str .= '<input type="hidden" name="form_best_time" maxlength="40"';
+      $str .= ' placeholder="Best time to call..." value="" />' . PHP_EOL;
+
+      /** Submit button. This is disabled for a few seconds to prevent anxious bots from using it. */
+      if ( $form['meta']['submit']['load'] )
+      {
+        $str .= '<button';
+        $str .= ' id="form-submit"';
+        $str .= ' type="submit"';
+        $str .= ' class="button button-primary"';
+        $str .= $form['meta']['submit']['disabled'] ? ' disabled="true"' : '';
+        $str .= '>';
+        $str .= $form['meta']['submit']['title'];
+        $str .= '</button>' . PHP_EOL;
+      }
+
+      /** Form response div. */
+      $str .= sprintf('<div class="form-response">%s</div>%s', $response['form_response'], PHP_EOL );
+
+      /** Close the form. */
+      $str .= '</form>' . PHP_EOL;
+
+      /** Close the form div */
+      $str .= '</div><!-- .form -->' . PHP_EOL;
+
+      /** Return the form. */
+      return $str;
+  }
+
+  /**
+   * Get the Input Element
+   *
+   * @param array $item
+   *
+   * @return string|bool
+   */
+  private function getInput( $item )
+  {
+    /** Check to ensure the item is an array and it has at least one required key. */
+    if ( is_array( $item ) && isset( $item['type'] ) )
+    {
+      /** Open the label element. */
+      $str = '<label';
+
+      /** Indicate for which form id it is.  */
+      $str .= sprintf( ' for="%s">', $item['name'] );
+
+      /** Provide the label text. */
+      $str .= $item['title'];
+
+      /** Close the label element. */
+      $str .= '</label>' . PHP_EOL;
+
+      /** Opent the input tag. */
+      $str .= '<input';
+
+      /** Set the type (i.e. text, email, etc). */
+      $str .= sprintf( ' type="%s"', $item['type'] );
+
+      /** Set the id (name). */
+      $str .= sprintf( ' id="%s"', $item['name'] );
+
+      /** Set the name (name). */
+      $str .= sprintf( ' name="form_%s"', $item['name'] );
+
+      /** Set the min length (if at all). */
+      $str .= sprintf( ' minlength="%s"', $item['length']['min'] );
+
+      /** Set the max length (if at all). */
+      $str .= sprintf( ' maxlength="%s"', $item['length']['max'] );
+
+      /** Set the size (if at all). */
+      $str .= sprintf( ' size="%s"', $item['size'] );
+
+      /** Required (or not). */
+      $str .= $item['required'] ? ' required' : '';;
+
+      /** Close the input tag. */
+      $str .= ' />' . PHP_EOL;
+
+      /** Return the string. */
+      return $str;
+    }
+    else
+    {
+      return false;
+    }
+  }
+
+  /**
+   * Get the Text Area Element
+   *
+   * @param array $item
+   *
+   * @return string|bool
+   */
+  private function getTextArea( $item )
+  {
+    /** Check to see if the item is an array and if at least one key is set. */
+    if ( is_array( $item ) && isset( $item['name'] ) )
+    {
+      /** Open the label element. */
+      $str = '<label';
+
+      /** Indicate for which form id it is.  */
+      $str .= sprintf( ' for="%s">', $item['name'] );
+
+      /** Provide the label text. */
+      $str .= $item['title'];
+
+      /** Close the label element. */
+      $str .= '</label>' . PHP_EOL;
+
+      /** Open the textarea element. */
+      $str .= '<textarea';
+
+      /** Add the name of the form. */
+      $str .= sprintf( ' name="form_%s"', $item['name'] );
+
+      /** Specify the minimum length acceptable. */
+      $str .= sprintf( ' minlength="%s"', $item['length']['min'] );
+
+      /** Specify the maximum length acceptable. */
+      $str .= sprintf( ' maxlength="%s"', $item['length']['max'] );
+
+      /** Whether or not the element is required. */
+      $str .= $item['required'] ? ' required' : '';
+
+      /** Close the opening tag of the textarea element. */
+      $str .= '>' . PHP_EOL;
+
+      /** Add the placeholder, *if* present. */
+      $str .= $item['placeholder'] . PHP_EOL;
+
+      /** Close the textarea element. */
+      $str .= '</textarea>' . PHP_EOL;
+
+      /** Return the string. */
+      return $str;
+    }
+    /** If nothing there, return false. */
+    else
+    {
+      return false;
+    }
+  }
+
+  /**
+   * Get the Select Element
+   *
+   * @return string|bool
+   */
+  private function getSelect()
+  {
+    /** Get the Select data. */
+    $data = new FormData();
+
+    /** Get the select element data. */
+    $select = $data->select();
+
+    /** Get the options data. */
+    $options = $data->options();
+
+    /** Check to see if we have arrays and that they have what we need. */
+    if ( is_array( $select ) && count ( $select ) > 0
+      && is_array( $options ) && count ( $options ) > 0 )
+    {
+      /** Open the label element. */
+      $str = '<label';
+
+      /** Indicate for which form element id it is.  */
+      $str .= sprintf( ' for="%s">', $select['name'] );
+
+      /** Provide the label text. */
+      $str .= $select['name'];
+
+      /** Close the label element. */
+      $str .= '</label>' . PHP_EOL;
+
+      /** Open the select element. */
+      $str = '<select';
+
+      /** Don't forget the leading blank space before each attribute. */
+
+      /** Set the id (for use with label and accessibility purposes). */
+      $str .= sprintf( ' id="%s"', $select['name'] );
+
+      /** Set the name (used when posting the form). */
+      $str .= sprintf( ' name="form_%s"', $select['name'] );
+
+      /** Set the size of the drop down. */
+      $str .= sprintf( ' size="%s"', $select['size'] );
+
+      /** Allow multiple items to be selected (or not). */
+      $str .= $select['multiple'] ? ' multiple' : '';
+
+      /** Close the select tag. */
+      $str .= '>' . PHP_EOL;
+
+      /** Cycle through the options. */
+      foreach ( $options as $option )
+      {
+        /** If the item is a default, set it to default. */
+        if ( $option['default'] )
+        {
+          $str .= sprintf( '<option value="%s" selected>%s</option>%s', $option['value'], $option['title'], PHP_EOL );
+        }
+        /** Else the item is not a default. */
+        else
+        {
+          $str .= sprintf( '<option value="%s">%s</option>%s', $option['value'], $option['title'], PHP_EOL );
+        }
+      }
+      /** Close the select element. */
+      $str .= '</select>' . PHP_EOL;
+
+      /** Return the string. */
+      return $str;
+    }
+    /** If nothing is there, return false. */
+    else
+    {
+      return false;
+    }
+  }
+
+  /**
+   * Get Form Data
+   */
+  private function getFormData()
+  {
+    $data = new FormData();
+    $items['form'] = $data->form();
+    $items['meta'] = $data->meta();
+    return $items;
+  }
+
+  /**
+   * Process the Form
+   *
+   * @return bool
+   */
+  private function process()
+  {
+    return true;
+  }
+
+} // End FormTemplate
+
+/**
+ * Form Data
  *
  * @var [type]
  */
 class FormData extends FormWriter
 {
-  protected function data()
-  {
+  /**
+   *  Form
+   *
+   * @return array
+   */
+  public function form() {
     $items = [
+        [
+          'element' => 'input',
+          'name' => 'name',
+          'type' => 'text',
+          'title' => 'Your Name (required)',
+          'length' => [ 'min' => 4, 'max' => 40 ],
+          'required' => 1,
+          'load' => 1,
+        ],
+        [
+          'element' => 'input',
+          'name' => 'email',
+          'type' => 'email',
+          'title' => 'Your Email (required)',
+          'length' => [ 'min' => 4, 'max' => 40 ],
+          'required' => 1,
+          'load' => 1,
+        ],
+        [
+          'element' => 'input',
+          'name' => 'subject',
+          'type' => 'text',
+          'title' => 'Subject',
+          'length' => [ 'min' => 4, 'max' => 200 ],
+          'required' => 0,
+          'load' => 1,
+        ],
+        [
+          'element' => 'textarea',
+          'name' => 'message',
+          'type' => 'textarea',
+          'title' => 'Your Message',
+          'required' => 0,
+          'length' => [ 'min' => 4, 'max' => 400 ],
+          'load' => 1,
+        ],
+        [
+          'element' => 'select',
+          'name' => 'select',
+          'type' => 'select',
+          'title' => 'Select',
+          'size' => 4,
+          'required' => 1,
+          'load' => 1,
+        ],
+    ];
+    return $items;
+  }
 
-      ];
+  /**
+   * Meta
+   *
+   * @return array
+   */
+  public function meta()
+  {
+    $items =
+    [
+      'submit' =>
+        [
+          'title' => 'Send',
+          'disabled' => 0,
+          'load' => 1,
+        ],
+      'success' =>
+        [
+          'text' => 'Your message was sent succesfully.',
+          'load' => 1,
+        ],
+      'failure' =>
+        [
+          'text' => 'There was an error sending your message.',
+          'load' => 1,
+        ],
+    ];
       return $items;
   }
-}
+
+  public function select()
+  {
+    $items = [
+      'element' => 'select',
+      'name' => 'select',
+      'title' => 'Select',
+      'size' => 1,
+      'multiple' => false,
+    ];
+    return $items;
+  }
+
+  public function options()
+  {
+    $items = [
+      [ 'value' => 'abc', 'title' => 'ABC', 'load' => 1, ],
+      [ 'value' => 'def', 'title' => 'DEF', 'load' => 1, ],
+      [ 'value' => 'ghi', 'title' => 'GHI', 'load' => 1, ],
+      [ 'value' => 'jkl', 'title' => 'JKL', 'load' => 1, ],
+      [ 'value' => 'mno', 'title' => 'MNO', 'load' => 1, ],
+      [ 'value' => 'pqr', 'title' => 'PQR', 'load' => 1, ],
+      [ 'value' => 'stu', 'title' => 'STU', 'load' => 1, ],
+      [ 'value' => 'vwz', 'title' => 'VWZ', 'load' => 1, ],
+    ];
+    return $items;
+  }
+} // End FormData
 
 /**
  * Helper Function
@@ -604,7 +795,7 @@ class FormData extends FormWriter
  * for debugging purposes. A check is done to ensure this function is not
  * called twice.
  */
-if ( ! function_exists( 'pre_dump' )
+if ( ! function_exists( 'pre_dump' ) )
 {
   function pre_dump( $arr )
   {

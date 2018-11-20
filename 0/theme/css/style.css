@@ -1304,6 +1304,28 @@ Time: 14:48 EST
 		height: 150px;
 	}
 
+  label,
+  select,
+  input,
+  textarea {
+    display: block;
+  }
+
+  select:not(last-child),
+  input:not(last-child),
+  textarea:not(last-child) {
+    margin-bottom: 1em;
+  }
+
+  select {
+    min-width: 100px;
+  }
+
+  textarea {
+    min-width: 250px;
+    min-height: 100px;
+  }
+
   aside footer {
     text-align: left;
   }
