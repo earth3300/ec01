@@ -35,8 +35,8 @@
  *
  * File: form.php
  * Created: 2018-10-15
- * Updated: 2018-11-20
- * Time: 11:14 EST
+ * Updated: 2018-11-22
+ * Time: 16:22 EST
  */
 
 namespace Earth3300\EC01;
@@ -57,7 +57,7 @@ class FormWriter
     'ext' => '.json',
     'dir' => '/data',
     'index' => false,
-    'file' => 'form.json',
+    'file' => [ 'json' => 'options.json' ],
     'title' => 'Form Writer',
     'css' => '/0/theme/css/style.css',
     'url' => 'https://github.com/earth3300/ec01-form-writer',
@@ -66,7 +66,8 @@ class FormWriter
       'not_available' => 'Not Available',
       'error' => 'Error',
     ],
-    'footer' => true,
+    'javascript' => true,
+    'footer' => false,
   ];
 
   /**
@@ -85,7 +86,7 @@ class FormWriter
     $args['class'] = $this->opts['type'];
 
     /** Add the file to the argument array. */
-    $file['path'] = $this->getFilePath( $args ) . '/' .$this->opts['file'];
+    $file['path'] = $this->getFilePath( $args ) . '/' .$this->opts['file']['json'];
 
     /** Get the name of the containing directory. */
     $file['dir'] = basename(__DIR__);
@@ -269,12 +270,9 @@ class FormWriter
   /**
    *  Get Javascript
    *
-   * @param  array $file
-   * @param  array $args
-   *
    * @return string
    */
-  private function getJavascript( $file, $args )
+  private function getJavascript()
   {
     $str = '<script>' . PHP_EOL;
     $str .= '  setTimeout(function() {' . PHP_EOL;
@@ -358,7 +356,7 @@ class FormWriter
       $str .= '</small></div>' . PHP_EOL;
       $str .= '</footer>' . PHP_EOL;
     }
-    $str .= $this->getJavascript( $file, $args );
+    $str .= $this->opts['javascript'] ? $this->getJavascript( $file, $args ) : '';
     $str .= '</body>' . PHP_EOL;
     $str .= '</html>' . PHP_EOL;
 
@@ -453,7 +451,7 @@ class FormTemplate extends FormWriter
    *
    * @param array $item
    *
-   * @return string|bool
+   * @return string|false
    */
   private function getInput( $item )
   {
@@ -580,7 +578,7 @@ class FormTemplate extends FormWriter
     $select = $data->select();
 
     /** Get the options data. */
-    $options = $data->options();
+    $options = $this->getOptions();
 
     if ( isset( $_GET['print'] ) )
     {
@@ -627,17 +625,21 @@ class FormTemplate extends FormWriter
       /** Cycle through the options. */
       foreach ( $options as $option )
       {
-        /** If the item is a default, set it to default. */
-        if ( isset( $option['default'] ) && $option['default'] )
+        /** Process only if the object is slated to be included (loaded). */
+        if ( $option['load'] )
         {
-          /** Set this option value to "selected" if it is the default. */
-          $str .= sprintf( '<option value="%s" selected="true">%s</option>%s', $option['value'], $option['title'], PHP_EOL );
-        }
-        /** Else the item is not a default. */
-        else
-        {
-          /** A normal option (not selected by default. */
-          $str .= sprintf( '<option value="%s">%s</option>%s', $option['value'], $option['title'], PHP_EOL );
+          /** If the item is a default, set it to default. */
+          if ( isset( $option['default'] ) && $option['default'] )
+          {
+            /** Set this option value to "selected" if it is the default. */
+            $str .= sprintf( '<option value="%s" selected="true">%s</option>%s', $option['value'], $option['title'], PHP_EOL );
+          }
+          /** Else the item is not a default. */
+          else
+          {
+            /** A normal option (not selected by default. */
+            $str .= sprintf( '<option value="%s">%s</option>%s', $option['value'], $option['title'], PHP_EOL );
+          }
         }
       }
       /** Close the select element. */
@@ -652,6 +654,42 @@ class FormTemplate extends FormWriter
       return false;
     }
   }
+
+  /**
+   * Get the Options
+   *
+   * @return string|false
+   */
+  private function getOptions()
+  {
+    $file = __DIR__ . '/' . $this->opts['file']['json'];
+    /** Get the file contents. */
+    $json = file_get_contents( $file );
+
+    /** Make sure the string is not too short and not too long. */
+    if ( strlen( $json ) > 10 && strlen( $json ) < 1000 )
+    {
+      /** Turn the JSON string into an Associative Array (true). */
+      $items = json_decode( $json, true );
+
+      /** Ensure it is an array and that it is non-trivial. */
+      if ( is_array( $items ) && count( $items ) > 1 )
+      {
+        /** Return the array of items. */
+        return $items;
+      }
+      else
+      {
+        /** It is not an array or it has too few items. */
+        return false;
+      }
+    }
+    else
+    {
+      /** The length of the JSON string was too short (or too long). */
+      return false;
+    }
+}
 
   /**
    * Write the Options Data to a File for a Select Element.
@@ -857,7 +895,7 @@ class FormData extends FormWriter
       [ 'value' => 'mno', 'title' => 'MNO', 'load' => 1, ],
       [ 'value' => 'pqr', 'title' => 'PQR', 'load' => 1, ],
       [ 'value' => 'stu', 'title' => 'STU', 'load' => 1, ],
-      [ 'value' => 'vwz', 'title' => 'VWZ', 'load' => 1, ],
+      [ 'value' => 'vwz', 'title' => 'VWZ', 'load' => 0, ],
     ];
     return $items;
   }
