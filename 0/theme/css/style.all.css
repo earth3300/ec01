@@ -1304,6 +1304,28 @@ Time: 14:48 EST
 		height: 150px;
 	}
 
+  label,
+  select,
+  input,
+  textarea {
+    display: block;
+  }
+
+  select:not(last-child),
+  input:not(last-child),
+  textarea:not(last-child) {
+    margin-bottom: 1em;
+  }
+
+  select {
+    min-width: 100px;
+  }
+
+  textarea {
+    min-width: 250px;
+    min-height: 100px;
+  }
+
   aside footer {
     text-align: left;
   }
@@ -1324,8 +1346,8 @@ Time: 14:48 EST
  *
  * File: 03-color.css
  * Created: 2018-10-01
- * Updated: 2018-11-13
- * Time: 13:29 EST
+ * Updated: 2018-11-21
+ * Time: 08:44 EST
  */
 
 /**
@@ -1518,7 +1540,7 @@ Time: 14:48 EST
 	nav.icons .who .icon { background-color: #a2c4c9; } /* blue */
 	nav.icons .what .icon { background-color: #b6d7a8; } /* green */
 	nav.icons .how .icon { background-color: #d9d9d9; } /* grey */
-	nav.icons .where .icon { background-color: #ffd199; } /* orange */
+	nav.icons .where .icon { background-color: hsl(33, 100%, 80%); } /* orange */
 	nav.icons .when .icon { background-color: #ffe599; } /* yellow */
 	nav.icons .why .icon { background-color: #d9d2e9; } /* purple */
 	nav.icons .store .icon { background-color: hsl(300, 50%, 80%); } /* violet */
