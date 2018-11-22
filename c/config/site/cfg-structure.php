@@ -25,7 +25,7 @@
  * happen in the definition, rather than elsewhere.
  *
  * @example define( 'SITE_CORE_DIR_STUB', SITE_E_DIR . SITE_CORE_DIR ); vs.
- * @example define( 'SITE_CORE_DIR', '/e/core' );
+ * @example define( 'SITE_CORE_DIR', '/e/cre' );
  *
  * Clearly, the second example easier to work with as the main function of the
  * "/e" directory is the "engine" or the core. Simpler is better.
@@ -96,7 +96,7 @@ define( 'SITE_ALT_DIR', '/alt' );
 define( 'SITE_MINIMAL_DIR', '/a/ec01-html' );
 
 /** Main (core) directory */
-define( 'SITE_CORE_DIR', '/e/core' );
+define( 'SITE_CORE_DIR', '/e/cre' );
 
 /** Replaces {wp-content} */
 define( 'SITE_BIN_DIR', '/p' );
@@ -263,7 +263,7 @@ define( 'SITE_DIR_CLUTCH', '/..' );
  */
 
 if ( ! defined( 'SITE_PATH' ) ) {
-	define( 'SITE_PATH', str_replace( SITE_CONFIG_STUB , '', __DIR__ ) );
+  define( 'SITE_PATH', str_replace( SITE_CONFIG_STUB , '', __DIR__ ) );
 }
 
 /** Path to the (Internal) CDN directory. */
@@ -312,8 +312,7 @@ define( 'SITE_CACHE_PATH', SITE_COMMONS_PATH . SITE_CACHE_DIR );
 /** Frameworks like Laravel, Symfony and Firefly, a lighweight alternative. */
 define( 'SITE_FRAMEWORK_PATH', SITE_BIN_PATH . SITE_FRAMEWORK_DIR );
 
-/** {themes} = WP_CONTENT_DIR . '/themes'
- Theme folder hardcoded, relative to {wp-content} */
+/** {themes} = WP_CONTENT_DIR . '/themes' (Theme folder hardcoded, relative to {wp-content}). */
 define( 'SITE_THEMES_PATH', SITE_BIN_PATH . SITE_THEMES_DIR );
 
 /** Stores JavaScript and jQuery. */
@@ -369,8 +368,8 @@ define( 'SITE_SIDEBAR_PATH', SITE_THEME_HTML_PATH . SITE_SIDEBAR_DIR );
 define( 'SITE_MENU_PATH', SITE_THEME_HTML_PATH . SITE_MENU_DIR );
 
 if ( ! defined( 'SITE_ALT_PATH' ) ) {
-	/*** ALT PATH ***/
-	define( 'SITE_ALT_PATH', SITE_COMMONS_PATH . SITE_ALT_DIR );
+  /*** ALT PATH ***/
+  define( 'SITE_ALT_PATH', SITE_COMMONS_PATH . SITE_ALT_DIR );
 }
 
 /** Backups are "point in time". May be deleted. */
