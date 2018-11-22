@@ -49,40 +49,40 @@ namespace Earth3300\EC01;
 class FormWriter
 {
 
-	/** @var array Default options. */
-	protected $opts = [
-		'max_files' => 1,
-		'max_length' => 1000*10,
+  /** @var array Default options. */
+  protected $opts = [
+    'max_files' => 1,
+    'max_length' => 1000*10,
     'type' => 'json',
     'ext' => '.json',
-		'dir' => '/data',
-		'index' => false,
-		'file' => 'form.json',
-		'title' => 'Form Writer',
+    'dir' => '/data',
+    'index' => false,
+    'file' => 'form.json',
+    'title' => 'Form Writer',
     'css' => '/0/theme/css/style.css',
-		'url' => 'https://github.com/earth3300/ec01-form-writer',
-		'msg' => [
-			'success' => 'Success',
-			'not_available' => 'Not Available',
-			'error' => 'Error',
-		],
+    'url' => 'https://github.com/earth3300/ec01-form-writer',
+    'msg' => [
+      'success' => 'Success',
+      'not_available' => 'Not Available',
+      'error' => 'Error',
+    ],
     'footer' => true,
-	];
+  ];
 
-	/**
-	 * Displays an HTML form.
-	 *
-	 * @param array $args
-	 *
-	 * @return string
-	 */
-	public function get( $args = null )
-	{
-		/** Figure out what is happening, set the switches accordingly. */
-		$args = $this->setTheSwitches( $args );
+  /**
+   * Displays an HTML form.
+   *
+   * @param array $args
+   *
+   * @return string
+   */
+  public function get( $args = null )
+  {
+    /** Figure out what is happening, set the switches accordingly. */
+    $args = $this->setTheSwitches( $args );
 
-		/** Set the page class to the type. */
-		$args['class'] = $this->opts['type'];
+    /** Set the page class to the type. */
+    $args['class'] = $this->opts['type'];
 
     /** Add the file to the argument array. */
     $file['path'] = $this->getFilePath( $args ) . '/' .$this->opts['file'];
@@ -96,73 +96,73 @@ class FormWriter
     /** Get the base path of the file, including the file name. */
     $file['src'] = $this->getSrcFromFile( $file );
 
-		/** Open the article element. */
-		$file['html'] = '<article>' . PHP_EOL;
+    /** Open the article element. */
+    $file['html'] = '<article>' . PHP_EOL;
 
     /** Get the form HTML. */
     $file['html'] .= $this->getForm( $file );
 
-		/** Close the article element. */
-		$file['html'] .= '</article>' . PHP_EOL;
+    /** Close the article element. */
+    $file['html'] .= '</article>' . PHP_EOL;
 
-		/** If the request is for a full page, wrap the HTML in page HTML. */
-		if ( isset( $args['doctype'] ) && $args['doctype'] )
-		{
-			/** Note the lack of a preceding '.' before the equals sign. Important!!! */
-			$str = $this->getPageHtml( $file, $args );
-		}
+    /** If the request is for a full page, wrap the HTML in page HTML. */
+    if ( isset( $args['doctype'] ) && $args['doctype'] )
+    {
+      /** Note the lack of a preceding '.' before the equals sign. Important!!! */
+      $str = $this->getPageHtml( $file, $args );
+    }
 
-		/** Deliver the HTML, wrapped in page HTML or not. */
-		return $str;
-	}
+    /** Deliver the HTML, wrapped in page HTML or not. */
+    return $str;
+  }
 
-	/**
-	 * Get the source from the file, checking for a preceding slash.
-	 *
-	 * @param string $str
-	 *
-	 * @return string
-	 */
-	private function getSrcFromFile( $file )
-	{
+  /**
+   * Get the source from the file, checking for a preceding slash.
+   *
+   * @param string $str
+   *
+   * @return string
+   */
+  private function getSrcFromFile( $file )
+  {
 
-		/** Remove the part of the path that is before the site root. */
-		$src = str_replace( $this->getSitePath(), '', $file['path'] );
+    /** Remove the part of the path that is before the site root. */
+    $src = str_replace( $this->getSitePath(), '', $file['path'] );
 
-		/** Just in case, we remove the preceding slash and add it again. */
-		$src = ltrim( $src, '/' );
+    /** Just in case, we remove the preceding slash and add it again. */
+    $src = ltrim( $src, '/' );
 
-		/** Return the file src with the preceding slash. */
-		return '/' . $src;
-	}
+    /** Return the file src with the preceding slash. */
+    return '/' . $src;
+  }
 
-	/**
-	 * Get the SITE_PATH
-	 *
-	 * Get the SITE_PATH from the constant, from ABSPATH (if loading within WordPress
-	 * as a plugin), else from the $_SERVER['DOCUMENT_ROOT']
-	 *
-	 * Both of these have been tested online to have a preceding forward slash.
-	 * Therefore do not add one later.
-	 *
-	 * @return string
-	 */
-	private function getSitePath()
-	{
-		if ( defined( 'SITE_PATH' ) )
-		{
-			return SITE_PATH;
-		}
-		/** Available if loading within WordPress as a plugin. */
-		elseif( defined( 'ABSPATH' ) )
-		{
-			return ABSPATH;
-		}
-		else
-		{
-			return $_SERVER['DOCUMENT_ROOT'];
-		}
-	}
+  /**
+   * Get the SITE_PATH
+   *
+   * Get the SITE_PATH from the constant, from ABSPATH (if loading within WordPress
+   * as a plugin), else from the $_SERVER['DOCUMENT_ROOT']
+   *
+   * Both of these have been tested online to have a preceding forward slash.
+   * Therefore do not add one later.
+   *
+   * @return string
+   */
+  private function getSitePath()
+  {
+    if ( defined( 'SITE_PATH' ) )
+    {
+      return SITE_PATH;
+    }
+    /** Available if loading within WordPress as a plugin. */
+    elseif( defined( 'ABSPATH' ) )
+    {
+      return ABSPATH;
+    }
+    else
+    {
+      return $_SERVER['DOCUMENT_ROOT'];
+    }
+  }
 
   /**
    * Get the File Path
@@ -188,54 +188,54 @@ class FormWriter
      return $path;
    }
 
-	/**
-	 * Get the Base Path to the Media Directory.
-	 *
-	 * This does not need to include the `/media` directory.
-	 *
-	 * @param array $args
-	 *
-	 * @return string
-	 */
-	private function getBasePath( $args )
-	{
-		if ( isset( $args['self'] ) )
-		{
-			$path = __DIR__;
-		}
-		elseif ( defined( 'SITE_CDN_PATH' ) )
-		{
-			$path = SITE_CDN_PATH;
-		}
-		/** Assume the current directory if no other directives. */
-		else
-		{
-			$path = __DIR__;
-		}
-		return $path;
-	}
+  /**
+   * Get the Base Path to the Media Directory.
+   *
+   * This does not need to include the `/media` directory.
+   *
+   * @param array $args
+   *
+   * @return string
+   */
+  private function getBasePath( $args )
+  {
+    if ( isset( $args['self'] ) )
+    {
+      $path = __DIR__;
+    }
+    elseif ( defined( 'SITE_CDN_PATH' ) )
+    {
+      $path = SITE_CDN_PATH;
+    }
+    /** Assume the current directory if no other directives. */
+    else
+    {
+      $path = __DIR__;
+    }
+    return $path;
+  }
 
-	/**
-	 * Get the Working Directory
-	 *
-	 * @param array $args
-	 *
-	 * @return string
-	 *
-	 * @example $args['dir'] = '/my/directory/'
-	 */
-	private function getWorkingDir( $args )
-	{
-		if ( isset( $args['dir'] ) )
-		{
-			$dir = $args['dir'];
-		}
-		else
-		{
-			$dir = $this->opts['dir'];
-		}
-		return $dir;
-	}
+  /**
+   * Get the Working Directory
+   *
+   * @param array $args
+   *
+   * @return string
+   *
+   * @example $args['dir'] = '/my/directory/'
+   */
+  private function getWorkingDir( $args )
+  {
+    if ( isset( $args['dir'] ) )
+    {
+      $dir = $args['dir'];
+    }
+    else
+    {
+      $dir = $this->opts['dir'];
+    }
+    return $dir;
+  }
 
   /**
    * Get the Form
@@ -277,93 +277,93 @@ class FormWriter
   private function getJavascript( $file, $args )
   {
     $str = '<script>' . PHP_EOL;
-    $str .= '(function($) {' . PHP_EOL;
-    $str .= 'function enableSubmit() {' . PHP_EOL;
-    $str .= '        $("#form-submit").prop(\'disabled\', false );' . PHP_EOL;
-    $str .= '    }' . PHP_EOL;
-    $str .= '    setTimeout(enableSubmit, 5000)' . PHP_EOL;
-    $str .= '})(jQuery);' . PHP_EOL;
+    $str .= '  setTimeout(function() {' . PHP_EOL;
+    $str .= "    var btnSubmit = document.getElementById('form-submit');" . PHP_EOL;
+    $str .= '     if (typeof btnSubmit !== "undefined") {' . PHP_EOL;
+    $str .= '       btnSubmit.disabled = false;' . PHP_EOL;
+    $str .= '     }' . PHP_EOL;
+    $str .= '}, 3000);' . PHP_EOL;
     $str .= '</script>' . PHP_EOL;
     return $str;
   }
+  /**
+   * Set the Switches
+   *
+   * If $args['self'] or $args['dir'] are not set, it assumes we are in the
+   * working directory. Therefore, $args['self'] is set to true and $args['dir']
+   * is set to null. We also have to set the
+   * $args['doctype'] to true to know whether or not to wrap the output in
+   * the correct doctype and the containing html and body elements.
+   *
+   * @param array $args
+   *
+   * @return array
+   */
+  private function setTheSwitches( $args )
+  {
+    /** Set the working directory to what is provided, or false.  */
+    $args['dir'] = isset( $args['dir'] ) ? $args['dir'] : false;
 
-	/**
-	 * Set the Switches
-	 *
-	 * If $args['self'] or $args['dir'] are not set, it assumes we are in the
-	 * working directory. Therefore, $args['self'] is set to true and $args['dir']
-	 * is set to null. We also have to set the
-	 * $args['doctype'] to true to know whether or not to wrap the output in
-	 * the correct doctype and the containing html and body elements.
-	 *
-	 * @param array $args
-	 *
-	 * @return array
-	 */
-	private function setTheSwitches( $args )
-	{
-		/** Set the working directory to what is provided, or false.  */
-		$args['dir'] = isset( $args['dir'] ) ? $args['dir'] : false;
+    /** Set the working directory switch to false. */
+    $args['self'] = false;
 
-		/** Set the working directory switch to false. */
-		$args['self'] = false;
+    /** Set the doctype switch to false. */
+    $args['doctype'] = false;
 
-		/** Set the doctype switch to false. */
-		$args['doctype'] = false;
+    /** if $args['dir'] == false, set $args['self'] to true. */
+    if ( ! $args['dir'] )
+    {
+      /** Obtain files from the directory in which this file is placed. */
+      $args['self'] = true;
 
-		/** if $args['dir'] == false, set $args['self'] to true. */
-		if ( ! $args['dir'] )
-		{
-			/** Obtain files from the directory in which this file is placed. */
-			$args['self'] = true;
+      /** Wrap the HTML generated here in page HTML. */
+      $args['doctype'] = true;
+    }
 
-			/** Wrap the HTML generated here in page HTML. */
-			$args['doctype'] = true;
-		}
-
-			/** Return the argument array. */
-			return $args;
-	}
+      /** Return the argument array. */
+      return $args;
+  }
 
   /**
-	 * Embed the provided HTML in a Valid HTML Page
-	 *
-	 * Uses the HTML5 DOCTYPE (`<!DOCTYPE html>`), the UTF-8 charset, sets the
-	 * initial viewport for mobile devices, disallows robot indexing (by default),
-	 * and references a single stylesheet.
-	 *
-	 * @param string $str
-	 *
-	 * @return string
-	 */
-	public function getPageHtml( $file, $args )
-	{
-		$str = '<!DOCTYPE html>' . PHP_EOL;
-		$str .= sprintf( '<html class="dynamic theme-dark %s" lang="en-CA">%s', $args['class'], PHP_EOL );
-		$str .= '<head>' . PHP_EOL;
-		$str .= '<meta charset="UTF-8">' . PHP_EOL;
-		$str .= '<meta name="viewport" content="width=device-width, initial-scale=1"/>' . PHP_EOL;
-		$str .= sprintf( '<title>%s</title>%s', $this->opts['title'], PHP_EOL);
-		$str .= $this->opts['index'] ? '' : '<meta name="robots" content="noindex,nofollow" />' . PHP_EOL;
-    $str .= $this->getJavascript( $file, $args );
-		$str .= sprintf('<link rel=stylesheet href="%s">%s', $this->opts['css'], PHP_EOL);
-		$str .= '</head>' . PHP_EOL;
-		$str .= '<body>' . PHP_EOL;
-		$str .= '<main>' . PHP_EOL;
-		$str .= $file['html'];
-		$str .= '</main>' . PHP_EOL;
+   * Embed the provided HTML in a Valid HTML Page
+   *
+   * Uses the HTML5 DOCTYPE (`<!DOCTYPE html>`), the UTF-8 charset, sets the
+   * initial viewport for mobile devices, disallows robot indexing (by default),
+   * and references a single stylesheet.
+   *
+   * @param string $str
+   *
+   * @return string
+   */
+  public function getPageHtml( $file, $args )
+  {
+    $str = '<!DOCTYPE html>' . PHP_EOL;
+    $str .= sprintf( '<html class="dynamic theme-dark %s" lang="en-CA">%s', $args['class'], PHP_EOL );
+    $str .= '<head>' . PHP_EOL;
+    $str .= '<meta charset="UTF-8">' . PHP_EOL;
+    $str .= '<meta name="viewport" content="width=device-width, initial-scale=1"/>' . PHP_EOL;
+    $str .= sprintf( '<title>%s</title>%s', $this->opts['title'], PHP_EOL);
+    $str .= $this->opts['index'] ? '' : '<meta name="robots" content="noindex,nofollow" />' . PHP_EOL;
+    $str .= sprintf('<link rel=stylesheet href="%s">%s', $this->opts['css'], PHP_EOL);
+    $str .= '</head>' . PHP_EOL;
+    $str .= '<body>' . PHP_EOL;
+    $str .= '<main>' . PHP_EOL;
+    $str .= $file['html'];
+    $str .= '</main>' . PHP_EOL;
     if ( $this->opts['footer'] )
     {
-  		$str .= '<footer>' . PHP_EOL;
-  		$str .= '<div class="text-center"><small>';
-  		$str .= sprintf( 'Note: This page has been <a href="%s">automatically generated</a>. No header, footer, menus or sidebars are available.', $this->opts['url'] );
-  		$str .= '</small></div>' . PHP_EOL;
-  		$str .= '</footer>' . PHP_EOL;
+      $str .= '<footer>' . PHP_EOL;
+      $str .= '<div class="text-center"><small>';
+      $str .= sprintf( 'Note: This page has been <a href="%s">automatically generated</a>. No header, footer, menus or sidebars are available.', $this->opts['url'] );
+      $str .= '</small></div>' . PHP_EOL;
+      $str .= '</footer>' . PHP_EOL;
     }
+    $str .= $this->getJavascript( $file, $args );
+    $str .= '</body>' . PHP_EOL;
     $str .= '</html>' . PHP_EOL;
 
-		return $str;
-	}
+    return $str;
+  }
 
 } // End FormWriter
 
@@ -429,7 +429,7 @@ class FormTemplate extends FormWriter
         $str .= ' id="form-submit"';
         $str .= ' type="submit"';
         $str .= ' class="button button-primary"';
-        $str .= $form['meta']['submit']['disabled'] ? ' disabled="true"' : '';
+        $str .= $form['meta']['submit']['disabled'] ? ' disabled' : '';
         $str .= '>';
         $str .= $form['meta']['submit']['title'];
         $str .= '</button>' . PHP_EOL;
@@ -743,7 +743,7 @@ class FormData extends FormWriter
       'submit' =>
         [
           'title' => 'Send',
-          'disabled' => 0,
+          'disabled' => 1,
           'load' => 1,
         ],
       'success' =>
@@ -817,15 +817,15 @@ if ( ! function_exists( 'pre_dump' ) )
  */
 function form_writer( $args )
 {
-	if ( is_array( $args ) )
-	{
-		$form_writer = new FormWriter();
-		return $form_writer->get( $args );
-	}
-	else
-	{
-		return '<!-- Missing the directory to process. [form-writer dir=""]-->';
-	}
+  if ( is_array( $args ) )
+  {
+    $form_writer = new FormWriter();
+    return $form_writer->get( $args );
+  }
+  else
+  {
+    return '<!-- Missing the directory to process. [form-writer dir=""]-->';
+  }
 }
 
 /**
@@ -836,11 +836,11 @@ function form_writer( $args )
  */
 if( function_exists( 'add_shortcode' ) )
 {
-	/** No direct access (NDA). */
-	defined('ABSPATH') || exit('NDA');
+  /** No direct access (NDA). */
+  defined('ABSPATH') || exit('NDA');
 
-	/** Add shortcode [form-writer dir=""] */
-	add_shortcode( 'form-writer', 'form_writer' );
+  /** Add shortcode [form-writer dir=""] */
+  add_shortcode( 'form-writer', 'form_writer' );
 }
 /**
  * Else Instantiate the Class Directly (not in WordPress)
@@ -852,6 +852,6 @@ if( function_exists( 'add_shortcode' ) )
  */
 else
 {
-	$form_writer = new FormWriter();
-	echo $form_writer->get();
+  $form_writer = new FormWriter();
+  echo $form_writer->get();
 }
