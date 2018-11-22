@@ -491,7 +491,7 @@ class FormTemplate extends FormWriter
       $str .= sprintf( ' maxlength="%s"', $item['length']['max'] );
 
       /** Set the size (if at all). */
-      $str .= sprintf( ' size="%s"', $item['size'] );
+      $str .= isset( $item['size'] ) ? sprintf( ' size="%s"', $item['size'] ) : '';
 
       /** Required (or not). */
       $str .= $item['required'] ? ' required' : '';;
@@ -551,7 +551,7 @@ class FormTemplate extends FormWriter
       $str .= '>' . PHP_EOL;
 
       /** Add the placeholder, *if* present. */
-      $str .= $item['placeholder'] . PHP_EOL;
+      $str .= isset( $item['placeholder'] ) ? $item['placeholder'] . PHP_EOL : '';
 
       /** Close the textarea element. */
       $str .= '</textarea>' . PHP_EOL;
@@ -569,7 +569,7 @@ class FormTemplate extends FormWriter
   /**
    * Get the Select Element
    *
-   * @return string|bool
+   * @return string|false
    */
   private function getSelect()
   {
@@ -582,6 +582,12 @@ class FormTemplate extends FormWriter
     /** Get the options data. */
     $options = $data->options();
 
+    if ( isset( $_GET['print'] ) )
+    {
+      if ( $json = $this->jsonEncode( $options ) ) {
+        $resp = file_put_contents ( __DIR__ . '/options.json', $json );
+      }
+    }
     /** Check to see if we have arrays and that they have what we need. */
     if ( is_array( $select ) && count ( $select ) > 0
       && is_array( $options ) && count ( $options ) > 0 )
@@ -622,13 +628,15 @@ class FormTemplate extends FormWriter
       foreach ( $options as $option )
       {
         /** If the item is a default, set it to default. */
-        if ( $option['default'] )
+        if ( isset( $option['default'] ) && $option['default'] )
         {
-          $str .= sprintf( '<option value="%s" selected>%s</option>%s', $option['value'], $option['title'], PHP_EOL );
+          /** Set this option value to "selected" if it is the default. */
+          $str .= sprintf( '<option value="%s" selected="true">%s</option>%s', $option['value'], $option['title'], PHP_EOL );
         }
         /** Else the item is not a default. */
         else
         {
+          /** A normal option (not selected by default. */
           $str .= sprintf( '<option value="%s">%s</option>%s', $option['value'], $option['title'], PHP_EOL );
         }
       }
@@ -641,6 +649,73 @@ class FormTemplate extends FormWriter
     /** If nothing is there, return false. */
     else
     {
+      return false;
+    }
+  }
+
+  /**
+   * Write the Options Data to a File for a Select Element.
+   *
+   * @param array $items
+   *
+   * @return string|false
+   */
+  private function writeOptions( $items )
+  {
+    /** If requested, if local and if authorized. */
+    if (  '127.0.0.1' == $_SERVER['REMOTE_ADDR']
+          && file_exists( __DIR__ . '/.security' )
+          && isset( $_GET['print'] )
+          && isset( $_GET['unlock'] ) )
+    {
+      /** Set the response to false. */
+      $resp = false;
+
+      /** Encode the array to JSON (2 space indenting). */
+      if ( $json = $this->jsonEncode( $options ) )
+      {
+        /** Write the string to a file.  */
+        $resp = file_put_contents ( __DIR__ . '/options.json', $json );
+      }
+    }
+
+    /** Return the results of the operation. */
+    return $resp;
+  }
+
+  /**
+   * Json Encode
+   *
+   * Encode the array as JSON using JSON_PRETTY_PRINT, then use only two spaces
+   * for indentation instead of four, to maintain consistency with PHP, CSS, JS
+   * and HTML.
+   *
+   * @param array $items
+   *
+   * @return string|false
+   *
+   * @link https://stackoverflow.com/a/31689850/5449906
+   */
+  private function jsonEncode( $items = [] )
+  {
+    /** Ensure $items is an array and that it is non-trivial ( > 1 item ). */
+    if ( is_array( $items ) and count( $items > 1 ) )
+    {
+      /** Perform a regular expression search and replace using a callback. */
+      $json = preg_replace_callback ('/^ +/m', function( $match )
+      {
+        /** Returns input [1], repeated multiplier times [2]. */
+        return str_repeat ( ' ', strlen( $match[0] ) / 2 );
+
+      /** Json encode an array, using JSON_PRETTY_PRINT (indents with four spaces. */
+      }, json_encode ( $items, JSON_PRETTY_PRINT ) );
+
+      /** Return the $json string. */
+      return $json;
+    }
+    else
+    {
+      /** Not an array, or array is only one item or less. */
       return false;
     }
   }
@@ -775,8 +850,8 @@ class FormData extends FormWriter
   public function options()
   {
     $items = [
-      [ 'value' => 'abc', 'title' => 'ABC', 'load' => 1, ],
-      [ 'value' => 'def', 'title' => 'DEF', 'load' => 1, ],
+      [ 'value' => 'abc', 'title' => 'ABC', 'load' => 1, 'default' => 0, ],
+      [ 'value' => 'def', 'title' => 'DEF', 'load' => 1, 'default' => 1 ],
       [ 'value' => 'ghi', 'title' => 'GHI', 'load' => 1, ],
       [ 'value' => 'jkl', 'title' => 'JKL', 'load' => 1, ],
       [ 'value' => 'mno', 'title' => 'MNO', 'load' => 1, ],
