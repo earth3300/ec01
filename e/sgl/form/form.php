@@ -36,7 +36,7 @@
  * File: form.php
  * Created: 2018-10-15
  * Updated: 2018-11-23
- * Time: 09:19 EST
+ * Time: 15:24 EST
  */
 
 namespace Earth3300\EC01;
@@ -51,24 +51,32 @@ class FormWriter
 
   /** @var array Default options. */
   protected $opts = [
-    'max_files' => 1,
-    'max_length' => 1000*10,
-    'type' => 'json',
-    'ext' => '.json',
-    'dir' => '/data',
-    'index' => false,
-    'file' => [ 'json' => 'options.json' ],
-    'title' => 'Form Writer',
-    'css' => '/0/theme/css/style.css',
-    'url' => 'https://github.com/earth3300/ec01-form-writer',
-    'msg' => [
-      'success' => 'Success',
-      'not_available' => 'Not Available',
-      'error' => 'Error',
+    'page' => [
+      'title' => 'Form Writer',
+      'robots' => [ 'index' => 0 ],
+      'css' => [ 'load' => 1, 'url' => '/0/theme/css/style.css' ],
+      'footer' => [ 'load' => 0, ],
+      'url' => 'https://github.com/earth3300/ec01-form-writer',
+      'javascript' => [ 'load' => 1, ],
     ],
-    'javascript' => true,
-    'footer' => false,
-  ];
+    'file' => [
+      'max' => [ 'num' => 1, 'size' => 1000*10 ],
+      'json' => [ 'name' => 'options.json' ],
+      'type' => 'json',
+      'ext' => '.json',
+    ],
+    'input' => [
+        'text' => [ 'length' => [ 'min' => 4, 'max' => 40 ] ],
+        'textarea' => [ 'length' => [ 'min' => 4, 'max' => 100 ] ],
+        'disallowed' => [
+          'check' => 1,
+          'chars' => '~`!@#$%^&*()-_+{[}]\|;:<>?/' ],
+        'grammar' => [
+          'check' => 1,
+          'words' => 'and,the,a,an,i,you' ],
+      ],
+      'button' => [ 'delay' => [ 'ms' => 3000 ] ],
+    ];
 
   /**
    * Displays an HTML form.
@@ -83,16 +91,16 @@ class FormWriter
     $args = $this->setTheSwitches( $args );
 
     /** Set the page class to the type. */
-    $args['class'] = $this->opts['type'];
+    $args['class'] = $this->opts['file']['type'];
 
     /** Add the file to the argument array. */
-    $file['path'] = $this->getFilePath( $args ) . '/' .$this->opts['file']['json'];
+    $file['path'] = $this->getFilePath( $args ) . '/' .$this->opts['file']['json']['name'];
 
     /** Get the name of the containing directory. */
     $file['dir'] = basename(__DIR__);
 
     /** Construct the file name out of the file directory and its extension. */
-    $file['name'] = $file['dir'] . $this->opts['ext'];
+    $file['name'] = $file['dir'] . $this->opts['file']['ext'];
 
     /** Get the base path of the file, including the file name. */
     $file['src'] = $this->getSrcFromFile( $file );
@@ -245,6 +253,7 @@ class FormWriter
   private function getForm()
   {
     $template = new FormTemplate();
+
     return $template->form();
   }
 
@@ -280,7 +289,7 @@ class FormWriter
     $str .= '     if (typeof btnSubmit !== "undefined") {' . PHP_EOL;
     $str .= '       btnSubmit.disabled = false;' . PHP_EOL;
     $str .= '     }' . PHP_EOL;
-    $str .= '}, 3000);' . PHP_EOL;
+    $str .= sprintf( '}, %s);%s', $this->opts['button']['delay']['ms'], PHP_EOL );
     $str .= '</script>' . PHP_EOL;
     return $str;
   }
@@ -340,23 +349,24 @@ class FormWriter
     $str .= '<head>' . PHP_EOL;
     $str .= '<meta charset="UTF-8">' . PHP_EOL;
     $str .= '<meta name="viewport" content="width=device-width, initial-scale=1"/>' . PHP_EOL;
-    $str .= sprintf( '<title>%s</title>%s', $this->opts['title'], PHP_EOL);
-    $str .= $this->opts['index'] ? '' : '<meta name="robots" content="noindex,nofollow" />' . PHP_EOL;
-    $str .= sprintf('<link rel=stylesheet href="%s">%s', $this->opts['css'], PHP_EOL);
+    $str .= sprintf( '<title>%s</title>%s', $this->opts['page']['title'], PHP_EOL);
+    $str .= $this->opts['page']['robots']['index'] ? '' : '<meta name="robots" content="noindex,nofollow" />' . PHP_EOL;
+    $str .= $this->opts['page']['css']['load'] ? sprintf('<link rel=stylesheet href="%s">%s', $this->opts['page']['css']['url'], PHP_EOL) : '';
     $str .= '</head>' . PHP_EOL;
     $str .= '<body>' . PHP_EOL;
     $str .= '<main>' . PHP_EOL;
     $str .= $file['html'];
     $str .= '</main>' . PHP_EOL;
-    if ( $this->opts['footer'] )
+    if ( $this->opts['page']['footer']['load'] )
     {
       $str .= '<footer>' . PHP_EOL;
       $str .= '<div class="text-center"><small>';
-      $str .= sprintf( 'Note: This page has been <a href="%s">automatically generated</a>. No header, footer, menus or sidebars are available.', $this->opts['url'] );
+      $str .= sprintf( 'Note: This page has been <a href="%s">', $this->opts['page']['url'] );
+      $str .= 'automatically generated</a>. No header, footer, menus or sidebars are available.';
       $str .= '</small></div>' . PHP_EOL;
       $str .= '</footer>' . PHP_EOL;
     }
-    $str .= $this->opts['javascript'] ? $this->getJavascript( $file, $args ) : '';
+    $str .= $this->opts['page']['javascript'] ? $this->getJavascript( $file, $args ) : '';
     $str .= '</body>' . PHP_EOL;
     $str .= '</html>' . PHP_EOL;
 
@@ -632,13 +642,15 @@ class FormTemplate extends FormWriter
           if ( isset( $option['default'] ) && $option['default'] )
           {
             /** Set this option value to "selected" if it is the default. */
-            $str .= sprintf( '<option value="%s" selected="true">%s</option>%s', $option['value'], $option['title'], PHP_EOL );
+            $str .= sprintf( '<option value="%s" selected="true">%s</option>%s',
+              $option['value'], $option['title'], PHP_EOL );
           }
           /** Else the item is not a default. */
           else
           {
             /** A normal option (not selected by default. */
-            $str .= sprintf( '<option value="%s">%s</option>%s', $option['value'], $option['title'], PHP_EOL );
+            $str .= sprintf( '<option value="%s">%s</option>%s',
+              $option['value'], $option['title'], PHP_EOL );
           }
         }
       }
@@ -662,7 +674,8 @@ class FormTemplate extends FormWriter
    */
   private function getOptions()
   {
-    $file = __DIR__ . '/' . $this->opts['file']['json'];
+    $file = __DIR__ . '/' . $this->opts['file']['json']['name'];
+
     /** Get the file contents. */
     $json = file_get_contents( $file );
 
@@ -831,14 +844,7 @@ class FormProcessor extends FormWriter
                 strlen( $posted[$key] ) >= $form[$key]['length']['min']
                 && strlen( $posted[$key] ) <= $form[$key]['length']['max'] )
                 {
-                  /** Dont' accept disallowed characters. */
-                  $regex = '/./';
-                  preg_match( $regex, $match );
-                  if (  isset( $match[0] ) )
-                  {
-                    /** Set the accepted array varible to false. */
-                    $accepted = false;
-
+                  if ( $resp = $this->checkDisallowedChars( $posted[$key] ) ) {
                     /** Stop the presses. Something isn't quite right. */
                     break;
                   }
@@ -916,15 +922,22 @@ class FormProcessor extends FormWriter
   }
 
   /**
-   * Check for Special Characters
+   * Check for Disallowed Characters
    *
+   * Reject if any disallowed characters show up.
+   *
+   * @param string $field
+   *
+   * @return bool
    */
-  private function checkSpecialChars( $field )
+  private function checkDisallowedChars( $field )
   {
-    if ( $strlen( $field ) > )
+    if ( strlen( $field ) >= $this->opts['text']['length']['min']
+      && strlen( $field ) <= $this->opts['text']['length']['max'] )
     {
       /** A bunch of special characters to check for. */
-      $regex = "^[^\~\!\@\#\$\%\^\&\*\(\)\_\+\-\=\{\\}\[\]\\\|]/";
+      //$regex = "^[^\~\!\@\#\$\%\^\&\*\(\)\_\+\-\=\{\\}\[\]\\\|]/";
+      $regex = $this->opts['check'];
 
       /** Match these characters. */
       preg_match( $regex, $field, $match );
@@ -946,6 +959,64 @@ class FormProcessor extends FormWriter
       return false;
     }
   }
+
+  /**
+   * Check Grammar (Basic).
+   *
+   * Do a basic grammar check to see if this is a real form submission, or not.
+   * We can't be too sure here, so will return a "graded" value (int), or false.
+   * Very primitive. Neandertal. (Or maybe a monkey...).
+   *
+   * @param string $field
+   *
+   * @return int|false|null
+   */
+  private function checkGrammar( $field )
+  {
+    if ( $this->opts['grammar']['check'] )
+    {
+      /** Grammar grade. */
+      $grade = null;
+
+      /** Run it through the length check again (in case this is called separately. */
+      if ( strlen( $field ) >= $this->opts['text']['length']['min']
+        && strlen( $field ) <= $this->opts['text']['length']['max'] )
+      {
+        /** A bunch of words to check. If they are not present, it may be a monkey. */
+        $regex = $this->opts['grammar']['words'];
+
+        /** Match these characters. */
+        preg_match( $regex, $field, $match );
+
+        /** If *no* matches are found, maybe suspicious. */
+        if( ! isset( $match[0] ) && str( $match[0] < 5 ) )
+        {
+          $grade = 0;
+        }
+        else
+        {
+          /** All looks good. Return true. */
+          $grade = 1;
+        }
+      }
+      else
+      {
+        /** Nothing there. Return false. */
+        $grade = false;
+      }
+    }
+
+    /** Return the grammar grade (primitive). */
+    return $grade;
+  }
+  /*
+  'disallowed' => [
+    'check' => 1,
+    'chars' => '~`!@#$%^&*()-_+{[}]\|;:<>?/' ],
+  'grammar' => [
+    'check' => 1,
+    'words' => 'and,the,a,an,i,you'],
+   */
 
   /**
    * Write the Fields to a JSON File
