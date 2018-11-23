@@ -31,4 +31,33 @@ private function getFileSizeFormatted( $file, $dec = 2 )
 
   return $size;
   }
+
+  /**
+   * Password Validation
+   *
+   * @link https://stackoverflow.com/a/21456918/5449906
+   *
+   * @param $string
+   *
+   * @return bool
+   */
+  private function validatePassword( $password )
+  {
+    if ( false ) {
+      /** Minimum eight characters, at least one letter and one number: */
+      $regex = "/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}/";
+
+      /** Minimum eight characters, at least one letter, one number and one special character: */
+      $regex = "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/";
+
+      /** Minimum eight characters, at least one uppercase letter, one lowercase letter and one number: */
+      $regex = "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/";
+
+      /** Minimum eight and maximum 10 characters, at least one uppercase letter, one lowercase letter, one number and one special character: */
+      $regex = "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,10}$/";
+    }
+    else
+    {
+      return false;
+    }
 }

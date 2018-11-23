@@ -35,8 +35,8 @@
  *
  * File: form.php
  * Created: 2018-10-15
- * Updated: 2018-11-22
- * Time: 16:22 EST
+ * Updated: 2018-11-23
+ * Time: 09:19 EST
  */
 
 namespace Earth3300\EC01;
@@ -722,6 +722,272 @@ class FormTemplate extends FormWriter
   }
 
   /**
+   * Get Form Data
+   */
+  private function getFormData()
+  {
+    $data = new FormData();
+    $items['form'] = $data->form();
+    $items['meta'] = $data->meta();
+    return $items;
+  }
+
+  /**
+   * Process the Form.
+   *
+   * @return array|false
+   */
+  private function process()
+  {
+    /** Instantiate the class. */
+    $processor = new FormProcessor();
+
+    /** Process the submitted form data and receive the response. */
+    if ( $resp = $processor->process() )
+    {
+      /** Return the response to the form template, may include a message. */
+      return $resp;
+    }
+    else
+    {
+      return false;
+    }
+  }
+
+} // End FormTemplate
+
+/**
+ * Class Form Processor
+ *
+ * Processes the submitted form data.
+ */
+class FormProcessor extends FormWriter
+{
+  /**
+   * Process
+   *
+   * @return array|false
+   */
+  public function process()
+  {
+    /** Initialize the response to null. */
+    $resp = null;
+
+    /** Check to see if the post is set and if the number of fields submitted is close to what we expect. */
+    if ( isset( $_POST ) && count( $_POST ) > 0 && count ( $_POST ) < 10 )
+    {
+      /** Get the form data, used for verification. */
+      $form = $this->FormData();
+
+      /** Remove the $_POST from it's status as a global, and use it internally. */
+      $posted = $_POST;
+
+      /** Check the form and receive the response. */
+      if ( $items = $this->check( $form, $posted ) )
+      {
+        $resp = $this->write( $items );
+      }
+    }
+    else
+    {
+      /** Nothing there. */
+      $resp = false;
+    }
+
+    /** Return the response (message|bool). */
+    return $resp;
+  }
+
+  /**
+   * Check the fields
+   *
+   * The post has been check. It is set and it contains roughly the right number
+   * of fields. Further verification needs to be done here.
+   *
+   * @param array $form
+   * @param array $posted
+   *
+   * @return array|false
+   */
+  private function check( $form, $posted )
+  {
+    /** Set the accepted array variable to null. */
+    $accepted = null;
+
+    /** Check the referer. */
+    if ( $this->checkReferer( $form, $posted ) )
+    {
+      /** Check the hidden fields for strange data. */
+      if ( $this->checkHiddenFields( $form, $posted ) )
+      {
+        /** Cycle through the post fields. */
+        foreach ( $posted as $key => $value )
+        {
+            /** If the post fields are authorized, accept. */
+            if ( in_array( $key, $items ) )
+            {
+              /** If the key value is the right length, accept. */
+              if (
+                strlen( $posted[$key] ) >= $form[$key]['length']['min']
+                && strlen( $posted[$key] ) <= $form[$key]['length']['max'] )
+                {
+                  /** Dont' accept disallowed characters. */
+                  $regex = '/./';
+                  preg_match( $regex, $match );
+                  if (  isset( $match[0] ) )
+                  {
+                    /** Set the accepted array varible to false. */
+                    $accepted = false;
+
+                    /** Stop the presses. Something isn't quite right. */
+                    break;
+                  }
+                  else
+                  {
+                    /** 'bout as good as we can get, other than reading it. */
+                    $accepted[$key] = esc_attr( $posted[$key] );
+                  }
+                }
+            }
+        }
+        /** Got what we wanted. Let's return it for further processing. */
+        return $accepted;
+    }
+    else
+    {
+      /** Nothing acceptable here. */
+      return false;
+    }
+
+    return $accepted;
+    }
+  }
+
+  /**
+   * Check Referer
+   *
+   * Ensure the post is coming from the correct location and has been used
+   * only once.
+   *
+   * @param array $form
+   * @param array $posted
+   *
+   * @return bool
+   */
+  private function checkReferer( $form, $posted )
+  {
+    if ( $form['referer'] == $posted['referer']
+      && $form['nonce'] == $posted['nonce'] )
+    {
+        /**  The referer and the nonce check out. Return true. */
+        return true;
+    }
+    else
+    {
+        /** Either the referer OR the nonce do not check out. Return false. */
+        return false;
+    }
+  }
+
+  /**
+   * Check Hidden Fields
+   *
+   * Check hidden fields for extra data. If data is present where none should
+   * be, discard the form submission.
+   *
+   * @param array $form
+   * @param array $posted
+   *
+   * @return bool
+   */
+  private function checkHiddenFields( $form, $posted )
+  {
+    if ( isset(  $posted[ $form['hidden'] ] )
+        && strlen( $posted[ $form['hidden'] ] ) > 2 )
+    {
+        /**  Something fishy going on here. Return false. */
+        return false;
+    }
+    else
+    {
+        /** No fish. Return true. */
+        return true;
+    }
+  }
+
+  /**
+   * Check for Special Characters
+   *
+   */
+  private function checkSpecialChars( $field )
+  {
+    if ( $strlen( $field ) > )
+    {
+      /** A bunch of special characters to check for. */
+      $regex = "^[^\~\!\@\#\$\%\^\&\*\(\)\_\+\-\=\{\\}\[\]\\\|]/";
+
+      /** Match these characters. */
+      preg_match( $regex, $field, $match );
+
+      /** If a match is found, that is *bad*. Return false. */
+      if( isset( $match[0] ) && str( $match[0] > 0 ) )
+      {
+        return false;
+      }
+      else
+      {
+        /** All looks good. Return true. */
+        return true;
+      }
+    }
+    else
+    {
+      /** Nothing there. Return false. */
+      return false;
+    }
+  }
+
+  /**
+   * Write the Fields to a JSON File
+   * .
+   * @return bool
+   */
+  private function writeJSON( $items )
+  {
+    /** Initialize the response as null. */
+    $resp = null;
+
+    /** Check to see if we have an array. */
+    if ( is_array( $items ) )
+    {
+      /** Encode the array, using pretty print and two spaces (not four). */
+      if ( $json = $this->jsonEncode( $items ) )
+      {
+        /** Get the file size of the file, before we write to it. */
+        $size = filesize( $file );
+
+        /** If the file size is greater than allowed, start a new one. */
+        if ( $size > 1000 )
+        {
+            /** Write a new file, receiving the response. */
+          $resp = file_put_contents( $file, $json );
+        }
+        /** Else, append to the file. */
+        else
+        {
+          /** Append to the file, receiving the response. */
+          $resp = file_put_contents( $file, $json, FILE_APPEND );
+        }
+      }
+    }
+    else
+    {
+      /** Return the response (null|false|bytes). */
+      return $resp;
+    }
+  }
+
+  /**
    * Json Encode
    *
    * Encode the array as JSON using JSON_PRETTY_PRINT, then use only two spaces
@@ -757,29 +1023,7 @@ class FormTemplate extends FormWriter
       return false;
     }
   }
-
-  /**
-   * Get Form Data
-   */
-  private function getFormData()
-  {
-    $data = new FormData();
-    $items['form'] = $data->form();
-    $items['meta'] = $data->meta();
-    return $items;
-  }
-
-  /**
-   * Process the Form
-   *
-   * @return bool
-   */
-  private function process()
-  {
-    return true;
-  }
-
-} // End FormTemplate
+} // End Form Processor Class.
 
 /**
  * Form Data
