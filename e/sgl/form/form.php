@@ -377,7 +377,6 @@ class FormWriter
 
 /**
  * Class FormTemplate
- *
  */
 class FormTemplate extends FormWriter
 {
@@ -388,9 +387,11 @@ class FormTemplate extends FormWriter
    */
   public function form()
   {
+      /** Get the form data. */
       $form = $this->getFormData();
 
-      $response = $this->process();
+      /** Process the form, use the respons in a message, if necessary. */
+      $resp = $this->process();
 
       /** Wrap the form in a div. */
       $str = '<div class="form">' . PHP_EOL;
@@ -404,31 +405,30 @@ class FormTemplate extends FormWriter
       /** Cycle through the fields */
       foreach ( $form['form'] as $item )
       {
+        /** Load the item, only if required. */
         if ( $item['load'] )
         {
-          $required = $item['required'] ? 'required' : '';
-
-          $placeholder = ! empty( $item['placeholder'] ) ? 'placeholder="%s"' : '';
-
           switch( $item['element'] )
           {
             case 'input' :
               $str .= $this->getInput( $item );
               break;
+
             case 'select' :
               $str .= $this->getSelect( $item );
               break;
+
             case 'textarea' :
               $str .= $this->getTextArea( $item );
               break;
+
             default:
           }
         }
       }
 
-      /** A hidden field to attract those anxious bots. */
-      $str .= '<input type="hidden" name="form_best_time" maxlength="40"';
-      $str .= ' placeholder="Best time to call..." value="" />' . PHP_EOL;
+      /** Get the hidden fields */
+      $str .= $this->getHiddenFields( $form ) ;
 
       /** Submit button. This is disabled for a few seconds to prevent anxious bots from using it. */
       if ( $form['meta']['submit']['load'] )
@@ -444,7 +444,7 @@ class FormTemplate extends FormWriter
       }
 
       /** Form response div. */
-      $str .= sprintf('<div class="form-response">%s</div>%s', $response['form_response'], PHP_EOL );
+      $str .= sprintf('<div class="form-response">%s</div>%s', $resp['form_response'], PHP_EOL );
 
       /** Close the form. */
       $str .= '</form>' . PHP_EOL;
@@ -512,6 +512,7 @@ class FormTemplate extends FormWriter
     }
     else
     {
+      /** Nothing here. Return false. */
       return false;
     }
   }
@@ -715,7 +716,43 @@ class FormTemplate extends FormWriter
       /** The length of the JSON string was too short (or too long). */
       return false;
     }
-}
+  }
+
+  /**
+   * Get the Hidden Fields
+   *
+   * Check for automated form submissions.
+   */
+  private function getHidden( $item )
+  {
+    if ( is_array( $item ) && isset( $item['hidden'] ) && $item['load'] )
+    {
+      /** Set input type to hidden. */
+      $str = '<input type="hidden"';
+
+      /** Set the name of the form. */
+      $str .= sprintf( 'name="form_%s"', $item['name'] );
+
+      /** Set the minimum length to 0. */
+      $str .= 'minlength="0"';
+
+      /** Set the maximum length. */
+      $str .= sprintf( 'maxlength="%s"', $item['length']['max'] );
+
+      $str .= $item['placeholder']['load'] ? sprintf( 'placeholder="%s"', $item['placeholder']['text'] ) ? '';
+
+      /** Set the value to empty. */
+      $str .= 'value=""';
+
+      /** Close the input field. */
+      $str .= '/>' . PHP_EOL;
+    }
+    else
+    {
+      /** Nothing here or not required. */
+      return false;
+    }
+  }
 
   /**
    * Write the Options Data to a File for a Select Element.
@@ -1146,6 +1183,18 @@ class FormData extends FormWriter
       'length' => [ 'min' => 4, 'max' => 40 ],
       'value' => 'your@email.here',
       'required' => 1,
+      'load' => 1,
+    ],
+    [
+      'element' => 'input',
+      'type' => 'hidden',
+      'name' => 'best_time',
+      'title' => [ 'text' => 'Best time to call', 'load' => 1 ],
+      'placeholder' => [ 'text' => 'Best time', 'load' => 1 ],
+      'length' => [ 'min' => 0, 'max' => 40 ],
+      'value' => '',
+      'required' => 0,
+      'disallowed' => 1,
       'load' => 1,
     ],
     [
