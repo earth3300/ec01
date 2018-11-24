@@ -528,17 +528,8 @@ class FormTemplate extends FormWriter
     /** Check to see if the item is an array and if at least one key is set. */
     if ( is_array( $item ) && isset( $item['name'] ) )
     {
-      /** Open the label element. */
-      $str = '<label';
-
-      /** Indicate for which form id it is.  */
-      $str .= sprintf( ' for="%s">', $item['name'] );
-
-      /** Provide the label text. */
-      $str .= $item['title'];
-
-      /** Close the label element. */
-      $str .= '</label>' . PHP_EOL;
+      /** Get the label element. */
+      $str = $this->getLabel( $item );
 
       /** Open the textarea element. */
       $str .= '<textarea';
@@ -561,21 +552,56 @@ class FormTemplate extends FormWriter
       /** Add the placeholder, *if* present. */
       $str .= isset( $item['placeholder'] ) ? $item['placeholder'] . PHP_EOL : '';
 
+      /** Add a text value, if required. */
+      $str .= isset( $item['value'] ) ? $item['value'] . PHP_EOL : '';
+
       /** Close the textarea element. */
       $str .= '</textarea>' . PHP_EOL;
 
       /** Return the string. */
       return $str;
     }
-    /** If nothing there, return false. */
     else
     {
+      /** Nothing here, return false. */
       return false;
     }
   }
 
   /**
+   * Get the Label Element
+   *
+   */
+   private function getLabel( $item )
+   {
+      /** Check to make sure we have an array, and that it has at least on of the items we need. */
+      if ( is_array( $item ) && isset( $item['name'] ) && count( $item ) > 1 )
+      {
+        /** Open the label element. */
+        $str = '<label';
+
+        /** Indicate for which form id it is.  */
+        $str .= sprintf( ' for="%s">', $item['name'] );
+
+        /** Provide the label text. */
+        $str .= isset( $item['title'] ) ? $item['title'] : ucfirst( $item['name'] );
+
+        /** Close the label element. */
+        $str .= '</label>' . PHP_EOL;
+
+        /** Return the string. */
+        return $str;
+      }
+      else
+      {
+        /** Nothing here, return false. */
+        return false;
+      }
+   }
+  /**
    * Get the Select Element
+   *
+   * Builds a select element and returns it as a string.
    *
    * @return string|false
    */
@@ -590,30 +616,15 @@ class FormTemplate extends FormWriter
     /** Get the options data. */
     $options = $this->getOptions();
 
-    if ( isset( $_GET['print'] ) )
-    {
-      if ( $json = $this->jsonEncode( $options ) ) {
-        $resp = file_put_contents ( __DIR__ . '/options.json', $json );
-      }
-    }
     /** Check to see if we have arrays and that they have what we need. */
     if ( is_array( $select ) && count ( $select ) > 0
       && is_array( $options ) && count ( $options ) > 0 )
     {
-      /** Open the label element. */
-      $str = '<label';
 
-      /** Indicate for which form element id it is.  */
-      $str .= sprintf( ' for="%s">', $select['name'] );
-
-      /** Provide the label text. */
-      $str .= $select['name'];
-
-      /** Close the label element. */
-      $str .= '</label>' . PHP_EOL;
+      $str = $select['label']['load'] ? $this->getLabel( $select ) : '';
 
       /** Open the select element. */
-      $str = '<select';
+      $str .= '<select';
 
       /** Don't forget the leading blank space before each attribute. */
 
@@ -660,15 +671,17 @@ class FormTemplate extends FormWriter
       /** Return the string. */
       return $str;
     }
-    /** If nothing is there, return false. */
     else
     {
+      /** Nothing here, return false. */
       return false;
     }
   }
 
   /**
    * Get the Options
+   *
+   * Gets the options from a JSON file. Currently handles only one drop down.
    *
    * @return string|false
    */
@@ -707,6 +720,9 @@ class FormTemplate extends FormWriter
   /**
    * Write the Options Data to a File for a Select Element.
    *
+   * This only needs to occur once and is here allowed ONLY on a local server,
+   * (not online).
+   *
    * @param array $items
    *
    * @return string|false
@@ -736,6 +752,11 @@ class FormTemplate extends FormWriter
 
   /**
    * Get Form Data
+   *
+   * Gets the form data from whereever it may reside.
+   * Here is calls it from the FormData class.
+   *
+   * @return array
    */
   private function getFormData()
   {
@@ -763,6 +784,7 @@ class FormTemplate extends FormWriter
     }
     else
     {
+      /** The processing failed. Return false. */
       return false;
     }
   }
@@ -865,6 +887,7 @@ class FormProcessor extends FormWriter
       return false;
     }
 
+    /** Return the accepted array. */
     return $accepted;
     }
   }
@@ -909,7 +932,7 @@ class FormProcessor extends FormWriter
   private function checkHiddenFields( $form, $posted )
   {
     if ( isset(  $posted[ $form['hidden'] ] )
-        && strlen( $posted[ $form['hidden'] ] ) > 2 )
+        && strlen( $posted[ $form['hidden'] ] ) > 0 )
     {
         /**  Something fishy going on here. Return false. */
         return false;
@@ -930,7 +953,7 @@ class FormProcessor extends FormWriter
    *
    * @return bool
    */
-  private function checkDisallowedChars( $field )
+  private function checkCharacters( $field )
   {
     if ( strlen( $field ) >= $this->opts['text']['length']['min']
       && strlen( $field ) <= $this->opts['text']['length']['max'] )
@@ -942,9 +965,9 @@ class FormProcessor extends FormWriter
       /** Match these characters. */
       preg_match( $regex, $field, $match );
 
-      /** If a match is found, that is *bad*. Return false. */
       if( isset( $match[0] ) && str( $match[0] > 0 ) )
       {
+        /** A match had been found, that is *bad*. Return false. */
         return false;
       }
       else
@@ -965,7 +988,7 @@ class FormProcessor extends FormWriter
    *
    * Do a basic grammar check to see if this is a real form submission, or not.
    * We can't be too sure here, so will return a "graded" value (int), or false.
-   * Very primitive. Neandertal. (Or maybe a monkey...).
+   * Very primitive. Neanderthal. (Or maybe a monkey...).
    *
    * @param string $field
    *
@@ -988,9 +1011,9 @@ class FormProcessor extends FormWriter
         /** Match these characters. */
         preg_match( $regex, $field, $match );
 
-        /** If *no* matches are found, maybe suspicious. */
         if( ! isset( $match[0] ) && str( $match[0] < 5 ) )
         {
+          /** *No* matches are found, maybe suspicious. */
           $grade = 0;
         }
         else
@@ -1009,14 +1032,6 @@ class FormProcessor extends FormWriter
     /** Return the grammar grade (primitive). */
     return $grade;
   }
-  /*
-  'disallowed' => [
-    'check' => 1,
-    'chars' => '~`!@#$%^&*()-_+{[}]\|;:<>?/' ],
-  'grammar' => [
-    'check' => 1,
-    'words' => 'and,the,a,an,i,you'],
-   */
 
   /**
    * Write the Fields to a JSON File
@@ -1038,7 +1053,7 @@ class FormProcessor extends FormWriter
         $size = filesize( $file );
 
         /** If the file size is greater than allowed, start a new one. */
-        if ( $size > 1000 )
+        if ( $size > $this->opts['file']['length']['max'] )
         {
             /** Write a new file, receiving the response. */
           $resp = file_put_contents( $file, $json );
@@ -1097,9 +1112,9 @@ class FormProcessor extends FormWriter
 } // End Form Processor Class.
 
 /**
- * Form Data
+ * Form Data Class
  *
- * @var [type]
+ * Extends Form Writer
  */
 class FormData extends FormWriter
 {
@@ -1108,53 +1123,62 @@ class FormData extends FormWriter
    *
    * @return array
    */
-  public function form() {
+  public function form()
+  {
     $items = [
-        [
-          'element' => 'input',
-          'name' => 'name',
-          'type' => 'text',
-          'title' => 'Your Name (required)',
-          'length' => [ 'min' => 4, 'max' => 40 ],
-          'required' => 1,
-          'load' => 1,
-        ],
-        [
-          'element' => 'input',
-          'name' => 'email',
-          'type' => 'email',
-          'title' => 'Your Email (required)',
-          'length' => [ 'min' => 4, 'max' => 40 ],
-          'required' => 1,
-          'load' => 1,
-        ],
-        [
-          'element' => 'input',
-          'name' => 'subject',
-          'type' => 'text',
-          'title' => 'Subject',
-          'length' => [ 'min' => 4, 'max' => 200 ],
-          'required' => 0,
-          'load' => 1,
-        ],
-        [
-          'element' => 'textarea',
-          'name' => 'message',
-          'type' => 'textarea',
-          'title' => 'Your Message',
-          'required' => 0,
-          'length' => [ 'min' => 4, 'max' => 400 ],
-          'load' => 1,
-        ],
-        [
-          'element' => 'select',
-          'name' => 'select',
-          'type' => 'select',
-          'title' => 'Select',
-          'size' => 4,
-          'required' => 1,
-          'load' => 1,
-        ],
+    [
+      'element' => 'input',
+      'type' => 'text',
+      'name' => 'name',
+      'title' => [ 'text' => 'Your Name (required)', 'load' => 1 ],
+      'placeholder' => [ 'text' => 'Name', 'load' => 1 ],
+      'length' => [ 'min' => 4, 'max' => 40 ],
+      'your' => 'Your Name Here',
+      'required' => 1,
+      'load' => 1,
+    ],
+    [
+      'element' => 'input',
+      'type' => 'email',
+      'name' => 'email',
+      'title' => [ 'text' => 'Your Email (required)', 'load' => 1 ],
+      'placeholder' => [ 'text' => 'Email', 'load' => 1 ],
+      'length' => [ 'min' => 4, 'max' => 40 ],
+      'value' => 'your@email.here',
+      'required' => 1,
+      'load' => 1,
+    ],
+    [
+      'element' => 'input',
+      'type' => 'text',
+      'name' => 'subject',
+      'title' => [ 'text' => 'Subject', 'load' => 1 ],
+      'placeholder' => [ 'text' => 'Subject', 'load' => 1 ],
+      'length' => [ 'min' => 4, 'max' => 200 ],
+      'value' => 'Lorem ipsum dolor sit amet',
+      'required' => 0,
+      'load' => 1,
+    ],
+    [
+      'element' => 'textarea',
+      'type' => 'textarea',
+      'name' => 'message',
+      'title' => [ 'text' => 'Your Message', 'load' => ],
+      'placeholder' => [ 'text' => 'Message', 'load' => 1 ],
+      'length' => [ 'min' => 4, 'max' => 400 ],
+      'value' => 'Lorem ipsum dolor sit amet',
+      'required' => 0,
+      'load' => 1,
+    ],
+    [
+      'element' => 'select',
+      'type' => 'select',
+      'name' => 'select',
+      'title' => [ 'text' => 'Select', 'load' => 1 ],
+      'size' => 4,
+      'required' => 1,
+      'load' => 1,
+      ],
     ];
     return $items;
   }
@@ -1196,6 +1220,7 @@ class FormData extends FormWriter
       'title' => 'Select',
       'size' => 1,
       'multiple' => false,
+      'load' => 1,
     ];
     return $items;
   }
