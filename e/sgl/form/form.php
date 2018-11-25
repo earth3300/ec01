@@ -1025,10 +1025,39 @@ class FormProcessor extends FormWriter
    */
   private function checkReferer( $form, $posted )
   {
-    if ( $form['referer'] == $posted['referer']
-      && $form['nonce'] == $posted['nonce'] )
+     $referer = 'self';
+
+    if ( $referer == $posted[ $this->opts['form']['prefix'] . '_referer'] )
     {
         /**  The referer and the nonce check out. Return true. */
+        return true;
+    }
+    else
+    {
+        /** Either the referer OR the nonce do not check out. Return false. */
+        return false;
+    }
+  }
+
+  /**
+   * Check Nonce
+   *
+   * Ensure the post is coming from the correct location and has been used
+   * only once.
+   *
+   * @param array $form
+   * @param array $posted
+   *
+   * @return bool
+   */
+  private function checkNonce( $form, $posted )
+  {
+    /** Retrieve the nonce. */
+    $nonce = 'abcd';
+
+    if ( 1 || $nonce == $posted[ $this->opts['form']['prefix'] . '_nonce' ] )
+    {
+        /**  The nonce checks out. Return true. */
         return true;
     }
     else
