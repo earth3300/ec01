@@ -996,9 +996,11 @@ class FormProcessor extends FormWriter
         /** Cycle through the post fields. */
         foreach ( $posted as $name => $field )
         {
-
           /** Get the suffix from posted. */
           $suffix = str_replace( $this->opts['form']['prefix' ] . '_', '', $name );
+
+          /** Get the type. */
+          $type = $form['form'][ $suffix ]['type'];
 
           /** If the post fields are authorized, accept. in_array($needle, $haystack); */
           if ( in_array( $suffix , $authorized ) )
@@ -1009,17 +1011,20 @@ class FormProcessor extends FormWriter
               && strlen( $field ) >= $form['form'][ $suffix ]['length']['min']
               && strlen( $field ) <= $form['form'][ $suffix ]['length']['max'] )
               {
-                if ( 0 && ! empty( $field ) && $field = $this->checkCharacters( $field ) )
+                if ( in_array( $type, [ 'text', 'textarea' ] ) )
                 {
-                  /** Don't add this value, or flag. Something isn't quite right. */
+                  /** Check the characters. */
+                  $chars = $this->checkCharacters( $field );
 
+                  /** Add it to the accepted array. */
+                  $accepted[ $suffix ]['chars'] = $chars;
                 }
                 else
                 {
                   /** Filter the HTML for Special Characters. */
                   if ( 1 || $field = $this->filterEntities( $field ) )
                   {
-                    if ( 'textarea' == $form['form'][ $suffix ]['type'] )
+                    if ( 'textarea' == $type )
                     {
                       /** Check the grammar. (Returns int|bool|null). */
                       $grammar = $this->checkGrammar( $field );
@@ -1039,7 +1044,6 @@ class FormProcessor extends FormWriter
           /** Add the remote (IP) address. */
           $accepted['remote'] = $_SERVER['REMOTE_ADDR'];
         }
-        pre_dump( $accepted );
         /** Got what we wanted. Let's return it for further processing. */
         return $accepted;
     }
@@ -1184,40 +1188,37 @@ class FormProcessor extends FormWriter
   {
     if ( $this->opts['input']['characters']['check'] )
     {
-      if ( strlen( $field ) >= $this->opts['input']['text']['length']['min']
-        && strlen( $field ) <= $this->opts['input']['text']['length']['max'] )
+      /** Grammar grade. */
+      $grade = null;
+
+      /** Change the comma separated string into one compatible with regex. */
+      $words = str_replace( ',', '|\b', $this->opts['input']['characters']['disallowed'] );
+
+      /** Wrap these words with forward slashes ('/') and brackets. */
+      $regex = sprintf( '/(%s)/', $words  );
+
+      /** Match these characters. */
+      $match = preg_match_all( $regex, strtolower( $field ), $matches );
+
+      if ( $match )
       {
-        /** A bunch of special characters to check for. */
-        $regex = sprintf( '/%s/', $this->opts['input']['characters']['disallowed'] );
-
-        /** Place a forward slash `\` before each character. */
-        $regex = addslashes( $regex );
-
-        /** Match these characters. */
-        preg_match( $regex, $field, $match );
-
-        if( isset( $match[0] ) && str( $match[0] > 0 ) )
-        {
-          /** A match had been found, that is *bad*. Return false. */
-          return false;
-        }
-        else
-        {
-          /** All looks good. Return true. */
-          return true;
-        }
+        /** A match found. Using a recognizable word. */
+        $grade = 1;
       }
       else
       {
-        /** Nothing there. Return false. */
-        return false;
+        /** No match found. Could be suspicious. */
+        $grade = 0;
       }
     }
     else
     {
-      /** Nothing happened. */
-      return null;
+      /** Nothing there. Return false. */
+      $grade = false;
     }
+
+    /** Return the grammar grade (primitive). */
+    return $grade;
   }
 
   /**
