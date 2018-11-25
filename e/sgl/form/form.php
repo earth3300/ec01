@@ -1010,7 +1010,7 @@ class FormProcessor extends FormWriter
               && strlen( $field ) >= $form['form'][ $suffix ]['length']['min']
               && strlen( $field ) <= $form['form'][ $suffix ]['length']['max'] )
               {
-                if ( in_array( $type, [ 'text', 'textarea' ] ) )
+                if ( in_array( $type, [ 'text', 'email', 'textarea' ] ) )
                 {
                   /** Check the characters. */
                   $chars = $this->checkCharacters( $field );
@@ -1198,37 +1198,41 @@ class FormProcessor extends FormWriter
   {
     if ( $this->opts['input']['characters']['check'] )
     {
-      /** Grammar grade. */
-      $grade = null;
+      /** It is being checked. */
+      $chars['checked'] = 1;
+
+      /** No grade assigned yet. */
+      $chars['grade'] = null;
 
       /** Change the comma separated string into one compatible with regex. */
-      $words = str_replace( ',', '|\b', $this->opts['input']['characters']['disallowed'] );
+      $disallowed = str_replace( ',', '|', $this->opts['input']['characters']['disallowed'] );
 
       /** Wrap these words with forward slashes ('/') and brackets. */
-      $regex = sprintf( '/(%s)/', $words  );
+      $regex = sprintf( '/(%s)/', $disallowed  );
 
       /** Match these characters. */
       $match = preg_match_all( $regex, strtolower( $field ), $matches );
 
       if ( $match )
       {
-        /** A match found. Using a recognizable word. */
-        $grade = 1;
+        /** A match found. Could be suspicious (low grade). */
+        $chars['grade'] = 0;
       }
       else
       {
-        /** No match found. Could be suspicious. */
-        $grade = 0;
+        /** No match found (better grade). */
+        $chars['grade'] = 1;
       }
     }
     else
     {
-      /** Nothing there. Return false. */
-      $grade = false;
+      /** No check requested. No grade assigned. */
+      $chars['checked'] = 0;
+      $chars['grade'] = null;
     }
 
-    /** Return the grammar grade (primitive). */
-    return $grade;
+    /** Return the disallowed characters check. */
+    return $chars;
   }
 
   /**
