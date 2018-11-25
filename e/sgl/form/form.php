@@ -999,10 +999,10 @@ class FormProcessor extends FormWriter
           $suffix = str_replace( $this->opts['form']['prefix' ] . '_', '', $name );
 
           /** Get the type. */
-          $type = $form['form'][ $suffix ]['type'];
+          $type = isset( $form['form'][ $suffix ]['type'] ) ? $form['form'][ $suffix ]['type'] : false;
 
           /** If the post fields are authorized, accept. in_array($needle, $haystack); */
-          if ( in_array( $suffix , $authorized ) )
+          if ( $type && in_array( $suffix , $authorized ) )
           {
             /** If the key value is the right length, accept. */
             if ( ! empty( $field )
@@ -1196,42 +1196,43 @@ class FormProcessor extends FormWriter
    */
   private function checkCharacters( $field )
   {
+    /** Initialize. */
+    $chars['checked'] = 0;
+    $chars['grade'] = null;
+
     if ( $this->opts['input']['characters']['check'] )
     {
-      /** It is being checked. */
-      $chars['checked'] = 1;
-
-      /** No grade assigned yet. */
-      $chars['grade'] = null;
-
-      /** Change the comma separated string into one compatible with regex. */
-      $disallowed = str_replace( ',', '|', $this->opts['input']['characters']['disallowed'] );
-
-      /** Wrap these words with forward slashes ('/') and brackets. */
-      $regex = sprintf( '/(%s)/', $disallowed  );
-
-      /** Match these characters. */
-      $match = preg_match_all( $regex, strtolower( $field ), $matches );
-
-      if ( $match )
+      if ( is_string( $field ) && strlen( $field > 0 ) )
       {
-        /** A match found. Could be suspicious (low grade). */
-        $chars['grade'] = 0;
-      }
-      else
-      {
-        /** No match found (better grade). */
-        $chars['grade'] = 1;
+        /** It is being checked. */
+        $chars['checked'] = 1;
+
+        /** No grade assigned yet. */
+        $chars['grade'] = null;
+
+        /** Change the comma separated string into one compatible with regex. */
+        $disallowed = str_replace( ',', '|', $this->opts['input']['characters']['disallowed'] );
+
+        /** Wrap these words with forward slashes ('/') and brackets. */
+        $regex = sprintf( '/(%s)/', $disallowed  );
+
+        /** Match these characters. */
+        $match = preg_match_all( $regex, strtolower( $field ), $matches );
+
+        if ( $match )
+        {
+          /** A match found. Could be suspicious (low grade). */
+          $chars['grade'] = 0;
+        }
+        else
+        {
+          /** No match found (better grade). */
+          $chars['grade'] = 1;
+        }
       }
     }
-    else
-    {
-      /** No check requested. No grade assigned. */
-      $chars['checked'] = 0;
-      $chars['grade'] = null;
-    }
 
-    /** Return the disallowed characters check. */
+    /** Return the check. */
     return $chars;
   }
 
