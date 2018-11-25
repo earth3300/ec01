@@ -993,7 +993,6 @@ class FormProcessor extends FormWriter
           }
         }
         /** Got what we wanted. Let's return it for further processing. */
-        pre_dump( $accepted );
         return $accepted;
     }
     else
@@ -1144,7 +1143,7 @@ class FormProcessor extends FormWriter
 
         /** Match these characters. */
         preg_match( $regex, $field, $match );
-        pre_dump( $field );
+
         if( isset( $match[0] ) && str( $match[0] > 0 ) )
         {
           /** A match had been found, that is *bad*. Return false. */
