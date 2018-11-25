@@ -1019,22 +1019,21 @@ class FormProcessor extends FormWriter
                   /** Add it to the accepted array. */
                   $accepted[ $suffix ]['chars'] = $chars;
                 }
-                else
-                {
-                  /** Filter the HTML for Special Characters. */
-                  if ( 1 || $field = $this->filterEntities( $field ) )
-                  {
-                    if ( 'textarea' == $type )
-                    {
-                      /** Check the grammar. (Returns int|bool|null). */
-                      $grammar = $this->checkGrammar( $field );
 
-                      /** About as good as we can get, other than reading it. */
-                      $accepted[ $suffix ]['grammar'] = $grammar;
-                    }
-                  }
+                /** Filter the HTML for Special Characters. */
+                $field = $this->filterEntities( $field );
+
+                if ( 'textarea' == $type )
+                {
+                  /** Check the grammar. (Returns int|bool|null). */
+                  $grammar = $this->checkGrammar( $field );
+
+                  /** About as good as we can get, other than reading it. */
+                  $accepted[ $suffix ]['grammar'] = $grammar;
                 }
               }
+
+              $accepted[ $suffix ]['field'] = $field;
             }
           }
 
@@ -1044,6 +1043,7 @@ class FormProcessor extends FormWriter
           /** Add the remote (IP) address. */
           $accepted['remote'] = $_SERVER['REMOTE_ADDR'];
         }
+        pre_dump( $accepted );
         /** Got what we wanted. Let's return it for further processing. */
         return $accepted;
     }
@@ -1057,10 +1057,24 @@ class FormProcessor extends FormWriter
   /**
    * Filter Entities
    *
+   * Do not double encode. Encode quotes.
+   *
+   * @param string $field
+   *
+   * @return string|false
    */
   private function filterEntities( $field )
   {
+    if ( strlen( $field ) > 0 && is_string( $field ) )
+    {
+      $field = htmlspecialchars( $field, ENT_QUOTES, ini_get("default_charset"), false );
 
+      return $field;
+    }
+    else
+    {
+      return false;
+    }
   }
 
   /**
