@@ -984,7 +984,6 @@ class FormProcessor extends FormWriter
       /** Check the hidden fields for strange data. */
       if ( $this->hiddenFieldSecurity( $form, $posted ) )
       {
-
         $data = new FormData();
 
         /** Get the authorized form fields. */
@@ -1043,7 +1042,7 @@ class FormProcessor extends FormWriter
           /** Add the remote (IP) address. */
           $accepted['remote'] = $_SERVER['REMOTE_ADDR'];
         }
-        pre_dump( $accepted );
+
         /** Got what we wanted. Let's return it for further processing. */
         return $accepted;
     }
