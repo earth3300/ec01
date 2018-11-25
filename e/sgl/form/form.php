@@ -91,6 +91,7 @@ class FormWriter
       'check' => 1,
       'field' => 'form_best_time',
     ],
+    'time' => [ 'check' => 1 ],
     'testing' => 1,
     ];
 
@@ -769,8 +770,8 @@ class FormTemplate extends FormWriter
 
       $str .= $item['placeholder']['load'] ? sprintf( 'placeholder="%s"', $item['placeholder']['text'] ) : '';
 
-      /** Set the value to empty. */
-      $str .= 'value=""';
+      /** Set the value, if required */
+      $str .= $item['value']['load'] ? sprintf( 'value="%s"', $item['value']['text'] ) : '';
 
       /** Close the input field. */
       $str .= '/>' . PHP_EOL;
@@ -954,6 +955,9 @@ class FormProcessor extends FormWriter
 
         /** Get the authorized form fields. */
         $authorized = $data->authorized();
+
+        /** Check how long it took to fill out the form. */
+        $grade = $this->checkTimePosted( $posted['form_time_posted'] );
 
         /** Cycle through the post fields. */
         foreach ( $posted as $name => $field )
@@ -1169,6 +1173,52 @@ class FormProcessor extends FormWriter
   }
 
   /**
+   * Check Time Posted
+   *
+   * Check the time posted against the time submitted.
+   *
+   * @param string $field
+   *
+   * @return int|false|null
+   */
+  private function checkTimePosted( $field )
+  {
+    if ( $this->opts['time']['check'] )
+    {
+      /** thinking. */
+      $thinking = null;
+      
+      /** The field needs to be long enough, but not too long. */
+      if ( strlen( $field ) > 8 && strlen( $field ) < 15 )
+
+      /** Get the current 24 hour time to the nearest second, with leading zeros. */
+      $thinking = time() - (int)$field;
+
+      if ( $thinking > 5 && $thinking < 300 )
+      {
+        $grade['time']['checked'] = 1;
+        $grade['time']['seconds'] = $thinking;
+        $grade['time']['score'] = 1;
+      }
+      else
+      {
+        $grade['time']['checked'] = 1;
+        $grade['time']['seconds'] = $thinking;
+        $grade['time']['score'] = 0;
+      }
+    }
+    else
+    {
+      /** No check requested. */
+      $grade['time']['checked'] = false;
+      $grade['time']['seconds'] = null;
+      $grade['time']['score'] = null;
+    }
+
+    return $grade;
+  }
+
+  /**
    * Check Grammar (Basic).
    *
    * Do a basic grammar check to see if this is a real form submission, or not.
@@ -1378,6 +1428,18 @@ class FormData extends FormWriter
         'value' => [ 'text' => '', 'load' => 0 ],
         'length' => [ 'min' => 0, 'max' => 40 ],
         'required' => 0,
+        'disallowed' => 1,
+        'load' => 1,
+      ],
+      [
+        'element' => 'input',
+        'type' => 'hidden',
+        'name' => 'time_posted',
+        'title' => [ 'text' => 'Time Posted', 'load' => 1 ],
+        'placeholder' => [ 'text' => 'Time Posted', 'load' => 1 ],
+        'value' => [ 'text' => time(), 'load' => 1 ],
+        'length' => [ 'min' => 0, 'max' => 40 ],
+        'required' => 1,
         'disallowed' => 1,
         'load' => 1,
       ],
