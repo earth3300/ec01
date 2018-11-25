@@ -1198,12 +1198,14 @@ class FormProcessor extends FormWriter
       if ( $thinking > 5 && $thinking < 300 )
       {
         $time['checked'] = 1;
+        $time['posted'] = (int)$field;
         $time['seconds'] = $thinking;
         $time['score'] = 1;
       }
       else
       {
         $time['checked'] = 1;
+        $time['posted'] = (int)$field;
         $time['seconds'] = $thinking;
         $time['score'] = 0;
       }
@@ -1212,6 +1214,7 @@ class FormProcessor extends FormWriter
     {
       /** No check requested. */
       $time['checked'] = false;
+      $time['posted'] = null;
       $time['seconds'] = null;
       $time['score'] = null;
     }
