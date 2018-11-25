@@ -990,7 +990,7 @@ class FormProcessor extends FormWriter
         $authorized = $data->authorized();
 
         /** Check how long it took to fill out the form. */
-        $accepted['time'] = $this->checkTimePosted( $posted['form_time_posted'] );
+        $accepted['time'] = $this->checkTime( $posted['form_time_posted'] );
 
         /** Cycle through the post fields. */
         foreach ( $posted as $name => $field )
@@ -1035,9 +1035,6 @@ class FormProcessor extends FormWriter
               $accepted[ $suffix ]['field'] = $field;
             }
           }
-
-          /** Add a time stamp. */
-          $accepted['time'] = date('Y-m-d H:i:s');
 
           /** Add the remote (IP) address. */
           $accepted['remote'] = $_SERVER['REMOTE_ADDR'];
@@ -1243,41 +1240,44 @@ class FormProcessor extends FormWriter
    *
    * @return int|false|null
    */
-  private function checkTimePosted( $field )
+  private function checkTime( $field )
   {
     if ( $this->opts['time']['check'] )
     {
-      /** thinking. */
-      $thinking = null;
-
       /** The field needs to be long enough, but not too long. */
       if ( strlen( $field ) > 8 && strlen( $field ) < 15 )
-
-      /** Get the current 24 hour time to the nearest second, with leading zeros. */
-      $thinking = time() - (int)$field;
-
-      if ( $thinking > 5 && $thinking < 300 )
       {
-        $time['checked'] = 1;
+        /** Capture the time, now. */
+        $received = time();
+
+        /** Get the current 24 hour time to the nearest second, with leading zeros. */
+        $elapsed = $received - (int)$field;
+
+        $time['stamp'] = date('Y-m-d H:i:s');
+        $time['received'] = $received;
         $time['posted'] = (int)$field;
-        $time['seconds'] = $thinking;
-        $time['score'] = 1;
-      }
-      else
-      {
+        $time['elapsed'] = $elapsed;
         $time['checked'] = 1;
-        $time['posted'] = (int)$field;
-        $time['seconds'] = $thinking;
-        $time['score'] = 0;
+
+        if ( $elapsed > 5 && $elapsed < 300 )
+        {
+          $time['score'] = 1;
+        }
+        else
+        {
+          $time['score'] = 0;
+        }
       }
     }
     else
     {
       /** No check requested. */
-      $time['checked'] = false;
+      $time['stamp'] = null;
+      $time['received'] = null;
       $time['posted'] = null;
-      $time['seconds'] = null;
+      $time['elapsed'] = null;
       $time['score'] = null;
+      $time['checked'] = 0;
     }
 
     return $time;
