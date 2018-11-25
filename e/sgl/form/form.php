@@ -1202,13 +1202,10 @@ class FormProcessor extends FormWriter
 
     if ( $this->opts['input']['characters']['check'] )
     {
-      if ( is_string( $field ) && strlen( $field > 0 ) )
+      if ( is_string( $field ) && strlen( $field ) > 0 )
       {
         /** It is being checked. */
         $chars['checked'] = 1;
-
-        /** No grade assigned yet. */
-        $chars['grade'] = null;
 
         /** Change the comma separated string into one compatible with regex. */
         $disallowed = str_replace( ',', '|', $this->opts['input']['characters']['disallowed'] );
