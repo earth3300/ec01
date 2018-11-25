@@ -36,7 +36,7 @@
  * File: form.php
  * Created: 2018-10-15
  * Updated: 2018-11-24
- * Time: 12:04 EST
+ * Time: 19:20 EST
  */
 
 namespace Earth3300\EC01;
@@ -53,32 +53,44 @@ class FormWriter
   protected $opts = [
     'page' => [
       'title' => 'Form Writer',
-      'robots' => [ 'index' => 0 ],
-      'css' => [ 'load' => 1, 'url' => '/0/theme/css/style.css' ],
+      'robots' => [ 'index' => 0, ],
+      'css' => [
+        'load' => 1,
+        'url' => '/0/theme/css/style.css',
+      ],
       'footer' => [ 'load' => 0, ],
       'url' => 'https://github.com/earth3300/ec01-form-writer',
       'javascript' => [ 'load' => 1, ],
     ],
     'file' => [
-      'max' => [ 'num' => 1, 'size' => 1000*10 ],
-      'write' => [ 'name' => 'data.json', 'max' => 1000*10, ],
+      'max' => [ 'num' => 1, 'size' => 1000*10, ],
+      'write' => [ 'name' => '.data.json', 'max' => 1000*10, ],
       'json' => [ 'name' => 'options.json' ],
       'type' => 'json',
       'ext' => '.json',
     ],
     'input' => [
-        'text' => [ 'length' => [ 'min' => 4, 'max' => 40 ] ],
-        'textarea' => [ 'length' => [ 'min' => 4, 'max' => 100 ] ],
-        'disallowed' => [
+        'text' => [ 'length' => [ 'min' => 4, 'max' => 40, ] ],
+        'textarea' => [ 'length' => [ 'min' => 4, 'max' => 100, ] ],
+        'characters' => [
           'check' => 1,
-          'chars' => '~`!@#$%^&*()-_+{[}]\|;:<>?/' ],
+          'disallowed' => '~`!@#$%^&*()-_+{[}]\|;:<>?', ],
         'grammar' => [
           'check' => 1,
-          'words' => 'and,the,a,an,i,you' ],
+          'words' => 'and,the,a,an,i,you' ,
+        ],
       ],
-    'button' => [ 'delay' => [ 'ms' => 3000 ] ],
-    'form' => [ 'prefix' => 'form' ],
-    'required' => [ 'text' => '(required)' ],
+    'button' => [ 'delay' => [ 'ms' => 3000, ], ],
+    'form' => [
+      'prefix' => 'form',
+      'referer' => [ 'load' => 1, ],
+      'nonce' => [ 'load' => 1 ],
+    ],
+    'required' => [ 'text' => '(required)', ],
+    'security' => [
+      'check' => 1,
+      'field' => 'form_best_time',
+    ],
     'testing' => 1,
     ];
 
@@ -264,18 +276,40 @@ class FormWriter
   /**
    * Get the Nonce
    *
+   * This is a "use once" number.
+   *
+   * @return string
    */
   protected function getNonce()
   {
-    $referer = 'self';
     $random = rand();
     $nonce = hash( 'sha512', $random );
 
     // Store nonce
 
-    $str = sprintf(
-      '<input type="hidden" referer="%s" nonce="%s" />%s',
-      $referer, $nonce, PHP_EOL );
+    $str = '<input type="hidden"';
+    $str .= sprintf( ' name="%s_nonce"', $this->opts['form']['prefix'] );
+    $str .= sprintf( ' value="%s"', $nonce );
+    $str .= '/>' . PHP_EOL;
+
+    return $str;
+  }
+
+  /**
+   * Get the Refererr
+   *
+   * This is the domain and URL of the page making the call.
+   *
+   * @return string
+   */
+  protected function getReferer()
+  {
+    $referer = 'self';
+
+    $str = '<input type="hidden"';
+    $str .= sprintf( ' name="%s_referer"', $this->opts['form']['prefix'] );
+    $str .= sprintf( ' value="%s"', $referer );
+    $str .= '/>' . PHP_EOL;
 
     return $str;
   }
@@ -403,8 +437,11 @@ class FormTemplate extends FormWriter
       /** Open the form. */
       $str .= sprintf( '<form action="" method="post">%s', PHP_EOL );
 
+      /** Get the referer. */
+      $str .= $this->opts['form']['referer']['load'] ? $this->getReferer() : '';
+
       /** Add a "use once" field to help prevent misuse. */
-      $str .= $this->getNonce();
+      $str .= $this->opts['form']['nonce']['load'] ? $this->getNonce() : '';
 
       /** Cycle through the fields */
       foreach ( $form['form'] as $item )
@@ -434,21 +471,11 @@ class FormTemplate extends FormWriter
       /** Get the hidden fields */
       $str .= $this->getHidden( $form ) ;
 
-      /** Submit button. This is disabled for a few seconds to prevent anxious bots from using it. */
-      if ( $form['meta']['submit']['load'] )
-      {
-        $str .= '<button';
-        $str .= ' id="form-submit"';
-        $str .= ' type="submit"';
-        $str .= ' class="button button-primary"';
-        $str .= $form['meta']['submit']['disabled'] ? ' disabled' : '';
-        $str .= '>';
-        $str .= $form['meta']['submit']['title'];
-        $str .= '</button>' . PHP_EOL;
-      }
+      /** Get the submit button. */
+      $str .= $this->getSubmit( $form );
 
       /** Form response div. */
-      $str .= sprintf('<div class="form-response">%s</div>%s', $resp['form_response'], PHP_EOL );
+      $str .= sprintf('<div class="%s-response">%s</div>%s', $this->opts['form']['prefix'], $resp['response'], PHP_EOL );
 
       /** Close the form. */
       $str .= '</form>' . PHP_EOL;
@@ -756,6 +783,35 @@ class FormTemplate extends FormWriter
   }
 
   /**
+   * Get the Submit Button
+   *
+   * @param array $form
+   *
+   * @return string
+   */
+  private function getSubmit( $form )
+  {
+    /** Submit button. This is disabled for a few seconds to prevent anxious bots from using it. */
+    if ( $form['meta']['submit']['load'] )
+    {
+      $str = '<button';
+      $str .= sprintf( ' id="%s-submit"', $this->opts['form']['prefix'] );
+      $str .= ' type="submit"';
+      $str .= ' class="button button-primary"';
+      $str .= $form['meta']['submit']['disabled'] ? ' disabled' : '';
+      $str .= '>';
+      $str .= $form['meta']['submit']['title'];
+      $str .= '</button>' . PHP_EOL;
+      return $str;
+    }
+    else
+    {
+      return false;
+    }
+    return false;
+  }
+
+  /**
    * Write the Options Data to a File for a Select Element.
    *
    * This only needs to occur once and is here allowed ONLY on a local server,
@@ -873,7 +929,9 @@ class FormProcessor extends FormWriter
    * Check the fields
    *
    * The post has been check. It is set and it contains roughly the right number
-   * of fields. Further verification needs to be done here.
+   * of fields. Further verification needs to be done here. The field elements are:
+   *
+   * input, textarea and select. Of input there are: text, email and hidden.
    *
    * @param array $form
    * @param array $posted
@@ -889,32 +947,53 @@ class FormProcessor extends FormWriter
     if ( $this->checkReferer( $form, $posted ) )
     {
       /** Check the hidden fields for strange data. */
-      if ( $this->checkHiddenFields( $form, $posted ) )
+      if ( $this->hiddenFieldSecurity( $form, $posted ) )
       {
+
+        $data = new FormData();
+
+        /** Get the authorized form fields. */
+        $authorized = $data->authorized();
+
         /** Cycle through the post fields. */
-        foreach ( $posted as $key => $value )
+        foreach ( $posted as $name => $field )
         {
-            /** If the post fields are authorized, accept. */
-            if ( in_array( $key, $items ) )
+            /** If the post fields are authorized, accept. in_array($needle, $haystack); */
+            if ( 1 || in_array( $name, $authorized ) )
             {
+              //$index = $this->opts['form']['prefix'] . '_' . $key;
+              //pre_dump( $form[ $index ] );
+              //break;
+
               /** If the key value is the right length, accept. */
-              if (
-                strlen( $posted[$key] ) >= $form[$key]['length']['min']
-                && strlen( $posted[$key] ) <= $form[$key]['length']['max'] )
+              if ( 1 ||
+                ( ! empty( $field )
+                && strlen( $field ) >= $form[$key]['length']['min']
+                && strlen( $field ) <= $form[$key]['length']['max'] ) )
                 {
-                  if ( $resp = $this->checkDisallowedChars( $posted[$key] ) ) {
-                    /** Stop the presses. Something isn't quite right. */
-                    break;
+                  if ( ! empty( $field) && $resp = $this->checkCharacters( $field ) )
+                  {
+                    /** Don't add this value, or flag. Something isn't quite right. */
+
                   }
                   else
                   {
-                    /** 'bout as good as we can get, other than reading it. */
-                    $accepted[$key] = esc_attr( $posted[$key] );
+                    /** Filter the HTML for Special Characters. */
+                    if ( $filtered = $this->filterEntities( $field ) )
+                    {
+                      if ( $grammar = $this->checkGrammar( $filtered ) )
+                      {
+                          /** About as good as we can get, other than reading it. */
+                        $accepted[$key] = $grammar;
+                      }
+                    }
                   }
                 }
             }
+          }
         }
         /** Got what we wanted. Let's return it for further processing. */
+        pre_dump( $accepted );
         return $accepted;
     }
     else
@@ -922,10 +1001,15 @@ class FormProcessor extends FormWriter
       /** Nothing acceptable here. */
       return false;
     }
+  }
 
-    /** Return the accepted array. */
-    return $accepted;
-    }
+  /**
+   * Filter Entities
+   *
+   */
+  private function filterEntities( $field )
+  {
+
   }
 
   /**
@@ -955,28 +1039,53 @@ class FormProcessor extends FormWriter
   }
 
   /**
-   * Check Hidden Fields
+   * Check Hidden Fields Security
    *
    * Check hidden fields for extra data. If data is present where none should
    * be, discard the form submission.
    *
+   * The posted data contains items in the array which are the keys of the fields.
+  * For example,
+  * [...
+  * "form_message" => "Lorem ipsum dolor sit amet",
+  * "form_select" => "def",
+  * "form_best_time" => "" ,
+  * ... ]
+  *
+  * In this case, form_best_time was a hidden field which should not have any data,
+  * but we are not told this. Therefore we have to cross reference this field
+  * with the field in the form. Rather than to cycle through the fields in the form to find
+  * this one, we have to create a field which simply tells us which field name to check.
+  *
    * @param array $form
    * @param array $posted
    *
    * @return bool
    */
-  private function checkHiddenFields( $form, $posted )
+  private function hiddenFieldSecurity( $form, $posted )
   {
-    if ( isset(  $posted[ $form['hidden'] ] )
-        && strlen( $posted[ $form['hidden'] ] ) > 0 )
+    /** Check only if required. (May not be required in all instances. */
+    if( $this->opts['security']['check'] )
     {
-        /**  Something fishy going on here. Return false. */
-        return false;
+      /** Assign the field name we are checking to an internal value. */
+      $security = $this->opts['security']['field'];
+
+      /** Check to see if this value is set and if it is non-zero. */
+      if ( isset(  $posted[ $security ] ) && strlen( $posted[ $security ] ) > 0 )
+      {
+          /**  Something fishy going on here. Return false. */
+          return false;
+      }
+      else
+      {
+          /** No fish. Return true. */
+          return true;
+      }
     }
     else
     {
-        /** No fish. Return true. */
-        return true;
+      /** We are omitting the security check. Return true. */
+      return true;
     }
   }
 
@@ -985,37 +1094,49 @@ class FormProcessor extends FormWriter
    *
    * Reject if any disallowed characters show up.
    *
+   * @example preg_match ( $regex , $field, $match );
+   *
    * @param string $field
    *
    * @return bool
    */
   private function checkCharacters( $field )
   {
-    if ( strlen( $field ) >= $this->opts['text']['length']['min']
-      && strlen( $field ) <= $this->opts['text']['length']['max'] )
+    if ( $this->opts['input']['characters']['check'] )
     {
-      /** A bunch of special characters to check for. */
-      //$regex = "^[^\~\!\@\#\$\%\^\&\*\(\)\_\+\-\=\{\\}\[\]\\\|]/";
-      $regex = $this->opts['check'];
-
-      /** Match these characters. */
-      preg_match( $regex, $field, $match );
-
-      if( isset( $match[0] ) && str( $match[0] > 0 ) )
+      if ( strlen( $field ) >= $this->opts['input']['text']['length']['min']
+        && strlen( $field ) <= $this->opts['input']['text']['length']['max'] )
       {
-        /** A match had been found, that is *bad*. Return false. */
-        return false;
+        /** A bunch of special characters to check for. */
+        $regex = sprintf( '/%s/', $this->opts['input']['characters']['disallowed'] );
+
+        /** Place a forward slash `\` before each character. */
+        $regex = addslashes( $regex );
+
+        /** Match these characters. */
+        preg_match( $regex, $field, $match );
+        pre_dump( $field );
+        if( isset( $match[0] ) && str( $match[0] > 0 ) )
+        {
+          /** A match had been found, that is *bad*. Return false. */
+          return false;
+        }
+        else
+        {
+          /** All looks good. Return true. */
+          return true;
+        }
       }
       else
       {
-        /** All looks good. Return true. */
-        return true;
+        /** Nothing there. Return false. */
+        return false;
       }
     }
     else
     {
-      /** Nothing there. Return false. */
-      return false;
+      /** Nothing happened. */
+      return null;
     }
   }
 
@@ -1038,8 +1159,8 @@ class FormProcessor extends FormWriter
       $grade = null;
 
       /** Run it through the length check again (in case this is called separately. */
-      if ( strlen( $field ) >= $this->opts['text']['length']['min']
-        && strlen( $field ) <= $this->opts['text']['length']['max'] )
+      if ( strlen( $field ) >= $this->opts['input']['text']['length']['min']
+        && strlen( $field ) <= $this->opts['input']['text']['length']['max'] )
       {
         /** A bunch of words to check. If they are not present, it may be a monkey. */
         $regex = $this->opts['grammar']['words'];
@@ -1237,6 +1358,21 @@ class FormData extends FormWriter
   }
 
   /**
+   * Authorized form fields
+   */
+  public function authorized()
+  {
+    $items = [
+      'name',
+      'email',
+      'phone',
+      'subject',
+      'message',
+    ];
+    return $items;
+  }
+
+  /**
    * Meta
    *
    * @return array
@@ -1262,7 +1398,7 @@ class FormData extends FormWriter
           'load' => 1,
         ],
     ];
-      return $items;
+    return $items;
   }
 
   public function options()
