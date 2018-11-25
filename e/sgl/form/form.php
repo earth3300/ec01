@@ -75,10 +75,11 @@ class FormWriter
         'textarea' => [ 'length' => [ 'min' => 4, 'max' => 100, ] ],
         'characters' => [
           'check' => 1,
-          'disallowed' => '~`!@#$%^&*()-_+{[}]\|;:<>?', ],
+          'disallowed' => '~,`,!,@,#,$,%,^,&,*,(,),-,_,+,{,[,},],\,|,;,:,<,>',
+        ],
         'grammar' => [
           'check' => 1,
-          'words' => 'and,the,a,an,i,you' ,
+          'words' => 'and,the,an,you,your',
         ],
       ],
     'button' => [ 'delay' => [ 'ms' => 3000, ], ],
@@ -1008,7 +1009,7 @@ class FormProcessor extends FormWriter
               && strlen( $field ) >= $form['form'][ $suffix ]['length']['min']
               && strlen( $field ) <= $form['form'][ $suffix ]['length']['max'] )
               {
-                if ( ! empty( $field) && $resp = $this->checkCharacters( $field ) )
+                if ( 0 && ! empty( $field ) && $field = $this->checkCharacters( $field ) )
                 {
                   /** Don't add this value, or flag. Something isn't quite right. */
 
@@ -1016,20 +1017,29 @@ class FormProcessor extends FormWriter
                 else
                 {
                   /** Filter the HTML for Special Characters. */
-                  if ( $filtered = $this->filterEntities( $field ) )
+                  if ( 1 || $field = $this->filterEntities( $field ) )
                   {
-                    if ( $grammar = $this->checkGrammar( $filtered ) )
+                    if ( 'textarea' == $form['form'][ $suffix ]['type'] )
                     {
-                      $accepted[$key]['time'] = date('Y:H:i:s');
-                        /** About as good as we can get, other than reading it. */
-                      $accepted[$key]['field'] = $grammar;
+                      /** Check the grammar. (Returns int|bool|null). */
+                      $grammar = $this->checkGrammar( $field );
+
+                      /** About as good as we can get, other than reading it. */
+                      $accepted[ $suffix ]['grammar'] = $grammar;
                     }
                   }
                 }
               }
             }
           }
+
+          /** Add a time stamp. */
+          $accepted['time'] = date('Y-m-d H:i:s');
+
+          /** Add the remote (IP) address. */
+          $accepted['remote'] = $_SERVER['REMOTE_ADDR'];
         }
+        pre_dump( $accepted );
         /** Got what we wanted. Let's return it for further processing. */
         return $accepted;
     }
@@ -1272,37 +1282,35 @@ class FormProcessor extends FormWriter
    */
   private function checkGrammar( $field )
   {
-    if ( $this->opts['grammar']['check'] )
+    if ( $this->opts['input']['grammar']['check'] )
     {
       /** Grammar grade. */
       $grade = null;
 
-      /** Run it through the length check again (in case this is called separately. */
-      if ( strlen( $field ) >= $this->opts['input']['text']['length']['min']
-        && strlen( $field ) <= $this->opts['input']['text']['length']['max'] )
+      /** Change the comma separated string into one compatible with regex. */
+      $words = str_replace( ',', '|\b', $this->opts['input']['grammar']['words'] );
+
+      /** Wrap these words with forward slashes ('/') and brackets. */
+      $regex = sprintf( '/(%s)/', $words  );
+
+      /** Match these characters. */
+      $match = preg_match_all( $regex, strtolower( $field ), $matches );
+
+      if ( $match )
       {
-        /** A bunch of words to check. If they are not present, it may be a monkey. */
-        $regex = $this->opts['grammar']['words'];
-
-        /** Match these characters. */
-        preg_match( $regex, $field, $match );
-
-        if( ! isset( $match[0] ) && str( $match[0] < 5 ) )
-        {
-          /** *No* matches are found, maybe suspicious. */
-          $grade = 0;
-        }
-        else
-        {
-          /** All looks good. Return true. */
-          $grade = 1;
-        }
+        /** A match found. Using a recognizable word. */
+        $grade = 1;
       }
       else
       {
-        /** Nothing there. Return false. */
-        $grade = false;
+        /** No match found. Could be suspicious. */
+        $grade = 0;
       }
+    }
+    else
+    {
+      /** Nothing there. Return false. */
+      $grade = false;
     }
 
     /** Return the grammar grade (primitive). */
