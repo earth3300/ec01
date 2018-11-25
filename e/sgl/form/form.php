@@ -68,6 +68,7 @@ class FormWriter
       'json' => [ 'name' => 'options.json' ],
       'type' => 'json',
       'ext' => '.json',
+      'this' => 'form.php',
     ],
     'input' => [
         'text' => [ 'length' => [ 'min' => 4, 'max' => 40, ] ],
@@ -305,15 +306,47 @@ class FormWriter
    */
   protected function getReferer()
   {
-    $referer = 'self';
+    $referer = $_SERVER['SERVER_NAME'];
+    $referer .= str_replace( $this->opts['file']['this'], '', $_SERVER['SCRIPT_NAME'] );
 
-    $str = '<input type="hidden"';
-    $str .= sprintf( ' name="%s_referer"', $this->opts['form']['prefix'] );
-    $str .= sprintf( ' value="%s"', $referer );
-    $str .= '/>' . PHP_EOL;
-
-    return $str;
+    return $referer;
   }
+
+  /**
+   * Get the Referer HTML
+   *
+   * This is the domain and URL of the page making the call.
+   *
+   * @param string
+   *
+   * @return string
+   */
+  protected function getRefererHtml()
+  {
+    $referer = $this->getReferer();
+
+    if ( is_string( $referer )
+      && strlen( $referer ) > 5
+      && strlen( $referer ) < 50 )
+    {
+      $str = '<input type="hidden"';
+      $str .= sprintf( ' name="%s_referer"', $this->opts['form']['prefix'] );
+      $str .= sprintf( ' value="%s"', $referer );
+      $str .= '/>' . PHP_EOL;
+
+      return $str;
+    }
+    else
+    {
+      return false;
+    }
+  }
+
+
+  // $_SERVER['REMOTE_ADDR'];
+  // $_SERVER['REMOTE_HOST'];
+  // $_SERVER['REQUEST_URI'];
+  // $_SERVER['SERVER_NAME'];
 
   /**
    *  Get Javascript
@@ -439,7 +472,7 @@ class FormTemplate extends FormWriter
       $str .= sprintf( '<form action="" method="post">%s', PHP_EOL );
 
       /** Get the referer. */
-      $str .= $this->opts['form']['referer']['load'] ? $this->getReferer() : '';
+      $str .= $this->opts['form']['referer']['load'] ? $this->getRefererHtml() : '';
 
       /** Add a "use once" field to help prevent misuse. */
       $str .= $this->opts['form']['nonce']['load'] ? $this->getNonce() : '';
@@ -945,7 +978,7 @@ class FormProcessor extends FormWriter
     $accepted = null;
 
     /** Check the referer. */
-    if ( $this->checkReferer( $form, $posted ) )
+    if ( $this->checkReferer( $posted ) )
     {
       /** Check the hidden fields for strange data. */
       if ( $this->hiddenFieldSecurity( $form, $posted ) )
@@ -962,41 +995,41 @@ class FormProcessor extends FormWriter
         /** Cycle through the post fields. */
         foreach ( $posted as $name => $field )
         {
-            /** If the post fields are authorized, accept. in_array($needle, $haystack); */
-            if ( 1 || in_array( $name, $authorized ) )
-            {
-              //$index = $this->opts['form']['prefix'] . '_' . $key;
-              //pre_dump( $form[ $index ] );
-              //break;
 
-              /** If the key value is the right length, accept. */
-              if ( 1 ||
-                ( ! empty( $field )
-                && strlen( $field ) >= $form[$key]['length']['min']
-                && strlen( $field ) <= $form[$key]['length']['max'] ) )
+          /** Get the suffix from posted. */
+          $suffix = str_replace( $this->opts['form']['prefix' ] . '_', '', $name );
+
+          /** If the post fields are authorized, accept. in_array($needle, $haystack); */
+          if ( in_array( $suffix , $authorized ) )
+          {
+            /** If the key value is the right length, accept. */
+            if ( ! empty( $field )
+              && isset( $form['form'][ $suffix ] )
+              && strlen( $field ) >= $form['form'][ $suffix ]['length']['min']
+              && strlen( $field ) <= $form['form'][ $suffix ]['length']['max'] )
+              {
+                if ( ! empty( $field) && $resp = $this->checkCharacters( $field ) )
                 {
-                  if ( ! empty( $field) && $resp = $this->checkCharacters( $field ) )
-                  {
-                    /** Don't add this value, or flag. Something isn't quite right. */
+                  /** Don't add this value, or flag. Something isn't quite right. */
 
-                  }
-                  else
+                }
+                else
+                {
+                  /** Filter the HTML for Special Characters. */
+                  if ( $filtered = $this->filterEntities( $field ) )
                   {
-                    /** Filter the HTML for Special Characters. */
-                    if ( $filtered = $this->filterEntities( $field ) )
+                    if ( $grammar = $this->checkGrammar( $filtered ) )
                     {
-                      if ( $grammar = $this->checkGrammar( $filtered ) )
-                      {
-                          /** About as good as we can get, other than reading it. */
-                        $accepted[$key] = $grammar;
-                      }
+                      $accepted[$key]['time'] = date('Y:H:i:s');
+                        /** About as good as we can get, other than reading it. */
+                      $accepted[$key]['field'] = $grammar;
                     }
                   }
                 }
+              }
             }
           }
         }
-        pre_dump( $accepted );
         /** Got what we wanted. Let's return it for further processing. */
         return $accepted;
     }
@@ -1027,18 +1060,22 @@ class FormProcessor extends FormWriter
    *
    * @return bool
    */
-  private function checkReferer( $form, $posted )
+  private function checkReferer( $posted )
   {
-     $referer = 'self';
+    /** Get the referer. */
+     $referer = $this->getReferer();
 
-    if ( $referer == $posted[ $this->opts['form']['prefix'] . '_referer'] )
+     /** Get the referred. */
+     $referred = $posted[ $this->opts['form']['prefix'] . '_referer'];
+
+    if ( $referer == $referred )
     {
-        /**  The referer and the nonce check out. Return true. */
+        /**  They are the same. Return true. */
         return true;
     }
     else
     {
-        /** Either the referer OR the nonce do not check out. Return false. */
+        /** They are not the same. Return false. */
         return false;
     }
   }
@@ -1369,7 +1406,7 @@ class FormData extends FormWriter
   public function form()
   {
     $items = [
-        [
+        'name' => [
           'element' => 'input',
           'type' => 'text',
           'name' => 'name',
@@ -1380,7 +1417,7 @@ class FormData extends FormWriter
           'required' => 1,
           'load' => 1,
         ],
-        [
+        'email' => [
           'element' => 'input',
           'type' => 'email',
           'name' => 'email',
@@ -1391,7 +1428,7 @@ class FormData extends FormWriter
           'required' => 1,
           'load' => 1,
         ],
-        [
+        'subject' => [
           'element' => 'input',
           'type' => 'text',
           'name' => 'subject',
@@ -1402,7 +1439,7 @@ class FormData extends FormWriter
           'required' => 0,
           'load' => 1,
         ],
-        [
+        'message' => [
           'element' => 'textarea',
           'type' => 'textarea',
           'name' => 'message',
@@ -1413,7 +1450,7 @@ class FormData extends FormWriter
           'required' => 0,
           'load' => 1,
         ],
-        [
+        'select' => [
           'element' => 'select',
           'type' => 'select',
           'name' => 'select',
@@ -1423,7 +1460,7 @@ class FormData extends FormWriter
           'multiple' => 0,
           'load' => 1,
         ],
-      [
+      'best_time' => [
         'element' => 'input',
         'type' => 'hidden',
         'name' => 'best_time',
@@ -1435,7 +1472,7 @@ class FormData extends FormWriter
         'disallowed' => 1,
         'load' => 1,
       ],
-      [
+      'time_posted' => [
         'element' => 'input',
         'type' => 'hidden',
         'name' => 'time_posted',
