@@ -957,7 +957,7 @@ class FormProcessor extends FormWriter
         $authorized = $data->authorized();
 
         /** Check how long it took to fill out the form. */
-        $grade = $this->checkTimePosted( $posted['form_time_posted'] );
+        $accepted['time'] = $this->checkTimePosted( $posted['form_time_posted'] );
 
         /** Cycle through the post fields. */
         foreach ( $posted as $name => $field )
@@ -996,6 +996,7 @@ class FormProcessor extends FormWriter
             }
           }
         }
+        pre_dump( $accepted );
         /** Got what we wanted. Let's return it for further processing. */
         return $accepted;
     }
@@ -1187,7 +1188,7 @@ class FormProcessor extends FormWriter
     {
       /** thinking. */
       $thinking = null;
-      
+
       /** The field needs to be long enough, but not too long. */
       if ( strlen( $field ) > 8 && strlen( $field ) < 15 )
 
@@ -1196,26 +1197,26 @@ class FormProcessor extends FormWriter
 
       if ( $thinking > 5 && $thinking < 300 )
       {
-        $grade['time']['checked'] = 1;
-        $grade['time']['seconds'] = $thinking;
-        $grade['time']['score'] = 1;
+        $time['checked'] = 1;
+        $time['seconds'] = $thinking;
+        $time['score'] = 1;
       }
       else
       {
-        $grade['time']['checked'] = 1;
-        $grade['time']['seconds'] = $thinking;
-        $grade['time']['score'] = 0;
+        $time['checked'] = 1;
+        $time['seconds'] = $thinking;
+        $time['score'] = 0;
       }
     }
     else
     {
       /** No check requested. */
-      $grade['time']['checked'] = false;
-      $grade['time']['seconds'] = null;
-      $grade['time']['score'] = null;
+      $time['checked'] = false;
+      $time['seconds'] = null;
+      $time['score'] = null;
     }
 
-    return $grade;
+    return $time;
   }
 
   /**
