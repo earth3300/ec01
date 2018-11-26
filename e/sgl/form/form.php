@@ -65,7 +65,7 @@ class FormWriter
     'file' => [
       'max' => [ 'num' => 1, 'size' => 10*10, ],
       'write' => [ 'name' => '.data.json', 'max' => 1000*10, ],
-      'json' => [ 'name' => 'options.json' ],
+      'json' => [ 'name' => 'options.json', 'load' => 1, ],
       'type' => 'json',
       'ext' => '.json',
       'this' => 'form.php',
@@ -84,6 +84,7 @@ class FormWriter
       ],
     'button' => [ 'delay' => [ 'ms' => 3000, ], ],
     'form' => [
+      'file' => 'form.json',
       'prefix' => 'form',
       'referer' => [ 'load' => 1, 'check' => 1, ],
       'nonce' => [ 'load' => 0, 'check' => 0, ],
@@ -319,20 +320,26 @@ class FormWriter
     /** Initialize the uid. */
     $uid = null;
 
+    /** Add the Server Signature. */
+    $uid .= $_SERVER['SERVER_SIGNATURE'];
+
     /** Add the Server address. */
-    $uid .= $_SERVER['SERVER_PROTOCOL'];
+    $uid .= '-' . $_SERVER['SERVER_PROTOCOL'];
+
+    /** Add the Server address. */
+    $uid .= '-' . $_SERVER['HTTPS'];
 
     /** Add the Server address (with a dash). */
     $uid .= '-' . $_SERVER['SERVER_ADDR'];
 
-    /** Add the Remote address. */
-    $uid .= '-' . $_SERVER['REMOTE_ADDR'];
-
     /** Add the domain (host). */
     $uid .= '-' . $_SERVER['HTTP_HOST'];
 
+    /** Add the Server address (with a dash). */
+    $uid .= '-' . $_SERVER['SCRIPT_NAME'];
+
     /** Add the date. This means This hash won't check out over midnight. */
-    $uid .= '-' . date('Y-m-d');
+    $uid .= '-' . date('Y-m-d'); // H:s (i.e. 24:00)
 
     /** Add the User Agent (Browser Type and Device). */
     $uid .= '-' . $_SERVER['HTTP_USER_AGENT'];
@@ -1172,6 +1179,7 @@ class FormTemplate extends FormWriter
    */
   private function getFormData()
   {
+    /** Switch here to retrieve array or json file. */
     $data = new FormData();
     $items['form'] = $data->form();
     $items['meta'] = $data->meta();
@@ -1262,18 +1270,21 @@ class FormProcessor extends FormWriter
     $accepted = null;
 
     /** Check the referer. */
-    if ( $this->checkReferer( $posted ) )
+    if ( $accepted['referer'] = $this->checkReferer( $posted ) )
     {
       /** Check the hidden fields for strange data. */
-      if ( $this->hiddenFieldSecurity( $form, $posted ) )
+      if ( $accepted['hidden'] = $this->hiddenFieldSecurity( $form, $posted ) )
       {
         /** Check the uid. */
-        if ( $this->checkUid( $form, $posted ) )
+        if ( $accepted['uid'] = $this->checkUid( $form, $posted ) )
         {
           $data = new FormData();
 
           /** Get the authorized form fields. */
           $authorized = $data->authorized();
+
+          /** Add the remote (IP) address. */
+          $accepted['remote'] = $_SERVER['REMOTE_ADDR'];
 
           /** Check how long it took to fill out the form. */
           $accepted['time'] = $this->checkTime( $posted['form_time_posted'] );
@@ -1321,9 +1332,6 @@ class FormProcessor extends FormWriter
                 $accepted[ $suffix ]['field'] = $field;
               }
             } // end foreach
-
-            /** Add the remote (IP) address. */
-            $accepted['remote'] = $_SERVER['REMOTE_ADDR'];
 
           /** Got what we wanted. Let's return it for further processing. */
           return $accepted;
@@ -1611,7 +1619,7 @@ class FormProcessor extends FormWriter
    *
    * @param string $field
    *
-   * @return int|false|null
+   * @return array
    */
   private function checkTime( $field )
   {
@@ -1626,11 +1634,11 @@ class FormProcessor extends FormWriter
         /** Get the current 24 hour time to the nearest second, with leading zeros. */
         $elapsed = $received - (int)$field;
 
+        $time['checked'] = 1;
         $time['stamp'] = date('Y-m-d H:i:s');
         $time['received'] = $received;
         $time['posted'] = (int)$field;
         $time['elapsed'] = $elapsed;
-        $time['checked'] = 1;
 
         if ( $elapsed > 5 && $elapsed < 300 )
         {
@@ -1645,14 +1653,15 @@ class FormProcessor extends FormWriter
     else
     {
       /** No check requested. */
+      $time['checked'] = 0;
       $time['stamp'] = null;
       $time['received'] = null;
       $time['posted'] = null;
       $time['elapsed'] = null;
       $time['score'] = null;
-      $time['checked'] = 0;
     }
 
+    /** Return the time array. */
     return $time;
   }
 
