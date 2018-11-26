@@ -85,7 +85,7 @@ class FormWriter
     'button' => [ 'delay' => [ 'ms' => 3000, ], ],
     'form' => [
       'prefix' => 'form',
-      'referer' => [ 'load' => 1, 'check' => 1 ],
+      'referer' => [ 'load' => 1, 'check' => 1, ],
       'nonce' => [ 'load' => 1, 'check' => 1, ],
     ],
     'required' => [ 'text' => '(required)', ],
@@ -153,7 +153,6 @@ class FormWriter
    */
   private function getSrcFromFile( $file )
   {
-
     /** Remove the part of the path that is before the site root. */
     $src = str_replace( $this->getSitePath(), '', $file['path'] );
 
@@ -305,7 +304,7 @@ class FormWriter
   }
 
   /**
-   * Get the Refererr
+   * Get the Referer
    *
    * This is the domain and URL of the page making the call.
    *
@@ -349,12 +348,6 @@ class FormWriter
     }
   }
 
-
-  // $_SERVER['REMOTE_ADDR'];
-  // $_SERVER['REMOTE_HOST'];
-  // $_SERVER['REQUEST_URI'];
-  // $_SERVER['SERVER_NAME'];
-
   /**
    *  Get Javascript
    *
@@ -372,6 +365,7 @@ class FormWriter
     $str .= '</script>' . PHP_EOL;
     return $str;
   }
+
   /**
    * Set the Switches
    *
@@ -1100,13 +1094,13 @@ class FormProcessor extends FormWriter
 
     if ( $referer == $referred )
     {
-        /**  They are the same. Return true. */
-        return true;
+      /**  They are the same. Return true. */
+      return true;
     }
     else
     {
-        /** They are not the same. Return false. */
-        return false;
+      /** They are not the same. Return false. */
+      return false;
     }
   }
 
