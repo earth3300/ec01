@@ -35,8 +35,8 @@
  *
  * File: form.php
  * Created: 2018-10-15
- * Updated: 2018-11-24
- * Time: 19:20 EST
+ * Updated: 2018-11-25
+ * Time: 19:34 EST
  */
 
 namespace Earth3300\EC01;
@@ -75,7 +75,7 @@ class FormWriter
         'textarea' => [ 'length' => [ 'min' => 4, 'max' => 100, ] ],
         'characters' => [
           'check' => 1,
-          'disallowed' => '~,`,!,@,#,$,%,^,&,*,(,),-,_,+,{,[,},],\,|,;,:,<,>',
+          'disallowed' => '~,`,!,@,#,$,%,^,&,*,(,),-,_,+,{,[,},],|,\,;,:,<,>',
         ],
         'grammar' => [
           'check' => 1,
@@ -85,8 +85,8 @@ class FormWriter
     'button' => [ 'delay' => [ 'ms' => 3000, ], ],
     'form' => [
       'prefix' => 'form',
-      'referer' => [ 'load' => 1, ],
-      'nonce' => [ 'load' => 1 ],
+      'referer' => [ 'load' => 1, 'check' => 1 ],
+      'nonce' => [ 'load' => 1, 'check' => 1, ],
     ],
     'required' => [ 'text' => '(required)', ],
     'security' => [
@@ -279,14 +279,20 @@ class FormWriter
   /**
    * Get the Nonce
    *
-   * This is a "use once" number.
+   * This is a "use once" number. Note that the WordPress nonce is *not* a
+   * "use once" number, but has a limited lifetime. Since once this form is
+   * submitted, it does not need to be submitted again, there should be a choice
+   * to prevent a re-submission from the same device.
+   *
+   * OR: IP . DATE . TIME . URL = UNIQUE?
    *
    * @return string
    */
   protected function getNonce()
   {
     $random = rand();
-    $nonce = hash( 'sha512', $random );
+
+    $nonce = substr( hash( 'sha512', $random ), 0, 10 );
 
     // Store nonce
 
@@ -1117,21 +1123,42 @@ class FormProcessor extends FormWriter
    */
   private function checkNonce( $form, $posted )
   {
-    /** Retrieve the nonce. */
-    $nonce = 'abcd';
+    /** Instantiate the $checked value to "null". */
+    $checked = null;
 
-    if ( 1 || $nonce == $posted[ $this->opts['form']['prefix'] . '_nonce' ] )
+    if ( $this->opts['form']['nonce']['check'] )
     {
-        /**  The nonce checks out. Return true. */
-        return true;
+      /** Received nonce (unique) value. */
+      $received = $posted[ $this->opts['form']['prefix'] . '_nonce' ];
+
+      /** Check to see if the recevied nonce is of a reasonable length. */
+      if ( strlen( $received ) > 4 &&  strlen( $received ) < 20 )
+      {
+        /** Retrieve the nonce. */
+        $sent = '4d64b599ca';
+
+        /** Check sent against received. */
+        if ( 1 || $received == $sent )
+        {
+            /**  The nonce checks out. Return true. */
+            $checked = true;
+        }
+        else
+        {
+            /** The nonce doe not check out. Return false. */
+            $checked = false;
+        }
+      }
+      else
+      {
+        /**  The string lengths do not check out. Something fishy going on here. */
+        $checked = -1;
+      }
     }
-    else
-    {
-        /** Either the referer OR the nonce do not check out. Return false. */
-        return false;
-    }
+
+    /** Return the checked value. */
+    return $checked;
   }
-
   /**
    * Check Hidden Fields Security
    *
@@ -1207,8 +1234,8 @@ class FormProcessor extends FormWriter
         /** It is being checked. */
         $chars['checked'] = 1;
 
-        /** Change the comma separated string into one compatible with regex. */
-        $disallowed = str_replace( ',', '|', $this->opts['input']['characters']['disallowed'] );
+        /** Replace the commas with `|\\`. The double backslash is necessary to escape the value. */
+        $disallowed = str_replace( ',', '|\\', $this->opts['input']['characters']['disallowed'] );
 
         /** Wrap these words with forward slashes ('/') and brackets. */
         $regex = sprintf( '/(%s)/', $disallowed  );
