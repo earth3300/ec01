@@ -63,7 +63,7 @@ class FormWriter
       'javascript' => [ 'load' => 1, ],
     ],
     'file' => [
-      'max' => [ 'num' => 1, 'size' => 1000*10, ],
+      'max' => [ 'num' => 1, 'size' => 10*10, ],
       'write' => [ 'name' => '.data.json', 'max' => 1000*10, ],
       'json' => [ 'name' => 'options.json' ],
       'type' => 'json',
@@ -75,7 +75,7 @@ class FormWriter
         'textarea' => [ 'length' => [ 'min' => 4, 'max' => 100, ] ],
         'characters' => [
           'check' => 1,
-          'disallowed' => '~,`,!,@,#,$,%,^,&,*,(,),-,_,+,{,[,},],|,\,;,:,<,>',
+          'disallowed' => '~,`,!,$,%,^,&,*,(,),-,_,+,{,[,},],|,\,;,:,<,>',
         ],
         'grammar' => [
           'check' => 1,
@@ -297,7 +297,7 @@ class FormWriter
     $str = '<input type="hidden"';
     $str .= sprintf( ' name="%s_nonce"', $this->opts['form']['prefix'] );
     $str .= sprintf( ' value="%s"', $nonce );
-    $str .= '/>' . PHP_EOL;
+    $str .= ' />' . PHP_EOL;
 
     return $str;
   }
@@ -337,7 +337,7 @@ class FormWriter
       $str = '<input type="hidden"';
       $str .= sprintf( ' name="%s_referer"', $this->opts['form']['prefix'] );
       $str .= sprintf( ' value="%s"', $referer );
-      $str .= '/>' . PHP_EOL;
+      $str .= ' />' . PHP_EOL;
 
       return $str;
     }
@@ -620,6 +620,12 @@ class FormTemplate extends FormWriter
           /** Open the radio div, with `class="radio"`. */
           $str = '<div class="radio">' . PHP_EOL;
 
+          if ( $radio['title']['load'] )
+          {
+            /** Load the title for the radio group, if required. */
+            $str .= sprintf('<div class="title">%s</div>%s', $radio['title']['text'], PHP_EOL );
+          }
+
           /** Cycle through the items. */
           foreach ( $radio['items'] as $item )
           {
@@ -648,7 +654,7 @@ class FormTemplate extends FormWriter
                 $str .= isset( $item['default'] ) && $item['default'] ? ' checked' : '';
 
                 /** Close the element, and add a new line. */
-                $str .= '>';
+                $str .= ' />';
 
                 /** Set the label. Put this in the right spot and style accordingly. */
                 $str .= '<label ';
@@ -735,8 +741,8 @@ class FormTemplate extends FormWriter
         /** Set the default, if "default" is set and if it set to "true" or "1". */
         $str .= isset( $item['checked'] ) && $item['checked'] ? ' checked' : '';
 
-        /** Close the element, and add a new line. */
-        $str .= '>';
+        /** Close the input element. Don't add a new line before label. */
+        $str .= ' />';
 
         /** Set the label. Put this in the right spot and style accordingly. */
         $str .= '<label ';
@@ -752,6 +758,9 @@ class FormTemplate extends FormWriter
 
         /** Add a new line (so label can be moved around). */
         $str .= PHP_EOL;
+
+        /** Close the checkbox div. */
+        $str .= '</div><!-- .checkbox -->' . PHP_EOL;
 
         /*
           Should look something like this when done:
@@ -819,7 +828,7 @@ class FormTemplate extends FormWriter
       /** Add a text value, if required. */
       $str .= $item['value']['load'] && $this->opts['testing'] ? $item['value']['text'] : '';
 
-      /** Close the textarea element. */
+      /** Close the textarea element, beginning and ending with a new line. */
       $str .= '</textarea>' . PHP_EOL;
 
       /** Return the string. */
@@ -1132,7 +1141,7 @@ class FormProcessor extends FormWriter
     $resp = null;
 
     /** Check to see if the post is set and if the number of fields submitted is close to what we expect. */
-    if ( isset( $_POST ) && count( $_POST ) > 0 && count ( $_POST ) < 10 )
+    if ( count( $_POST ) > 0 && count ( $_POST ) < 20 )
     {
       /** Remove the $_POST from it's status as a global, and use it internally. */
       $posted = $_POST;
@@ -1429,17 +1438,17 @@ class FormProcessor extends FormWriter
         $regex = sprintf( '/(%s)/', $disallowed  );
 
         /** Match these characters. */
-        $match = preg_match_all( $regex, strtolower( $field ), $matches );
+        $match = preg_match( $regex, strtolower( $field ), $matches );
 
-        if ( $match )
+        if ( ! $match )
         {
-          /** A match found. Could be suspicious (low grade). */
-          $chars['grade'] = 0;
+          /** No match. Good grade. */
+          $chars['grade'] = 1;
         }
         else
         {
-          /** No match found (better grade). */
-          $chars['grade'] = 1;
+          /** Match found. Bad grade. */
+          $chars['grade'] = 0;
         }
       }
     }
@@ -1513,11 +1522,12 @@ class FormProcessor extends FormWriter
    */
   private function checkGrammar( $field )
   {
+    /** Grammar checked and grade. */
+    $grammar['checked'] = null;
+    $grammar['grade'] = null;
+
     if ( $this->opts['input']['grammar']['check'] )
     {
-      /** Grammar grade. */
-      $grade = null;
-
       /** Change the comma separated string into one compatible with regex. */
       $words = str_replace( ',', '|\b', $this->opts['input']['grammar']['words'] );
 
@@ -1525,27 +1535,30 @@ class FormProcessor extends FormWriter
       $regex = sprintf( '/(%s)/', $words  );
 
       /** Match these characters. */
-      $match = preg_match_all( $regex, strtolower( $field ), $matches );
+      $match = preg_match( $regex, strtolower( $field ), $matches );
 
       if ( $match )
       {
         /** A match found. Using a recognizable word. */
-        $grade = 1;
+        $grammar['grade'] = 1;
       }
       else
       {
         /** No match found. Could be suspicious. */
-        $grade = 0;
+        $grammar['grade'] = 0;
       }
+
+      /** The grammar has been checke and a grade assigned. */
+      $grammar['checked'] = 1;
     }
     else
     {
-      /** Nothing there. Return false. */
-      $grade = false;
+      /** No check done. */
+      $grammar['checked'] = false;
     }
 
-    /** Return the grammar grade (primitive). */
-    return $grade;
+    /** Return the grammar check and grade. */
+    return $grammar;
   }
 
   /**
@@ -1561,14 +1574,13 @@ class FormProcessor extends FormWriter
     /** Check to see if we have an array. */
     if ( is_array( $items ) )
     {
-
       /** Get the file to write to. */
       $file = $this->opts['file']['write']['name'];
 
       /** Encode the array, using pretty print and two spaces (not four). */
       if ( $json = $this->jsonEncode( $items ) )
       {
-        /** Get the file size of the file, before we write to it. */
+        /** Get the file size of the file, before we write to it (~ <10000 bytes) */
         $size = filesize( $file );
 
         /** If the file size is greater than allowed, start a new one. */
