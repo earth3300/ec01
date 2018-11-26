@@ -879,69 +879,81 @@ class FormTemplate extends FormWriter
    *
    * @return string|false
    */
-  private function getSelect( $item )
+  private function getSelect( $select )
   {
-    /** Get the options data. */
-    $options = $this->getOptions();
-
     /** Check to see if we have arrays and that they have what we need. */
-    if ( is_array( $item ) && count ( $item ) > 0
-      && is_array( $options ) && count ( $options ) > 0 )
+    if ( is_array( $select )
+      && count ( $select ) > 0
+      && isset( $select['items'] )
+      && count ( $select['items'] ) > 0 )
     {
-      $str = $item['title']['load'] ? $this->getLabel( $item ) : '';
-
-      /** Open the select element. */
-      $str .= '<select';
-
-      /** Don't forget the leading blank space before each attribute. */
-
-      /** Set the id (for use with label and accessibility purposes). */
-      $str .= sprintf( ' id="%s"', $item['name'] );
-
-      /** Set the name (used when posting the form). */
-      $str .= sprintf( ' name="%s_%s"', $this->opts['form']['prefix'], $item['name'] );
-
-      /** Set the size of the drop down. */
-      $str .= sprintf( ' size="%s"', $item['size'] );
-
-      /** Allow multiple items to be selected (or not). It may help to set "size" to > 1, if true. */
-      $str .= $item['multiple'] ? ' multiple' : '';
-
-      /** Close the select tag. */
-      $str .= '>' . PHP_EOL;
-
-      /** Cycle through the options. */
-      foreach ( $options as $option )
+      if ( $select['load'] )
       {
-        /** Process only if the object is slated to be included (loaded). */
-        if ( $option['load'] )
-        {
-          /** If the item is a default, set it to default. */
-          if ( isset( $option['default'] ) && $option['default'] )
-          {
-            /** Set this option value to "selected" if it is the default. */
-            $str .= sprintf( '<option value="%s" selected="true">%s</option>%s',
-              $option['value'], $option['title'], PHP_EOL );
-          }
-          /** Else the item is not a default. */
-          else
-          {
-            /** A normal option (not selected by default. */
-            $str .= sprintf( '<option value="%s">%s</option>%s',
-              $option['value'], $option['title'], PHP_EOL );
-          }
-        }
-      }
-      /** Close the select element. */
-      $str .= '</select>' . PHP_EOL;
+        /** Get the select label (title). */
+        $str = $select['label']['load'] ? $this->getLabel( $select ) : '';
 
-      /** Return the string. */
-      return $str;
+        /** Open the select element. */
+        $str .= '<select';
+
+        /** Don't forget the leading blank space before each attribute. */
+
+        /** Set the id (for use with label and accessibility purposes). */
+        $str .= sprintf( ' id="%s"', $select['name'] );
+
+        /** Set the name (used when posting the form). */
+        $str .= sprintf( ' name="%s_%s"', $this->opts['form']['prefix'], $select['name'] );
+
+        /** Set the size of the drop down. */
+        $str .= sprintf( ' size="%s"', $select['size'] );
+
+        /** Allow multiple items to be selected (or not). It may help to set "size" to > 1, if true. */
+        $str .= $select['multiple'] ? ' multiple' : '';
+
+        /** Close the select tag. */
+        $str .= '>' . PHP_EOL;
+
+        /** Cycle through the options. */
+        foreach ( $select['items'] as $item )
+        {
+          /** Process only if the object is slated to be included (loaded). */
+          if ( $item['load'] )
+          {
+            /** Open the option element. */
+            $str .= '<option';
+
+            /** Set the value of the option element. */
+            $str .= sprintf( ' value="%s"', $item['value'] );
+
+            /** If the item is a default, set it to default (or not). */
+            $str .= isset( $item['default'] ) && $item['default'] ? ' selected="true"' : '';
+
+            /** Close the opening option tag. */
+            $str .= '>';
+
+            /** Set the text of the option element. */
+            $str .= $item['text'];
+
+            /** Close the option element and add a new line. */
+            $str .= '</option>' . PHP_EOL;
+          } // end item load
+        } // end foreach
+
+        /** Close the select element. */
+        $str .= '</select>' . PHP_EOL;
+
+        /** Return the string. */
+        return $str;
+      }
+      else
+      {
+        /** No select element to load, return false. */
+        return false;
+      }
     }
     else
     {
-      /** Nothing here, return false. */
-      return false;
+      /** Something wrong happened. We don't have what we need. */
+      return -1;
     }
   }
 
@@ -1705,11 +1717,21 @@ class FormData extends FormWriter
           'element' => 'select',
           'type' => 'select',
           'name' => 'select',
-          'title' => [ 'text' => 'Select', 'load' => 0 ],
+          'label' => [ 'text' => 'Select', 'load' => 1 ],
           'size' => 1,
           'required' => 1,
           'multiple' => 0,
           'load' => 1,
+          'items' => [
+            [ 'value' => 'abc', 'text' => 'ABC', 'load' => 1, 'default' => 1, ],
+            [ 'value' => 'def', 'text' => 'DEF', 'load' => 1, ],
+            [ 'value' => 'ghi', 'text' => 'GHI', 'load' => 1, ],
+            [ 'value' => 'jkl', 'text' => 'JKL', 'load' => 1, ],
+            [ 'value' => 'mno', 'text' => 'MNO', 'load' => 1, ],
+            [ 'value' => 'pqr', 'text' => 'PQR', 'load' => 1, ],
+            [ 'value' => 'stu', 'text' => 'STU', 'load' => 1, ],
+            [ 'value' => 'vwz', 'text' => 'VWZ', 'load' => 0, ],
+          ],
         ],
       'best_time' => [
         'element' => 'input',
@@ -1775,6 +1797,9 @@ class FormData extends FormWriter
       'phone',
       'subject',
       'message',
+      'select',
+      'radio',
+      'checkbox',
     ];
     return $items;
   }
@@ -1804,21 +1829,6 @@ class FormData extends FormWriter
           'text' => 'There was an error sending your message.',
           'load' => 1,
         ],
-    ];
-    return $items;
-  }
-
-  public function options()
-  {
-    $items = [
-      [ 'value' => 'abc', 'title' => 'ABC', 'load' => 1, 'default' => 1, ],
-      [ 'value' => 'def', 'title' => 'DEF', 'load' => 1, ],
-      [ 'value' => 'ghi', 'title' => 'GHI', 'load' => 1, ],
-      [ 'value' => 'jkl', 'title' => 'JKL', 'load' => 1, ],
-      [ 'value' => 'mno', 'title' => 'MNO', 'load' => 1, ],
-      [ 'value' => 'pqr', 'title' => 'PQR', 'load' => 1, ],
-      [ 'value' => 'stu', 'title' => 'STU', 'load' => 1, ],
-      [ 'value' => 'vwz', 'title' => 'VWZ', 'load' => 0, ],
     ];
     return $items;
   }
