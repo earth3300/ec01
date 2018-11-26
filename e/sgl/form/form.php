@@ -327,7 +327,7 @@ class FormWriter
     $uid .= '-' . $_SERVER['SERVER_PROTOCOL'];
 
     /** Add the Server address. */
-    $uid .= '-' . $_SERVER['HTTPS'];
+    $uid .= isset( $_SERVER['HTTPS'] ) ?  '-' . $_SERVER['HTTPS'] : '-' . '0';
 
     /** Add the Server address (with a dash). */
     $uid .= '-' . $_SERVER['SERVER_ADDR'];
