@@ -29,8 +29,8 @@
  *
  * File: css.php
  * Created: 2018
- * Updated: 2018-11-22
- * Time: 10:26 EST
+ * Updated: 2018-11-26
+ * Time: 11:13 EST
  */
 
 namespace Earth3300\EC01;
@@ -308,13 +308,14 @@ class CSS
       {
         $this->minify( $str );
       }
+      else
       {
         $file = $this->opts['file']['write']['all'];
       }
 
-      $response = file_put_contents( $file, $str );
+      $resp = file_put_contents( $file, $str );
 
-      return $response;
+      return $resp;
     }
   }
 

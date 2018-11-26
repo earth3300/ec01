@@ -35,8 +35,8 @@
  *
  * File: form.php
  * Created: 2018-10-15
- * Updated: 2018-11-25
- * Time: 19:34 EST
+ * Updated: 2018-11-26
+ * Time: 13:10 EST
  */
 
 namespace Earth3300\EC01;
@@ -147,7 +147,7 @@ class FormWriter
   /**
    * Get the source from the file, checking for a preceding slash.
    *
-   * @param string $str
+   * @param array $file
    *
    * @return string
    */
@@ -194,7 +194,6 @@ class FormWriter
   /**
    * Get the File Path
    *
-   * @param array $file
    * @param array $args
    *
    * @return string
@@ -283,7 +282,7 @@ class FormWriter
    * submitted, it does not need to be submitted again, there should be a choice
    * to prevent a re-submission from the same device.
    *
-   * OR: IP . DATE . TIME . URL = UNIQUE?
+   * OR: IP . DATE . TIME . URL = UNIQUE? (+ maybe DEVICE).
    *
    * @return string
    */
@@ -490,6 +489,14 @@ class FormTemplate extends FormWriter
               $str .= $this->getInput( $item );
               break;
 
+            case 'radio' :
+              $str .= $this->getRadio( $item );
+              break;
+
+            case 'checkbox' :
+              $str .= $this->getCheckbox( $item );
+              break;
+
             case 'select' :
               $str .= $this->getSelect( $item );
               break;
@@ -510,7 +517,8 @@ class FormTemplate extends FormWriter
       $str .= $this->getSubmit( $form );
 
       /** Form response div. */
-      $str .= sprintf('<div class="%s-response">%s</div>%s', $this->opts['form']['prefix'], $resp['response'], PHP_EOL );
+      $str .= sprintf('<div class="%s-response">%s</div>%s',
+        $this->opts['form']['prefix'], $resp['response'], PHP_EOL );
 
       /** Close the form. */
       $str .= '</form>' . PHP_EOL;
@@ -580,6 +588,192 @@ class FormTemplate extends FormWriter
     {
       /** Nothing here. Return false. */
       return false;
+    }
+  }
+
+  /**
+   * Get Radio Element
+   *
+   * A radio element is an input element with `type` set to "radio". The difference
+   * is that there is more than one radio element to make a group. These are not
+   * grouped by wrapping them in an element, they are grouped by having the same
+   * name (`name`="name"). The difference is in assigning a different value to
+   * each. The parameter needs to have a sub array to  make it work. Don't forget
+   * the label.
+   *
+   * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/radio
+   *
+   * @param array $radio
+   *
+   * @return string
+   */
+  private function getRadio( $radio )
+  {
+    /** Make sure the paramater is an array, and that it has "type" set, etc. */
+    if ( is_array( $radio ) && isset( $radio['type'] ) && 'radio' == $radio['type'] )
+    {
+      if ( $radio['load'] )
+        {
+        /** Check to make sure we have a sub array and that it has more than one item. */
+        if ( isset( $radio['items'] ) && count( $radio['items'] ) > 1 )
+        {
+          /** Open the radio div, with `class="radio"`. */
+          $str = '<div class="radio">' . PHP_EOL;
+
+          /** Cycle through the items. */
+          foreach ( $radio['items'] as $item )
+          {
+            /** Basic check. */
+            if ( isset( $item['name'] ) && count( $item > 3 ) )
+            {
+              /** Create the item, only if required. */
+              if ( $item['load'] )
+              {
+                /** Set the id. This is used in the id and the label. These two must be the same. */
+                $id = sprintf( '%s_%s_%s' , $this->opts['form']['prefix'], $item['name'], $item['value'] );
+
+                /** Open the input element. */
+                $str .= '<input type="radio"';
+
+                /** Set the id (must be unique). Start with a blank space and end with a new line. */
+                $str .= sprintf( ' id="%s"', $id );
+
+                /** Set the name (must be the same for all radio elements). Note $radio[], not $item[] here. */
+                $str .= sprintf( ' name="%s_%s"', $this->opts['form']['prefix'], $radio['name'] );
+
+                /** Set the value (required). Must be unique. Used when processing the form.*/
+                $str .= sprintf( ' value="%s"', $item['value'] );
+
+                /** Set the default, if "default" is set and if it set to "true" or "1". */
+                $str .= isset( $item['default'] ) && $item['default'] ? ' checked' : '';
+
+                /** Close the element, and add a new line. */
+                $str .= '>';
+
+                /** Set the label. Put this in the right spot and style accordingly. */
+                $str .= '<label ';
+
+                /** Set the "for" to equal the id of the radio element. */
+                $str .= sprintf( 'for="%s">', $id );
+
+                /** Set the text of the label. */
+                $str .= $item['text'];
+
+                /** Close the label. */
+                $str .= '</label>';
+
+                /** Add a new line (so label can be moved around). */
+                $str .= PHP_EOL;
+              }
+            }
+            else
+            {
+              //not enough there.
+              pre_dump( $item );
+              break;
+            }
+          }
+
+          /** Close the radio div. */
+          $str .= '</div><!-- .radio -->' . PHP_EOL;
+
+          /* Should look like the following when done.
+            <div class="radio">
+            <input type="radio" id="contactChoice2"
+             name="contact" value="phone">
+            <label for="contactChoice2">Phone</label>
+            </div><!-- .radio -->
+          */
+
+          /** Return the string. */
+          return $str;
+        }
+        else
+        {
+          /** Something is wrong. No items to work with. */
+          return -1;
+        }
+      }
+    }
+    else
+    {
+      /** Nothing to work with. */
+      return false;
+    }
+  }
+
+  /**
+   * Get Checkbox
+   *
+   */
+   private function getCheckbox( $item )
+   {
+
+    /** Make sure the paramater is an array, and that it has "type" set, etc. */
+    if ( is_array( $item ) && isset( $item['type'] ) && 'checkbox' == $item['type'] )
+     {
+      if ( $item['load'] )
+       {
+        /** Open the div, with `class="checkbox"`. */
+        $str = '<div class="checkbox">' . PHP_EOL;
+
+        /** Set the id. This is used in the id and the label. These two must be the same. */
+        $id = sprintf( '%s_%s' , $this->opts['form']['prefix'], $item['name'] );
+
+        /** Open the input element. */
+        $str .= '<input type="checkbox"';
+
+        /** Set the id (must be unique). Start with a blank space. */
+        $str .= sprintf( ' id="%s"', $id );
+
+        /** Set the name (used when posting). */
+        $str .= sprintf( ' name="%s_%s"', $this->opts['form']['prefix'], $item['name'] );
+
+        /** Set the value (required). Must be unique. Used when processing the form.*/
+        $str .= sprintf( ' value="%s"', $item['value'] );
+
+        /** Set the default, if "default" is set and if it set to "true" or "1". */
+        $str .= isset( $item['checked'] ) && $item['checked'] ? ' checked' : '';
+
+        /** Close the element, and add a new line. */
+        $str .= '>';
+
+        /** Set the label. Put this in the right spot and style accordingly. */
+        $str .= '<label ';
+
+        /** Set the "for" to equal the id of the radio element. */
+        $str .= sprintf( 'for="%s">', $id );
+
+        /** Set the text of the label. */
+        $str .= $item['text'];
+
+        /** Close the label. */
+        $str .= '</label>';
+
+        /** Add a new line (so label can be moved around). */
+        $str .= PHP_EOL;
+
+        /*
+          Should look something like this when done:
+          <div class="checkbox">
+          <input type="checkbox" id="subscribeNews" name="subscribe" value="newsletter">
+          <label for="subscribeNews">Subscribe to newsletter?</label>
+          </div>
+        */
+
+        /** Done. Return the string. */
+        return $str;
+      }
+      else
+      {
+        /** Nothing to load. */
+        return false;
+      }
+    }
+    else
+    {
+      /** Don't have what we need. Something wrong. */
+      return -1;
     }
   }
 
@@ -1529,6 +1723,31 @@ class FormData extends FormWriter
         'disallowed' => 1,
         'load' => 1,
       ],
+      'checkbox' => [
+        'element' => 'checkbox',
+        'type' => 'checkbox',
+        'name' => 'checkbox',
+        'value' => 'check-1',
+        'text' => 'Checkbox',
+        'checked' => 1,
+        'load' => 1,
+      ],
+      'radio' => [
+        'element' => 'radio',
+        'type' => 'radio',
+        'name' => 'radio',
+        'title' => [ 'text' => 'Radio', 'load' => 1 ],
+        'placeholder' => null,
+        'length' => null,
+        'required' => null,
+        'load' => 1,
+        'items' => [
+          [ 'value' => 'value-1', 'name' => 'type-1', 'text' => 'Type 1', 'load' => 1, 'default' => 1 ],
+          [ 'value' => 'value-2', 'name' => 'type-1', 'text' => 'Type 2', 'load' => 1 ],
+          [ 'value' => 'value-3', 'name' => 'type-1', 'text' => 'Type 3', 'load' => 1 ],
+          [ 'value' => 'value-4', 'name' => 'type-1', 'text' => 'Type 4', 'load' => 0 ],
+        ],
+      ],
     ];
     return $items;
   }
@@ -1580,8 +1799,8 @@ class FormData extends FormWriter
   public function options()
   {
     $items = [
-      [ 'value' => 'abc', 'title' => 'ABC', 'load' => 1, 'default' => 0, ],
-      [ 'value' => 'def', 'title' => 'DEF', 'load' => 1, 'default' => 1 ],
+      [ 'value' => 'abc', 'title' => 'ABC', 'load' => 1, 'default' => 1, ],
+      [ 'value' => 'def', 'title' => 'DEF', 'load' => 1, ],
       [ 'value' => 'ghi', 'title' => 'GHI', 'load' => 1, ],
       [ 'value' => 'jkl', 'title' => 'JKL', 'load' => 1, ],
       [ 'value' => 'mno', 'title' => 'MNO', 'load' => 1, ],
