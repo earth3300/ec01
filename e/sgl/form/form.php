@@ -35,8 +35,8 @@
  *
  * File: form.php
  * Created: 2018-10-15
- * Updated: 2018-11-26
- * Time: 15:59 EST
+ * Updated: 2018-11-27
+ * Time: 08:27 EST
  */
 
 namespace Earth3300\EC01;
@@ -86,6 +86,7 @@ class FormWriter
     'form' => [
       'file' => 'form.json',
       'prefix' => 'form',
+      'expiry' => [ 'load' => 1, 'check' => 1, ],
       'referer' => [ 'load' => 1, 'check' => 1, ],
       'nonce' => [ 'load' => 0, 'check' => 0, ],
       'uid' => [ 'load' => 1, 'check' => 1, ],
@@ -319,7 +320,6 @@ class FormWriter
   {
     /** Initialize the uid. */
     $uid = null;
-
     /** Add the Server Signature. */
     $uid .= $_SERVER['SERVER_SIGNATURE'];
 
@@ -1302,12 +1302,13 @@ class FormProcessor extends FormWriter
             if ( $type && in_array( $suffix , $authorized ) )
             {
               /** If the key value is the right length, accept. */
-              if ( ! empty( $field )
-                && isset( $form['form'][ $suffix ] )
-                && strlen( $field ) >= $form['form'][ $suffix ]['length']['min']
-                && strlen( $field ) <= $form['form'][ $suffix ]['length']['max'] )
+              if ( strlen( $field ) > 0 && isset( $form['form'][ $suffix ] ) )
+              {
+                /** Select the fields that accept free form text. */
+                if ( in_array( $type, [ 'text', 'email', 'textarea' ]  ) )
                 {
-                  if ( in_array( $type, [ 'text', 'email', 'textarea' ] ) )
+                  /** Check the field length. */
+                  if ( $this->checkFieldLength( $form, $field, $suffix ) )
                   {
                     /** Check the characters. */
                     $chars = $this->checkCharacters( $field );
@@ -1330,7 +1331,8 @@ class FormProcessor extends FormWriter
                 }
 
                 $accepted[ $suffix ]['field'] = $field;
-              }
+                }
+              } // end authorized.
             } // end foreach
 
           /** Got what we wanted. Let's return it for further processing. */
@@ -1355,6 +1357,33 @@ class FormProcessor extends FormWriter
     }
   }
 
+  /**
+   * Check Field Length
+   *
+   */
+  private function checkFieldLength( $form, $field, $suffix )
+  {
+    /** Check to see if the field length is available (and therefore applicable. */
+    if ( isset( $form['form'][ $suffix ]['length'] ) )
+    {
+       if ( strlen( $field ) >= $form['form'][ $suffix ]['length']['min']
+         && strlen( $field ) <= $form['form'][ $suffix ]['length']['max'] )
+         {
+          /** Length checks out. */
+          return true;
+         }
+         else
+         {
+           /** Length does not check out. */
+           return false;
+         }
+    }
+    else
+    {
+      /** Field length is not available. */
+      return -1;
+    }
+  }
   /**
    * Filter Entities
    *
@@ -1577,6 +1606,7 @@ class FormProcessor extends FormWriter
   {
     /** Initialize. */
     $chars['checked'] = 0;
+    $chars['length'] = null;
     $chars['grade'] = null;
 
     if ( $this->opts['input']['characters']['check'] )
@@ -1585,6 +1615,9 @@ class FormProcessor extends FormWriter
       {
         /** It is being checked. */
         $chars['checked'] = 1;
+
+        /** Capture the string length. */
+        $chars['length'] = strlen( $field );
 
         /** Replace the commas with `|\\`. The double backslash is necessary to escape the value. */
         $disallowed = str_replace( ',', '|\\', $this->opts['input']['characters']['disallowed'] );
