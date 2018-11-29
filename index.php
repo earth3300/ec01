@@ -14,7 +14,7 @@ define( 'NDA', true );
 define( 'SITE_NORMAL', true );
 
 /** Site is local, or not */
-if ( '127.0.0.1' == $_SERVER['REMOTE_ADDR'] )
+if ( '127.0.0.1' == $_SERVER['SERVER_ADDR'] )
 {
     define( 'SITE_IS_LOCAL', true );
     define( 'SITE_IS_ONLINE', false );
@@ -29,7 +29,7 @@ else
 define( 'SITE_ENGINE_MAIN', 'wordpress' );
 
 /** The backup engine ( use the correct word, with no typos). */
-define( 'SITE_ENGINE_BACKUP', 'ec01-html' );
+define( 'SITE_ENGINE_BACKUP', 'htm' );
 
 /** The config path and file. */
 define( 'SITE_CONFIG_LOAD', '/c/cfg/cfg-load.php' );
