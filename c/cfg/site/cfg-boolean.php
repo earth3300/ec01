@@ -33,8 +33,15 @@ define( 'SITE_INDEX_ALLOW', false );
 /** Default: false */
 define( 'SITE_USE_CSS_MIN', false );
 
-/** Default: false */
-define( 'SITE_USE_CSS_ALL', false );
+if ( '127.0.0.1' == $_SERVER['SERVER_ADDR'] )
+{
+  /** Do  not use a single concatenated file if on a local machine. */
+  define( 'SITE_USE_CSS_ALL', false );
+}
+else {
+  /** Use a single concatenated file if online. */
+  define( 'SITE_USE_CSS_ALL', true );
+}
 
 /** Default: true (more basic). */
 define( 'SITE_USE_CSS_CHILD', true );

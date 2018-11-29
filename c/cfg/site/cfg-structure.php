@@ -29,6 +29,11 @@
  *
  * Clearly, the second example easier to work with as the main function of the
  * "/e" directory is the "engine" or the core. Simpler is better.
+ *
+ * File: cfg-structure.php
+ * Created: 2018-00-00
+ * Updated: 2018-11-29
+ * Time: 13:44 EST
  */
 
 ( defined( 'NDA' ) || defined( 'WP_ADMIN' ) ) || exit;
