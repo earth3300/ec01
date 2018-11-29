@@ -26,7 +26,7 @@ else
 }
 
 /** The main engine ( use the correct word, with no typos). */
-define( 'SITE_ENGINE_MAIN', 'wordpress' );
+define( 'SITE_ENGINE_MAIN', 'cre' );
 
 /** The backup engine ( use the correct word, with no typos). */
 define( 'SITE_ENGINE_BACKUP', 'htm' );
