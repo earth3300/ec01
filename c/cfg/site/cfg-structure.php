@@ -87,13 +87,13 @@ define( 'SITE_U_DIR', '/u' );
 define( 'SITE_COMMONS_DIR', '/1/cmn' );
 
 /** Configuration directory. !Important */
-define( 'SITE_CONFIG_DIR', '/c/config' );
+define( 'SITE_CONFIG_DIR', '/c/cfg' );
 
 /** Alt(ernative) framework directory. */
 define( 'SITE_ALT_DIR', '/alt' );
 
 /** Directory for the minimal framework. */
-define( 'SITE_MINIMAL_DIR', '/a/ec01-html' );
+define( 'SITE_MINIMAL_DIR', '/a/htm' );
 
 /** Main (core) directory */
 define( 'SITE_CORE_DIR', '/e/cre' );
