@@ -76,8 +76,8 @@ class FormWriter
     ],
     'file' => [
       'max' => [ 'num' => 1, 'size' => 10*10, ],
-      'read' => [ 'name' => 'form.json', 'load' => 1, ],
-      'write' => [ 'name' => '.data.json', 'max' => 1000*10, ],
+      'read' => [ 'load' => 1, 'name' => 'form.json', ],
+      'write' => [ 'allowed' => 1, 'name' => '.data.json', 'max' => 1000*10, ],
       'type' => 'json',
       'ext' => '.json',
       'this' => 'form.php',
@@ -137,7 +137,7 @@ class FormWriter
     /** Deliver the HTML. */
     return $html;
 
-    /** Done!. */
+    /** Done! */
   }
 
   /**
@@ -196,68 +196,6 @@ class FormWriter
     {
       /** Don't have what we need. */
       return -1;
-    }
-  }
-
-  /**
-   * Write Form
-   *
-   * Write the form to a JSON file, if requested and allowed.
-   *
-   * @return int|false
-   */
-  private function writeForm()
-  {
-    /** If authorized, continue. */
-    if ( $this->opts['form']['write']['allow'] )
-    {
-      /** If requested, continue. */
-      if( isset( $_GET['write'] ) && isset( $_GET['form'] ) )
-      {
-        /** If security protocol is in place, continue. */
-        if ( file_exists( __DIR__ . '/' . '.security' ) )
-        {
-          /** If on a local machine, continue. */
-          /*
-          Note: This means this will only work on a local machine, which
-          may be a problem for some. It will mean that they will need to set up
-          a desktop or laptop computer with a local server, that they can then use
-          to perform this action. This may be too much for some. *However*, it is
-          *much* more secure and is like placing a lock on the front door versus
-          not placing a lock on the front door. It is asking for trouble by
-          leaving the door wide open. Actually, with this restriction, the security
-          increases by an order of magnitude. Therefore it should be encouraged
-          to work this way.
-
-          The following check may not work on all servers. However, the goal is
-          to encourage consistency of platforms, so that there are fewer internal
-          variations to have to worry about.
-          */
-          if ( '127.0.0.1' == $_SERVER['SERVER_ADDR'] )
-          {
-            /** Get the data. This can be from an internal array or JSON file, as needed. */
-            $data = new FormData();
-            $form = $data->form();
-
-            /** Call the writer. This will transform the data as needed, and write it to a file. */
-            $writer = new JsonWriter();
-            $resp = $writer->write( $file, $form );
-
-            /** Print out the response for viewing, if in testing mode. */
-            if ( $this->opts['testing'] )
-            {
-              echo "<pre>";
-              var_dump( $resp );
-              echo "</pre>";
-            }
-          }
-        }
-        else
-        {
-          /** Not requested. */
-          return null;
-        }
-      }
     }
   }
 
@@ -648,51 +586,7 @@ class FormWriter
     return $str;
   }
 
-} // End FormWriter
-
-/**
- * Class JsonWriter
- */
-class JsonWriter extends FormWriter
-{
   /**
-   * Write
-   *
-   * Takes an array, checks it, encodes the array as Json, with pretty
-   * print and two spaces then prints it to a file.
-   *
-   * @param array $items
-   *
-   * @return bool
-   */
-  protected function write( $file, $items )
-  {
-    /** If $items is an array and something is there, continue. */
-    if ( is_array( $items ) && count( $items ) > 1 )
-    {
-      /** Encode the array. */
-      $json = $this->jsonEncode( $items );
-
-      /** Write the JSON string to a file. */
-      if ( $resp = file_put_contents( $file, $json ) )
-      {
-         /** Return the response for inspection or viewing. */
-         return $resp;
-      }
-      else
-      {
-        /** It didn't work. */
-        return false;
-       }
-     }
-     else
-     {
-       /** We didn't get what we needed to do the job. Go back one space. */
-      return -1;
-     }
-  }
-
-   /**
     * Json Encode
     *
     * Encode the array as JSON using JSON_PRETTY_PRINT, then use only two spaces
@@ -708,7 +602,8 @@ class JsonWriter extends FormWriter
   protected function jsonEncode( $items = [] )
   {
     /** Ensure $items is an array and that it is non-trivial ( > 1 item ). */
-    if ( is_array( $items ) and count( $items > 1 ) )
+    if ( is_array( $items )
+    && count( $items > 1 ) && count( $items) < 1000 )
     {
       /** Perform a regular expression search and replace using a callback. */
       $json = preg_replace_callback ('/^ +/m', function( $match )
@@ -728,7 +623,148 @@ class JsonWriter extends FormWriter
       return false;
     }
   }
-} // End JsonWriter
+
+  /**
+   * Write Form
+   *
+   * Write the form to a JSON file, if requested and allowed.
+   *
+   * @return int|false
+   */
+  protected function writeForm( $form )
+  {
+    /** If authorized, continue. */
+    if ( $this->opts['form']['write']['allow'] )
+    {
+      /** If requested, continue. */
+      if( 1 || isset( $_GET['write'] ) && isset( $_GET['form'] ) )
+      {
+        /** If security protocol is in place, continue. */
+        if ( file_exists( __DIR__ . '/' . '.security' ) )
+        {
+          /** If on a local machine, continue. */
+          /*
+          Note: This means this will only work on a local machine, which
+          may be a problem for some. It will mean that they will need to set up
+          a desktop or laptop computer with a local server, that they can then use
+          to perform this action. This may be too much for some. *However*, it is
+          *much* more secure and is like placing a lock on the front door versus
+          not placing a lock on the front door. It is asking for trouble by
+          leaving the door wide open. Actually, with this restriction, the security
+          increases by an order of magnitude. Therefore it should be encouraged
+          to work this way.
+
+          The following check may not work on all servers. However, the goal is
+          to encourage consistency of platforms, so that there are fewer internal
+          variations to have to worry about.
+          */
+          if ( '127.0.0.1' == $_SERVER['SERVER_ADDR'] )
+          {
+            /** Define the file. */
+            $file = __DIR__ . '/' . $this->opts['file']['read']['name'];
+
+            /** Call the writer. This will transform the data as needed, and write it to a file. */
+            $resp = $this->writeFile( $file, $form );
+
+            /** Print out the response for viewing, if in testing mode. */
+            if ( $this->opts['testing'] )
+            {
+              echo "<pre>";
+              var_dump( $resp );
+              echo "</pre>";
+            }
+          }
+        }
+        else
+        {
+          /** Not requested. */
+          return null;
+        }
+      }
+    }
+  }
+
+  /**
+   * Write
+   *
+   * Takes an array, checks it, encodes the array as JSON, with pretty
+   * print and two spaces then prints it to a file.
+   *
+   * @param array $items
+   *
+   * @return bool
+   */
+  protected function writeFile( $file, $items )
+  {
+    /** If $items is an array and something is there, continue. */
+    if ( is_array( $items )
+    && count( $items ) > 1 && count( $items ) < 1000 )
+    {
+      /** Encode the array. Assume this can be done. */
+      $json = $this->jsonEncode( $items );
+      echo 'count: ' . count( $items );
+      /** Write the JSON string to a file. */
+      if ( $resp = file_put_contents( $file, $json ) )
+      {
+         /** Return the response for inspection or viewing. */
+         return $resp;
+      }
+      else
+      {
+        /** It didn't work. */
+        return false;
+       }
+     }
+     else
+     {
+       /** We didn't get what we needed to do the job. Go back one space. */
+      return -1;
+     }
+  }
+
+  /**
+   * Write the Fields to a JSON File
+   * .
+   * @return bool
+   */
+  protected function writeData( $items )
+  {
+    /** Initialize the response as null. */
+    $resp = null;
+
+    /** Check to see if we have an array. */
+    if ( is_array( $items ) )
+    {
+      /** Get the file to write to. */
+      $file = $this->opts['file']['write']['name'];
+
+      /** Encode the array, using pretty print and two spaces (not four). */
+      if ( $json = $this->jsonEncode( $items ) )
+      {
+        /** Get the file size of the file, before we write to it (~ <10000 bytes) */
+        $size = filesize( $file );
+
+        /** If the file size is greater than allowed, start a new one. */
+        if ( $size > $this->opts['file']['write']['max'] )
+        {
+            /** Write a new file, receiving the response. */
+          $resp = file_put_contents( $file, $json );
+        }
+        /** Else, append to the file. */
+        else
+        {
+          /** Append to the file, receiving the response. */
+          $resp = file_put_contents( $file, $json, FILE_APPEND );
+        }
+      }
+    }
+    else
+    {
+      /** Return the response (null|false|bytes). */
+      return $resp;
+    }
+  }
+} // End FormWriter
 
 /**
  * Class FormTemplate
@@ -1366,39 +1402,6 @@ class FormTemplate extends FormWriter
   }
 
   /**
-   * Write the Options Data to a File for a Select Element.
-   *
-   * This only needs to occur once and is here allowed ONLY on a local server,
-   * (not online).
-   *
-   * @param array $items
-   *
-   * @return string|false
-   */
-  private function writeOptions( $items )
-  {
-    /** If requested, if local and if authorized. */
-    if (  '127.0.0.1' == $_SERVER['REMOTE_ADDR']
-          && file_exists( __DIR__ . '/.security' )
-          && isset( $_GET['print'] )
-          && isset( $_GET['unlock'] ) )
-    {
-      /** Set the response to false. */
-      $resp = false;
-
-      /** Encode the array to JSON (2 space indenting). */
-      if ( $json = $this->jsonEncode( $options ) )
-      {
-        /** Write the string to a file.  */
-        $resp = file_put_contents ( __DIR__ . '/options.json', $json );
-      }
-    }
-
-    /** Return the results of the operation. */
-    return $resp;
-  }
-
-  /**
    * Process the Form.
    *
    * @return array|false
@@ -1449,8 +1452,8 @@ class FormProcessor extends FormWriter
       /** Check the form and receive the response. */
       if ( $items = $this->check( $form, $posted ) )
       {
-        /** Write the items to a file. */
-        $resp = $this->write( $items );
+        /** Write the items to the file specified in the function. */
+        $resp = $this->writeData( $items );
       }
     }
     else
@@ -1485,7 +1488,7 @@ class FormProcessor extends FormWriter
     if ( $accepted['referer'] = $this->checkReferer( $posted ) )
     {
       /** Check the hidden fields for strange data. */
-      if ( $accepted['hidden'] = $this->hiddenFieldSecurity( $form, $posted ) )
+      if ( $accepted['hidden'] = $this->checkHiddenFields( $form, $posted ) )
       {
         /** Check the uid. */
         if ( $accepted['uid'] = $this->checkUid( $form, $posted ) )
@@ -1493,7 +1496,7 @@ class FormProcessor extends FormWriter
           $data = new FormData();
 
           /** Get the authorized form fields. */
-          $authorized = $data->authorized();
+          $authorized = $data->authorizedFields();
 
           /** Add the remote (IP) address. */
           $accepted['remote'] = $_SERVER['REMOTE_ADDR'];
@@ -1724,7 +1727,7 @@ class FormProcessor extends FormWriter
    *
    * @return bool
    */
-  private function hiddenFieldSecurity( $form, $posted )
+  private function checkHiddenFields( $form, $posted )
   {
     /** Check only if required. (May not be required in all instances. */
     if( $this->opts['security']['check'] )
@@ -1961,49 +1964,6 @@ class FormProcessor extends FormWriter
     /** Return the grammar check and grade. */
     return $grammar;
   }
-
-  /**
-   * Write the Fields to a JSON File
-   * .
-   * @return bool
-   */
-  private function write( $items )
-  {
-    /** Initialize the response as null. */
-    $resp = null;
-
-    /** Check to see if we have an array. */
-    if ( is_array( $items ) )
-    {
-      /** Get the file to write to. */
-      $file = $this->opts['file']['write']['name'];
-
-      /** Encode the array, using pretty print and two spaces (not four). */
-      if ( $json = $this->jsonEncode( $items ) )
-      {
-        /** Get the file size of the file, before we write to it (~ <10000 bytes) */
-        $size = filesize( $file );
-
-        /** If the file size is greater than allowed, start a new one. */
-        if ( $size > $this->opts['file']['write']['max'] )
-        {
-            /** Write a new file, receiving the response. */
-          $resp = file_put_contents( $file, $json );
-        }
-        /** Else, append to the file. */
-        else
-        {
-          /** Append to the file, receiving the response. */
-          $resp = file_put_contents( $file, $json, FILE_APPEND );
-        }
-      }
-    }
-    else
-    {
-      /** Return the response (null|false|bytes). */
-      return $resp;
-    }
-  }
 } // End Form Processor Class.
 
 /**
@@ -2013,7 +1973,6 @@ class FormProcessor extends FormWriter
  */
 class FormData extends FormWriter
 {
-
   /**
    * Get Form Data
    *
@@ -2025,6 +1984,35 @@ class FormData extends FormWriter
   public function getData()
   {
     /** Switch here to retrieve array or json file. */
+    if ( $items = $this->getFile() )
+    {
+      return $items;
+    }
+    elseif ( $items = $this->getArray() )
+    {
+      /** We need to write this to a file, as that is our preferred method. */
+      $resp = $this->writeForm( $items );
+
+      /** Return the items. */
+      return $items;
+    }
+    else
+    {
+      return false;
+    }
+  }
+
+  /**
+   * Get Form Data
+   *
+   * Gets the form data from whereever it may reside.
+   * Here is calls it from the FormData class.
+   *
+   * @return array
+   */
+  protected function getFile()
+  {
+    /** Switch here to retrieve array or json file. */
     if ( $this->opts['file']['read']['load'] )
     {
       /** Specify the file in the current directory. */
@@ -2033,51 +2021,49 @@ class FormData extends FormWriter
       if ( file_exists( $file ) )
       {
         /** If the file exists, get the contents. */
-        $str = file_get_contents( $file );
+        $json = file_get_contents( $file );
 
         /** Check the string length. */
-        if ( strlen( $str ) > 4 && strlen( $str < 10000 ) )
+        if ( strlen( $json ) > 4 && strlen( $json ) < 10000 )
         {
           /** Translate the (expected) JSON string into an array. */
-          $json = json_decode( $str, true );
+          $items = json_decode( $json, true );
 
-          if ( is_array( $json ) && count( $json ) > 0 )
+          if ( is_array( $items ) && count( $items ) > 0 && count( $items ) < 1000 )
           {
             /** If it is an array, with something in it, return it. */
-            return $json;
+            return $items;
           }
           else
           {
-            /** Else, Problem. */
-            return -2;
+            /** Not an array or not the right number of items. */
+            return false;
           }
         }
         else
         {
-          return -1;
+          /** String the wrong length. */
+          return false;
         }
       }
       else
       {
-        echo "Please write me.";
-      
-        /** No file. We have to write it, if requested.*/
-       return $resp;
+        /** File does not exist. */
+        return false;
       }
     }
     else
     {
-      /** Return the form data. */
-      return $this->form();
+      /** File not requested. */
+      return null;
     }
   }
-
   /**
    *  Form
    *
    * @return array
    */
-  private function form()
+  private function getArray()
   {
     $items = [
       0 => [
@@ -2215,7 +2201,7 @@ class FormData extends FormWriter
   /**
    * Authorized form fields
    */
-  protected function authorized()
+  public function authorizedFields()
   {
     $items = [
       'name',
@@ -2226,20 +2212,6 @@ class FormData extends FormWriter
       'select',
       'radio',
       'checkbox',
-    ];
-    return $items;
-  }
-
-  /**
-   * Meta
-   *
-   * @return array
-   */
-  public function meta()
-  {
-    $items =
-    [
-
     ];
     return $items;
   }

@@ -1,0 +1,264 @@
+[
+  {
+    "name": {
+      "element": "input",
+      "type": "text",
+      "name": "name",
+      "title": {
+        "text": "Your Name (required)",
+        "load": 1
+      },
+      "placeholder": {
+        "text": "Name",
+        "load": 1
+      },
+      "value": {
+        "text": "Your Name Here",
+        "load": 1
+      },
+      "length": {
+        "min": 4,
+        "max": 40
+      },
+      "required": 1,
+      "load": 1
+    },
+    "email": {
+      "element": "input",
+      "type": "email",
+      "name": "email",
+      "title": {
+        "text": "Your Email (required)",
+        "load": 1
+      },
+      "placeholder": {
+        "text": "Email",
+        "load": 1
+      },
+      "value": {
+        "text": "your@email.here",
+        "load": 1
+      },
+      "length": {
+        "min": 4,
+        "max": 40
+      },
+      "required": 1,
+      "load": 1
+    },
+    "subject": {
+      "element": "input",
+      "type": "text",
+      "name": "subject",
+      "title": {
+        "text": "Subject",
+        "load": 1
+      },
+      "placeholder": {
+        "text": "Subject",
+        "load": 1
+      },
+      "value": {
+        "text": "Lorem ipsum dolor sit amet",
+        "load": 1
+      },
+      "length": {
+        "min": 4,
+        "max": 200
+      },
+      "required": 0,
+      "load": 1
+    },
+    "message": {
+      "element": "textarea",
+      "type": "textarea",
+      "name": "message",
+      "title": {
+        "text": "Your Message",
+        "load": 1
+      },
+      "placeholder": {
+        "text": "Message",
+        "load": 1
+      },
+      "value": {
+        "text": "Lorem ipsum dolor sit amet",
+        "load": 1
+      },
+      "length": {
+        "min": 4,
+        "max": 400
+      },
+      "required": 0,
+      "load": 1
+    },
+    "select": {
+      "element": "select",
+      "type": "select",
+      "name": "select",
+      "label": {
+        "text": "Select",
+        "load": 1
+      },
+      "size": 1,
+      "required": 1,
+      "multiple": 0,
+      "load": 1,
+      "items": [
+        {
+          "value": "abc",
+          "text": "ABC",
+          "load": 1,
+          "default": 1
+        },
+        {
+          "value": "def",
+          "text": "DEF",
+          "load": 1
+        },
+        {
+          "value": "ghi",
+          "text": "GHI",
+          "load": 1
+        },
+        {
+          "value": "jkl",
+          "text": "JKL",
+          "load": 1
+        },
+        {
+          "value": "mno",
+          "text": "MNO",
+          "load": 1
+        },
+        {
+          "value": "pqr",
+          "text": "PQR",
+          "load": 1
+        },
+        {
+          "value": "stu",
+          "text": "STU",
+          "load": 1
+        },
+        {
+          "value": "vwz",
+          "text": "VWZ",
+          "load": 0
+        }
+      ]
+    },
+    "best_time": {
+      "element": "input",
+      "type": "hidden",
+      "name": "best_time",
+      "title": {
+        "text": "Best time to call",
+        "load": 1
+      },
+      "placeholder": {
+        "text": "Best time",
+        "load": 1
+      },
+      "value": {
+        "text": "",
+        "load": 0
+      },
+      "length": {
+        "min": 0,
+        "max": 40
+      },
+      "required": 0,
+      "disallowed": 1,
+      "load": 1
+    },
+    "time_posted": {
+      "element": "input",
+      "type": "hidden",
+      "name": "time_posted",
+      "title": {
+        "text": "Time Posted",
+        "load": 1
+      },
+      "placeholder": {
+        "text": "Time Posted",
+        "load": 1
+      },
+      "value": {
+        "text": 1543610411,
+        "load": 1
+      },
+      "length": {
+        "min": 0,
+        "max": 40
+      },
+      "required": 1,
+      "disallowed": 1,
+      "load": 1
+    },
+    "checkbox": {
+      "element": "checkbox",
+      "type": "checkbox",
+      "name": "checkbox",
+      "value": "check-1",
+      "text": "Checkbox",
+      "checked": 1,
+      "load": 1
+    },
+    "radio": {
+      "element": "radio",
+      "type": "radio",
+      "name": "radio",
+      "title": {
+        "text": "Radio",
+        "load": 1
+      },
+      "placeholder": null,
+      "length": null,
+      "required": null,
+      "load": 1,
+      "items": [
+        {
+          "value": "value-1",
+          "name": "type-1",
+          "text": "Type 1",
+          "load": 1,
+          "default": 1
+        },
+        {
+          "value": "value-2",
+          "name": "type-1",
+          "text": "Type 2",
+          "load": 1
+        },
+        {
+          "value": "value-3",
+          "name": "type-1",
+          "text": "Type 3",
+          "load": 1
+        },
+        {
+          "value": "value-4",
+          "name": "type-1",
+          "text": "Type 4",
+          "load": 0
+        }
+      ]
+    }
+  },
+  {
+    "submit": {
+      "title": "Send",
+      "disabled": 1,
+      "load": 1
+    },
+    "success": {
+      "text": "Your message was sent succesfully.",
+      "load": 1
+    },
+    "failure": {
+      "text": "There was an error sending your message.",
+      "load": 1
+    }
+  }
+]
