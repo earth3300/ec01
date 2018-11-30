@@ -9,6 +9,20 @@
  * Concrete5), but can also be used as a WordPress plugin (not tested with any
  * other frameworks).
  *
+ * In this file, the form has first been saved as an array. This is easy to work
+ * with and internal to the file. However, once past a certain point, it is helpful
+ * to have this form saved to a JSON file. In this way it is separate from *this*
+ * file and so can be changed independent of it. In addition, it is then possible
+ * to take a form created elsewhere (or with a plugin) and save it as a JSON file,
+ * with the same format. This is the same thinking as is used when saving the data
+ * from the form submission. The form is submitted, and the values of the form
+ * are saved in a JSON file which can then be read into a database as needed.
+ *
+ * The question is, how often should the form values be updated and checked? If
+ * they are the same as the last time, they should not need to be updated. Or if
+ * the PHP array in *this* file has been changed, then they will need to be updated.
+ * Should there be allowed two versions? Or only one. One is better.
+ *
  * @package Earth3300\EC01
  * @version 0.0.1
  * @author Clarence J. Bos <cbos@tnoep.ca>
@@ -35,8 +49,8 @@
  *
  * File: form.php
  * Created: 2018-10-15
- * Updated: 2018-11-27
- * Time: 08:27 EST
+ * Updated: 2018-11-30
+ * Time: 08:19 EST
  */
 
 namespace Earth3300\EC01;
@@ -54,18 +68,16 @@ class FormWriter
     'page' => [
       'title' => 'Form Writer',
       'robots' => [ 'index' => 0, ],
-      'css' => [
-        'load' => 1,
-        'url' => '/0/theme/css/style.css',
-      ],
+      'theme' => [ 'name' => 'theme-dark', ],
+      'css' => [ 'load' => 1, 'url' => '/0/theme/css/style.css', ],
       'footer' => [ 'load' => 0, ],
-      'url' => 'https://github.com/earth3300/ec01-form-writer',
       'javascript' => [ 'load' => 1, ],
+      'url' => 'https://github.com/earth3300/ec01-form-writer',
     ],
     'file' => [
       'max' => [ 'num' => 1, 'size' => 10*10, ],
+      'read' => [ 'name' => 'form.json', 'load' => 1, ],
       'write' => [ 'name' => '.data.json', 'max' => 1000*10, ],
-      'json' => [ 'name' => 'options.json', 'load' => 1, ],
       'type' => 'json',
       'ext' => '.json',
       'this' => 'form.php',
@@ -84,7 +96,7 @@ class FormWriter
       ],
     'button' => [ 'delay' => [ 'ms' => 3000, ], ],
     'form' => [
-      'file' => 'form.json',
+      'write' => [ 'allow' => 1 ],
       'prefix' => 'form',
       'expiry' => [ 'load' => 1, 'check' => 1, ],
       'referer' => [ 'load' => 1, 'check' => 1, ],
@@ -97,11 +109,12 @@ class FormWriter
       'field' => 'form_best_time',
     ],
     'time' => [ 'check' => 1 ],
+    'mode' => [ 'manual' => 1, 'automatic' => 0, ],
     'testing' => 1,
     ];
 
   /**
-   * Displays an HTML form.
+   * Display an HTML form.
    *
    * @param array $args
    *
@@ -109,14 +122,31 @@ class FormWriter
    */
   public function get( $args = null )
   {
-    /** Figure out what is happening, set the switches accordingly. */
+    /** Set the boolean switches. */
     $args = $this->setTheSwitches( $args );
 
-    /** Set the page class to the type. */
-    $args['class'] = $this->opts['file']['type'];
+    /** Set up the file. */
+    $file = $this->setTheFile( $args );
 
+    /** Get the form. */
+    $form = $this->getFormData( $file, $args );
+
+    /** Get the HTML. */
+    $html = $this->getTheHtml( $file, $args, $form );
+
+    /** Deliver the HTML. */
+    return $html;
+
+    /** Done!. */
+  }
+
+  /**
+   * Set the File
+   */
+  private function setTheFile( $args )
+  {
     /** Add the file to the argument array. */
-    $file['path'] = $this->getFilePath( $args ) . '/' .$this->opts['file']['json']['name'];
+    $file['path'] = $this->getFilePath( $args ) . '/' . $this->opts['file']['read']['name'];
 
     /** Get the name of the containing directory. */
     $file['dir'] = basename(__DIR__);
@@ -124,27 +154,111 @@ class FormWriter
     /** Construct the file name out of the file directory and its extension. */
     $file['name'] = $file['dir'] . $this->opts['file']['ext'];
 
+    /** Construct the file name out of the file directory and its extension. */
+    $file['class'] = $file['dir'] . $this->opts['file']['type'];
+
     /** Get the base path of the file, including the file name. */
     $file['src'] = $this->getSrcFromFile( $file );
 
-    /** Open the article element. */
-    $file['html'] = '<article>' . PHP_EOL;
+    /** Return the file array. */
+    return $file;
+  }
 
-    /** Get the form HTML. */
-    $file['html'] .= $this->getForm( $file );
 
-    /** Close the article element. */
-    $file['html'] .= '</article>' . PHP_EOL;
-
-    /** If the request is for a full page, wrap the HTML in page HTML. */
-    if ( isset( $args['doctype'] ) && $args['doctype'] )
+  /**
+   * Get the HTML
+   *
+   */
+  private function getTheHtml( $file, $args, $form )
+  {
+    if ( is_array( $file ) && is_array ( $args ) )
     {
-      /** Note the lack of a preceding '.' before the equals sign. Important!!! */
-      $str = $this->getPageHtml( $file, $args );
-    }
+      /** Open the article element. */
+      $html = '<article>' . PHP_EOL;
 
-    /** Deliver the HTML, wrapped in page HTML or not. */
-    return $str;
+      /** Get the form HTML. */
+      $html .= $this->getFormTemplate( $form );
+
+      /** Close the article element. */
+      $html .= '</article>' . PHP_EOL;
+
+      /** If the request is for a full page, wrap the HTML in page HTML. */
+      if ( isset( $args['doctype'] ) && $args['doctype'] )
+      {
+        /** Note the lack of a preceding '.' before the equals sign. Important!!! */
+        $html = $this->getPageHtml( $html, $file, $args );
+      }
+
+      /** Return the HTML. */
+      return $html;
+    }
+    else
+    {
+      /** Don't have what we need. */
+      return -1;
+    }
+  }
+
+  /**
+   * Write Form
+   *
+   * Write the form to a JSON file, if requested and allowed.
+   *
+   * @return int|false
+   */
+  private function writeForm()
+  {
+    /** If authorized, continue. */
+    if ( $this->opts['form']['write']['allow'] )
+    {
+      /** If requested, continue. */
+      if( isset( $_GET['write'] ) && isset( $_GET['form'] ) )
+      {
+        /** If security protocol is in place, continue. */
+        if ( file_exists( __DIR__ . '/' . '.security' ) )
+        {
+          /** If on a local machine, continue. */
+          /*
+          Note: This means this will only work on a local machine, which
+          may be a problem for some. It will mean that they will need to set up
+          a desktop or laptop computer with a local server, that they can then use
+          to perform this action. This may be too much for some. *However*, it is
+          *much* more secure and is like placing a lock on the front door versus
+          not placing a lock on the front door. It is asking for trouble by
+          leaving the door wide open. Actually, with this restriction, the security
+          increases by an order of magnitude. Therefore it should be encouraged
+          to work this way.
+
+          The following check may not work on all servers. However, the goal is
+          to encourage consistency of platforms, so that there are fewer internal
+          variations to have to worry about.
+          */
+          if ( '127.0.0.1' == $_SERVER['SERVER_ADDR'] )
+          {
+            /** Get the data. This can be from an internal array or JSON file, as needed. */
+            $data = new FormData();
+            $form = $data->form();
+
+            /** Call the writer. This will transform the data as needed, and write it to a file. */
+            $writer = new JsonWriter();
+            $resp = $writer->write( $file, $form );
+
+            /** Print out the response for viewing, if in testing mode. */
+            if ( $this->opts['testing'] )
+            {
+              echo "<pre>";
+              var_dump( $resp );
+              echo "</pre>";
+            }
+          }
+        }
+        else
+        {
+          /** Not requested. */
+          return null;
+        }
+      }
+    }
   }
 
   /**
@@ -267,14 +381,25 @@ class FormWriter
   }
 
   /**
-   * Get the Form
+   * Get the Form Template
    *
    */
-  private function getForm()
+  private function getFormTemplate( $form )
   {
     $template = new FormTemplate();
 
-    return $template->form();
+    return $template->form( $form );
+  }
+
+  /**
+   * Get the Form Data
+   *
+   */
+  private function getFormData()
+  {
+    $data = new FormData();
+
+    return $data->getData();
   }
 
   /**
@@ -486,10 +611,15 @@ class FormWriter
    *
    * @return string
    */
-  public function getPageHtml( $file, $args )
+  public function getPageHtml( $html, $file, $args )
   {
     $str = '<!DOCTYPE html>' . PHP_EOL;
-    $str .= sprintf( '<html class="dynamic theme-dark %s" lang="en-CA">%s', $args['class'], PHP_EOL );
+    $str .= '<html ';
+    $str .= 'class="dynamic';
+    $str .= ' ' . $this->opts['page']['theme']['name'];
+    $str .= ' ' . $file['class'];
+    $str .= ' lang="en-CA"';
+    $str .= '>' . PHP_EOL;
     $str .= '<head>' . PHP_EOL;
     $str .= '<meta charset="UTF-8">' . PHP_EOL;
     $str .= '<meta name="viewport" content="width=device-width, initial-scale=1"/>' . PHP_EOL;
@@ -499,7 +629,7 @@ class FormWriter
     $str .= '</head>' . PHP_EOL;
     $str .= '<body>' . PHP_EOL;
     $str .= '<main>' . PHP_EOL;
-    $str .= $file['html'];
+    $str .= $html;
     $str .= '</main>' . PHP_EOL;
     if ( $this->opts['page']['footer']['load'] )
     {
@@ -514,10 +644,91 @@ class FormWriter
     $str .= '</body>' . PHP_EOL;
     $str .= '</html>' . PHP_EOL;
 
+    /** Return the string. */
     return $str;
   }
 
 } // End FormWriter
+
+/**
+ * Class JsonWriter
+ */
+class JsonWriter extends FormWriter
+{
+  /**
+   * Write
+   *
+   * Takes an array, checks it, encodes the array as Json, with pretty
+   * print and two spaces then prints it to a file.
+   *
+   * @param array $items
+   *
+   * @return bool
+   */
+  protected function write( $file, $items )
+  {
+    /** If $items is an array and something is there, continue. */
+    if ( is_array( $items ) && count( $items ) > 1 )
+    {
+      /** Encode the array. */
+      $json = $this->jsonEncode( $items );
+
+      /** Write the JSON string to a file. */
+      if ( $resp = file_put_contents( $file, $json ) )
+      {
+         /** Return the response for inspection or viewing. */
+         return $resp;
+      }
+      else
+      {
+        /** It didn't work. */
+        return false;
+       }
+     }
+     else
+     {
+       /** We didn't get what we needed to do the job. Go back one space. */
+      return -1;
+     }
+  }
+
+   /**
+    * Json Encode
+    *
+    * Encode the array as JSON using JSON_PRETTY_PRINT, then use only two spaces
+    * for indentation instead of four, to maintain consistency with PHP, CSS, JS
+    * and HTML.
+    *
+    * @param array $items
+    *
+    * @return string|false
+    *
+    * @link https://stackoverflow.com/a/31689850/5449906
+    */
+  protected function jsonEncode( $items = [] )
+  {
+    /** Ensure $items is an array and that it is non-trivial ( > 1 item ). */
+    if ( is_array( $items ) and count( $items > 1 ) )
+    {
+      /** Perform a regular expression search and replace using a callback. */
+      $json = preg_replace_callback ('/^ +/m', function( $match )
+      {
+        /** Returns input [1], repeated multiplier times [2]. */
+        return str_repeat ( ' ', strlen( $match[0] ) / 2 );
+
+      /** Json encode an array, using JSON_PRETTY_PRINT (indents with four spaces. */
+      }, json_encode ( $items, JSON_PRETTY_PRINT ) );
+
+       /** Return the $json string. */
+       return $json;
+    }
+    else
+    {
+      /** Not an array, or array is only one item or less. */
+      return false;
+    }
+  }
+} // End JsonWriter
 
 /**
  * Class FormTemplate
@@ -529,11 +740,11 @@ class FormTemplate extends FormWriter
    *
    * @return string
    */
-  public function form()
+  public function form( $form )
   {
-      /** Get the form data. */
-      $form = $this->getFormData();
-
+    /** Check it. */
+    if ( is_array( $form ) && isset( $form[1]['submit'] ) )
+    {
       /** Process the form, use the respons in a message, if necessary. */
       $resp = $this->process( $form );
 
@@ -552,37 +763,40 @@ class FormTemplate extends FormWriter
       /** Add a "use once" field to help prevent misuse. */
       $str .= $this->opts['form']['uid']['load'] ? $this->getUidHtml() : '';
 
-      /** Cycle through the fields */
-      foreach ( $form['form'] as $item )
+      if ( is_array( $form[0] ) )
       {
-        /** Load the item, only if required. */
-        if ( $item['load'] )
+        /** Cycle through the fields */
+        foreach ( $form[0] as $item )
         {
-          switch( $item['element'] )
+          /** Load the item, only if required. */
+          if ( $item['load'] )
           {
-            case 'input' :
-              $str .= $this->getInput( $item );
-              break;
+            switch( $item['element'] )
+            {
+              case 'input' :
+                $str .= $this->getInput( $item );
+                break;
 
-            case 'radio' :
-              $str .= $this->getRadio( $item );
-              break;
+              case 'radio' :
+                $str .= $this->getRadio( $item );
+                break;
 
-            case 'checkbox' :
-              $str .= $this->getCheckbox( $item );
-              break;
+              case 'checkbox' :
+                $str .= $this->getCheckbox( $item );
+                break;
 
-            case 'select' :
-              $str .= $this->getSelect( $item );
-              break;
+              case 'select' :
+                $str .= $this->getSelect( $item );
+                break;
 
-            case 'textarea' :
-              $str .= $this->getTextArea( $item );
-              break;
+              case 'textarea' :
+                $str .= $this->getTextArea( $item );
+                break;
 
-            default:
-          }
-        }
+              default:
+            } // end switch
+          } // end if load
+        } // end foreach
       }
 
       /** Get the hidden fields */
@@ -603,6 +817,11 @@ class FormTemplate extends FormWriter
 
       /** Return the form. */
       return $str;
+    }
+    else
+    {
+      return 'Not available.';
+    }
   }
 
   /**
@@ -1033,21 +1252,21 @@ class FormTemplate extends FormWriter
   }
 
   /**
-   * Get the Options
+   * Get the Form JSON File
    *
-   * Gets the options from a JSON file. Currently handles only one drop down.
+   * Gets the form parameters saved as a JSON file.
    *
    * @return string|false
    */
-  private function getOptions()
+  private function getFormJson()
   {
-    $file = __DIR__ . '/' . $this->opts['file']['json']['name'];
-
+    $file = __DIR__ . '/' . $this->opts['form']['file']['name'];
+    echo $file;
     /** Get the file contents. */
     $json = file_get_contents( $file );
 
     /** Make sure the string is not too short and not too long. */
-    if ( strlen( $json ) > 10 && strlen( $json ) < 1000 )
+    if ( strlen( $json ) > 10 && strlen( $json ) < 3000 )
     {
       /** Turn the JSON string into an Associative Array (true). */
       $items = json_decode( $json, true );
@@ -1116,24 +1335,34 @@ class FormTemplate extends FormWriter
    */
   private function getSubmit( $form )
   {
-    /** Submit button. This is disabled for a few seconds to prevent anxious bots from using it. */
-    if ( $form['meta']['submit']['load'] )
+    if( is_array( $form ) && isset( $form[1]['submit']['load'] ) )
     {
-      $str = '<button';
-      $str .= sprintf( ' id="%s-submit"', $this->opts['form']['prefix'] );
-      $str .= ' type="submit"';
-      $str .= ' class="button button-primary"';
-      $str .= $form['meta']['submit']['disabled'] ? ' disabled' : '';
-      $str .= '>';
-      $str .= $form['meta']['submit']['title'];
-      $str .= '</button>' . PHP_EOL;
-      return $str;
+      /** Submit button. This is disabled for a few seconds to prevent anxious bots from using it. */
+      if ( $form[1]['submit']['load'] )
+      {
+        $str = '<button';
+        $str .= sprintf( ' id="%s-submit"', $this->opts['form']['prefix'] );
+        $str .= ' type="submit"';
+        $str .= ' class="button button-primary"';
+        $str .= $form[1]['submit']['disabled'] ? ' disabled' : '';
+        $str .= '>';
+        $str .= $form[1]['submit']['title'];
+        $str .= '</button>' . PHP_EOL;
+
+        /** Return the string. */
+        return $str;
+      }
+      else
+      {
+        /** Not requested. */
+        return false;
+      }
     }
     else
     {
-      return false;
+      /** Problem. */
+      return -1;
     }
-    return false;
   }
 
   /**
@@ -1167,23 +1396,6 @@ class FormTemplate extends FormWriter
 
     /** Return the results of the operation. */
     return $resp;
-  }
-
-  /**
-   * Get Form Data
-   *
-   * Gets the form data from whereever it may reside.
-   * Here is calls it from the FormData class.
-   *
-   * @return array
-   */
-  private function getFormData()
-  {
-    /** Switch here to retrieve array or json file. */
-    $data = new FormData();
-    $items['form'] = $data->form();
-    $items['meta'] = $data->meta();
-    return $items;
   }
 
   /**
@@ -1792,43 +2004,6 @@ class FormProcessor extends FormWriter
       return $resp;
     }
   }
-
-  /**
-   * Json Encode
-   *
-   * Encode the array as JSON using JSON_PRETTY_PRINT, then use only two spaces
-   * for indentation instead of four, to maintain consistency with PHP, CSS, JS
-   * and HTML.
-   *
-   * @param array $items
-   *
-   * @return string|false
-   *
-   * @link https://stackoverflow.com/a/31689850/5449906
-   */
-  private function jsonEncode( $items = [] )
-  {
-    /** Ensure $items is an array and that it is non-trivial ( > 1 item ). */
-    if ( is_array( $items ) and count( $items > 1 ) )
-    {
-      /** Perform a regular expression search and replace using a callback. */
-      $json = preg_replace_callback ('/^ +/m', function( $match )
-      {
-        /** Returns input [1], repeated multiplier times [2]. */
-        return str_repeat ( ' ', strlen( $match[0] ) / 2 );
-
-      /** Json encode an array, using JSON_PRETTY_PRINT (indents with four spaces. */
-      }, json_encode ( $items, JSON_PRETTY_PRINT ) );
-
-      /** Return the $json string. */
-      return $json;
-    }
-    else
-    {
-      /** Not an array, or array is only one item or less. */
-      return false;
-    }
-  }
 } // End Form Processor Class.
 
 /**
@@ -1838,14 +2013,74 @@ class FormProcessor extends FormWriter
  */
 class FormData extends FormWriter
 {
+
+  /**
+   * Get Form Data
+   *
+   * Gets the form data from whereever it may reside.
+   * Here is calls it from the FormData class.
+   *
+   * @return array
+   */
+  public function getData()
+  {
+    /** Switch here to retrieve array or json file. */
+    if ( $this->opts['file']['read']['load'] )
+    {
+      /** Specify the file in the current directory. */
+      $file = __DIR__ . '/' . $this->opts['file']['read']['name'];
+
+      if ( file_exists( $file ) )
+      {
+        /** If the file exists, get the contents. */
+        $str = file_get_contents( $file );
+
+        /** Check the string length. */
+        if ( strlen( $str ) > 4 && strlen( $str < 10000 ) )
+        {
+          /** Translate the (expected) JSON string into an array. */
+          $json = json_decode( $str, true );
+
+          if ( is_array( $json ) && count( $json ) > 0 )
+          {
+            /** If it is an array, with something in it, return it. */
+            return $json;
+          }
+          else
+          {
+            /** Else, Problem. */
+            return -2;
+          }
+        }
+        else
+        {
+          return -1;
+        }
+      }
+      else
+      {
+        echo "Please write me.";
+      
+        /** No file. We have to write it, if requested.*/
+       return $resp;
+      }
+    }
+    else
+    {
+      /** Return the form data. */
+      return $this->form();
+    }
+  }
+
   /**
    *  Form
    *
    * @return array
    */
-  public function form()
+  private function form()
   {
     $items = [
+      0 => [
         'name' => [
           'element' => 'input',
           'type' => 'text',
@@ -1959,6 +2194,20 @@ class FormData extends FormWriter
           [ 'value' => 'value-4', 'name' => 'type-1', 'text' => 'Type 4', 'load' => 0 ],
         ],
       ],
+    ],
+    1 => [
+      'submit' => ['title' => 'Send', 'disabled' => 1, 'load' => 1, ],
+      'success' =>
+        [
+          'text' => 'Your message was sent succesfully.',
+          'load' => 1,
+        ],
+      'failure' =>
+        [
+          'text' => 'There was an error sending your message.',
+          'load' => 1,
+        ],
+      ],
     ];
     return $items;
   }
@@ -1966,7 +2215,7 @@ class FormData extends FormWriter
   /**
    * Authorized form fields
    */
-  public function authorized()
+  protected function authorized()
   {
     $items = [
       'name',
@@ -1990,22 +2239,7 @@ class FormData extends FormWriter
   {
     $items =
     [
-      'submit' =>
-        [
-          'title' => 'Send',
-          'disabled' => 1,
-          'load' => 1,
-        ],
-      'success' =>
-        [
-          'text' => 'Your message was sent succesfully.',
-          'load' => 1,
-        ],
-      'failure' =>
-        [
-          'text' => 'There was an error sending your message.',
-          'load' => 1,
-        ],
+
     ];
     return $items;
   }
