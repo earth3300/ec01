@@ -50,7 +50,7 @@
  * File: form.php
  * Created: 2018-10-15
  * Updated: 2018-11-30
- * Time: 19:26 EST
+ * Time: 20:41 EST
  */
 
 namespace Earth3300\EC01;
@@ -79,7 +79,7 @@ class FormWriter
       'write' => [ 'allowed' => 1, 'name' => '.data.json', 'max' => 10000, ],
       'type' => 'json',
       'ext' => '.json',
-      'this' => 'form.php',
+      'this' => 'index.php',
     ],
     'input' => [
         'text' => [ 'length' => [ 'min' => 4, 'max' => 40, ] ],
