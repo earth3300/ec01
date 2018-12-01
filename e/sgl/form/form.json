@@ -114,7 +114,8 @@
         {
           "value": "def",
           "text": "DEF",
-          "load": 1
+          "load": 1,
+          "default": 0
         },
         {
           "value": "ghi",
@@ -185,7 +186,7 @@
         "load": 1
       },
       "value": {
-        "text": 1543610411,
+        "text": 1543625211,
         "load": 1
       },
       "length": {

@@ -50,7 +50,7 @@
  * File: form.php
  * Created: 2018-10-15
  * Updated: 2018-11-30
- * Time: 08:19 EST
+ * Time: 19:26 EST
  */
 
 namespace Earth3300\EC01;
@@ -602,8 +602,7 @@ class FormWriter
   protected function jsonEncode( $items = [] )
   {
     /** Ensure $items is an array and that it is non-trivial ( > 1 item ). */
-    if ( is_array( $items )
-    && count( $items > 1 ) && count( $items) < 1000 )
+    if ( is_array( $items ) && count( $items > 1 ) && count( $items) < 1000 )
     {
       /** Perform a regular expression search and replace using a callback. */
       $json = preg_replace_callback ('/^ +/m', function( $match )
@@ -702,7 +701,7 @@ class FormWriter
     {
       /** Encode the array. Assume this can be done. */
       $json = $this->jsonEncode( $items );
-      echo 'count: ' . count( $items );
+
       /** Write the JSON string to a file. */
       if ( $resp = file_put_contents( $file, $json ) )
       {
@@ -1041,6 +1040,15 @@ class FormTemplate extends FormWriter
   /**
    * Get Checkbox
    *
+   * Surprisingly, the HTML5 specification, sets this attribute to:
+   * checked="". In any element where the "checked" attribute appears (regardless
+   * of its value), the checked state will be triggered. If the checkbox needs
+   * to be left unchecked, then the "checked" attribute must be omitted entirely.
+   *
+   * @link https://stackoverflow.com/a/4613192/5449906
+   * @link https://stackoverflow.com/a/4228827/5449906
+   * @link https://www.w3.org/TR/html5/infrastructure.html#sec-boolean-attributes
+   *
    */
    private function getCheckbox( $item )
    {
@@ -1068,8 +1076,8 @@ class FormTemplate extends FormWriter
         /** Set the value (required). Must be unique. Used when processing the form.*/
         $str .= sprintf( ' value="%s"', $item['value'] );
 
-        /** Set the default, if "default" is set and if it set to "true" or "1". */
-        $str .= isset( $item['checked'] ) && $item['checked'] ? ' checked' : '';
+        /** Set the default to checked (or not). HTML5: checked="". */
+        $str .= isset( $item['checked'] ) && $item['checked'] ? ' checked=""' : '';
 
         /** Close the input element. Don't add a new line before label. */
         $str .= ' />';
@@ -1255,7 +1263,7 @@ class FormTemplate extends FormWriter
             $str .= sprintf( ' value="%s"', $item['value'] );
 
             /** If the item is a default, set it to default (or not). */
-            $str .= isset( $item['default'] ) && $item['default'] ? ' selected="true"' : '';
+            $str .= isset( $item['default'] ) && $item['default'] ? ' selected=""' : '';
 
             /** Close the opening option tag. */
             $str .= '>';
@@ -1511,13 +1519,13 @@ class FormProcessor extends FormWriter
             $suffix = str_replace( $this->opts['form']['prefix' ] . '_', '', $name );
 
             /** Get the type. */
-            $type = isset( $form['form'][ $suffix ]['type'] ) ? $form['form'][ $suffix ]['type'] : false;
+            $type = isset( $form[0][ $suffix ]['type'] ) ? $form[0][ $suffix ]['type'] : false;
 
             /** If the post fields are authorized, accept. in_array($needle, $haystack); */
             if ( $type && in_array( $suffix , $authorized ) )
             {
               /** If the key value is the right length, accept. */
-              if ( strlen( $field ) > 0 && isset( $form['form'][ $suffix ] ) )
+              if ( strlen( $field ) > 0 && isset( $form[0][ $suffix ] ) )
               {
                 /** Select the fields that accept free form text. */
                 if ( in_array( $type, [ 'text', 'email', 'textarea' ]  ) )
@@ -1556,19 +1564,19 @@ class FormProcessor extends FormWriter
         else
         {
           /** Uid did not check out. */
-          return -3;
+          return false;
         }
       }
       else
       {
         /** Hidden field security did not check out. */
-        return -2;
+        return false;
       }
     }
     else
     {
       /** Referer did not check out. */
-      return -1;
+      return false;
     }
   }
 
@@ -1579,10 +1587,10 @@ class FormProcessor extends FormWriter
   private function checkFieldLength( $form, $field, $suffix )
   {
     /** Check to see if the field length is available (and therefore applicable. */
-    if ( isset( $form['form'][ $suffix ]['length'] ) )
+    if ( isset( $form[0][ $suffix ]['length'] ) )
     {
-       if ( strlen( $field ) >= $form['form'][ $suffix ]['length']['min']
-         && strlen( $field ) <= $form['form'][ $suffix ]['length']['max'] )
+       if ( strlen( $field ) >= $form[0][ $suffix ]['length']['min']
+         && strlen( $field ) <= $form[0][ $suffix ]['length']['max'] )
          {
           /** Length checks out. */
           return true;
@@ -1994,7 +2002,7 @@ class FormData extends FormWriter
       $resp = $this->writeForm( $items );
 
       /** Return the items. */
-      return $items;
+      return $resp;
     }
     else
     {
@@ -2061,6 +2069,9 @@ class FormData extends FormWriter
   /**
    *  Form
    *
+   * 0: Fields
+   * 1: Meta
+   *
    * @return array
    */
   private function getArray()
@@ -2122,7 +2133,7 @@ class FormData extends FormWriter
           'load' => 1,
           'items' => [
             [ 'value' => 'abc', 'text' => 'ABC', 'load' => 1, 'default' => 1, ],
-            [ 'value' => 'def', 'text' => 'DEF', 'load' => 1, ],
+            [ 'value' => 'def', 'text' => 'DEF', 'load' => 1, 'default' => 0 ],
             [ 'value' => 'ghi', 'text' => 'GHI', 'load' => 1, ],
             [ 'value' => 'jkl', 'text' => 'JKL', 'load' => 1, ],
             [ 'value' => 'mno', 'text' => 'MNO', 'load' => 1, ],
