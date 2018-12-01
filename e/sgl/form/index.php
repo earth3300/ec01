@@ -62,7 +62,6 @@ namespace Earth3300\EC01;
  */
 class FormWriter
 {
-
   /** @var array Default options. */
   protected $opts = [
     'page' => [
@@ -77,7 +76,7 @@ class FormWriter
     'file' => [
       'max' => [ 'num' => 1, 'size' => 10*10, ],
       'read' => [ 'load' => 1, 'name' => 'form.json', ],
-      'write' => [ 'allowed' => 1, 'name' => '.data.json', 'max' => 1000*10, ],
+      'write' => [ 'allowed' => 1, 'name' => '.data.json', 'max' => 10000, ],
       'type' => 'json',
       'ext' => '.json',
       'this' => 'form.php',
@@ -100,7 +99,6 @@ class FormWriter
       'prefix' => 'form',
       'expiry' => [ 'load' => 1, 'check' => 1, ],
       'referer' => [ 'load' => 1, 'check' => 1, ],
-      'nonce' => [ 'load' => 0, 'check' => 0, ],
       'uid' => [ 'load' => 1, 'check' => 1, ],
     ],
     'required' => [ 'text' => '(required)', ],
@@ -195,7 +193,7 @@ class FormWriter
     else
     {
       /** Don't have what we need. */
-      return -1;
+      return false;
     }
   }
 
@@ -338,34 +336,6 @@ class FormWriter
     $data = new FormData();
 
     return $data->getData();
-  }
-
-  /**
-   * Get the Nonce
-   *
-   * This is a "use once" number. Note that the WordPress nonce is *not* a
-   * "use once" number, but has a limited lifetime. Since once this form is
-   * submitted, it does not need to be submitted again, there should be a choice
-   * to prevent a re-submission from the same device.
-   *
-   * OR: IP . DATE . TIME . URL = UNIQUE? (+ maybe DEVICE).
-   *
-   * @return string
-   */
-  protected function getNonce()
-  {
-    $random = rand();
-
-    $nonce = substr( hash( 'sha512', $random ), 0, 10 );
-
-    // Store nonce
-
-    $str = '<input type="hidden"';
-    $str .= sprintf( ' name="%s_nonce"', $this->opts['form']['prefix'] );
-    $str .= sprintf( ' value="%s"', $nonce );
-    $str .= ' />' . PHP_EOL;
-
-    return $str;
   }
 
   /**
@@ -717,7 +687,7 @@ class FormWriter
      else
      {
        /** We didn't get what we needed to do the job. Go back one space. */
-      return -1;
+      return false;
      }
   }
 
@@ -746,6 +716,7 @@ class FormWriter
         /** If the file size is greater than allowed, start a new one. */
         if ( $size > $this->opts['file']['write']['max'] )
         {
+          $file = str_replace( '.json', '-' . date('Y-m-d-H-i-s') . '.json', $file );
             /** Write a new file, receiving the response. */
           $resp = file_put_contents( $file, $json );
         }
@@ -753,7 +724,7 @@ class FormWriter
         else
         {
           /** Append to the file, receiving the response. */
-          $resp = file_put_contents( $file, $json, FILE_APPEND );
+          $resp = file_put_contents( $file, $json, FILE_APPEND | LOCK_EX );
         }
       }
     }
@@ -791,9 +762,6 @@ class FormTemplate extends FormWriter
 
       /** Get the referer. */
       $str .= $this->opts['form']['referer']['load'] ? $this->getRefererHtml() : '';
-
-      /** Add a "use once" field to help prevent misuse. */
-      $str .= $this->opts['form']['nonce']['load'] ? $this->getNonce() : '';
 
       /** Add a "use once" field to help prevent misuse. */
       $str .= $this->opts['form']['uid']['load'] ? $this->getUidHtml() : '';
@@ -1026,7 +994,7 @@ class FormTemplate extends FormWriter
         else
         {
           /** Something is wrong. No items to work with. */
-          return -1;
+          return false;
         }
       }
     }
@@ -1120,7 +1088,7 @@ class FormTemplate extends FormWriter
     else
     {
       /** Don't have what we need. Something wrong. */
-      return -1;
+      return false;
     }
   }
 
@@ -1291,7 +1259,7 @@ class FormTemplate extends FormWriter
     else
     {
       /** Something wrong happened. We don't have what we need. */
-      return -1;
+      return false;
     }
   }
 
@@ -1405,7 +1373,7 @@ class FormTemplate extends FormWriter
     else
     {
       /** Problem. */
-      return -1;
+      return false;
     }
   }
 
@@ -1604,7 +1572,7 @@ class FormProcessor extends FormWriter
     else
     {
       /** Field length is not available. */
-      return -1;
+      return false;
     }
   }
   /**
@@ -1659,56 +1627,6 @@ class FormProcessor extends FormWriter
       /** They are not the same. Return false. */
       return false;
     }
-  }
-
-  /**
-   * Check Nonce
-   *
-   * Ensure the post is coming from the correct location and has been used
-   * only once.
-   *
-   * @param array $form
-   * @param array $posted
-   *
-   * @return bool
-   */
-  private function checkNonce( $form, $posted )
-  {
-    /** Instantiate the $checked value to "null". */
-    $checked = null;
-
-    if ( $this->opts['form']['nonce']['check'] )
-    {
-      /** Received nonce (unique) value. */
-      $received = $posted[ $this->opts['form']['prefix'] . '_nonce' ];
-
-      /** Check to see if the recevied nonce is of a reasonable length. */
-      if ( strlen( $received ) > 4 &&  strlen( $received ) < 20 )
-      {
-        /** Retrieve the nonce. */
-        $sent = '4d64b599ca';
-
-        /** Check sent against received. */
-        if ( 1 || $received == $sent )
-        {
-            /**  The nonce checks out. Return true. */
-            $checked = true;
-        }
-        else
-        {
-            /** The nonce doe not check out. Return false. */
-            $checked = false;
-        }
-      }
-      else
-      {
-        /**  The string lengths do not check out. Something fishy going on here. */
-        $checked = -1;
-      }
-    }
-
-    /** Return the checked value. */
-    return $checked;
   }
 
   /**
@@ -1804,7 +1722,7 @@ class FormProcessor extends FormWriter
       else
       {
         /**  Something does not check out. Return -1. */
-        return -1;
+        return false;
       }
     }
     else
