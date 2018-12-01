@@ -24,7 +24,7 @@
  * Should there be allowed two versions? Or only one. One is better.
  *
  * @package Earth3300\EC01
- * @version 0.0.1
+ * @version 0.0.2
  * @author Clarence J. Bos <cbos@tnoep.ca>
  * @copyright Copyright (c) 2018, Clarence J. Bos
  * @license https://www.gnu.org/licenses/gpl-3.0.en.html GPL v3.0
@@ -34,7 +34,7 @@
  * Plugin Name: EC01 Form Writer
  * Plugin URI:  https://github.com/earth3300/ec01-form-writer
  * Description: Displays a form, accepts a form submission, validates the data, then stores the validated data as a secured JSON file.
- * Version: 0.0.1
+ * Version: 0.0.2
  * Author: Clarence J. Bos
  * Author URI: https://github.com/earth3300/
  * Text Domain: ec01-form-writer
@@ -161,7 +161,6 @@ class FormWriter
     /** Return the file array. */
     return $file;
   }
-
 
   /**
    * Get the HTML
@@ -526,6 +525,7 @@ class FormWriter
     $str .= 'class="dynamic';
     $str .= ' ' . $this->opts['page']['theme']['name'];
     $str .= ' ' . $file['class'];
+    $str .= '"';
     $str .= ' lang="en-CA"';
     $str .= '>' . PHP_EOL;
     $str .= '<head>' . PHP_EOL;
@@ -1575,6 +1575,7 @@ class FormProcessor extends FormWriter
       return false;
     }
   }
+
   /**
    * Filter Entities
    *
@@ -1984,6 +1985,7 @@ class FormData extends FormWriter
       return null;
     }
   }
+
   /**
    *  Form
    *
