@@ -95,8 +95,8 @@ class FormWriter
       ],
     'button' => [ 'delay' => [ 'ms' => 3000, ], ],
     'form' => [
-      'write' => [ 'allow' => 1 ],
       'prefix' => 'form',
+      'write' => [ 'allow' => 1 ],
       'expiry' => [ 'load' => 1, 'check' => 1, ],
       'referer' => [ 'load' => 1, 'check' => 1, ],
       'uid' => [ 'load' => 1, 'check' => 1, ],

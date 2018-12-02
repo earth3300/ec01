@@ -18,6 +18,28 @@ class Foo
     /** @var string|null $title contains a title for the Foo */
     protected $title = null;
 
+    /** @var array  Default options. */
+    protected $opts = [
+      'name-1' => 'value-1',
+      'name-2' => 'value-2',
+      'name-3' => 'value-3',
+    ];
+
+    /**
+     * Construct
+     *
+     * This example allows default options to be set in with a property and then
+     * merged with additional options passed via the constructor.
+     *
+     * @link https://stackoverflow.com/a/4550097/5449906
+     *
+     * @param array $more_opts
+     */
+    public function __construct( $more_opts = [] )
+    {
+      $this->opts = array_merge( $this->opts, $more_opts );
+    }
+
     /**
      * Sets a single-line title.
      *
@@ -25,7 +47,7 @@ class Foo
      *
      * @return void
      */
-    public function setTitle($title)
+    public function setTitle( $title )
     {
         // there should be no docblock here
         $this->title = $title;
