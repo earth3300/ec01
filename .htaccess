@@ -1,6 +1,6 @@
 # SECURITY BEGIN (Deny First, Then Allow)
 
-Options +Indexes
+Options -Indexes
 # Do not allow the listing of directories by default
 
 <FilesMatch "xmlrpc.php|config|error|debug|changelog|readme|license">
