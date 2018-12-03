@@ -1,0 +1,33 @@
+/* theme-8500-rbg-tuxedo/css/style.css */
+/* 11/25/2015 18:45 PM */
+
+header,
+footer {
+	color: #444;
+}
+
+header a,
+footer a {
+	color: #444;
+}
+
+header a:visited,
+footer a:visited {
+	color: #444;
+}
+
+header a:hover,
+footer a:hover {
+	color: #666;
+}
+
+#frame {
+	border: 1px solid #444;
+}
+
+nav .hover-highlight:hover {
+	color: #777;
+	border-color: #777;
+	box-shadow: none;
+	text-shadow: none;
+}

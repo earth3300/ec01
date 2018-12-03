@@ -1,0 +1,44 @@
+/* theme-3500-controls/css/style.css */
+/* 12/25/2015 12:00 AM EST */
+
+#hd-controls {
+	position: absolute;
+	bottom: 5px;
+	left: 0;
+	right: 0;
+	margin: 0 auto;
+	text-align: center;
+	max-width: 400px; 
+	height: 32px;
+	line-height: 32px;
+	z-index: 5000;
+}
+
+#hd-controls .inner {
+	height: 32px;
+}
+
+.icon {
+	margin-left: 15px;
+}
+
+#hd-controls .rotate-90 {
+	margin-left: 0;
+}
+
+#hd-controls .icon:nth-last-child(2) {
+	margin-right: 15px;
+}
+
+.icon:first-child {
+	margin-left: 0;
+}
+
+#hd-controls .icon:hover {
+	cursor: pointer;
+}
+
+.goto:hover {
+	cursor: pointer;
+}
+

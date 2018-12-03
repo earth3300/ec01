@@ -1,0 +1,13 @@
+/* theme-4500-buttons/css/style.css */
+/* 11/20/2015 21:00 PM */
+
+.button {
+    padding: 10px 20px;
+    border-radius: 2px;
+    background: #777;
+    opacity: 0.5;
+}
+
+.button:hover {
+    opacity: 1.0;
+}

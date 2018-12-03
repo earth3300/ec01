@@ -1,0 +1,20 @@
+/* theme-font-slabo-roboto/css/style.css */
+/* 11/25/2015 16:35 PM EST */
+
+@font-face {
+  font-family: 'Slabo 27px';
+  src: url('fonts/Slabo27px-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'Roboto Regular';
+  src: url('fonts/Roboto-Regular.ttf');
+}
+
+body {
+    font-family: 'Roboto Regular', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Slabo 27px', serif;
+}

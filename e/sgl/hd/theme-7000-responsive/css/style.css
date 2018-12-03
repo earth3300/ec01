@@ -1,0 +1,50 @@
+/* theme-responsiveness.css */
+/* 2015.11.25 12:00 PM EST */
+/* The vast secrets of responsiveness are contained withing these vaults. Beware the stranger who enters! */
+/* Stare at this until your eyeballs bleed. */
+/* Total elapsed time should be, oh, about thirty seconds. :) */
+
+.size1of1 { float: none; width: 100%; margin: 0 auto; }
+
+.size1of2 { float: left; width: 49%; margin-left: 1%; }
+
+.size1of3 { float: left; width: 32.6%; margin-left: 1%; }
+
+.size2of3 { float: left; width: 65%; margin-left: 1%; }
+
+.size1of4 { float: left; width: 24%; margin-left: 1%; }
+
+.size2of4 { float: left; width: 49.5%;  margin-left: 1%; }
+
+.size3of4 { float: left; width: 71%; margin-left: 1%; }
+
+article { overflow: hidden; }
+
+article:last-child { margin-bottom: 0; }
+
+section > div { overflow: hidden; }
+
+.size1of2:first-child, .size1of3:first-child, .size2of3:first-child, 
+.size1of4:first-child, .size2of4:first-child, .size3of4:first-child { 
+    clear: both; 
+    margin-left: 0; 
+}
+
+.size1of4:nth-child(4n+1){
+    margin-left: 0; 
+}
+
+@-ms-viewport {
+    width: device-width;
+}
+@viewport {
+    width: device-width;
+}
+
+@media screen and (max-width: 600px) {
+    .size1of2, .size1of3, nav:not .size1of4, .size2of3, .size2of4, .size3of4 {
+        width: 100%;
+        float: none;
+        margin: 0 auto;
+    }
+}
