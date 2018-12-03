@@ -266,7 +266,8 @@ class EC01HTML
 
      $class['article'] = $this->getArticleClass( $page['article'] );
 
-     $class['html'] = $this->getHtmlClass( $page, $class['type'] );
+     /** Get the HTML class (from what is needed). */
+     $class['html'] = $this->getHtmlClass( $page, $class );
 
     $class['body'] = $this->getBodyClass( $page['tiers'] );
 
@@ -278,24 +279,33 @@ class EC01HTML
    *
    * Do any other necessary processing.
    *
-   * @param string $type
+   * @param string $class
    * @param array $tiers
    *
    * @return string
    */
-  private function getHtmlClass( $page, $type )
+  private function getHtmlClass( $page, $class )
   {
-
     $tiers = $page['tiers'];
 
     /** Type of page (fixed-width or dynamic), with a trailing space. */
-    $str = $type . ' ';
+    $str = sprintf( '%s %s ', $class['type'], $class['article'] );
 
-    /** Add an 'aside' class, but not on the front page or on Tier 1 pages. */
+    if ( strpos( $class['article'], 'wide-screen' ) !== false )
+    {
+      $wide_screen = true;
+    }
+    else
+    {
+      $wide_screen = false;
+    }
+
+    /** Add an 'aside' class, but not on the front page, on Tier 1 pages or wide screen pages. */
     if (
       SITE_USE_ASIDE && ! $page['front-page']
       && $page['tiers']['tier-1']['get']
       && $page['tiers']['tier-2']['get']
+      && ! $wide_screen
     )
     {
       $str .= 'aside ';
@@ -358,16 +368,39 @@ class EC01HTML
    */
   private function getArticleClass( $article )
   {
-    $check = substr( $article, 0, 150 );
-    $pattern = "/<article class=\"(.*?)\"/";
-    preg_match( $pattern, $check, $matches );
-
-    if ( ! empty ( $matches[1] ) )
+    /** Check to ensure it is a string and that it has at least the length of `<article></article>`. */
+    if ( is_string( $article ) && strlen( $article ) > 17 )
     {
-      return ( $matches[1] );
+      /** Instantiate the variable to null. */
+      $class = null;
+
+      /** Check for the class in the first 150 characters only, for optimization purposes. */
+      $check = substr( $article, 0, 150 );
+
+      /** Define the pattern. */
+      $pattern = "/<article class=\"(.*?)\"/";
+
+      /** Find the match (assigned to $matches). */
+      preg_match( $pattern, $check, $matches );
+
+      /** Assign the match to a variable and trim, just in case. */
+      $class = trim( $matches[1] );
+
+      /** Make sure it is not too big, and not too small. */
+      if ( strlen( $class ) > 0 && strlen( $class ) < 50 )
+      {
+        /** Return it as a string (just to make sure). */
+        return (string)$class;
+      }
+      else
+      {
+        /** Nothing (that we need) there. */
+        return false;
+      }
     }
     else
     {
+      /** Nothing there in the article, or not a string. */
       return false;
     }
   }
