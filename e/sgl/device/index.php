@@ -26,7 +26,7 @@
 namespace Earth3300\EC01;
 
 /**
- * DeviceScreen
+ * Device
  *
  * To optimize the display to the device being used, we need to know what screen
  * the device is using. Although this may appear to be self-evident, in current
@@ -44,7 +44,7 @@ namespace Earth3300\EC01;
 class Device
 {
   /** @var $device */
-  protected static $screen = [];
+  protected $screen = [];
 
   /**
    * [set description]
@@ -52,7 +52,7 @@ class Device
    */
   public function set( $device )
   {
-    $this->screen = $device;
+    //$this->screen = $device;
   }
 
   /**
@@ -62,7 +62,7 @@ class Device
    *
    * @return array
    */
-  public static function get()
+  public function get()
   {
     /** Try to detect the device. */
     $device['detected'] = $this->getDetectedDevice();
@@ -71,7 +71,7 @@ class Device
     $device['requested'] = $this->getRequestedDevice();
 
     /** Determine the priority and the theme to deliver. */
-    $device['theme'] = $this->getThemeToDeliver();
+    $device['theme'] = $this->getThemeToDeliver( $device );
 
     return $device;
   }
@@ -83,38 +83,38 @@ class Device
    */
   private function tryDetectDevice()
   {
-      /** Get the user agent (Browser, device, etc.) and assigned it to an internal variable. */
-      $ua = $_SERVER['HTTP_USER_AGENT'];
+    /** Get the user agent (Browser, device, etc.) and assigned it to an internal variable. */
+    $ua = $_SERVER['HTTP_USER_AGENT'];
 
-      /** Match common browsers (need Safari). */
-      preg_match("/(Firefox|Chrome|MSIE)[.\/]([\d.]+)/", $ua, $matches);
+    /** Match common browsers (need Safari). */
+    preg_match("/(Firefox|Chrome|MSIE)[.\/]([\d.]+)/", $ua, $matches);
 
-      /** Match IE explicitly. */
-      preg_match("/(MSIE) ([\d.]+)/", $ua, $ie);
+    /** Match IE explicitly. */
+    preg_match("/(MSIE) ([\d.]+)/", $ua, $ie);
 
-      /** Generic mobile device. */
-      $detected['mobile'] = strstr( strtolower( $ua ), 'mobile' ) ? true : false;
+    /** Generic mobile device. */
+    $detected['mobile'] = strstr( strtolower( $ua ), 'mobile' ) ? true : false;
 
-      /** Android. */
-      $detected['android'] = strstr( strtolower( $ua ), 'android' ) ? true : false;
+    /** Android. */
+    $detected['android'] = strstr( strtolower( $ua ), 'android' ) ? true : false;
 
-      /** Phone. */
-      $detected['phone'] = strstr( strtolower( $ua ), 'phone' ) ? true : false;
+    /** Phone. */
+    $detected['phone'] = strstr( strtolower( $ua ), 'phone' ) ? true : false;
 
-      /** Ipad. */
-      $detected['ipad'] = strstr( strtolower( $ua ), 'ipad' ) ? true : false;
+    /** Ipad. */
+    $detected['ipad'] = strstr( strtolower( $ua ), 'ipad' ) ? true : false;
 
-      /** IE (again). */
-      $detected['msie'] = strstr( strtolower( $ua ), 'msie' ) ? true : false;
+    /** IE (again). */
+    $detected['msie'] = strstr( strtolower( $ua ), 'msie' ) ? true : false;
 
-      /** Version. */
-      $detected['version'] = isset( $matches[2] ) ? $matches[2] : null;
+    /** Version. */
+    $detected['version'] = isset( $matches[2] ) ? $matches[2] : null;
 
-      /** Not serviced (lower IE versions). */
-      $detected['ns'] = isset( $ie[2] ) && $ie[2] < 10 ? true : false;
+    /** Not serviced (lower IE versions). */
+    $detected['ns'] = isset( $ie[2] ) && $ie[2] < 10 ? true : false;
 
-      /** Return the detected array. */
-      return $detected;
+    /** Return the detected array. */
+    return $detected;
   }
 
   /**
@@ -136,23 +136,23 @@ class Device
       }
       elseif ( $device['mobile'] && $device['android'] )
       {
-          return 'm';
+        return 'm';
       }
       elseif ( ! $device['mobile'] && $device['android'] )
       {
-          return 't';
+        return 't';
       }
       elseif ( $device['ipad'] )
       {
-          return 't';
+        return 't';
       }
       elseif ( $device['ns'] )
       {
-          return 'ns';
+        return 'ns';
       }
       else
       {
-          return 'd'; // desktop (default).
+        return 'd'; // desktop (default).
       }
     }
     else
@@ -160,7 +160,6 @@ class Device
       return false;
     }
   }
-  $this->getDetectedDevice();
 
   /**
    * Get the Request for the Device from the URL.
@@ -169,7 +168,7 @@ class Device
    *
    * @return array|false
    */
-  function getDeviceRequest()
+  function getRequestedDevice()
   {
     /** If the request is for a mobile device (generic), set to mobile (m). */
     if ( isset( $_GET['m'] ) )
@@ -210,7 +209,6 @@ class Device
    */
   function getThemeToDeliver( $device )
   {
-
     if ( 'm' == $device['requested'] )
     {
       return 'm';
@@ -235,6 +233,17 @@ class Device
   }
 } // End class
 
+/** Helper Function */
+if ( ! function_exists( 'pre_dump' ) )
+{
+  function pre_dump( $arr )
+  {
+    echo "<pre>" . PHP_EOL;
+    var_dump( $arr );
+    echo "</pre>" . PHP_EOL;
+  }
+}
+
 /** Environment Check. */
 if( function_exists( 'add_shortcode' ) )
 {
@@ -257,6 +266,7 @@ if( function_exists( 'add_shortcode' ) )
 /** Else Instantiate the Class Directly (not in WordPress). */
 else
 {
-  $device = new DeviceScreen();
-  echo $device::screen();
+  $device = new Device();
+  $arr = $device->get();
+  pre_dump( $arr );
 }
