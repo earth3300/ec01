@@ -251,7 +251,7 @@ if( function_exists( 'add_shortcode' ) )
    * here. wp_is_mobile() could be combined with wp_device() as is here, but at
    * a later date (>2018).
    *
-   * @return string
+   * @return array  Device detected. Device Requested. Theme to Deliver.
    */
   function wp_device()
   {
@@ -267,7 +267,7 @@ else
    *
    * Gets the device based on a bunch of logic (see above).
    *
-   * @return string  Single or double characters.
+   * @return array  Device detected. Device Requested. Theme to Deliver.
    */
   function ec_device()
   {
