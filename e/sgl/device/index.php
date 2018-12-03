@@ -47,15 +47,6 @@ class Device
   protected $screen = [];
 
   /**
-   * [set description]
-   * @param [type] $device [description]
-   */
-  public function set( $device )
-  {
-    //$this->screen = $device;
-  }
-
-  /**
    * Get
    *
    * Get the device being requested.
@@ -252,21 +243,35 @@ if( function_exists( 'add_shortcode' ) )
 
   /**
    * WordPress global function.
-   *   *
-   * @param array  $args['dir']
    *
-   * @return string  HTML as a list of images, wrapped in the article element.
+   * This function name could be the same as when not used within WordPress (below).
+   * However, there may be some WordPress specific functionality that could be added.
+   * For example, the function wp_is_mobile() exists, but only determines whether
+   * or not the device is mobile. It does not provide the richer context sought
+   * here. wp_is_mobile() could be combined with wp_device() as is here, but at
+   * a later date (>2018).
+   *
+   * @return string
    */
   function wp_device()
   {
-    return Device::screen;
+    $device = new Device();
+    return $device->get();
   }
 }
-
 /** Else Instantiate the Class Directly (not in WordPress). */
 else
 {
-  $device = new Device();
-  $arr = $device->get();
-  pre_dump( $arr );
+  /**
+   * EC Device
+   *
+   * Gets the device based on a bunch of logic (see above).
+   *
+   * @return string  Single or double characters.
+   */
+  function ec_device()
+  {
+    $device = new Device();
+    return $device->get();
+  }
 }
