@@ -288,19 +288,40 @@ class Device
    * window.fullScreen
    *
    * @link https://developer.mozilla.org/en-US/docs/Web/API/Window/  Reference
+   * @link https://en.wikipedia.org/wiki/Aspect_ratio_(image)
    *
    * @return string
    */
   private function getJavascript()
   {
     $str = '<script>' . PHP_EOL;
+    $str .= '  var opts = { ' . PHP_EOL;
+    $str .= '    "screen": { ' . PHP_EOL;
+    $str .= '      "target": { "wide": 1920, "high": 1080 },' . PHP_EOL;
+    $str .= '      "actual": { "wide": 1366, "high": 768 },' . PHP_EOL;
+    $str .= '      "menu": { "left": 65, "top": 25, "right": 0, "bottom": 0 },' . PHP_EOL;
+    $str .= '      "class": \'"absolute", "screen-fill", "border"\',' . PHP_EOL;
+    $str .= '      "aspect": {' . PHP_EOL;
+    $str .= '        "desktop": 1.3333,' . PHP_EOL;
+    $str .= '        "imax-film": 1.43,' . PHP_EOL;
+    $str .= '        "golden": 1.618,' . PHP_EOL;
+    $str .= '        "hd": 1.7778,' . PHP_EOL;
+    $str .= '        "cinema": 1.85,' . PHP_EOL;
+    $str .= '        "imax-digital": 1.9,' . PHP_EOL;
+    $str .= '        "wide": 2.3333,' . PHP_EOL;
+    $str .= '        "cinema-w": 2.39,' . PHP_EOL;
+    $str .= '        "silver": 2.414,' . PHP_EOL;
+    $str .= '      },' . PHP_EOL;
+    $str .= '     }' . PHP_EOL;
+    $str .= '  };' . PHP_EOL;
     $str .= '  if (typeof window.innerWidth !== "undefined") {' . PHP_EOL;
-    $str .= '    var opts = { "wide": 900 };' . PHP_EOL;
     $str .= '    var screen = document.getElementsByTagName("html");' . PHP_EOL;
+    $str .= '    var multiplier = window.innerWidth / opts.target * .98;' . PHP_EOL;
     $str .= '    if ( window.innerWidth > opts.wide ) {' . PHP_EOL;
-    $str .= '      screen[0].classList.add("screen-wide");' . PHP_EOL;
+    $str .= '      screen[0].classList.add("absolute", "screen-fill", "border");' . PHP_EOL;
     $str .= '    }' . PHP_EOL;
     $str .= '  }' . PHP_EOL;
+    $str .= '  console.log( opts.screen.class );' . PHP_EOL;
     $str .= '</script>' . PHP_EOL;
     return $str;
   }
