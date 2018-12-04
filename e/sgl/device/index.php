@@ -99,8 +99,9 @@ class Device
    */
   public function html()
   {
-    $article = $this->article();
-    $html = $this->getPageHtml( $article );
+    $html = $this->grid();
+
+    $html = $this->getPageHtml( $html );
 
     return $html;
   }
@@ -300,7 +301,7 @@ class Device
     $str .= '      "target": { "wide": 1920, "high": 1080 },' . PHP_EOL;
     $str .= '      "actual": { "wide": 1366, "high": 768 },' . PHP_EOL;
     $str .= '      "menu": { "left": 65, "top": 25, "right": 0, "bottom": 0 },' . PHP_EOL;
-    $str .= '      "class": \'"absolute", "screen-fill", "border"\',' . PHP_EOL;
+    $str .= '      "class": \'"absolute", "screen-fill", "border dashed"\',' . PHP_EOL;
     $str .= '      "aspect": {' . PHP_EOL;
     $str .= '        "desktop": 1.3333,' . PHP_EOL;
     $str .= '        "imax-film": 1.43,' . PHP_EOL;
@@ -318,7 +319,7 @@ class Device
     $str .= '    var screen = document.getElementsByTagName("html");' . PHP_EOL;
     $str .= '    var mult = window.innerWidth / opts.target * .05;' . PHP_EOL;
     $str .= '    if ( 1 || window.innerWidth > opts.screen.target.wide * mult ) {' . PHP_EOL;
-    $str .= '      screen[0].classList.add("absolute", "screen-fill");' . PHP_EOL;
+    $str .= '      screen[0].classList.add("screen-fill", "absolute");' . PHP_EOL;
     $str .= '    }' . PHP_EOL;
     $str .= '  }' . PHP_EOL;
     $str .= '  console.log( opts.screen.class );' . PHP_EOL;
@@ -373,6 +374,54 @@ class Device
 
     /** Return the string. */
     return $html;
+  }
+
+  private function grid()
+  {
+    $str = '<div class="grid">' . PHP_EOL;
+
+    $str .= '<div class="unit size1of3 pos1x1">' . PHP_EOL;
+    $str .= '<div class="inner border dashed">' . PHP_EOL;
+    $str .= '</div><!-- .inner -->' . PHP_EOL;
+    $str .= '</div><!-- .unit -->' . PHP_EOL;
+    $str .= '<div class="unit size1of3 pos2x1">' . PHP_EOL;
+    $str .= '<div class="inner border dashed">' . PHP_EOL;
+    $str .= '</div><!-- .inner -->' . PHP_EOL;
+    $str .= '</div><!-- .unit -->' . PHP_EOL;
+    $str .= '<div class="unit size1of3 pos3x1">' . PHP_EOL;
+    $str .= '<div class="inner border dashed">' . PHP_EOL;
+    $str .= '</div><!-- .inner -->' . PHP_EOL;
+    $str .= '</div><!-- .unit -->' . PHP_EOL;
+
+    $str .= '<div class="unit size1of3 pos1x2">' . PHP_EOL;
+    $str .= '<div class="inner border dashed">' . PHP_EOL;
+    $str .= '</div><!-- .inner -->' . PHP_EOL;
+    $str .= '</div><!-- .unit -->' . PHP_EOL;
+    $str .= '<div class="unit size1of3 pos2x2">' . PHP_EOL;
+    $str .= '<div class="inner border dashed">' . PHP_EOL;
+    $str .= '</div><!-- .inner -->' . PHP_EOL;
+    $str .= '</div><!-- .unit -->' . PHP_EOL;
+    $str .= '<div class="unit size1of3 pos3x2">' . PHP_EOL;
+    $str .= '<div class="inner border dashed">' . PHP_EOL;
+    $str .= '</div><!-- .inner -->' . PHP_EOL;
+    $str .= '</div><!-- .unit -->' . PHP_EOL;
+
+    $str .= '<div class="unit size1of3 pos1x3">' . PHP_EOL;
+    $str .= '<div class="inner border dashed">' . PHP_EOL;
+    $str .= '</div><!-- .inner -->' . PHP_EOL;
+    $str .= '</div><!-- .unit -->' . PHP_EOL;
+    $str .= '<div class="unit size1of3 pos2x3">' . PHP_EOL;
+    $str .= '<div class="inner border dashed">' . PHP_EOL;
+    $str .= '</div><!-- .inner -->' . PHP_EOL;
+    $str .= '</div><!-- .unit -->' . PHP_EOL;
+    $str .= '<div class="unit size1of3 pos3x3">' . PHP_EOL;
+    $str .= '<div class="inner border dashed">' . PHP_EOL;
+    $str .= '</div><!-- .inner -->' . PHP_EOL;
+    $str .= '</div><!-- .unit -->' . PHP_EOL;
+
+    $str .= '</div><!-- .grid -->' . PHP_EOL;
+
+    return $str;
   }
 
 } // End class
