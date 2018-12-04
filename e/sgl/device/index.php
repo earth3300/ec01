@@ -20,7 +20,7 @@
  * File: index.php
  * Created: 2015-00-00
  * Updated: 2018-12-03
- * Time: 15:02 EST
+ * Time: 18:36 EST
  */
 
 namespace Earth3300\EC01;
@@ -46,6 +46,29 @@ class Device
   /** @var $device */
   protected $screen = [];
 
+  /** @var array Default options. */
+  protected $opts = [
+    'page' => [
+      'title' => 'Device',
+      'robots' => [ 'index' => 0, ],
+      'theme' => [ 'name' => 'theme-dark', ],
+      'css' => [ 'load' => 1, 'url' => '/0/theme/css/style.css', ],
+      'footer' => [ 'load' => 0, ],
+      'javascript' => [ 'load' => 1, ],
+      'url' => 'https://github.com/earth3300/ec01-device',
+    ],
+    'file' => [
+      'max' => [ 'num' => 1, 'size' => 100*10, ],
+      'read' => [ 'load' => 1, 'name' => 'device.html', ],
+      'type' => 'html',
+      'ext' => '.html',
+      'this' => 'index.php',
+    ],
+    'security' => [ 'check' => 1, ],
+    'mode' => [ 'manual' => 1, 'automatic' => 0, ],
+    'testing' => 1,
+    ];
+
   /**
    * Get
    *
@@ -65,6 +88,38 @@ class Device
     $device['theme'] = $this->getThemeToDeliver( $device );
 
     return $device;
+  }
+
+  /**
+   * HTML
+   *
+   * Get HTML to render a page.
+   *
+   * @return string
+   */
+  public function html()
+  {
+    $article = $this->article();
+    $html = $this->getPageHtml( $article );
+
+    return $html;
+  }
+
+  /**
+   * Article
+   *
+   * Get the article HTML.
+   *
+   * @return string
+   */
+  public function article()
+  {
+    $str = '<article>' . PHP_EOL;
+    $str .= '<h1>Title</h1>' . PHP_EOL;
+    $str .= '<p>Your text here.</p>' . PHP_EOL;
+    $str .= '</article>' . PHP_EOL;
+
+    return $str;
   }
 
   /**
@@ -222,6 +277,81 @@ class Device
       return $device['detected'];
     }
   }
+
+  /**
+   * Get Javascript
+   *
+   * window.innerWidth  //includes scrollbar
+   * window.outerWidth
+   * window.innerHeight //includes scrollbar
+   * window.outerHeight
+   * window.fullScreen
+   *
+   * @link https://developer.mozilla.org/en-US/docs/Web/API/Window/  Reference
+   *
+   * @return string
+   */
+  private function getJavascript()
+  {
+    $str = '<script>' . PHP_EOL;
+    $str .= '  if (typeof window.innerWidth !== "undefined"';
+    $str .= '  && typeof window.innerHeight !== "underfined") {' . PHP_EOL;
+    $str .= '  var foo = document.getElementsByTagName("html");' . PHP_EOL;
+    $str .= '  foo[0].classList.add("screen-wide");' . PHP_EOL;
+    $str .= '  }' . PHP_EOL;
+    $str .= '</script>' . PHP_EOL;
+    return $str;
+  }
+
+  /**
+   * Embed the provided HTML in a Valid HTML Page
+   *
+   * Uses the HTML5 DOCTYPE (`<!DOCTYPE html>`), the UTF-8 charset, sets the
+   * initial viewport for mobile devices, disallows robot indexing (by default),
+   * and references a single stylesheet.
+   *
+   * @param string $str
+   *
+   * @return string
+   */
+  public function getPageHtml( $article )
+  {
+    $html = '<!DOCTYPE html>' . PHP_EOL;
+    $html .= '<html ';
+    $html .= 'class="dynamic';
+    $html .= ' ' . $this->opts['page']['theme']['name'];
+    $html .= isset( $article['class'] ) ? ' ' . $article['class'] : '';
+    $html .= '"';
+    $html .= ' lang="en-CA"';
+    $html .= '>' . PHP_EOL;
+    $html .= '<head>' . PHP_EOL;
+    $html .= '<meta charset="UTF-8">' . PHP_EOL;
+    $html .= '<meta name="viewport" content="width=device-width, initial-scale=1"/>' . PHP_EOL;
+    $html .= sprintf( '<title>%s</title>%s', $this->opts['page']['title'], PHP_EOL);
+    $html .= $this->opts['page']['robots']['index'] ? '' : '<meta name="robots" content="noindex,nofollow" />' . PHP_EOL;
+    $html .= $this->opts['page']['css']['load'] ? sprintf('<link rel=stylesheet href="%s">%s', $this->opts['page']['css']['url'], PHP_EOL) : '';
+    $html .= '</head>' . PHP_EOL;
+    $html .= '<body>' . PHP_EOL;
+    $html .= '<main>' . PHP_EOL;
+    $html .= $article;
+    $html .= '</main>' . PHP_EOL;
+    if ( $this->opts['page']['footer']['load'] )
+    {
+      $html .= '<footer>' . PHP_EOL;
+      $html .= '<div class="text-center"><small>';
+      $html .= sprintf( 'Note: This page has been <a href="%s">', $this->opts['page']['url'] );
+      $html .= 'automatically generated</a>. No header, footer, menus or sidebars are available.';
+      $html .= '</small></div>' . PHP_EOL;
+      $html .= '</footer>' . PHP_EOL;
+    }
+    $html .= $this->opts['page']['javascript'] ? $this->getJavascript() : '';
+    $html .= '</body>' . PHP_EOL;
+    $html .= '</html>' . PHP_EOL;
+
+    /** Return the string. */
+    return $html;
+  }
+
 } // End class
 
 /** Helper Function */
@@ -273,5 +403,11 @@ else
   {
     $device = new Device();
     return $device->get();
+  }
+
+  if( 1 )
+  {
+    $device = new Device();
+    echo $device->html();
   }
 }

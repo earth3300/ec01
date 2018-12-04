@@ -452,7 +452,7 @@ class FormWriter
   }
 
   /**
-   *  Get Javascript
+   * Get Javascript
    *
    * @return string
    */
