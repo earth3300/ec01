@@ -294,10 +294,12 @@ class Device
   private function getJavascript()
   {
     $str = '<script>' . PHP_EOL;
-    $str .= '  if (typeof window.innerWidth !== "undefined"';
-    $str .= '  && typeof window.innerHeight !== "underfined") {' . PHP_EOL;
-    $str .= '  var foo = document.getElementsByTagName("html");' . PHP_EOL;
-    $str .= '  foo[0].classList.add("screen-wide");' . PHP_EOL;
+    $str .= '  if (typeof window.innerWidth !== "undefined") {' . PHP_EOL;
+    $str .= '    var opts = { "wide": 900 };' . PHP_EOL;
+    $str .= '    var screen = document.getElementsByTagName("html");' . PHP_EOL;
+    $str .= '    if ( window.innerWidth > opts.wide ) {' . PHP_EOL;
+    $str .= '      screen[0].classList.add("screen-wide");' . PHP_EOL;
+    $str .= '    }' . PHP_EOL;
     $str .= '  }' . PHP_EOL;
     $str .= '</script>' . PHP_EOL;
     return $str;
