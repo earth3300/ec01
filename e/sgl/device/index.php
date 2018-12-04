@@ -316,9 +316,9 @@ class Device
     $str .= '  };' . PHP_EOL;
     $str .= '  if (typeof window.innerWidth !== "undefined") {' . PHP_EOL;
     $str .= '    var screen = document.getElementsByTagName("html");' . PHP_EOL;
-    $str .= '    var multiplier = window.innerWidth / opts.target * .98;' . PHP_EOL;
-    $str .= '    if ( window.innerWidth > opts.wide ) {' . PHP_EOL;
-    $str .= '      screen[0].classList.add("absolute", "screen-fill", "border");' . PHP_EOL;
+    $str .= '    var mult = window.innerWidth / opts.target * .05;' . PHP_EOL;
+    $str .= '    if ( 1 || window.innerWidth > opts.screen.target.wide * mult ) {' . PHP_EOL;
+    $str .= '      screen[0].classList.add("absolute", "screen-fill");' . PHP_EOL;
     $str .= '    }' . PHP_EOL;
     $str .= '  }' . PHP_EOL;
     $str .= '  console.log( opts.screen.class );' . PHP_EOL;
