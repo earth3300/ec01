@@ -13,8 +13,8 @@ Tags: lightweight, simple
 
 File: 00-header.css
 Created: 2018-11-02
-Updated: 2018-12-04
-Time: 09:09 EST
+Updated: 2018-12-05
+Time: 17:00 EST
 */
 
 /**
@@ -94,15 +94,10 @@ Time: 09:09 EST
     position: absolute;
   }
 
-  html.absolute {
-    position: absolute;
-  }
-
-  html.absolute body {
-    position: absolute;
-  }
-
-  html.absolute main {
+  html.screen-fill,
+  html.screen-fill body,
+  html.screen-fill main,
+  html.screen-fill video {
     position: absolute;
   }
 
@@ -124,11 +119,17 @@ Time: 09:09 EST
     bottom: 10px;
   }
 
-  html.screen-fill main {
+  html.screen-fill main,
+  html.screen-fill video {
     left: 0;
     top: 0;
     right: 0;
     bottom: 0;
+  }
+
+  html.screen-fill video {
+    width: 100% !important;
+    height: 100%;
   }
 
   html.screen-fill main {
