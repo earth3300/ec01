@@ -19,8 +19,8 @@
  *
  * File: index.php
  * Created: 2015-00-00
- * Updated: 2018-12-05
- * Time: 15:31 EST
+ * Updated: 2018-12-03
+ * Time: 18:36 EST
  */
 
 namespace Earth3300\EC01;
@@ -43,6 +43,31 @@ namespace Earth3300\EC01;
  */
 class Device
 {
+  /** @var $device */
+  protected $screen = [];
+
+  /** @var array Default options. */
+  protected $opts = [
+    'page' => [
+      'title' => 'Device',
+      'robots' => [ 'index' => 0, ],
+      'theme' => [ 'name' => 'theme-dark', ],
+      'css' => [ 'load' => 1, 'url' => '/0/theme/css/style.css', ],
+      'footer' => [ 'load' => 0, ],
+      'javascript' => [ 'load' => 1, ],
+      'url' => 'https://github.com/earth3300/ec01-device',
+    ],
+    'file' => [
+      'max' => [ 'num' => 1, 'size' => 100*10, ],
+      'read' => [ 'load' => 1, 'name' => 'device.html', ],
+      'type' => 'html',
+      'ext' => '.html',
+      'this' => 'index.php',
+    ],
+    'security' => [ 'check' => 1, ],
+    'mode' => [ 'manual' => 1, 'automatic' => 0, ],
+    'testing' => 1,
+    ];
 
   /**
    * Get
@@ -63,6 +88,39 @@ class Device
     $device['theme'] = $this->getThemeToDeliver( $device );
 
     return $device;
+  }
+
+  /**
+   * HTML
+   *
+   * Get HTML to render a page.
+   *
+   * @return string
+   */
+  public function html()
+  {
+    $html = $this->grid();
+
+    $html = $this->getPageHtml( $html );
+
+    return $html;
+  }
+
+  /**
+   * Article
+   *
+   * Get the article HTML.
+   *
+   * @return string
+   */
+  public function article()
+  {
+    $str = '<article>' . PHP_EOL;
+    $str .= '<h1>Title</h1>' . PHP_EOL;
+    $str .= '<p>Your text here.</p>' . PHP_EOL;
+    $str .= '</article>' . PHP_EOL;
+
+    return $str;
   }
 
   /**
@@ -220,75 +278,6 @@ class Device
       return $device['detected'];
     }
   }
-} // End Device Class
-
-class DeviceTemplate
-{
-
-  /** @var array Default options. */
-  protected static $opts = [
-    'page' => [
-      'title' => 'Device',
-      'robots' => [ 'index' => 0, ],
-      'theme' => [ 'name' => 'theme-dark', ],
-      'css' => [ 'load' => 1, 'url' => 'style.css', ],  // /0/theme/css/style.css
-      'footer' => [ 'load' => 0, ],
-      'javascript' => [ 'load' => 1, ],
-      'url' => 'https://github.com/earth3300/ec01-device',
-    ],
-    'file' => [
-      'max' => [ 'num' => 1, 'size' => 100*10, ],
-      'read' => [ 'load' => 1, 'name' => 'article.html', ],
-      'type' => 'html',
-      'ext' => '.html',
-      'this' => 'index.php',
-    ],
-    'security' => [ 'check' => 1, ],
-    'mode' => [ 'manual' => 1, 'automatic' => 0, ],
-    'testing' => 1,
-    ];
-
-
-  /**
-   * HTML
-   *
-   * Get HTML to render a page.
-   *
-   * @return string
-   */
-  public function html()
-  {
-    if ( 0 )
-    {
-      $main = $this->getGridHtml();
-    }
-    else
-    {
-      $main = $this->getArticleHtml();
-    }
-
-    $html = $this->getPageHtml( $main );
-
-    return $html;
-  }
-
-  /**
-   * Article
-   *
-   * Get the article HTML.
-   *
-   * @return string
-   */
-  public function getArticleHtml()
-  {
-    $file = __DIR__ . '/' . self::$opts['file']['read']['name'];
-    
-    if ( file_exists( $file ) )
-    {
-      $str = file_get_contents( $file );
-      return $str;
-    }
-  }
 
   /**
    * Get Javascript
@@ -338,7 +327,56 @@ class DeviceTemplate
     return $str;
   }
 
-  private function getGridHtml()
+  /**
+   * Embed the provided HTML in a Valid HTML Page
+   *
+   * Uses the HTML5 DOCTYPE (`<!DOCTYPE html>`), the UTF-8 charset, sets the
+   * initial viewport for mobile devices, disallows robot indexing (by default),
+   * and references a single stylesheet.
+   *
+   * @param string $str
+   *
+   * @return string
+   */
+  public function getPageHtml( $article )
+  {
+    $html = '<!DOCTYPE html>' . PHP_EOL;
+    $html .= '<html ';
+    $html .= 'class="dynamic';
+    $html .= ' ' . $this->opts['page']['theme']['name'];
+    $html .= isset( $article['class'] ) ? ' ' . $article['class'] : '';
+    $html .= '"';
+    $html .= ' lang="en-CA"';
+    $html .= '>' . PHP_EOL;
+    $html .= '<head>' . PHP_EOL;
+    $html .= '<meta charset="UTF-8">' . PHP_EOL;
+    $html .= '<meta name="viewport" content="width=device-width, initial-scale=1"/>' . PHP_EOL;
+    $html .= sprintf( '<title>%s</title>%s', $this->opts['page']['title'], PHP_EOL);
+    $html .= $this->opts['page']['robots']['index'] ? '' : '<meta name="robots" content="noindex,nofollow" />' . PHP_EOL;
+    $html .= $this->opts['page']['css']['load'] ? sprintf('<link rel=stylesheet href="%s">%s', $this->opts['page']['css']['url'], PHP_EOL) : '';
+    $html .= '</head>' . PHP_EOL;
+    $html .= '<body>' . PHP_EOL;
+    $html .= '<main>' . PHP_EOL;
+    $html .= $article;
+    $html .= '</main>' . PHP_EOL;
+    if ( $this->opts['page']['footer']['load'] )
+    {
+      $html .= '<footer>' . PHP_EOL;
+      $html .= '<div class="text-center"><small>';
+      $html .= sprintf( 'Note: This page has been <a href="%s">', $this->opts['page']['url'] );
+      $html .= 'automatically generated</a>. No header, footer, menus or sidebars are available.';
+      $html .= '</small></div>' . PHP_EOL;
+      $html .= '</footer>' . PHP_EOL;
+    }
+    $html .= $this->opts['page']['javascript'] ? $this->getJavascript() : '';
+    $html .= '</body>' . PHP_EOL;
+    $html .= '</html>' . PHP_EOL;
+
+    /** Return the string. */
+    return $html;
+  }
+
+  private function grid()
   {
     $str = '<div class="grid">' . PHP_EOL;
 
@@ -389,55 +427,7 @@ class DeviceTemplate
     return $str;
   }
 
-    /**
-     * Embed the provided HTML in a Valid HTML Page
-     *
-     * Uses the HTML5 DOCTYPE (`<!DOCTYPE html>`), the UTF-8 charset, sets the
-     * initial viewport for mobile devices, disallows robot indexing (by default),
-     * and references a single stylesheet.
-     *
-     * @param string $str
-     *
-     * @return string
-     */
-    public function getPageHtml( $article )
-    {
-      $html = '<!DOCTYPE html>' . PHP_EOL;
-      $html .= '<html ';
-      $html .= 'class="dynamic';
-      $html .= ' ' . self::$opts['page']['theme']['name'];
-      $html .= isset( $article['class'] ) ? ' ' . $article['class'] : '';
-      $html .= '"';
-      $html .= ' lang="en-CA"';
-      $html .= '>' . PHP_EOL;
-      $html .= '<head>' . PHP_EOL;
-      $html .= '<meta charset="UTF-8">' . PHP_EOL;
-      $html .= '<meta name="viewport" content="width=device-width, initial-scale=1"/>' . PHP_EOL;
-      $html .= sprintf( '<title>%s</title>%s', self::$opts['page']['title'], PHP_EOL);
-      $html .= self::$opts['page']['robots']['index'] ? '' : '<meta name="robots" content="noindex,nofollow" />' . PHP_EOL;
-      $html .= self::$opts['page']['css']['load'] ? sprintf('<link rel=stylesheet href="%s">%s', self::$opts['page']['css']['url'], PHP_EOL) : '';
-      $html .= '</head>' . PHP_EOL;
-      $html .= '<body>' . PHP_EOL;
-      $html .= '<main>' . PHP_EOL;
-      $html .= $article;
-      $html .= '</main>' . PHP_EOL;
-      if ( self::$opts['page']['footer']['load'] )
-      {
-        $html .= '<footer>' . PHP_EOL;
-        $html .= '<div class="text-center"><small>';
-        $html .= sprintf( 'Note: This page has been <a href="%s">', self::$opts['page']['url'] );
-        $html .= 'automatically generated</a>. No header, footer, menus or sidebars are available.';
-        $html .= '</small></div>' . PHP_EOL;
-        $html .= '</footer>' . PHP_EOL;
-      }
-      $html .= self::$opts['page']['javascript'] ? $this->getJavascript() : '';
-      $html .= '</body>' . PHP_EOL;
-      $html .= '</html>' . PHP_EOL;
-
-      /** Return the string. */
-      return $html;
-    }
-} // End Template Class
+} // End class
 
 /** Helper Function */
 if ( ! function_exists( 'pre_dump' ) )
@@ -470,7 +460,7 @@ if( function_exists( 'add_shortcode' ) )
    */
   function wp_device()
   {
-    $device = new DeviceTemplate();
+    $device = new Device();
     return $device->get();
   }
 }
@@ -486,13 +476,13 @@ else
    */
   function ec_device()
   {
-    $device = new DeviceTemplate();
+    $device = new Device();
     return $device->get();
   }
 
   if( 1 )
   {
-    $device = new DeviceTemplate();
+    $device = new Device();
     echo $device->html();
   }
 }

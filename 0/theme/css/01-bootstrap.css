@@ -121,6 +121,13 @@
     position: absolute;
   }
 
+  html.screen-fill .grid {
+    top: 3px;
+    right: 3px;
+    bottom: 3px;
+    left: 3px;
+  }
+
   html.screen-fill .grid .unit {
     position: absolute;
   }
@@ -129,12 +136,10 @@
     position: absolute;
   }
 
-  html.screen-fill .grid {
-    top: 3px;
-    right: 3px;
-    bottom: 3px;
-    left: 3px;
+  html.screen-fill .grid .unit > .inner {
+    overflow: hidden;
   }
+
 
   html.screen-fill .grid .size1of3 {
     width: 33.333%;
