@@ -76,17 +76,49 @@
     position: absolute;
   }
 
-  html.absolute {
+  html.screen-fill,
+  html.screen-fill body,
+  html.screen-fill main,
+  html.screen-fill video,
+  html.screen-fill iframe.map,
+  html.screen-fill iframe.video {
     position: absolute;
   }
 
-  html.absolute body {
-    position: absolute;
+  html.screen-fill {
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
   }
 
-  html.absolute main {
-    position: absolute;
+  html.screen-fill body {
+    max-width: 100% !important;
   }
+
+  html.screen-fill body {
+    left: 10px;
+    top: 10px;
+    right: 10px;
+    bottom: 10px;
+  }
+
+  html.screen-fill main,
+  html.screen-fill video,
+  html.screen-fill iframe.map,
+  html.screen-fill iframe.video {
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+  }
+
+  html.screen-fill video {
+    width: 100% !important;
+    height: 100%;
+  }
+
+/* */
 
   html.screen-fill {
     left: 0;

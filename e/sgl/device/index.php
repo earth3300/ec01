@@ -258,7 +258,7 @@ class DeviceTemplate
    */
   public function html()
   {
-    if ( 1 )
+    if ( 0 )
     {
       $main = $this->getGridHtml();
     }
