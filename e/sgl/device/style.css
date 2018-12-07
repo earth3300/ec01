@@ -110,7 +110,8 @@ Time: 17:00 EST
     bottom: 0;
   }
 
-  html.screen-fill body {
+  html.screen-fill body,
+  html.screen-fill article {
     max-width: 100% !important;
   }
 
@@ -140,6 +141,14 @@ Time: 17:00 EST
     padding: 0 !important;
   }
 
+  html.screen-fill p:first-child {
+    margin-top: 0 !important;
+  }
+
+  html.screen-fill p:last-child {
+    margin-bottom: 0 !important;
+  }
+
   html.screen-fill .grid {
     position: absolute;
   }
@@ -162,7 +171,6 @@ Time: 17:00 EST
   html.screen-fill .grid .unit > .inner {
     overflow: hidden;
   }
-
 
   html.screen-fill .grid .size1of3 {
     width: 33.333%;
