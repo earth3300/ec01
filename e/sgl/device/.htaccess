@@ -1,0 +1,9 @@
+
+DirectoryIndex index.html
+# Look for files in this order.
+
+<IfModule mod_headers.c>
+  <FilesMatch "\.(html|css|js)$">
+    Header set Cache-Control "max-age=60, public, must-revalidate"
+  </FilesMatch>
+</IfModule>
