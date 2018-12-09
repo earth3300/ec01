@@ -76,6 +76,7 @@
     max-width: 98%;
     top: 50%;
     transform: translateY(-50%);
+    border-radius: 3px;
   }
 
   html.screen,
