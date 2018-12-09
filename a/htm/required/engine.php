@@ -222,7 +222,7 @@ class EC01HTML
    */
   private function getArticleTitle( $article )
   {
-    $check = substr( $article, 0, 150 );
+    $check = substr( $article, 0, 300 );
     $pattern = "/>(.*?)<\/h1>/";
     preg_match( $pattern, $check, $matches );
     if ( ! empty ( $matches[1] ) )
@@ -641,7 +641,7 @@ class EC01HTML
     $str .= '</nav>' . PHP_EOL;
     $str .= '</div>' . PHP_EOL;
     $str .= '</footer>' . PHP_EOL;
-    
+
     /** Displays the time it took to generate the page. */
     $str .= SITE_ELAPSED_TIME ? get_site_elapsed() : '';
 
