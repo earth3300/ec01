@@ -144,8 +144,12 @@ class EC01Template extends EC01HTML
         /** The page footer. */
         $str .= $page['footer'];
 
+        $str .= $page['screen'] ? '<div id="notice" class="notice screen-small"><h3>Best viewed on a tablet or better</h3></div>' . PHP_EOL : '';
+
         /** Close the body element. */
         $str .= '</body>' . PHP_EOL;
+
+        $str .= $page['screen'] ? '<nav><a href="../" title="Go up one directory">^</a></nav>' . PHP_EOL : '';
 
         /** Close the `html` element. */
         $str .= '</html>';

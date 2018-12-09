@@ -245,7 +245,14 @@
 
   html.screen nav:hover {
     opacity: 0.9;
+  }
+
+  html.screen.theme-dark nav:hover {
     background-color: #222;
+  }
+
+  html.screen nav:hover {
+    background-color: #efefef;
   }
 
   .control {
