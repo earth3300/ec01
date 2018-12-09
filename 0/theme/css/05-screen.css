@@ -1,3 +1,15 @@
+/**
+* Screen CSS
+*
+* @link https://github.com/earth3300/ec01-css
+* @author https://github.com/earth3300
+* @license GPL v3.0
+*
+* File: 05-screen.css
+* Created: 2018.12.05
+* Updated: 2018-12-09
+* Time: 11:07 EST
+*/
 
 /* Screen Fill Begin (Absolutely positioned) */
 @media all {
@@ -10,6 +22,10 @@
     max-width: initial;
     position: relative;
     overflow: hidden;
+  }
+
+  html.screen article .border {
+    background-color: inherit;
   }
 
   html.screen {
