@@ -8,7 +8,7 @@
 * File: 05-screen.css
 * Created: 2018.12.05
 * Updated: 2018-12-09
-* Time: 11:07 EST
+* Time: 14:40 EST
 */
 
 /* Screen Fill Begin (Absolutely positioned) */
@@ -39,6 +39,7 @@
   html.screen main,
   html.screen article,
   html.screen section,
+  html.screen .grid img,
   html.screen video,
   html.screen iframe {
     position: absolute;
@@ -69,6 +70,12 @@
     top: 10px;
     right: 10px;
     bottom: 10px;
+  }
+
+  html.screen .grid img {
+    max-width: 98%;
+    top: 50%;
+    transform: translateY(-50%);
   }
 
   html.screen,
@@ -151,8 +158,12 @@
   }
 
   html.screen .grid .unit > .inner {
-    padding: 10px;
+    padding: 1%;
     overflow: hidden;
+  }
+
+  html.screen .grid .control .unit > .inner {
+    padding: 15px;
   }
 
   html.screen .grid.text .unit > .inner {
