@@ -74,11 +74,12 @@ class EC01HTML
     }
     $page['tiers'] = $this->getPageData( $page ); //needs the article, to get the class.
     $page['class'] = $this->getPageClasses( $page );
-    $page['header']['main'] = $this->getHeader( $page );
+    $page['screen'] = $this->isFullScreen( $page['class'] );
+    $page['header']['main'] = $page['screen'] ? '' : $this->getHeader( $page );
     $page['article-title'] = $this->getArticleTitle( $page['article'] );
     $page['page-title'] = $this-> getPageTitle( $page );
-    $page['aside']= $this->getAside( $page );
-    $page['footer']= $this-> getFooter();
+    $page['aside']= $page['screen'] ? '' : $this->getAside( $page );
+    $page['footer']= $page['screen'] ? '' : $this-> getFooter();
 
     return $page;
   }
@@ -274,8 +275,6 @@ class EC01HTML
 
     $class['article'] = $this->getArticleClass( $page['article'] );
 
-    $class['screen'] = $this->isFullScreen( $class['article' );
-
     /** Get the HTML class (from what is needed). */
     $class['html'] = $this->getHtmlClass( $page, $class );
 
@@ -293,8 +292,8 @@ class EC01HTML
    */
   private function isFullScreen( $class )
   {
-    /** If the "screen" class is in the string, return true. */
-    if ( strpos( $class, $this->opts['screen'] ) !== false )
+    /** If the "screen" class is in the article class, return true. */
+    if ( strpos( $class['article'], $this->opts['screen'] ) !== false )
     {
       return true;
     }
