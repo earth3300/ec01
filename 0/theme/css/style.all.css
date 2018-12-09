@@ -2392,6 +2392,7 @@ Time: 19:00 EST
   html.screen .notice h3 {
     top: 50%;
     margin-top: -7px;
+    display: block;
   }
 }
 
