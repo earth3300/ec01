@@ -23,6 +23,11 @@ defined('NDA') || exit('NDA');
  */
 class EC01HTML
 {
+  /** @var $opts */
+  protected $opts = [
+    'screen' => 'afs',
+  ];
+
   /**
    * Get the HTML Page.
    *
@@ -259,20 +264,46 @@ class EC01HTML
   /**
    * Get the HTML Class.
    *
+   * @param array $page
+   *
+   * @return array
    */
-   private function getPageClasses( $page )
-   {
+  private function getPageClasses( $page )
+  {
     $class['type'] = $this->isPageDynamic( $page );
 
-     $class['article'] = $this->getArticleClass( $page['article'] );
+    $class['article'] = $this->getArticleClass( $page['article'] );
 
-     /** Get the HTML class (from what is needed). */
-     $class['html'] = $this->getHtmlClass( $page, $class );
+    $class['screen'] = $this->isFullScreen( $class['article' );
+
+    /** Get the HTML class (from what is needed). */
+    $class['html'] = $this->getHtmlClass( $page, $class );
 
     $class['body'] = $this->getBodyClass( $page['tiers'] );
 
     return $class;
-   }
+  }
+
+  /**
+   * Get Full Screen
+   *
+   * @param string $class['article']
+   *
+   * @return boolean
+   */
+  private function isFullScreen( $class )
+  {
+    /** If the "screen" class is in the string, return true. */
+    if ( strpos( $class, $this->opts['screen'] ) !== false )
+    {
+      return true;
+    }
+    else
+    {
+      /** Else, return false. */
+      return false;
+    }
+  }
 
   /**
    * Build the HTML Class String From the Array.
