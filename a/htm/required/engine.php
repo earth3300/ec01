@@ -641,6 +641,8 @@ class EC01HTML
     $str .= '</nav>' . PHP_EOL;
     $str .= '</div>' . PHP_EOL;
     $str .= '</footer>' . PHP_EOL;
+    /** Displays the time it took to generate the page. */
+    $str .= SITE_ELAPSED_TIME ? get_site_elapsed() : '';
 
     return $str;
   }

@@ -144,9 +144,6 @@ class EC01Template extends EC01HTML
         /** The page footer. */
         $str .= $page['footer'];
 
-        /** Displays the time it took to generate the page. */
-        $str .= SITE_ELAPSED_TIME ? get_site_elapsed() : '';
-
         /** Close the body element. */
         $str .= '</body>' . PHP_EOL;
 
