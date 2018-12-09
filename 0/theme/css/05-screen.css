@@ -2,6 +2,16 @@
 /* Screen Fill Begin (Absolutely positioned) */
 @media all {
 
+  /* Reset the article element. */
+  html.screen article {
+    display: block;
+    margin: 0 auto;
+    padding: 0;
+    max-width: none;
+    position: relative;
+    overflow: hidden;
+  }
+
   html.screen {
     min-width: 800px;
     min-height: 600px;
@@ -11,6 +21,7 @@
   html.screen,
   html.screen body,
   html.screen main,
+  html.screen article,
   html.screen section,
   html.screen video,
   html.screen iframe {
@@ -26,6 +37,7 @@
 
   html.screen,
   html.screen main,
+  html.screen article,
   html.screen video,
   html.screen iframe,
   html.screen .grid .unit > .inner a {
