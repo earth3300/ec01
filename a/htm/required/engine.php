@@ -25,7 +25,7 @@ class EC01HTML
 {
   /** @var $opts */
   protected $opts = [
-    'screen' => 'afs',
+    'screen' => 'screen',
   ];
 
   /**

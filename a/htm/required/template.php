@@ -22,7 +22,6 @@ defined('NDA') || exit('NDA');
  */
 class EC01Template extends EC01HTML
 {
-
   /**
    * Get the HTML
    *
@@ -72,7 +71,7 @@ class EC01Template extends EC01HTML
         {
           /** Default is not to allow robots to index the site until we are ready. */
           $str  .= SITE_INDEX_ALLOW ? '' : '<meta name="robots" content="noindex,nofollow" />' . PHP_EOL;
-          
+
           /** Style sheet variations */
           if ( SITE_USE_CSS_MIN )
           {
@@ -88,8 +87,9 @@ class EC01Template extends EC01HTML
             $str .= SITE_USE_CSS_MAIN ? sprintf( '<link rel=stylesheet href="%s/02-main.css">%s', SITE_CSS_URL, PHP_EOL ) : '';
             $str .= SITE_USE_CSS_COLOR ? sprintf( '<link rel=stylesheet href="%s/03-color.css">%s', SITE_CSS_URL, PHP_EOL ) : '';
             $str .= SITE_USE_CSS_SPRITE ? sprintf( '<link rel=stylesheet href="%s/04-sprite.css">%s', SITE_CSS_URL, PHP_EOL ) : '';
-            $str .= SITE_USE_CSS_DEVICE ? sprintf( '<link rel=stylesheet href="%s/05-device.css">%s', SITE_CSS_URL, PHP_EOL ) : '';
-            $str .= SITE_USE_CSS_ADJUSTMENTS ? sprintf( '<link rel=stylesheet href="%s/06-adjustments.css">%s', SITE_CSS_URL, PHP_EOL ) : '';
+            $str .= $page['screen'] ? sprintf( '<link rel=stylesheet href="%s/05-screen.css">%s', SITE_CSS_URL, PHP_EOL ) : '';
+            $str .= SITE_USE_CSS_DEVICE ? sprintf( '<link rel=stylesheet href="%s/06-device.css">%s', SITE_CSS_URL, PHP_EOL ) : '';
+            $str .= SITE_USE_CSS_ADJUSTMENTS ? sprintf( '<link rel=stylesheet href="%s/07-adjustments.css">%s', SITE_CSS_URL, PHP_EOL ) : '';
           }
         }
 
