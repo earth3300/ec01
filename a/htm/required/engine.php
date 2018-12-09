@@ -321,7 +321,7 @@ class EC01HTML
     /** Type of page (fixed-width or dynamic), with a trailing space. */
     $str = sprintf( '%s %s ', $class['type'], $class['article'] );
 
-    if ( strpos( $class['article'], 'wide-screen' ) !== false )
+    if ( strpos( $class['article'], 'screen' ) !== false )
     {
       $wide_screen = true;
     }

@@ -7,7 +7,7 @@
     display: block;
     margin: 0 auto;
     padding: 0;
-    max-width: none;
+    max-width: initial;
     position: relative;
     overflow: hidden;
   }
@@ -58,7 +58,7 @@
   html.screen,
   html.screen main,
   html.screen body {
-
+    max-width: initial;
   }
 
   html.screen video,
