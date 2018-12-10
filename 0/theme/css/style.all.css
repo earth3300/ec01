@@ -2168,8 +2168,8 @@ Time: 19:00 EST
   }
 
   html.screen video,
-  html.screen iframe,
-  html.screen article {
+  html.screen iframe {
+    max-height: 100%;
   }
 
   html.screen main {
