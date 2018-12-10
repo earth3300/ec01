@@ -343,7 +343,7 @@
 
   html.aside main {
     float: left;
-    width: 66%;
+    width: 66.667%;
   }
 
   /** Only for an `aside` outside of the article element. */
@@ -621,7 +621,7 @@
   }
 
   .size2of3 {
-    width: 66%;
+    width: 66.667%;
   }
 
   .size3of4 {
@@ -641,7 +641,7 @@
   }
 
   .size1of6 {
-    width: 16.6%;
+    width: 16.667%;
   }
 
   /** RESPONSIVE BASIC END **/

@@ -8,7 +8,7 @@
 * File: 05-screen.css
 * Created: 2018.12.05
 * Updated: 2018-12-10
-* Time: 09:00 EST
+* Time: 10:15 EST
 */
 
 /* Screen Fill Begin (Absolutely positioned) */
@@ -74,9 +74,15 @@
 
   html.screen .grid img {
     max-width: 98%;
+    left: 50%;
     top: 50%;
-    transform: translateY(-50%);
+    transform: translate(-50%, -50%);
     border-radius: 3px;
+  }
+
+  html.screen .grid img.tall {
+    top: 0;
+    transform: translate(-50%, 0);
   }
 
   html.screen,
@@ -164,7 +170,7 @@
   }
 
   html.screen .grid .control .unit > .inner {
-    padding: 15px;
+    padding: 3.33%;
   }
 
   html.screen .grid.text .unit > .inner {

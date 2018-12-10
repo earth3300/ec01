@@ -691,7 +691,7 @@ Time: 19:00 EST
 
   html.aside main {
     float: left;
-    width: 66%;
+    width: 66.667%;
   }
 
   /** Only for an `aside` outside of the article element. */
@@ -969,7 +969,7 @@ Time: 19:00 EST
   }
 
   .size2of3 {
-    width: 66%;
+    width: 66.667%;
   }
 
   .size3of4 {
@@ -989,7 +989,7 @@ Time: 19:00 EST
   }
 
   .size1of6 {
-    width: 16.6%;
+    width: 16.667%;
   }
 
   /** RESPONSIVE BASIC END **/
@@ -1944,7 +1944,7 @@ Time: 19:00 EST
 * File: 05-screen.css
 * Created: 2018.12.05
 * Updated: 2018-12-10
-* Time: 09:00 EST
+* Time: 10:15 EST
 */
 
 /* Screen Fill Begin (Absolutely positioned) */
@@ -2010,9 +2010,15 @@ Time: 19:00 EST
 
   html.screen .grid img {
     max-width: 98%;
+    left: 50%;
     top: 50%;
-    transform: translateY(-50%);
+    transform: translate(-50%, -50%);
     border-radius: 3px;
+  }
+
+  html.screen .grid img.tall {
+    top: 0;
+    transform: translate(-50%, 0);
   }
 
   html.screen,
@@ -2100,7 +2106,7 @@ Time: 19:00 EST
   }
 
   html.screen .grid .control .unit > .inner {
-    padding: 15px;
+    padding: 3.33%;
   }
 
   html.screen .grid.text .unit > .inner {
