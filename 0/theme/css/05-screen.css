@@ -7,8 +7,8 @@
 *
 * File: 05-screen.css
 * Created: 2018.12.05
-* Updated: 2018-12-09
-* Time: 14:40 EST
+* Updated: 2018-12-10
+* Time: 09:00 EST
 */
 
 /* Screen Fill Begin (Absolutely positioned) */
@@ -30,7 +30,7 @@
 
   html.screen {
     min-width: 800px;
-    min-height: 600px;
+    min-height: 450px;
     overflow-y: auto;
   }
 
@@ -291,8 +291,12 @@
       display: none;
     }
 
-  html.screen .notice,
-  html.screen h3 {
+    /* Fix. */
+    html.screen .notice h3 {
+      display: block;
+    }
+
+  html.screen .notice {
     position: absolute;
     left: 0;
     right: 0;
@@ -307,14 +311,21 @@
     opacity: 0.85;
   }
 
-  html.screen .notice h3 {
+  html.screen .notice > div {
+    position: absolute;
+    left: 0;
+    right: 0;
     top: 50%;
-    margin-top: -7px;
+    margin-top: -55px;
     display: block;
+  }
+
+  html.screen .notice p {
+    max-width: initial;
   }
 }
 
-@media screen and (max-width:320px) {
+@media screen and (max-width:799px) {
   html.screen #notice {
     display: block;
   }
