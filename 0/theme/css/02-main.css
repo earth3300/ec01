@@ -130,11 +130,8 @@
 
   body {
     max-width: 850px;
-    font: 1em/1.6 sans-serif;
-    display: block;
-    margin: 0 auto;
-    padding: 0;
     border-radius: 5px;
+    padding: 0;
   }
 
   html.fixed-width body {
@@ -753,8 +750,6 @@
   html.media p,
   html.video p,
   html.audio p {
-    font-size: small;
-    max-width: 850px;
     color: #777;
   }
 
