@@ -64,8 +64,8 @@ class EC01Template extends EC01HTML
         /** Can deliver a very basic version, if needed. */
         if ( SITE_USE_BASIC )
         {
-          $str .= '<link rel=stylesheet href="/0/theme/css/01-bootstrap.css">' . PHP_EOL;
-          $str .= '<link rel=stylesheet href="/0/theme/css/02-main.css">' . PHP_EOL;
+          $str .= '<link rel=stylesheet href="/0/t/css/01-bootstrap.css">' . PHP_EOL;
+          $str .= '<link rel=stylesheet href="/0/t/css/02-main.css">' . PHP_EOL;
         }
         else
         {
