@@ -201,14 +201,17 @@ define( 'SITE_POST_DIR', '/post' );
 /** Used for traditional cached files. */
 define( 'SITE_CACHE_DIR', '/html' );
 
+/** For data. From root. */
+define( 'SITE_DATA_DIR', '/0/d' );
+
 /** For media: image/, pdf/, video/, audio/, etc.  */
-define( 'SITE_MEDIA_DIR', '/0/media' );
+define( 'SITE_MEDIA_DIR', '/0/m' );
 
 /** For javascript. From root. */
-define( 'SITE_SCRIPT_DIR', '/0/script' );
+define( 'SITE_SCRIPT_DIR', '/0/s' );
 
 /** For CSS, SCSS, etc. From root. */
-define( 'SITE_THEME_CDN_DIR', '/0/theme' );
+define( 'SITE_THEME_CDN_DIR', '/0/t' );
 
 /***** THEME DIRECTORY *****/
 
