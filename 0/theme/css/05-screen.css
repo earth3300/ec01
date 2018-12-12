@@ -266,14 +266,16 @@
 
   html.screen nav {
     height: 35px;
-    opacity: 0.4;
+    opacity: 0.3;
+    border: 1px solid #666;
+    border-bottom: initial;
     border-top-right-radius: 5px;
     border-top-left-radius: 5px;
   }
 
   html.screen nav a {
-    height: 23px;
-    line-height: 23px;
+    height: 35px;
+    line-height: 43px;
   }
 
   html.screen nav:hover {
@@ -286,6 +288,10 @@
 
   html.screen nav:hover {
     background-color: #efefef;
+  }
+
+  html.screen nav:hover a {
+    color: #666;
   }
 
   html.screen .control {

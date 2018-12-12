@@ -105,6 +105,8 @@ elseif( defined( 'SITE_PATH' ) )
    */
   $html = new EC01HTML();
   echo $html->get();
+
+  // cache here.
 }
 else
 {

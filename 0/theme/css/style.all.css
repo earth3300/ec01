@@ -13,8 +13,8 @@ Tags: lightweight, simple
 
 File: 00-header.css
 Created: 2018-11-02
-Updated: 2018-12-08
-Time: 19:00 EST
+Updated: 2018-12-12
+Time: 10:24 EST
 */
 
 /**
@@ -478,11 +478,8 @@ Time: 19:00 EST
 
   body {
     max-width: 850px;
-    font: 1em/1.6 sans-serif;
-    display: block;
-    margin: 0 auto;
-    padding: 0;
     border-radius: 5px;
+    padding: 0;
   }
 
   html.fixed-width body {
@@ -1101,8 +1098,6 @@ Time: 19:00 EST
   html.media p,
   html.video p,
   html.audio p {
-    font-size: small;
-    max-width: 850px;
     color: #777;
   }
 
@@ -2042,12 +2037,11 @@ Time: 19:00 EST
   }
 
   html.screen h1 {
-    display: block !important;
-    font-size: 135%;
+    display: block;
   }
 
-  html.screen h2 {
-    font-size: 115%;
+  html.screen body {
+    font-size: 90%;
   }
 
   html.screen .grid.text h1 ,
@@ -2106,7 +2100,7 @@ Time: 19:00 EST
   }
 
   html.screen .grid .control .unit > .inner {
-    padding: 3.33%;
+    padding: 3.333%;
   }
 
   html.screen .grid.text .unit > .inner {
@@ -2203,7 +2197,9 @@ Time: 19:00 EST
 
   html.screen nav {
     height: 35px;
-    opacity: 0.4;
+    opacity: 0.3;
+    border: 1px solid #777;
+    border-bottom: initial;
     border-top-right-radius: 5px;
     border-top-left-radius: 5px;
   }
@@ -2225,7 +2221,7 @@ Time: 19:00 EST
     background-color: #efefef;
   }
 
-  .control {
+  html.screen .control {
     font-size: small;
   }
 
@@ -2270,6 +2266,16 @@ Time: 19:00 EST
 @media screen and (max-width:799px) {
   html.screen #notice {
     display: block;
+  }
+}
+
+@media screen and (min-width:1440px) {
+  html.screen body {
+    font-size: 110%;
+  }
+
+  html.screen .control {
+    font-size: initial;
   }
 }
 
