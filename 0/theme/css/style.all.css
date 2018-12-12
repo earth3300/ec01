@@ -367,7 +367,7 @@ Time: 10:24 EST
  */
 @media screen {
 
-  .commons-updated { background: #181102; }
+  .updated { background: #181212; }
 
   html {
       padding: .12em;
@@ -381,7 +381,9 @@ Time: 10:24 EST
 
   /*** COLOR START ***/
 
-  html, body { background-color: #e6e6e6; }
+  html { background-color: #e6e6e6; }
+
+  body { background-color: #e6e6e6; }
 
   html, body { color: #222; }
 
@@ -1938,8 +1940,8 @@ Time: 10:24 EST
 *
 * File: 05-screen.css
 * Created: 2018.12.05
-* Updated: 2018-12-10
-* Time: 10:15 EST
+* Updated: 2018-12-12
+* Time: 10:50 EST
 */
 
 /* Screen Fill Begin (Absolutely positioned) */
@@ -2198,15 +2200,15 @@ Time: 10:24 EST
   html.screen nav {
     height: 35px;
     opacity: 0.3;
-    border: 1px solid #777;
+    border: 1px solid #666;
     border-bottom: initial;
     border-top-right-radius: 5px;
     border-top-left-radius: 5px;
   }
 
   html.screen nav a {
-    height: 23px;
-    line-height: 23px;
+    height: 35px;
+    line-height: 43px;
   }
 
   html.screen nav:hover {
@@ -2219,6 +2221,10 @@ Time: 10:24 EST
 
   html.screen nav:hover {
     background-color: #efefef;
+  }
+
+  html.screen nav:hover a {
+    color: #666;
   }
 
   html.screen .control {

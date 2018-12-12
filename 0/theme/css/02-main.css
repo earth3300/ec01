@@ -19,7 +19,7 @@
  */
 @media screen {
 
-  .commons-updated { background: #181102; }
+  .updated { background: #181212; }
 
   html {
       padding: .12em;
@@ -33,7 +33,9 @@
 
   /*** COLOR START ***/
 
-  html, body { background-color: #e6e6e6; }
+  html { background-color: #e6e6e6; }
+
+  body { background-color: #e6e6e6; }
 
   html, body { color: #222; }
 
