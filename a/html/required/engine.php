@@ -71,26 +71,37 @@ class EC01HTML
    */
   private function cache( $page, $html )
   {
-    if ( isset( $page['file']['cache'] )
-      && strlen( $page['file']['cache'] ) > 10
-      && is_string( $html ) )
+    if ( isset( $page['file']['cache'] ) && strlen( $page['file']['cache'] ) > 10 )
     {
-      $len = strlen( $html );
-
-      $file = $page['file']['cache'];
-
-      if ( file_exists( $file ) )
+      if ( is_string( $html ) )
       {
-        $size = filesize( $file );
+        $len = strlen( $html );
 
-        if ( $size !== $len )
+        /** Not too long and not too short. */
+        if ( $len > 10 && $len < 100000 )
         {
-          $resp = file_put_contents( $file, $html );
+          $file = $page['file']['cache'];
+
+          if ( file_exists( $file ) )
+          {
+            /** Get the md5 hash of the $html string. */
+            $md5_html = md5( $html );
+
+            /** Get the md5 hash of the cached file. */
+            $md5_cached = md5_file( $file );
+
+            if ( $md5_cached !== $md5_file )
+            {
+              /** They are not the same, cache it. */
+              $resp = file_put_contents( $file, $html );
+            }
+          }
+          else
+          {
+            /** It didn't exist, cache it. */
+            $resp = file_put_contents( $file, $html );
+          }
         }
-      }
-      else
-      {
-        $resp = file_put_contents( $file, $html );
       }
     }
   }
