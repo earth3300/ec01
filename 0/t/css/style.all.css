@@ -1870,7 +1870,7 @@ Time: 10:24 EST
 	 */
 
 	.icon {
-		background: transparent url('/0/theme/icon/cluster-sprite.png') no-repeat;
+		background: transparent url('/0/t/icon/cluster-sprite.png') no-repeat;
 		background-size: 560px;
 		display: inline-block;
 		vertical-align: middle;
@@ -3010,7 +3010,7 @@ Time: 10:24 EST
 
   /*
   .title-wrap {
-    background-image: url('/0/theme/image/uni-village-logo-95x95.png');
+    background-image: url('/0/t/image/uni-village-logo-95x95.png');
     background-repeat: no-repeat;
     background-size: 95px;
     background-position: 18px center;

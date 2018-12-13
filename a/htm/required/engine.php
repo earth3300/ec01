@@ -414,7 +414,7 @@ class EC01HTML
       preg_match( $pattern, $check, $matches );
 
       /** Assign the match to a variable and trim, just in case. */
-      $class = trim( $matches[1] );
+      $class = isset( $matches[1] ) ? trim( $matches[1] ) : '';
 
       /** Make sure it is not too big, and not too small. */
       if ( strlen( $class ) > 0 && strlen( $class ) < 50 )

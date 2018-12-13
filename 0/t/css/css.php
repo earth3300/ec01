@@ -471,7 +471,7 @@ class CSS
       $str .= '<meta name="viewport" content="width=device-width, initial-scale=1"/>' . PHP_EOL;
       $str .= sprintf( '<title>%s</title>%s', $this->opts['title'], PHP_EOL );
       $str .= '<meta name="robots" content="noindex,nofollow" />' . PHP_EOL;
-      $str .= '<link rel=stylesheet href="/0/theme/css/01-bootstrap.css">' . PHP_EOL;
+      $str .= '<link rel=stylesheet href="/0/t/css/01-bootstrap.css">' . PHP_EOL;
       $str .= '</head>' . PHP_EOL;
       $str .= '<body>' . PHP_EOL;
       $str .= '<main>' . PHP_EOL;
