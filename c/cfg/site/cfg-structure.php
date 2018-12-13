@@ -213,7 +213,7 @@ define( 'SITE_THEME_DIR', '/0/t' );
 /***** THEME DIRECTORY *****/
 
 /** Note the singular "theme". */
-//define( 'SITE_THEME_DIR', '/theme' );
+define( 'SITE_THEME_CACHE_DIR', '/theme' );
 
 /** Header HTML */
 define( 'SITE_HEADER_CACHE_DIR', '/header' );
@@ -351,14 +351,14 @@ define( 'SITE_DEFAULT_FILE', '/default.html' );
 
 /*** THEME PATH ***/
 
-/** Theme Path */
-define( 'SITE_THEME_PATH', SITE_COMMONS_PATH . SITE_THEME_DIR );
+/** Theme Path (Was SITE_THEME_PATH). */
+define( 'SITE_THEME_CACHE_PATH', SITE_COMMONS_PATH . SITE_THEME_CACHE_DIR );
 
 /** The CSS files that style the site. */
 define( 'SITE_CSS_PATH', SITE_PATH . SITE_THEME_DIR . SITE_CSS_DIR );
 
 /** Site HTML Path */
-define( 'SITE_THEME_HTML_PATH', SITE_THEME_PATH . SITE_THEME_HTML_DIR );
+define( 'SITE_THEME_HTML_PATH', SITE_THEME_CACHE_PATH . SITE_HTML_DIR );
 
 /** Header Path */
 define( 'SITE_HEADER_PATH', SITE_THEME_HTML_PATH . SITE_HEADER_CACHE_DIR );

@@ -773,7 +773,7 @@ class EC01HTML
   {
     $str = 'Sidebar N/A';
     $file = SITE_SIDEBAR_PATH . SITE_SIDEBAR_CACHE_DIR . SITE_HTML_EXT;
-
+  
     if ( file_exists( $file ) )
     {
       $str = file_get_contents( $file );
