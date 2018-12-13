@@ -211,24 +211,24 @@ define( 'SITE_MEDIA_DIR', '/0/m' );
 define( 'SITE_SCRIPT_DIR', '/0/s' );
 
 /** For CSS, SCSS, etc. From root. */
-define( 'SITE_THEME_CDN_DIR', '/0/t' );
+define( 'SITE_THEME_DIR', '/0/t' );
 
 /***** THEME DIRECTORY *****/
 
 /** Note the singular "theme". */
-define( 'SITE_THEME_DIR', '/theme' );
+//define( 'SITE_THEME_DIR', '/theme' );
 
 /** Header HTML */
-define( 'SITE_HEADER_DIR', '/header' );
+define( 'SITE_HEADER_CACHE_DIR', '/header' );
 
 /** Menu HTML */
-define( 'SITE_MENU_DIR', '/menu' );
+define( 'SITE_MENU_CACHE_DIR', '/menu' );
 
 /** Footer HTML */
-define( 'SITE_FOOTER_DIR', '/footer' );
+define( 'SITE_FOOTER_CACHE_DIR', '/footer' );
 
 /** Sidebar HTML  */
-define( 'SITE_SIDEBAR_DIR', '/sidebar' );
+define( 'SITE_SIDEBAR_CACHE_DIR', '/sidebar' );
 
 /***** BIN DIRECTORY (Generally) *****/
 

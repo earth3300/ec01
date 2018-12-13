@@ -522,7 +522,8 @@ class EC01HTML
       $str .= '<div class="inner">' . PHP_EOL;
 
       /** The site logo is hard coded to 75px by 75px. */
-      $str .= '<img src="/0/theme/image/site-logo-75x75.png" alt="Site Logo" width="75" height="75" />' . PHP_EOL;
+      $str .= sprintf( '<img src="%s/image/site-logo-75x75.png"', SITE_THEME_DIR );
+      $str .= ' alt="Site Logo" width="75" height="75" />' . PHP_EOL;
 
       $str .= '</div><!-- .inner -->' . PHP_EOL;
       $str .= '</div><!-- .site-logo -->' . PHP_EOL;
@@ -687,7 +688,7 @@ class EC01HTML
   {
     $str = 'Header N/A';
 
-    $file = SITE_HEADER_PATH . SITE_HEADER_DIR . SITE_HTML_EXT;
+    $file = SITE_HEADER_PATH . SITE_HEADER_CACHE_DIR . SITE_HTML_EXT;
 
     if ( file_exists( $file ) )
     {
@@ -715,7 +716,7 @@ class EC01HTML
   private function getMenuFile()
   {
     $str = 'Menu N/A';
-    $file = SITE_MENU_PATH . SITE_MENU_DIR . SITE_HTML_EXT;
+    $file = SITE_MENU_PATH . SITE_MENU_CACHE_DIR . SITE_HTML_EXT;
     if ( file_exists( $file ) )
     {
       $str = file_get_contents( $file );
@@ -771,7 +772,7 @@ class EC01HTML
   private function getAsideFile( $page )
   {
     $str = 'Sidebar N/A';
-    $file = SITE_SIDEBAR_PATH . SITE_SIDEBAR_DIR . SITE_HTML_EXT;
+    $file = SITE_SIDEBAR_PATH . SITE_SIDEBAR_CACHE_DIR . SITE_HTML_EXT;
 
     if ( file_exists( $file ) )
     {
@@ -797,7 +798,7 @@ class EC01HTML
   private function getFooterFile( $page )
   {
     $str = 'Footer N/A';
-    $file = SITE_FOOTER_PATH . SITE_FOOTER_DIR . SITE_HTML_EXT;
+    $file = SITE_FOOTER_PATH . SITE_FOOTER_CACHE_DIR . SITE_HTML_EXT;
 
     if ( file_exists( $file ) )
     {
