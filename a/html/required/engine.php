@@ -73,11 +73,23 @@ class EC01HTML
   {
     if ( isset( $page['file']['cache'] )
       && strlen( $page['file']['cache'] ) > 10
-      && is_string( $html )
-      && strlen( $html ) > 10 )
+      && is_string( $html ) )
     {
+      $len = strlen( $html );
+
       $file = $page['file']['cache'];
-      if ( ! file_exists( $file ) ) {
+
+      if ( file_exists( $file ) )
+      {
+        $size = filesize( $file );
+
+        if ( $size !== $len )
+        {
+          $resp = file_put_contents( $file, $html );
+        }
+      }
+      else
+      {
         $resp = file_put_contents( $file, $html );
       }
     }
