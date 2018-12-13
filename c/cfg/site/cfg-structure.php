@@ -180,9 +180,6 @@ define( 'SITE_RESPONSE_CODE_DIR', '/r/response-code' );
 /** Cron directory */
 define( 'SITE_CRON_DIR', '/n/cron' );
 
-/** For csv, xml and other open sourced data files. */
-define( 'SITE_DATA_DIR', '/data' );
-
 /** The directory where static HTML goes. Empty if for root. */
 define( 'SITE_HTML_DIR', '/html' );
 
@@ -358,22 +355,22 @@ define( 'SITE_DEFAULT_FILE', '/default.html' );
 define( 'SITE_THEME_PATH', SITE_COMMONS_PATH . SITE_THEME_DIR );
 
 /** The CSS files that style the site. */
-define( 'SITE_CSS_PATH', SITE_PATH . SITE_THEME_CDN_DIR . SITE_CSS_DIR );
+define( 'SITE_CSS_PATH', SITE_PATH . SITE_THEME_DIR . SITE_CSS_DIR );
 
 /** Site HTML Path */
 define( 'SITE_THEME_HTML_PATH', SITE_THEME_PATH . SITE_THEME_HTML_DIR );
 
 /** Header Path */
-define( 'SITE_HEADER_PATH', SITE_THEME_HTML_PATH . SITE_HEADER_DIR );
+define( 'SITE_HEADER_PATH', SITE_THEME_HTML_PATH . SITE_HEADER_CACHE_DIR );
 
 /** Footer Path */
-define( 'SITE_FOOTER_PATH', SITE_THEME_HTML_PATH . SITE_FOOTER_DIR );
+define( 'SITE_FOOTER_PATH', SITE_THEME_HTML_PATH . SITE_FOOTER_CACHE_DIR );
 
 /** Sidebar Path */
-define( 'SITE_SIDEBAR_PATH', SITE_THEME_HTML_PATH . SITE_SIDEBAR_DIR );
+define( 'SITE_SIDEBAR_PATH', SITE_THEME_HTML_PATH . SITE_SIDEBAR_CACHE_DIR );
 
 /** Menu Path */
-define( 'SITE_MENU_PATH', SITE_THEME_HTML_PATH . SITE_MENU_DIR );
+define( 'SITE_MENU_PATH', SITE_THEME_HTML_PATH . SITE_MENU_CACHE_DIR );
 
 if ( ! defined( 'SITE_ALT_PATH' ) ) {
   /*** ALT PATH ***/
