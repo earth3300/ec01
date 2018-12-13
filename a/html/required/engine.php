@@ -51,6 +51,7 @@ class EC01HTML
     $page = $this->getPage();
     $template = new EC01Template();
     $html = $template->getHtml( $page );
+    echo $html;
 
     if ( $cache )
     {
@@ -70,13 +71,16 @@ class EC01HTML
    */
   private function cache( $page, $html )
   {
-    if ( 1 || isset( $page['file']['name'] ) && strlen( $page['file']['name'] > 10 )
-      && is_string( $html ) && strlen( $html ) > 10 )
-      {
-        $file = str_replace( 'article.html', 'default.html', $page['file']['name'] );
-
+    if ( isset( $page['file']['cache'] )
+      && strlen( $page['file']['cache'] ) > 10
+      && is_string( $html )
+      && strlen( $html ) > 10 )
+    {
+      $file = $page['file']['cache'];
+      if ( ! file_exists( $file ) ) {
         $resp = file_put_contents( $file, $html );
       }
+    }
   }
 
   /**
@@ -100,6 +104,7 @@ class EC01HTML
     $page['slug'] = $this->getPageSlug( $page );
     $page['dir'] = $this->getPageDir( $page );
     $page['file'] = $this->getArticlePathandFileName( $page );
+
     if( $page['file']['page'] )
     {
       $page['page'] = $this->getPageFile( $page );
@@ -117,7 +122,7 @@ class EC01HTML
     $page['article-title'] = $this->getArticleTitle( $page['article'] );
     $page['page-title'] = $this-> getPageTitle( $page );
     $page['aside']= $page['screen'] ? '' : $this->getAside( $page );
-    $page['footer']= $page['screen'] ? '' : $this-> getFooter();
+    $page['footer']= $page['screen'] ? '' : $this-> getFooter( $page );
 
     return $page;
   }
@@ -135,7 +140,7 @@ class EC01HTML
     $uri = parse_url( $_SERVER['REQUEST_URI'], PHP_URL_PATH );
     $uri = substr( $uri, 0, 65 );
 
-    if ( empty ( $uri ) || $uri == '/' )
+    if ( empty ( $uri ) || '/' == $uri || '/index.php' == $uri )
     {
       $page['front-page'] = true;
       $page['uri'] = '';
@@ -207,11 +212,13 @@ class EC01HTML
       if ( file_exists( SITE_PATH . SITE_ARTICLE_FILE ) )
       {
         $file['name'] = SITE_PATH . SITE_ARTICLE_FILE;
+        $file['cache'] = SITE_PATH . SITE_DEFAULT_FILE;
         $file['page'] = false;
       }
       elseif ( file_exists( SITE_PATH . SITE_DEFAULT_FILE ) )
       {
         $file['name'] = SITE_PATH . SITE_DEFAULT_FILE;
+        $file['cache'] = SITE_PATH . SITE_DEFAULT_FILE;
         $file['page'] = true;
       }
     }
@@ -220,32 +227,38 @@ class EC01HTML
       if ( file_exists( SITE_HTML_PATH . $page['slug'] . SITE_ARTICLE_FILE ) )
       {
         $file['name'] = SITE_HTML_PATH . $page['slug'] . SITE_ARTICLE_FILE;
+        $file['cache'] = SITE_HTML_PATH . $page['slug'] . SITE_DEFAULT_FILE;;
         $file['page'] = false;
       }
       elseif( file_exists( SITE_HTML_PATH . $page['slug'] . $page['dir'] . SITE_HTML_EXT ) )
       {
         $file['name'] = SITE_HTML_PATH . $page['slug'] . $page['dir'] . SITE_HTML_EXT;
+        $file['cache'] = SITE_HTML_PATH . $page['slug'] . SITE_DEFAULT_FILE;
         $file['page'] = false;
       }
       elseif ( file_exists( SITE_HTML_PATH . $page['slug'] . SITE_DEFAULT_FILE ) )
       {
         $file['name'] = SITE_HTML_PATH . $page['slug'] . SITE_DEFAULT_FILE;
+        $file['cache'] = SITE_HTML_PATH . $page['slug'] . SITE_DEFAULT_FILE;;
         $file['page'] = true;
       }
       else
       {
         $file['name'] = false;
+        $file['cache'] = false;
         $file['page'] = false;
       }
     }
     elseif ( file_exists( SITE_HTML_PATH . SITE_DEFAULT_FILE ) )
     {
       $file['name'] = SITE_HTML_PATH . SITE_DEFAULT_FILE;
+      $file['cache'] = SITE_HTML_PATH . SITE_DEFAULT_FILE;
       $file['page'] = true;
     }
     else {
-        $file['name'] = false;
-        $file['page'] = false;
+      $file['name'] = false;
+      $file['cache'] = false;
+      $file['page'] = false;
     }
 
     return $file;
@@ -651,7 +664,7 @@ class EC01HTML
    *
    * @return string
    */
-  private function getFooter()
+  private function getFooter( $page )
   {
     $str = '<footer class="nav">' . PHP_EOL;
     $str .= '<nav class="align-center">' . PHP_EOL;
@@ -682,7 +695,7 @@ class EC01HTML
     $str .= '</footer>' . PHP_EOL;
 
     /** Displays the time it took to generate the page. */
-    $str .= SITE_ELAPSED_TIME ? get_site_elapsed() : '';
+    $str .= SITE_ELAPSED_TIME && ! $page['file']['cache'] ? get_site_elapsed() : '';
 
     return $str;
   }
