@@ -29,7 +29,7 @@ else
 define( 'SITE_ENGINE_MAIN', 'cre' );
 
 /** The backup engine ( use the correct word, with no typos). */
-define( 'SITE_ENGINE_BACKUP', 'htm' );
+define( 'SITE_ENGINE_BACKUP', 'html' );
 
 /** The config path and file. */
 define( 'SITE_CONFIG_LOAD', '/c/cfg/cfg-load.php' );

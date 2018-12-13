@@ -32,7 +32,7 @@
  *
  * File: cfg-structure.php
  * Created: 2018-00-00
- * Updated: 2018-11-29
+ * Updated: 2018-12-13
  * Time: 13:44 EST
  */
 
@@ -98,7 +98,7 @@ define( 'SITE_CONFIG_DIR', '/c/cfg' );
 define( 'SITE_ALT_DIR', '/alt' );
 
 /** Directory for the minimal framework. */
-define( 'SITE_MINIMAL_DIR', '/a/htm' );
+define( 'SITE_MINIMAL_DIR', '/a/html' );
 
 /** Main (core) directory */
 define( 'SITE_CORE_DIR', '/e/cre' );

@@ -42,6 +42,44 @@ class EC01HTML
   }
 
   /**
+   * Echo the HTML Page.
+   *
+   * @return string
+   */
+  public function the_html( $cache = true )
+  {
+    $page = $this->getPage();
+    $template = new EC01Template();
+    $html = $template->getHtml( $page );
+
+    if ( $cache )
+    {
+      $resp = $this->cache( $page, $html );
+    }
+  }
+
+  /**
+   * Cache
+   *
+   * Cache the HTML page.
+   *
+   * @param array $page
+   * @param string $html
+   *
+   * @return void
+   */
+  private function cache( $page, $html )
+  {
+    if ( 1 || isset( $page['file']['name'] ) && strlen( $page['file']['name'] > 10 )
+      && is_string( $html ) && strlen( $html ) > 10 )
+      {
+        $file = str_replace( 'article.html', 'default.html', $page['file']['name'] );
+
+        $resp = file_put_contents( $file, $html );
+      }
+  }
+
+  /**
    * Get the page.
    *
    * This function takes no arguments. All of the work is done, starting from
@@ -773,7 +811,7 @@ class EC01HTML
   {
     $str = 'Sidebar N/A';
     $file = SITE_SIDEBAR_PATH . SITE_SIDEBAR_CACHE_DIR . SITE_HTML_EXT;
-  
+
     if ( file_exists( $file ) )
     {
       $str = file_get_contents( $file );

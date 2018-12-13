@@ -104,7 +104,7 @@ elseif( defined( 'SITE_PATH' ) )
    * in the engine directory, otherwise it is *really* broken.
    */
   $html = new EC01HTML();
-  echo $html->get();
+  $html->the_html( true );
 
   // cache here.
 }

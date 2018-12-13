@@ -91,6 +91,7 @@ db/
 docs/
 font/
 html/
+!/a/html/
 ico-pack/
 image/
 log/
@@ -102,9 +103,8 @@ wp-content/
 
 ### SPECIFIC FOLDERS (MAJOR)
 
-/0/media/
-/2/
-/3/
+/0/d/
+/0/m/
 
 ### SPECIFIC FILES
 
