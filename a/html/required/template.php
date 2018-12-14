@@ -146,10 +146,10 @@ class EC01Template extends EC01HTML
 
         $str .= $page['screen'] ? '<div id="notice" class="notice screen-small"><div class="inner"><h3>Best viewed on a tablet or better</h3><p>Minimum Screen 800 x 450</p><p>View in landscape mode</p></div></div>' . PHP_EOL : '';
 
+        $str .= $page['screen'] ? '<nav><a href="../" title="Go up one directory">^</a></nav>' . PHP_EOL : '';
+
         /** Close the body element. */
         $str .= '</body>' . PHP_EOL;
-
-        $str .= $page['screen'] ? '<nav><a href="../" title="Go up one directory">^</a></nav>' . PHP_EOL : '';
 
         /** Close the `html` element. */
         $str .= '</html>';
