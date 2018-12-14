@@ -39,7 +39,6 @@ DirectoryIndex default.html index.php index.html
 Redirect 301 /store /sto/
 # END Redirect
 
-# BEGIN WordPress
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /
@@ -48,8 +47,6 @@ Redirect 301 /store /sto/
   RewriteCond %{REQUEST_FILENAME} !-d
   RewriteRule . /index.php [L]
 </IfModule>
-
-# END WordPress
 
 # Copied/Pasted to /e/
 # and uncommented RewriteCond %{REQUEST_FILENAME} !-d
