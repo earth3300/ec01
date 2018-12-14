@@ -71,17 +71,22 @@ class EC01HTML
    */
   private function cache( $page, $html )
   {
+    /** We have cache file information, and it is of a reasonable length. */
     if ( isset( $page['file']['cache'] ) && strlen( $page['file']['cache'] ) > 10 )
     {
+      /** The $html variable we are about to save is a string. */
       if ( is_string( $html ) )
       {
+        /** We need to check the length, to make sure--also--it is of a reasonable length. */
         $len = strlen( $html );
 
         /** Not too long and not too short. */
         if ( $len > 10 && $len < 100000 )
         {
+          /** Let's pull the file out, so that we can deal with it explicitly. */
           $file = $page['file']['cache'];
 
+          /** If it exists, we want to see whether or not is has changed. */
           if ( file_exists( $file ) )
           {
             /** Get the md5 hash of the $html string. */
@@ -90,6 +95,7 @@ class EC01HTML
             /** Get the md5 hash of the cached file. */
             $md5_cached = md5_file( $file );
 
+            /** Compare the cached md5 with the $html md5. */
             if ( $md5_cached !== $md5_file )
             {
               /** They are not the same, cache it. */
