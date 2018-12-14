@@ -601,10 +601,17 @@ class EC01HTML
       $str .= '<div class="site-logo">' . PHP_EOL;
       $str .= '<div class="inner">' . PHP_EOL;
 
-      /** The site logo is hard coded to 75px by 75px. */
-      $str .= sprintf( '<img src="%s/image/site-logo-75x75.png"', SITE_THEME_DIR );
-      $str .= ' alt="Site Logo" width="75" height="75" />' . PHP_EOL;
-
+      /** Use the smaller site logo on pages with the sub header active. */
+      if ( isset( $page['tiers']['tier-2']['get'] ) && $page['tiers']['tier-2']['get'] )
+      {
+        $str .= sprintf( '<img src="%s/image/site-logo-25x25.png"', SITE_THEME_DIR );
+        $str .= ' alt="Site Logo" width="25" height="25" />' . PHP_EOL;
+      }
+      else
+      {
+        $str .= sprintf( '<img src="%s/image/site-logo-75x75.png"', SITE_THEME_DIR );
+        $str .= ' alt="Site Logo" width="75" height="75" />' . PHP_EOL;
+      }
       $str .= '</div><!-- .inner -->' . PHP_EOL;
       $str .= '</div><!-- .site-logo -->' . PHP_EOL;
 
@@ -652,8 +659,8 @@ class EC01HTML
    {
       /** The sub header is constructed in the `tiers.php` file. */
       $tiers = new EC01Tiers();
-      $str = $tiers->getHeaderSubTiered( $page );
-      return $str;
+      $sub = $tiers->getHeaderSubTiered( $page );
+      return $sub;
    }
 
    /**

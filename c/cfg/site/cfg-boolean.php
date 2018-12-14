@@ -12,7 +12,7 @@
  *
  * File: cfg-boolean.php
  * Created: 2018
- * Updated: 2018-11-14
+ * Updated: 2018-12-12
  * Time: 09:27 EST
  */
 
@@ -30,16 +30,20 @@ define( 'SITE_ALLOW_FIXED_WIDTH', true );
 /** Default: false (Allows indexing by bots) */
 define( 'SITE_INDEX_ALLOW', false );
 
-/** Default: false */
-define( 'SITE_USE_CSS_MIN', false );
-
 if ( '127.0.0.1' == $_SERVER['SERVER_ADDR'] )
 {
+  /** Do not use a minified file on a local machine. */
+  define( 'SITE_USE_CSS_MIN', false );
+
   /** Do  not use a single concatenated file if on a local machine. */
   define( 'SITE_USE_CSS_ALL', false );
 }
-else {
-  /** Use a single concatenated file if online. */
+else
+{
+  /** Use a minified file if online, or not. */
+  define( 'SITE_USE_CSS_MIN', true );
+
+  /** Use a single concatenated file, if SITE_USE_CSS_MIN (above) is set to false. */
   define( 'SITE_USE_CSS_ALL', true );
 }
 
