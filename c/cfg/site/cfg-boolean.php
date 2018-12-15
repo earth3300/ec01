@@ -63,6 +63,9 @@ define( 'SITE_USE_CSS_SPRITE', true );
 define( 'SITE_USE_CSS_COLOR', true );
 
 /** Default: false */
+define( 'SITE_USE_CSS_SCREEN', true );
+
+/** Default: false */
 define( 'SITE_USE_CSS_DEVICE', true );
 
 /** Default: true (more fine tuned). */
