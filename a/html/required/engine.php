@@ -351,7 +351,7 @@ class EC01HTML
    */
   private function getPageClasses( $page )
   {
-    $class['type'] = $this->isPageDynamic( $page );
+    $class['type'] = $this->isPageResponsive( $page );
 
     $class['article'] = $this->getArticleClass( $page['article'] );
 
@@ -399,7 +399,10 @@ class EC01HTML
     $tiers = $page['tiers'];
 
     /** Type of page (fixed-width or dynamic), with a trailing space. */
-    $str = sprintf( '%s %s ', $class['type'], $class['article'] );
+    $str = $class['type'] . ' ';
+
+    /** Add the article class, if there is one (with a trailing space). */
+    $str .= strlen( $class['article'] ) > 0 ? $class['article'] . ' ' : '';
 
     if ( strpos( $class['article'], 'screen' ) !== false )
     {
@@ -524,13 +527,13 @@ class EC01HTML
    *
    * @return string
    */
-  private function isPageDynamic( $page )
+  private function isPageResponsive( $page )
   {
     /** The class for a fixed width page. */
     $fixed_width = 'fixed-width';
 
-    /** The class for a dynamic (responsive) page. */
-    $dynamic = 'dynamic';
+    /** The class for a responsive page. */
+    $responsive = 'responsive';
 
     if ( SITE_IS_FIXED_WIDTH )
     {
@@ -540,9 +543,13 @@ class EC01HTML
     {
       return $fixed_width;
     }
+    elseif( isset( $page['tiers']['tier-1']['get'] )
+    && $page['tiers']['tier-1']['get'] ) {
+      return $fixed_width;
+    }
     else
     {
-      return $dynamic;
+      return $responsive;
     }
   }
 
