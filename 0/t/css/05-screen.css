@@ -16,11 +16,11 @@
 
   /* Reset the article element. */
   html.screen article {
+    position: relative;
     display: block;
+    max-width: initial;
     margin: 0 auto;
     padding: 0;
-    max-width: initial;
-    position: relative;
     overflow: hidden;
   }
 

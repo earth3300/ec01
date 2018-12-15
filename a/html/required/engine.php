@@ -6,8 +6,8 @@
  *
  * File: engine.php
  * Created: 2018-10-01
- * Update: 2018-11-08
- * Time: 19:37 EST
+ * Update: 2018-12-15
+ * Time: 10:25 EST
  */
 
 namespace Earth3300\EC01;
@@ -922,6 +922,195 @@ class EC01HTML
     }
   }
 } //end class
+
+
+/**
+ * Device
+ *
+ * Detects the device from the User Agent String. This is readily available
+ * information.
+ */
+class DetectDevice
+{
+
+  /**
+   * Get
+   *
+   * Get the device being requested.
+   *
+   * @return array
+   */
+  public function get()
+  {
+    /** Try to detect the device. */
+    $device['detected'] = $this->getDetectedDevice();
+
+    /** Get the device requested (if any) from the URL query string. */
+    $device['requested'] = $this->getRequestedDevice();
+
+    /** Determine the priority and the theme to deliver. */
+    $device['theme'] = $this->getThemeToDeliver( $device );
+
+    return $device;
+  }
+
+  /**
+   * Try to Detect the Device from the USER AGENT String
+   *
+   * @return array
+   */
+  private function tryDetectDevice()
+  {
+    /** Get the user agent (Browser, device, etc.) and assigned it to an internal variable. */
+    $ua = $_SERVER['HTTP_USER_AGENT'];
+
+    /** Match common browsers (need Safari). */
+    preg_match("/(Firefox|Chrome|MSIE)[.\/]([\d.]+)/", $ua, $matches);
+
+    /** Match IE explicitly. */
+    preg_match("/(MSIE) ([\d.]+)/", $ua, $ie);
+
+    /** Generic mobile device. */
+    $detected['mobile'] = strstr( strtolower( $ua ), 'mobile' ) ? true : false;
+
+    /** Android. */
+    $detected['android'] = strstr( strtolower( $ua ), 'android' ) ? true : false;
+
+    /** Phone. */
+    $detected['phone'] = strstr( strtolower( $ua ), 'phone' ) ? true : false;
+
+    /** Ipad. */
+    $detected['ipad'] = strstr( strtolower( $ua ), 'ipad' ) ? true : false;
+
+    /** IE (again). */
+    $detected['msie'] = strstr( strtolower( $ua ), 'msie' ) ? true : false;
+
+    /** Version. */
+    $detected['version'] = isset( $matches[2] ) ? $matches[2] : null;
+
+    /** Not serviced (lower IE versions). */
+    $detected['ns'] = isset( $ie[2] ) && $ie[2] < 10 ? true : false;
+
+    /** Return the detected array. */
+    return $detected;
+  }
+
+  /**
+   * Get the Detected Device
+   *
+   * Reduce the attempt to detect the device to a global variable which is
+   * a single letter. Also set the global.
+   *
+   * @return string
+   */
+  private function getDetectedDevice()
+  {
+    /** Get the array containing the detected devices. */
+    if ( $device = $this->tryDetectDevice() )
+    {
+      if ( $device['phone'] )
+      {
+        return 'm';
+      }
+      elseif ( $device['mobile'] && $device['android'] )
+      {
+        return 'm';
+      }
+      elseif ( ! $device['mobile'] && $device['android'] )
+      {
+        return 't';
+      }
+      elseif ( $device['ipad'] )
+      {
+        return 't';
+      }
+      elseif ( $device['ns'] )
+      {
+        return 'ns';
+      }
+      else
+      {
+        return 'd'; // desktop (default).
+      }
+    }
+    else
+    {
+      return false;
+    }
+  }
+
+  /**
+   * Get the Request for the Device from the URL.
+   *
+   * These cannot conflict with any other request parameters.
+   *
+   * @return array|false
+   */
+  function getRequestedDevice()
+  {
+    /** If the request is for a mobile device (generic), set to mobile (m). */
+    if ( isset( $_GET['m'] ) )
+    {
+      return 'm';
+    }
+    /** If the request is for a tablet, set to tablet (t). */
+    elseif ( isset( $_GET['t'] ) )
+    {
+      return 't';
+    }
+    /** If the request is for a desktop (d), set to desktop (d). */
+    elseif ( isset( $_GET['d'] ) )
+    {
+      return 'd';
+    }
+    /** If the request is for an hd screen, set to High Definition (hd). */
+    elseif ( isset( $_GET['hd'] ) )
+    {
+      return 'hd';
+    }
+    else
+    {
+      /** We don't know what it is. Return false. */
+      return false;
+    }
+  }
+
+  /**
+   * Get the Theme to Deliver
+   *
+   * Merge the Detected Device with the Theme to Deliver.
+   * Give priority to the requested format.
+   *
+   * @param array $device
+   *
+   * @return string
+   */
+  function getThemeToDeliver( $device )
+  {
+    if ( 'm' == $device['requested'] )
+    {
+      return 'm';
+    }
+    elseif ( 't' == $device['requested'] )
+    {
+      return 't';
+    }
+    elseif ( 'd' == $device['requested'] )
+    {
+      return 'd'; // Desktop
+    }
+    elseif ( 'hd' == $device['requested'] )
+    {
+      return 'hd';
+    }
+    else
+    {
+      /** Return whatever device is detected. */
+      return $device['detected'];
+    }
+  }
+} // End Device Class
+
 
 function pre_dump( $arr )
 {

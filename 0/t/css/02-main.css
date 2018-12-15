@@ -10,8 +10,8 @@
 *
 * File: 02-main.css
 * Created: 2016.12.15
-* Updated: 2018-11-26
-* Time: 13:13 EST
+* Updated: 2018-12-15
+* Time: 10:14 EST
 */
 
 /**
@@ -19,10 +19,14 @@
  */
 @media screen {
 
-  .updated { background: #181212; }
+  .updated { background: #181215; }
 
   html {
       padding: .12em;
+  }
+
+  html {
+    min-width: 800px;
   }
 
   @media ( min-width: 849px) {
