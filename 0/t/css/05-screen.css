@@ -7,8 +7,8 @@
 *
 * File: 05-screen.css
 * Created: 2018.12.05
-* Updated: 2018-12-12
-* Time: 10:50 EST
+* Updated: 2018-12-14
+* Time: 20:22 EST
 */
 
 /* Screen Fill Begin (Absolutely positioned) */
@@ -85,8 +85,11 @@
     transform: translate(-50%, 0);
   }
 
-  html.screen video {
+  html.screen video,
+  html.screen iframe {
     width: 98%;
+    height: 98%;
+    max-width: 98%;
     border-radius: 3px;
     top: 50%;
     transform: translateY(-50%);
@@ -113,7 +116,7 @@
   }
 
   html.screen h1 {
-    display: block;
+    display: none;
   }
 
   html.screen body {
