@@ -72,7 +72,8 @@ class EC01HTML
   private function cache( $page, $html )
   {
     /** We have cache file information, and it is of a reasonable length. */
-    if ( isset( $page['file']['cache'] ) && strlen( $page['file']['cache'] ) > 10 )
+    if ( isset( $page['file']['cache'] )
+      && strlen( $page['file']['cache'] ) > 10 )
     {
       /** The $html variable we are about to save is a string. */
       if ( is_string( $html ) )

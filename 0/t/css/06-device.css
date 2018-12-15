@@ -3,6 +3,7 @@
  * Device Screen Basic
  *
  * This section handles basic formatting for various device and monitor sizes.
+ * It starts with the larger screen sizes, then works its way down.
 
  * @link https://github.com/earth3300/ec01-css
  * @author https://github.com/earth3300
@@ -40,6 +41,10 @@
 
     .tablet {
 
+    }
+
+    .responsive aside {
+      display: block;
     }
   }
 
@@ -303,62 +308,62 @@
 
     html.fixed-width { padding: 1px; }
 
-    .fixed-width body, .dynamic body { border-radius: 0; }
+    .fixed-width body, .responsive body { border-radius: 0; }
 
     .fixed-width .site-logo .inner,
-    .dynamic .site-logo .inner {
+    .responsive .site-logo .inner {
       padding: 3px;
     }
 
-    .fixed-width article, .dynamic article {
+    .fixed-width article, .responsive article {
       padding-left: 1em;
       padding-right: 1em;
     }
 
-    html.dynamic { padding: 1px; }
+    html.responsive { padding: 1px; }
 
-    .dynamic article p { font-size: 1em; }
+    .responsive article p { font-size: 1em; }
   }
 
   @media (max-width: 720px) {
-    .dynamic article { padding: 1em 3%; }
+    .responsive article { padding: 1em 3%; }
 
-    .dynamic .site-title {
+    .responsive .site-title {
       text-align: center;
       font-size: 1.5em;
     }
-    .dynamic .site-description {
+    .responsive .site-description {
       text-align: center;
       font-size: 1em;
     }
-    .dynamic .size1of3 {
+    .responsive .size1of3 {
       float: none;
       width: 100%;
     }
 
-    .dynamic .size1of4 {
+    .responsive .size1of4 {
       float: none;
       width: 50%;
     }
   }
 
   @media (max-width: 600px) {
-    .dynamic article { padding: 1em; }
+    .responsive article { padding: 1em; }
 
-    .dynamic .size1of2,
-    .dynamic .size1of4 {
+    .responsive .size1of2,
+    .responsive .size1of4 {
       float: none;
       width: 100%;
     }
 
-    .dynamic .align-left {
+    .responsive .align-left {
       float: none;
       display: block;
       margin-left: auto;
       margin-right: auto;
     }
 
-    .dynamic .align-right {
+    .responsive .align-right {
       float: none;
       display: block;
       margin-left: auto;
@@ -367,15 +372,15 @@
   }
 
   @media (max-width: 480px) {
-    .dynamic .site-title { font-size: 1.25em; }
+    .responsive .site-title { font-size: 1.25em; }
 
-    .dynamic .site-description { font-size: .9em; }
+    .responsive .site-description { font-size: .9em; }
   }
 
   @media (max-width: 360px) {
-    .dynamic .site-title { font-size: 1em; }
+    .responsive .site-title { font-size: 1em; }
 
-    .dynamic .site-description { font-size: .8em; }
+    .responsive .site-description { font-size: .8em; }
   }
 
   /******* MENU ONLY RESPONSIVE START *********/
@@ -384,20 +389,20 @@
   folds match up with the number of menu items in the menu. */
 
   @media (max-width: 960px) {
-    .dynamic .horizontal-menu li:nth-child(8) {
+    .responsive .horizontal-menu li:nth-child(8) {
       display: none;
     }
-    .dynamic .vertical-menu li:nth-child(8) {
+    .responsive .vertical-menu li:nth-child(8) {
       display: block;
     }
   }
 
   @media (max-width: 840px) {
 
-    .dynamic .horizontal-menu li:nth-child(7) {
+    .responsive .horizontal-menu li:nth-child(7) {
       display: none;
     }
-    .dynamic .vertical-menu li:nth-child(7) {
+    .responsive .vertical-menu li:nth-child(7) {
       display: block;
     }
   }
@@ -405,93 +410,93 @@
   /* adjust upwards for more menu items, downwards for less */
 
   @media (max-width: 875px) {
-    .dynamic .horizontal-menu li:nth-child(5) {
+    .responsive .horizontal-menu li:nth-child(5) {
       display: none;
     }
-    .dynamic .vertical-menu li:nth-child(5) {
+    .responsive .vertical-menu li:nth-child(5) {
       display: block;
     }
   }
 
   @media (max-width: 750px) {
-    html.dynamic  {
+    html.responsive  {
       padding: 0;
     }
-    .dynamic article {
+    .responsive article {
       padding: 1em;
     }
   }
 
   @media (max-width: 750px) {
-    .dynamic .horizontal-menu li.more {
+    .responsive .horizontal-menu li.more {
       display: inline-block;
     }
-    .dynamic nav .more-menu.has-parent {
+    .responsive nav .more-menu.has-parent {
       right: 0;
       margin-top: -5px;
     }
-    .dynamic .horizontal-menu li:nth-child(5) {
+    .responsive .horizontal-menu li:nth-child(5) {
       display: none;
     }
-    .dynamic .vertical-menu li:nth-child(5) {
+    .responsive .vertical-menu li:nth-child(5) {
       display: block;
     }
   }
 
   @media (max-width: 625px) {
-    .dynamic .horizontal-menu li:nth-child(4) {
+    .responsive .horizontal-menu li:nth-child(4) {
       display: none;
     }
-    .dynamic .vertical-menu li:nth-child(4) {
+    .responsive .vertical-menu li:nth-child(4) {
       display: block;
     }
   }
 
   @media (max-width: 500px) {
-    .dynamic .site-description {
+    .responsive .site-description {
       display: none;
     }
-    .dynamic .horizontal-menu li:nth-child(3) {
+    .responsive .horizontal-menu li:nth-child(3) {
       display: none;
     }
-    .dynamic .vertical-menu li:nth-child(3) {
+    .responsive .vertical-menu li:nth-child(3) {
       display: block;
     }
   }
 
   @media (max-width: 400px) {
 
-    .dynamic nav li.more {
+    .responsive nav li.more {
       border-left: 1px dashed #e7e7e7;
     }
-    .dynamic .horizontal-menu li:nth-child(2) {
+    .responsive .horizontal-menu li:nth-child(2) {
        display: none;
     }
-    .dynamic .vertical-menu li:nth-child(2) {
+    .responsive .vertical-menu li:nth-child(2) {
        display: block;
     }
   }
 
   @media (max-width: 400px) {
-    .dynamic .horizontal-menu li:nth-child(1) {
+    .responsive .horizontal-menu li:nth-child(1) {
        display: none;
     }
-    .dynamic .vertical-menu li:nth-child(1) {
+    .responsive .vertical-menu li:nth-child(1) {
        display: block;
     }
   }
 
   @media (max-width: 400px) {
-    .dynamic .horizontal-menu {
+    .responsive .horizontal-menu {
       text-align: right;
     }
-    .dynamic .more-text {
+    .responsive .more-text {
        display: none;
     }
-    .dynamic .menu-bar {
+    .responsive .menu-bar {
        display: inline-block;
     }
-    .dynamic nav .more-menu.has-parent {
+    .responsive nav .more-menu.has-parent {
       margin-right: -40px;
     }
   }

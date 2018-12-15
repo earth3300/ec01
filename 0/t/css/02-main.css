@@ -336,6 +336,11 @@
     clear: both;
   }
 
+  /** Hide, then reveal. */
+  html.aside aside {
+    display: none;
+  }
+
 /** Part width only for displays large enough. */
 @media (min-width: 800px) {
 
