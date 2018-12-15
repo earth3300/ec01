@@ -85,6 +85,13 @@
     transform: translate(-50%, 0);
   }
 
+  html.screen video {
+    width: 98%;
+    border-radius: 3px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
   html.screen,
   html.screen main,
   html.screen body {
