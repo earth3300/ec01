@@ -96,7 +96,7 @@ class EC01HTML
             $md5_cached = md5_file( $file );
 
             /** Compare the cached md5 with the $html md5. */
-            if ( $md5_cached !== $md5_file )
+            if ( $md5_cached !== $md5_html )
             {
               /** They are not the same, cache it. */
               $resp = file_put_contents( $file, $html );
