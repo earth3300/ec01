@@ -543,8 +543,12 @@ class EC01HTML
     {
       return $fixed_width;
     }
-    elseif( isset( $page['tiers']['tier-1']['get'] )
-    && $page['tiers']['tier-1']['get'] ) {
+    elseif (
+      isset( $page['tiers']['tier-1']['get'] )
+      && $page['tiers']['tier-1']['get']
+      && ! isset( $page['tiers']['tier-2']['get'] )
+      )
+    {
       return $fixed_width;
     }
     else
