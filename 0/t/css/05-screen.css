@@ -293,7 +293,7 @@
   }
 
   html.screen nav:hover {
-    background-color: #fff;
+    background-color: inherit;
   }
 
   html.screen.theme-dark nav:hover {
