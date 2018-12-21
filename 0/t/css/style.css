@@ -17,6 +17,8 @@ Updated: 2018-12-12
 Time: 10:24 EST
 */
 
+body .updated-date { color: #181216; }
+
 /**
  * EC01 Bootstrap CSS
  *
@@ -685,11 +687,6 @@ Time: 10:24 EST
   main {
     display: block;
     clear: both;
-  }
-
-  /** Hide, then reveal. */
-  html.aside aside {
-    display: none;
   }
 
 /** Part width only for displays large enough. */

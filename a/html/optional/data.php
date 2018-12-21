@@ -10,8 +10,8 @@
  *
  * File: data.php
  * Created: 2018-10-01
- * Update: 2018-12-14
- * Time: 14:15 EST
+ * Update: 2018-12-21
+ * Time: 10:35 EST
  */
 
 namespace Earth3300\EC01;
@@ -144,8 +144,10 @@ function get_tier_three_data()
     'cymat' => [ 'name' => 'cymatics', 'who' => 'cymaticist', ],
     'genet' => [ 'name' => 'genetics', 'who' => 'geneticist', ],
     'geolo' => [ 'name' => 'geology', 'who' => 'geologist', ],
+    'ecolo' => [ 'name' => 'ecological', 'who' => 'ecologist', ],
     'logic' => [ 'name' => 'logic', 'who' => 'logician', ],
     'mathe' => [ 'name' => 'mathematics', 'who' => 'mathematician', ],
+    'stats' => [ 'name' => 'statistics', 'who' => 'statistician', ],
     'physc' => [ 'name' => 'physics', 'who' => 'physicist', ],
 
     'archi' => [ 'name' => 'architecture', 'who' => 'architect', ],

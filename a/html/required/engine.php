@@ -414,12 +414,22 @@ class EC01HTML
       $wide_screen = false;
     }
 
+    if ( strpos( $class['article'], 'aside-off' ) !== false )
+    {
+      $aside_off = true;
+    }
+    else
+    {
+      $aside_off = false;
+    }
+
     /** Add an 'aside' class, but not on the front page, on Tier 1 pages or wide screen pages. */
     if (
       SITE_USE_ASIDE && ! $page['front-page']
       && $page['tiers']['tier-1']['get']
       && $page['tiers']['tier-2']['get']
       && ! $wide_screen
+      && ! $aside_off
     )
     {
       $str .= 'aside ';

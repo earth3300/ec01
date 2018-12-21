@@ -289,15 +289,15 @@
   }
 
   html.screen nav:hover {
-    opacity: 0.9;
+    opacity: 0.5;
+  }
+
+  html.screen nav:hover {
+    background-color: #fff;
   }
 
   html.screen.theme-dark nav:hover {
     background-color: #222;
-  }
-
-  html.screen nav:hover {
-    background-color: #efefef;
   }
 
   html.screen nav:hover a {
@@ -328,6 +328,7 @@
 
   html.screen .notice {
     text-align: center;
+    color: #cecece;
     background-color: #2b2b2b;
     opacity: 0.85;
   }

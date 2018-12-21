@@ -30,7 +30,7 @@ DirectoryIndex default.html index.php index.html
 
 <IfModule mod_headers.c>
   <FilesMatch "\.(html|jpg|png|gif|css|js|pdf|ico|mp3|mp4)$">
-    Header set Cache-Control "max-age=864000, public, must-revalidate"
+    Header set Cache-Control "max-age=86400, public, must-revalidate"
     Header unset ETag
     FileETag None
   </FilesMatch>
@@ -45,6 +45,8 @@ Redirect 301 /what /wha/
 Redirect 301 /when /whn/
 Redirect 301 /where /whe/
 Redirect 301 /wiki /wki/
+Redirect 301 /stats /wha/moni/stats/
+Redirect 301 /footprint /wha/moni/ecolo/footprint/
 
 # /REDIRECT (for accessibility).
 

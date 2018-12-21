@@ -17,6 +17,8 @@ Updated: 2018-12-12
 Time: 10:24 EST
 */
 
+body .updated-date { color: #181216; }
+
 /**
  * EC01 Bootstrap CSS
  *
@@ -685,11 +687,6 @@ Time: 10:24 EST
   main {
     display: block;
     clear: both;
-  }
-
-  /** Hide, then reveal. */
-  html.aside aside {
-    display: none;
   }
 
 /** Part width only for displays large enough. */
@@ -2234,15 +2231,15 @@ Time: 10:24 EST
   }
 
   html.screen nav:hover {
-    opacity: 0.9;
+    opacity: 0.5;
+  }
+
+  html.screen nav:hover {
+    background-color: #fff;
   }
 
   html.screen.theme-dark nav:hover {
     background-color: #222;
-  }
-
-  html.screen nav:hover {
-    background-color: #efefef;
   }
 
   html.screen nav:hover a {
@@ -2273,6 +2270,7 @@ Time: 10:24 EST
 
   html.screen .notice {
     text-align: center;
+    color: #cecece;
     background-color: #2b2b2b;
     opacity: 0.85;
   }
