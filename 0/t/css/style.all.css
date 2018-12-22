@@ -367,8 +367,8 @@ body .updated-date { color: #181222; }
 *
 * File: 02-main.css
 * Created: 2016.12.15
-* Updated: 2018-12-15
-* Time: 10:14 EST
+* Updated: 2018-12-22
+* Time: 14:38 EST
 */
 
 /**
@@ -497,7 +497,7 @@ body .updated-date { color: #181222; }
     padding: 0;
   }
 
-  html.fixed-width body {
+  html.width-fixed body {
     width: 850px;
   }
 
