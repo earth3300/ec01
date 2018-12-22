@@ -72,6 +72,10 @@
     opacity: .85;
   }
 
+  pre {
+    overflow-x: auto;
+  }
+
   .absolute {
     position: absolute;
   }

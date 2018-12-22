@@ -408,11 +408,11 @@ class EC01HTML
 
     if ( strpos( $class['article'], 'screen' ) !== false )
     {
-      $wide_screen = true;
+      $screen_full = true;
     }
     else
     {
-      $wide_screen = false;
+      $screen_full = false;
     }
 
     if ( strpos( $class['article'], 'aside-off' ) !== false )
@@ -426,10 +426,12 @@ class EC01HTML
 
     /** Add an 'aside' class, but not on the front page, on Tier 1 pages or wide screen pages. */
     if (
-      SITE_USE_ASIDE && ! $page['front-page']
+      SITE_USE_ASIDE
       && $page['tiers']['tier-1']['get']
       && $page['tiers']['tier-2']['get']
-      && ! $wide_screen
+      && ! $page['tiers']['tier-3']['get']
+      && ! $page['front-page']
+      && ! $screen_full
       && ! $aside_off
     )
     {
