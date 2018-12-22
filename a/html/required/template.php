@@ -99,11 +99,8 @@ class EC01Template extends EC01HTML
         /** If needed, the body has a class. Expecting: `class="..."`, with the appropriate spaces. */
         $str .= sprintf('<body%s>%s', $page['class']['body'], PHP_EOL);
 
-        /** The main header element. */
-        $str .= $page['header']['main'];
-
-        /** An optional sub header element.  */
-        $str .= isset( $page['header']['sub'] ) ? $page['header']['sub'] : '';
+        /** The header element. */
+        $str .= $page['header']['get'] ? $page['header']['text'] : '';
 
         /** The HTML5 `main` element (main content of the body). */
         $str .= '<main>' . PHP_EOL;
@@ -139,10 +136,10 @@ class EC01Template extends EC01HTML
          *
          * @example Weather related data goes outside of main.
          */
-        $str .= $page['aside']['text'];
+        $str .= $page['aside']['get'] ? $page['aside']['text'] : '';
 
         /** The page footer. */
-        $str .= $page['footer']['text'];
+        $str .= $page['footer']['get'] ? $page['footer']['text'] : '';
 
         $str .= $page['screen']['full'] ? '<div id="notice" class="notice screen-small"><div class="inner"><h3>Best viewed on a tablet or better</h3><p>Minimum Screen 800 x 450</p><p>View in landscape mode</p></div></div>' . PHP_EOL : '';
 

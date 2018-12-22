@@ -150,11 +150,13 @@ class EC01HTML
     $page['screen']['full'] = $this->isFullScreen( $page );
     $page['aside']['get'] = $this -> isPageAside( $page );
     $page['class'] = $this->getPageClasses( $page );
-    $page['header']['main'] = $page['screen']['full'] ? '' : $this->getHeader( $page );
+    $page['header']['get'] = $page['screen']['full'] ? false : true;
+    $page['header']['text'] = $this->getHeader( $page ); // Including sub
     $page['article']['title'] = $this->getArticleTitle( $page['article'] );
     $page['page']['title'] = $this-> getPageTitle( $page );
-    $page['aside']['text'] = $page['aside']['get'] && ! $page['screen'] ? $this->getAside( $page ) : '';
-    $page['footer']['text'] = $page['screen']['full'] ? '' : $this-> getFooter( $page );
+    $page['aside']['text'] = $page['aside']['get'] ? $this->getAside( $page ) : '';
+    $page['footer']['get'] =  $page['screen']['full'] ? false : true;
+    $page['footer']['text'] =  $page['footer']['get'] ? $this-> getFooter( $page ) : '';
 
     return $page;
   }
@@ -412,9 +414,13 @@ class EC01HTML
     /** Type of page (fixed-width or dynamic), with a trailing space. */
     $str = $class['width'] . ' ';
 
-    /** Add the article class, if there is one (with a trailing space). */
-    $str .= strlen( $class['article'] ) > 0 ? $class['article'] . ' ' : '';
+    if ( strlen( $class['article'] ) > 0 )
+    {
+      $class['article'] = str_replace( 'screen ', '', $class['article'] );
 
+      /** Add the article class, if there is one (with a trailing space). */
+      $str .=  strlen( $class['article'] ) > 0 ? $class['article'] . ' ' : '';
+    }
     $str .= $page['aside']['get'] ? ' aside ' : '';
 
     $str .= $this->getTierClasses( $page );
@@ -593,15 +599,12 @@ class EC01HTML
   {
     $aside['show'] = false;
 
-    if ( isset( $page['article']['class'] ) )
+    if ( ! $page['screen']['full'] && isset( $page['article']['class'] ) )
     {
       if ( SITE_USE_ASIDE )
       {
         /** Turn it on, if it is to be included. */
-        if (
-          $page['tiers']['tier-2']['get']
-          || $page['tiers']['tier-3']['get']
-        )
+        if ($page['tiers']['tier-2']['get'] || $page['tiers']['tier-3']['get'] )
         {
           $aside['show'] = true;
         }
@@ -636,15 +639,20 @@ class EC01HTML
     /** The class for a fixed width page. */
     $width['fixed'] = 'width-fixed';
 
-    /** The class for a responsive page. */
-    $width['responsive'] = 'responsive';
-
     /** The class for an absolutely positioned, full screen page. */
     $width['screen'] = 'screen';
+
+    /** The class for a responsive page. */
+    $width['responsive'] = 'responsive';
 
     if ( SITE_IS_FIXED_WIDTH )
     {
       /** If the entire site is fixed width, always return 'width-fixed' */
+      return $width['fixed'];
+    }
+    elseif ( ! $page['tiers']['tier-2']['get']
+    && ! $page['tiers']['tier-3']['get'] )
+    {
       return $width['fixed'];
     }
     elseif( $page['screen']['full'] )
