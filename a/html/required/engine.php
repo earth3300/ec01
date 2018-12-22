@@ -147,9 +147,9 @@ class EC01HTML
     }
     $page['tiers'] = $this->getPageData( $page ); //needs the article, to get the class.
     $page['article']['class'] = $this->getArticleClass( $page );
+    $page['screen']['full'] = $this->isFullScreen( $page );
     $page['class'] = $this->getPageClasses( $page );
     $page['aside']['get'] = $this -> isPageAside( $page );
-    $page['screen']['full'] = $this->isFullScreen( $page );
     $page['header']['main'] = $page['screen']['full'] ? '' : $this->getHeader( $page );
     $page['article']['title'] = $this->getArticleTitle( $page['article'] );
     $page['page']['title'] = $this-> getPageTitle( $page );
@@ -409,7 +409,7 @@ class EC01HTML
     $tiers = $page['tiers'];
 
     /** Type of page (fixed-width or dynamic), with a trailing space. */
-    $str = $class['type'] . ' ';
+    $str = $page['screen']['full'] ? '' : $class['type'] . ' ';
 
     /** Add the article class, if there is one (with a trailing space). */
     $str .= strlen( $class['article'] ) > 0 ? $class['article'] . ' ' : '';
