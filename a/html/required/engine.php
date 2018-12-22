@@ -148,8 +148,8 @@ class EC01HTML
     $page['tiers'] = $this->getPageData( $page ); //needs the article, to get the class.
     $page['article']['class'] = $this->getArticleClass( $page );
     $page['screen']['full'] = $this->isFullScreen( $page );
-    $page['class'] = $this->getPageClasses( $page );
     $page['aside']['get'] = $this -> isPageAside( $page );
+    $page['class'] = $this->getPageClasses( $page );
     $page['header']['main'] = $page['screen']['full'] ? '' : $this->getHeader( $page );
     $page['article']['title'] = $this->getArticleTitle( $page['article'] );
     $page['page']['title'] = $this-> getPageTitle( $page );
@@ -415,7 +415,7 @@ class EC01HTML
     /** Add the article class, if there is one (with a trailing space). */
     $str .= strlen( $class['article'] ) > 0 ? $class['article'] . ' ' : '';
 
-    $str .= $this->isPageAside( $page ) ? ' aside ' : '';
+    $str .= $page['aside']['get'] ? ' aside ' : '';
 
     $str .= $this->getTierClasses( $page );
 
@@ -593,23 +593,29 @@ class EC01HTML
   {
     $aside['show'] = false;
 
-    if ( isset( $page['class'] ) )
+    if ( isset( $page['article']['class'] ) )
     {
       if ( SITE_USE_ASIDE )
       {
-        if ( strpos( $page['class']['article'], 'aside-off' ) === false )
-        {
-          $aside['show'] = true;
-        }
-        elseif (
+        /** Turn it on, if it is to be included. */
+        if (
           $page['tiers']['tier-2']['get']
           || $page['tiers']['tier-3']['get']
         )
         {
           $aside['show'] = true;
         }
+
+        /** Turn it off again, if not for a specific page. */
+        if (
+          is_string( $page['article']['class'] )
+          && strpos( $page['article']['class'], 'aside-off' ) !== false )
+        {
+          $aside['show'] = false;
+        }
       }
     }
+
     return $aside['show'];
   }
 
