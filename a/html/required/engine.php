@@ -146,6 +146,7 @@ class EC01HTML
       $page['article']['text'] = $this->getArticleFile( $page );
     }
     $page['tiers'] = $this->getPageData( $page ); //needs the article, to get the class.
+    $page['article']['class'] = $this->getArticleClass( $page );
     $page['class'] = $this->getPageClasses( $page );
     $page['aside']['get'] = $this -> isPageAside( $page );
     $page['screen']['full'] = $this->isFullScreen( $page['class'] );
@@ -304,14 +305,21 @@ class EC01HTML
    */
   private function getArticleTitle( $article )
   {
-    $check = substr( $article, 0, 300 );
-    $pattern = "/>(.*?)<\/h1>/";
-    preg_match( $pattern, $check, $matches );
-    if ( ! empty ( $matches[1] ) )
+    if ( isset( $article['text'] ) && strlen( $article['text'] ) > 10 )
     {
-      return ( $matches[1] );
+      $check = substr( $article['text'], 0, 300 );
+      $pattern = "/>(.*?)<\/h1>/";
+      preg_match( $pattern, $check, $matches );
+      if ( ! empty ( $matches[1] ) )
+      {
+        return ( $matches[1] );
+      }
+      else {
+        return false;
+      }
     }
-    else {
+    else
+    {
       return false;
     }
   }
@@ -355,7 +363,7 @@ class EC01HTML
   {
     $class['type'] = $this->isPageResponsive( $page );
 
-    $class['article'] = $this->getArticleClass( $page['article'] );
+    $class['article'] = $page['article']['class'];
 
     /** Get the HTML class (from what is needed). */
     $class['html'] = $this->getHtmlClass( $page, $class );
@@ -538,41 +546,48 @@ class EC01HTML
    */
   private function isPageAside( $page )
   {
-    if ( strpos( $class['article'], 'screen' ) !== false )
-    {
-      $screen_full = true;
+      if ( isset( $page['class'] ) )
+      {
+      if ( strpos( $page['class']['article'], 'screen' ) !== false )
+      {
+        $screen_full = true;
+      }
+      else
+      {
+        $screen_full = false;
+      }
+
+      if ( strpos( $page['class']['article'], 'aside-off' ) !== false )
+      {
+        $aside_off = true;
+      }
+      else
+      {
+        $aside_off = false;
+      }
+
+      /** Add an 'aside' class, but not where we don't want it. */
+      if ( $aside_off || $screen_full || $page['front-page'] )
+      {
+        return false;
+      }
+      elseif (
+        SITE_USE_ASIDE
+        && $page['tiers']['tier-1']['get']
+        && ! $page['tiers']['tier-2']['get']
+        && ! $page['tiers']['tier-3']['get']
+      )
+      {
+        return false;
+      }
+      else
+      {
+        return true;
+      }
     }
     else
-    {
-      $screen_full = false;
-    }
-
-    if ( strpos( $class['article'], 'aside-off' ) !== false )
-    {
-      $aside_off = true;
-    }
-    else
-    {
-      $aside_off = false;
-    }
-
-    /** Add an 'aside' class, but not where we don't want it. */
-    if ( $aside_off || $screen_full || $page['front-page'] )
     {
       return false;
-    }
-    elseif (
-      SITE_USE_ASIDE
-      && $page['tiers']['tier-1']['get']
-      && ! $page['tiers']['tier-2']['get']
-      && ! $page['tiers']['tier-3']['get']
-    )
-    {
-      return false;
-    }
-    else
-    {
-      return true;
     }
   }
 
