@@ -406,42 +406,7 @@ class EC01HTML
     /** Add the article class, if there is one (with a trailing space). */
     $str .= strlen( $class['article'] ) > 0 ? $class['article'] . ' ' : '';
 
-    if ( strpos( $class['article'], 'screen' ) !== false )
-    {
-      $screen_full = true;
-    }
-    else
-    {
-      $screen_full = false;
-    }
-
-    if ( strpos( $class['article'], 'aside-off' ) !== false )
-    {
-      $aside_off = true;
-    }
-    else
-    {
-      $aside_off = false;
-    }
-
-    /** Add an 'aside' class, but not where we don't want it. */
-    if ( $aside_off || $screen_full || $page['front-page'] )
-    {
-      $str .=  '';
-    }
-    elseif (
-      SITE_USE_ASIDE
-      && $page['tiers']['tier-1']['get']
-      && $page['tiers']['tier-2']['get']
-      && ! $page['tiers']['tier-3']['get']
-    )
-    {
-      $str .=  '';
-    }
-    else
-    {
-      $str .= 'aside ';
-    }
+    $str .= $this->isPageAside( $page ) ? ' aside ' : '';
 
     if ( ! empty( $tiers ) )
     {
@@ -534,13 +499,15 @@ class EC01HTML
   }
 
   /**
-   * Is Page Aside
+   * Is Page Aside Off
+   *
+   * Based on the Article Class.
    *
    * @param array $page
    *
    * @return bool
    */
-  private function isPageAside( $page )
+  private function isPageAsideOff( $page )
   {
     if ( is_array( $page['class'] ) && isset( $page['class']['article'] ) )
     {
@@ -556,6 +523,55 @@ class EC01HTML
     else
     {
       /** Default true. */
+      return true;
+    }
+  }
+
+  /**
+   * Is Page Aside
+   *
+   * Based on Other Parameters
+   *
+   * @param array $page
+   *
+   * @return bool
+   */
+  private function isPageAside( $page )
+  {
+    if ( strpos( $class['article'], 'screen' ) !== false )
+    {
+      $screen_full = true;
+    }
+    else
+    {
+      $screen_full = false;
+    }
+
+    if ( strpos( $class['article'], 'aside-off' ) !== false )
+    {
+      $aside_off = true;
+    }
+    else
+    {
+      $aside_off = false;
+    }
+
+    /** Add an 'aside' class, but not where we don't want it. */
+    if ( $aside_off || $screen_full || $page['front-page'] )
+    {
+      return false;
+    }
+    elseif (
+      SITE_USE_ASIDE
+      && $page['tiers']['tier-1']['get']
+      && ! $page['tiers']['tier-2']['get']
+      && ! $page['tiers']['tier-3']['get']
+    )
+    {
+      return false;
+    }
+    else
+    {
       return true;
     }
   }
