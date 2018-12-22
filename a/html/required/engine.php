@@ -410,7 +410,7 @@ class EC01HTML
     $tiers = $page['tiers'];
 
     /** Type of page (fixed-width or dynamic), with a trailing space. */
-    $str = $page['screen']['full'] ? '' : $class['type'] . ' ';
+    $str = $page['screen']['full'] ? '' : $class['width'] . ' ';
 
     /** Add the article class, if there is one (with a trailing space). */
     $str .= strlen( $class['article'] ) > 0 ? $class['article'] . ' ' : '';
@@ -425,7 +425,8 @@ class EC01HTML
       foreach ( $tiers as $tier )
       {
 
-        if ( ! empty( $tier['tier'] ) && ! in_array( $tier['tier'], $exclude ) )
+        if ( ! empty( $tier['tier'] )
+        && ! in_array( $tier['tier'], $exclude ) )
         {
           $str .= $tier['class'] . ' ';
         }
@@ -612,16 +613,25 @@ class EC01HTML
     $width['fixed'] = 'width-fixed';
 
     /** The class for a responsive page. */
-    $width['variable'] = 'width-variable';
+    $width['responsive'] = 'responsive';
+
+    /** The class for an absolutely positioned, full screen page. */
+    $width['screen'] = 'screen';
 
     if ( SITE_IS_FIXED_WIDTH )
     {
       /** If the entire site is fixed width, always return 'width-fixed' */
       return $width['fixed'];
     }
+    elseif( $page['screen']['full'] )
+    {
+      /** If the page is requesting full screen (within the browser window). */
+      return $width['screen'];
+    }
     else
     {
-      return $width['variable'];
+      /** Otherwise, responsive (this usually means with respect to width). */
+      return $width['responsive'];
     }
   }
 

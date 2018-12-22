@@ -140,7 +140,7 @@
     padding: 0;
   }
 
-  html.fixed-width body {
+  html.width-fixed body {
     width: 850px;
   }
 
