@@ -410,31 +410,21 @@ class EC01HTML
     $tiers = $page['tiers'];
 
     /** Type of page (fixed-width or dynamic), with a trailing space. */
-    $str = $page['screen']['full'] ? '' : $class['width'] . ' ';
+    $str = $class['width'] . ' ';
 
     /** Add the article class, if there is one (with a trailing space). */
     $str .= strlen( $class['article'] ) > 0 ? $class['article'] . ' ' : '';
 
     $str .= $this->isPageAside( $page ) ? ' aside ' : '';
 
-    if ( ! empty( $tiers ) )
+    $str .= $this->getTierClasses( $page );
+
+    /** Remove the trailing space. */
+    $str = trim( $str );
+
+    /** Check to make sure there is something there. */
+    if ( strlen( $str ) > 0 )
     {
-      /** Exclude these tiers in the html level element */
-      $exclude = [ 'tier-2', 'tier-3' ];
-
-      foreach ( $tiers as $tier )
-      {
-
-        if ( ! empty( $tier['tier'] )
-        && ! in_array( $tier['tier'], $exclude ) )
-        {
-          $str .= $tier['class'] . ' ';
-        }
-      }
-
-      /** Remove the trailing space. */
-      $str = trim( $str );
-
       /** Need a trailing space, but not a leading space. */
       $class = sprintf( 'class="%s" ', $str );
 
@@ -443,7 +433,56 @@ class EC01HTML
     }
     else
     {
-      return null;
+      /** Nothing there. Return false. */
+      return false;
+    }
+  }
+
+  /**
+   * Get Tier Classes
+   *
+   * @param array $tiers
+   *
+   * @return string|false
+   */
+  private function getTierClasses( $page )
+  {
+    if ( isset( $page['tiers'] ) && is_array( $page['tiers'] ) )
+    {
+      /** Assign a working variable. */
+      $tiers = $page['tiers'];
+
+      /** Initialize the $str variable. */
+      $str = '';
+
+      /** Exclude these tiers in the html level element */
+      $exclude = [ 'tier-2', 'tier-3' ];
+
+      foreach ( $tiers as $tier )
+      {
+        if ( ! empty( $tier['tier'] )
+        && ! in_array( $tier['tier'], $exclude ) )
+        {
+          $str .= $tier['class'] . ' ';
+        }
+      }
+
+      /** Check to make sure there is something there. */
+      if ( strlen( $str ) > 0 )
+      {
+        /** Remove the trailing space and return the string. */
+        return trim( $str );
+      }
+      else
+      {
+        /** Nothing there. */
+        return null;
+      }
+    }
+    else
+    {
+      /** Nothing there (Wrong type). */
+      return false;
     }
   }
 
@@ -542,7 +581,9 @@ class EC01HTML
   /**
    * Is Page Aside
    *
-   * Based on Other Parameters
+   * Start assuming it will *not* be shown. Then gradually allow it, but only
+   * if conditions are met. In this way, if it is there, we are sure it SHOULD
+   * be there and it should be easier to omit.
    *
    * @param array $page
    *
@@ -550,49 +591,26 @@ class EC01HTML
    */
   private function isPageAside( $page )
   {
-      if ( isset( $page['class'] ) )
-      {
-      if ( strpos( $page['class']['article'], 'screen' ) !== false )
-      {
-        $screen_full = true;
-      }
-      else
-      {
-        $screen_full = false;
-      }
+    $aside['show'] = false;
 
-      if ( strpos( $page['class']['article'], 'aside-off' ) !== false )
-      {
-        $aside_off = true;
-      }
-      else
-      {
-        $aside_off = false;
-      }
-
-      /** Add an 'aside' class, but not where we don't want it. */
-      if ( $aside_off || $screen_full || $page['front-page'] )
-      {
-        return false;
-      }
-      elseif (
-        SITE_USE_ASIDE
-        && $page['tiers']['tier-1']['get']
-        && ! $page['tiers']['tier-2']['get']
-        && ! $page['tiers']['tier-3']['get']
-      )
-      {
-        return false;
-      }
-      else
-      {
-        return true;
-      }
-    }
-    else
+    if ( isset( $page['class'] ) )
     {
-      return false;
+      if ( SITE_USE_ASIDE )
+      {
+        if ( strpos( $page['class']['article'], 'aside-off' ) === false )
+        {
+          $aside['show'] = true;
+        }
+        elseif (
+          $page['tiers']['tier-2']['get']
+          || $page['tiers']['tier-3']['get']
+        )
+        {
+          $aside['show'] = true;
+        }
+      }
     }
+    return $aside['show'];
   }
 
   /**
