@@ -361,7 +361,8 @@ class EC01HTML
    */
   private function getPageClasses( $page )
   {
-    $class['type'] = $this->isPageResponsive( $page );
+    /** Get the width class: 'width-variable', 'width-fixed' or width-absolute' */
+    $class['width'] = $this->getWidthClass( $page );
 
     $class['article'] = $page['article']['class'];
 
@@ -594,41 +595,33 @@ class EC01HTML
   }
 
   /**
-   * Whether or not the Page is Dynamic or Fixed Width.
+   * Whether or not the Page is Fixed Width or Variable Width
    *
+   * Despite the fact that the current trend is mobile responsive first,
+   * it also remains a fact that designing for a fixed with page is much
+   * simpler, by orders of magnitude. Thus, the allowance for a variable width
+   * is given, with some reservations.
    *
-   *
-   * @param array
+   * @param array $page
    *
    * @return string
    */
-  private function isPageResponsive( $page )
+  private function getWidthClass( $page )
   {
     /** The class for a fixed width page. */
-    $fixed_width = 'fixed-width';
+    $width['fixed'] = 'width-fixed';
 
     /** The class for a responsive page. */
-    $responsive = 'responsive';
+    $width['variable'] = 'width-variable';
 
     if ( SITE_IS_FIXED_WIDTH )
     {
-      return $fixed_width;
-    }
-    elseif( $page['front-page'] )
-    {
-      return $fixed_width;
-    }
-    elseif (
-      isset( $page['tiers']['tier-1']['get'] )
-      && $page['tiers']['tier-1']['get']
-      && ! isset( $page['tiers']['tier-2']['get'] )
-      )
-    {
-      return $fixed_width;
+      /** If the entire site is fixed width, always return 'width-fixed' */
+      return $width['fixed'];
     }
     else
     {
-      return $responsive;
+      return $width['variable'];
     }
   }
 
