@@ -424,22 +424,23 @@ class EC01HTML
       $aside_off = false;
     }
 
-    /** Add an 'aside' class, but not on the front page, on Tier 1 pages or wide screen pages. */
-    if (
+    /** Add an 'aside' class, but not where we don't want it. */
+    if ( $aside_off || $screen_full || $page['front-page'] )
+    {
+      $str .=  '';
+    }
+    elseif (
       SITE_USE_ASIDE
       && $page['tiers']['tier-1']['get']
       && $page['tiers']['tier-2']['get']
       && ! $page['tiers']['tier-3']['get']
-      && ! $page['front-page']
-      && ! $screen_full
-      && ! $aside_off
     )
     {
-      $str .= 'aside ';
+      $str .=  '';
     }
     else
     {
-      $str .=  '';
+      $str .= 'aside ';
     }
 
     if ( ! empty( $tiers ) )
