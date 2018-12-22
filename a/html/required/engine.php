@@ -143,16 +143,17 @@ class EC01HTML
     else
     {
       $page['page']= false;
-      $page['article'] = $this->getArticleFile( $page );
+      $page['article']['text'] = $this->getArticleFile( $page );
     }
     $page['tiers'] = $this->getPageData( $page ); //needs the article, to get the class.
     $page['class'] = $this->getPageClasses( $page );
-    $page['screen'] = $this->isFullScreen( $page['class'] );
-    $page['header']['main'] = $page['screen'] ? '' : $this->getHeader( $page );
-    $page['article-title'] = $this->getArticleTitle( $page['article'] );
-    $page['page-title'] = $this-> getPageTitle( $page );
-    $page['aside']= $page['screen'] ? '' : $this->getAside( $page );
-    $page['footer']= $page['screen'] ? '' : $this-> getFooter( $page );
+    $page['aside']['get'] = $this -> isPageAside( $page );
+    $page['screen']['full'] = $this->isFullScreen( $page['class'] );
+    $page['header']['main'] = $page['screen']['full'] ? '' : $this->getHeader( $page );
+    $page['article']['title'] = $this->getArticleTitle( $page['article'] );
+    $page['page']['title'] = $this-> getPageTitle( $page );
+    $page['aside']['text'] = $page['aside']['get'] && ! $page['screen'] ? $this->getAside( $page ) : '';
+    $page['footer']['text'] = $page['screen']['full'] ? '' : $this-> getFooter( $page );
 
     return $page;
   }
@@ -526,6 +527,33 @@ class EC01HTML
     {
       /** Nothing there in the article, or not a string. */
       return false;
+    }
+  }
+
+  /**
+   * Is Page Aside
+   *
+   * @param array $page
+   *
+   * @return bool
+   */
+  private function isPageAside( $page )
+  {
+    if ( is_array( $page['class'] ) && isset( $page['class']['article'] ) )
+    {
+      if( strpos( $page['class']['article'], 'aside-off' ) !== false )
+      {
+        return true;
+      }
+      else
+      {
+        return false;
+      }
+    }
+    else
+    {
+      /** Default true. */
+      return true;
     }
   }
 

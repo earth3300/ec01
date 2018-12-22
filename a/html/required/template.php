@@ -59,7 +59,7 @@ class EC01Template extends EC01HTML
         $str .= '<meta name="viewport" content="width=device-width, initial-scale=1"/>' . PHP_EOL;
 
         /** Page title. */
-        $str .= sprintf( '<title>%s</title>%s', $page['page-title'], PHP_EOL );
+        $str .= sprintf( '<title>%s</title>%s', $page['page']['title'], PHP_EOL );
 
         /** Can deliver a very basic version, if needed. */
         if ( SITE_USE_BASIC )
@@ -109,13 +109,13 @@ class EC01Template extends EC01HTML
         $str .= '<main>' . PHP_EOL;
 
         /** The "article". This is what it is all about. Make sure it is there. */
-        if ( empty( $page['article'] ) )
+        if ( empty( $page['article']['text'] ) )
         {
           $str .= '<article>Article N/A.</article>' . PHP_EOL;
         }
         else
         {
-          $str .= $page['article'];
+          $str .= $page['article']['text'];
         }
 
         /**
@@ -139,14 +139,14 @@ class EC01Template extends EC01HTML
          *
          * @example Weather related data goes outside of main.
          */
-        $str .= $page['aside'];
+        $str .= $page['aside']['text'];
 
         /** The page footer. */
-        $str .= $page['footer'];
+        $str .= $page['footer']['text'];
 
-        $str .= $page['screen'] ? '<div id="notice" class="notice screen-small"><div class="inner"><h3>Best viewed on a tablet or better</h3><p>Minimum Screen 800 x 450</p><p>View in landscape mode</p></div></div>' . PHP_EOL : '';
+        $str .= $page['screen']['full'] ? '<div id="notice" class="notice screen-small"><div class="inner"><h3>Best viewed on a tablet or better</h3><p>Minimum Screen 800 x 450</p><p>View in landscape mode</p></div></div>' . PHP_EOL : '';
 
-        $str .= $page['screen'] ? '<nav><a href="../" title="Go up one directory">^</a></nav>' . PHP_EOL : '';
+        $str .= $page['screen']['full'] ? '<nav><a href="../" title="Go up one directory">^</a></nav>' . PHP_EOL : '';
 
         /** Close the body element. */
         $str .= '</body>' . PHP_EOL;
