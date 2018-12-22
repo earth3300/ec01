@@ -56,7 +56,7 @@ class EC01Template extends EC01HTML
         $str .= sprintf( '<meta charset="%s">%s', SITE_CHARSET, PHP_EOL );
 
         /** Viewport is set for mobile devices */
-        $str .= '<meta name="viewport" content="width=device-width, initial-scale=1"/>' . PHP_EOL;
+        $str .= '<meta name="viewport" content="width=device-width,initial-scale=1"/>' . PHP_EOL;
 
         /** Page title. */
         $str .= sprintf( '<title>%s</title>%s', $page['page']['title'], PHP_EOL );
@@ -70,7 +70,7 @@ class EC01Template extends EC01HTML
         else
         {
           /** Default is not to allow robots to index the site until we are ready. */
-          $str  .= SITE_INDEX_ALLOW ? '' : '<meta name="robots" content="noindex,nofollow" />' . PHP_EOL;
+          $str  .= SITE_INDEX_ALLOW ? '' : '<meta name="robots" content="noindex,nofollow"/>' . PHP_EOL;
 
           /** Style sheet variations */
           if ( SITE_USE_CSS_MIN )
