@@ -149,7 +149,7 @@ class EC01HTML
     $page['article']['class'] = $this->getArticleClass( $page );
     $page['class'] = $this->getPageClasses( $page );
     $page['aside']['get'] = $this -> isPageAside( $page );
-    $page['screen']['full'] = $this->isFullScreen( $page['class'] );
+    $page['screen']['full'] = $this->isFullScreen( $page );
     $page['header']['main'] = $page['screen']['full'] ? '' : $this->getHeader( $page );
     $page['article']['title'] = $this->getArticleTitle( $page['article'] );
     $page['page']['title'] = $this-> getPageTitle( $page );
@@ -380,10 +380,10 @@ class EC01HTML
    *
    * @return boolean
    */
-  private function isFullScreen( $class )
+  private function isFullScreen( $page )
   {
     /** If the "screen" class is in the article class, return true. */
-    if ( strpos( $class['article'], $this->opts['screen'] ) !== false )
+    if ( strpos( $page['article']['class'], $this->opts['screen'] ) !== false )
     {
       return true;
     }
@@ -467,8 +467,10 @@ class EC01HTML
    *
    * @return string
    */
-  private function getArticleClass( $article )
+  private function getArticleClass( $page )
   {
+    $article = $page['article']['text'];
+
     /** Check to ensure it is a string and that it has at least the length of `<article></article>`. */
     if ( is_string( $article ) && strlen( $article ) > 17 )
     {
